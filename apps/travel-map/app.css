@@ -152,19 +152,21 @@
   background: var(--paper-2);
 }
 
-/* Placeholder world until the real map image arrives: sea and a 30° latitude/longitude grid. */
+/* Placeholder until the drawn map of the Huebloom Isles arrives: a pale sky and the grid of squares. */
 .tm-grid__sea {
-  fill: color-mix(in srgb, var(--solid) 12%, #eef5f8);
+  fill: color-mix(in srgb, var(--solid) 10%, #f1f6fa);
 }
 
 .tm-grid__lines line {
-  stroke: color-mix(in srgb, var(--solid-dark) 22%, transparent);
+  stroke: color-mix(in srgb, var(--solid-dark) 25%, transparent);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
-.tm-grid__lines line.main {
-  stroke: color-mix(in srgb, var(--solid-dark) 45%, transparent);
+.tm-grid__labels text {
+  fill: color-mix(in srgb, var(--solid-dark) 55%, transparent);
+  font: 700 18px var(--font-body);
+  text-anchor: middle;
 }
 
 .tm .leaflet-container:focus-visible {

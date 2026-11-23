@@ -329,11 +329,11 @@
   },
   "travel-map": {
     "title": "Travel Bucket List",
-    "short": "Travel map",
-    "learn": "a map library (React Leaflet), markers, geographic data (GeoJSON), image upload",
+    "short": "Travel map of a made-up world",
+    "learn": "a map library (React Leaflet) with your own map image, markers, regions in GeoJSON, image upload",
     "beginner": "a list of places: been there / want to go",
     "intermediate": "a map with markers, notes and photos for each place",
-    "advanced": "visited countries highlighted on a world map, statistics (countries, continents), a shareable map"
+    "advanced": "visited regions highlighted on the map, statistics (islands, regions), a shareable map"
   },
   "data-table": {
     "title": "Data Table",

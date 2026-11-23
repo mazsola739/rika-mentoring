@@ -28,7 +28,7 @@ Csak saját vagy szabadon felhasználható (jogtiszta) anyag kerüljön fel, mer
 | 21 | Book Library | könyvborítók (54 könyv; 2-nek szándékosan nincs borítója) | 52 | 2:3 álló, 400×600 | `public/media/book-library/` |
 | 23 | Fan Wiki | szereplőképek (saját kitalált világ: „The Huebloom Isles”) | 40 | négyzetes, 400×400 | `public/media/fan-wiki/` |
 | 25 | Meme Generator | mémsablon-képek (szöveg nélkül) | 20 | bármilyen arány, legalább 800 px | `public/media/meme-generator/` |
-| 42 | Travel Map | világtérkép | 1 | „equirectangular” (plate carrée) vetület, 2:1, legalább 4096×2048, PNG/WebP. Alternatíva: a közkincs Natural Earth térképadatot npm-csomagként telepítem | `public/media/travel-map/` |
+| 42 | Travel Map | a Huebloom-szigetek rajzolt térképe (a Fan Wiki kitalált égi szigetvilága; saját vagy jogtiszta, például az Azgaar's Fantasy Map Generatorral készített térkép) | 1 | fekvő, 10:7 arányú, legalább 3000×2100, WebP/PNG | `public/media/travel-map/` |
 
 A tételek listája (cím, leírás, azonosító) a leckék adatfájljaiban van; ezekből kiderül, melyik képhez mi kell:
 `apps/space-explorer/mocks/pictures.js`, `shared/mock-api/shows.js`, `apps/book-library/mocks/catalogue.js`,
@@ -51,3 +51,26 @@ Addig minden kép kódból rajzolt helykitöltő, és a leckék így is hibátla
 ## Nem kell semmi
 
 A Photo Booth (39) a kamerát használja, a Drawing, a QR Code és a Meme Generator exportja pedig maga készít képet.
+
+## A Travel Map térképe
+
+A lecke a Fan Wiki kitalált világát, a **Huebloom-szigeteket** használja: égen lebegő szigetek, köztük felhőtenger.
+Három régió van: Felső-, Középső- és Alsó-szigetek. Az égi világítótorony a Tollazat-fokon áll.
+A térképre ezek a helyek kerüljenek (a zárójelben a mostani, ideiglenes mező a 10 × 7-es rácson,
+A–J oszlop, 1–7 sor; de rajzolhatsz szabadon is, a gombostűket a kész térképhez igazítom):
+
+| Hely | Régió | Ideiglenes mező |
+|---|---|---|
+| Plumage Point (Tollazat-fok), világítótorony-sziget | Felső | B2 |
+| Sky Harbour (Égi kikötő), lebegő kikötő | Felső | E1 |
+| Violet Vale (Ibolya-völgy), völgy | Felső | H2 |
+| Marigold Market (Körömvirág-piac), vásárváros | Középső | D4 |
+| Tangerine Terraces (Mandarin-teraszok), domboldali város | Középső | F4 |
+| Cobalt Cliffs (Kobalt-sziklák), sziklafal | Középső | I4 |
+| Lemon Lagoon (Citrom-lagúna), lagúna | Középső | B5 |
+| Crayon Caverns (Zsírkréta-barlangok), barlangok | Alsó | D6 |
+| Mintwater Marsh (Mentavíz-mocsár), mocsár | Alsó | G6 |
+| Rosepetal Reef (Rózsaszirom-zátony), égi zátony | Alsó | I6 |
+| Indigo Deeps (Indigó-mélység), felhőtenger | Alsó | a térkép alja |
+
+A Szürke Szitálás (a ködfelhő) „a térképen túl” van, legfeljebb a szélén kandikálhat be.

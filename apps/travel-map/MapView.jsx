@@ -1,29 +1,38 @@
 import { useEffect, useImperativeHandle, useRef } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import { MAP } from './places.js'
 
-// The map is one world image, a static file of the site, no map tiles from the internet.
+// The map of the Huebloom Isles is one image, a static file of the site: no map tiles from the internet.
 // It lives in public/media/travel-map/ so it has a stable address (the starter project can use it too).
-// Set this to '../../media/travel-map/world.webp' once the equirectangular ("plate carrée", 2:1) map is there;
-// while it is null, a simple ocean with a latitude/longitude grid is drawn instead.
+// Set this to '../../media/travel-map/huebloom-isles.webp' once the drawn map is there (10:7 landscape);
+// while it is null, the map's grid of squares is drawn instead.
 export const WORLD_IMAGE = null
 
-// In an equirectangular map latitude and longitude are straight lines, so Leaflet's EPSG:4326
-// projection lays the image out exactly: the whole world is these bounds.
-const WORLD_BOUNDS = L.latLngBounds([-90, -180], [90, 180])
-const WORLD = { center: [20, 10], zoom: 1 }
-const MAX_ZOOM = 5 // a 4096 px wide map is sharp up to about zoom 3
-const PLACE_ZOOM = 4
+// A made-up world has no latitude or longitude, so the map uses Leaflet's CRS.Simple: plain flat
+// coordinates, one unit per pixel at zoom 0. Leaflet calls them lat (up) and lng (right); the rest of
+// the app uses x (right) and y (down) in map units, and these two helpers translate at the border.
+const toLatLng = ({ x, y }) => L.latLng(-y, x)
+const toPoint = (latlng) => ({ x: latlng.lng, y: -latlng.lat })
+const WORLD_BOUNDS = L.latLngBounds([-MAP.height, 0], [0, MAP.width])
+const MAX_ZOOM = 2 // a 3000 px wide map is still sharp at about zoom 1.5
+const PLACE_ZOOM = 1
 
-// The placeholder background: ocean, a 30° grid, and the equator and the prime meridian a little stronger.
+// The placeholder: a pale sky, the 100-unit squares, and their names (A–J, 1–7) along the edges.
 function gridSvg() {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-  svg.setAttribute('viewBox', '-180 -90 360 180')
-  svg.setAttribute('preserveAspectRatio', 'none')
+  svg.setAttribute('viewBox', `0 0 ${MAP.width} ${MAP.height}`)
   const lines = []
-  for (let lng = -150; lng <= 150; lng += 30) lines.push(`<line x1="${lng}" y1="-90" x2="${lng}" y2="90" class="${lng === 0 ? 'main' : ''}"/>`)
-  for (let lat = -60; lat <= 60; lat += 30) lines.push(`<line x1="-180" y1="${-lat}" x2="180" y2="${-lat}" class="${lat === 0 ? 'main' : ''}"/>`)
-  svg.innerHTML = `<rect x="-180" y="-90" width="360" height="180" class="tm-grid__sea"/><g class="tm-grid__lines">${lines.join('')}</g>`
+  const labels = []
+  for (let x = MAP.square; x < MAP.width; x += MAP.square)
+    lines.push(`<line x1="${x}" y1="0" x2="${x}" y2="${MAP.height}"/>`)
+  for (let y = MAP.square; y < MAP.height; y += MAP.square)
+    lines.push(`<line x1="0" y1="${y}" x2="${MAP.width}" y2="${y}"/>`)
+  for (let c = 0; c < MAP.width / MAP.square; c++)
+    labels.push(`<text x="${c * MAP.square + MAP.square / 2}" y="22">${String.fromCharCode(65 + c)}</text>`)
+  for (let r = 0; r < MAP.height / MAP.square; r++)
+    labels.push(`<text x="16" y="${r * MAP.square + MAP.square / 2 + 6}">${r + 1}</text>`)
+  svg.innerHTML = `<rect width="${MAP.width}" height="${MAP.height}" class="tm-grid__sea"/><g class="tm-grid__lines">${lines.join('')}</g><g class="tm-grid__labels">${labels.join('')}</g>`
   return svg
 }
 
@@ -72,27 +81,28 @@ const MapView = ({ ref, places, selectedId, draft, colors, statusLabels, label, 
     const map = mapRef.current
     if (!map) return
     const animate = !prefersReducedMotion()
-    if (list.length === 0) map.setView(WORLD.center, WORLD.zoom, { animate })
-    else if (list.length === 1) map.setView([list[0].lat, list[0].lng], PLACE_ZOOM, { animate })
-    else map.fitBounds(L.latLngBounds(list.map((p) => [p.lat, p.lng])), { padding: [36, 36], maxZoom: PLACE_ZOOM, animate })
+    if (list.length === 0) map.fitBounds(WORLD_BOUNDS, { animate })
+    else if (list.length === 1) map.setView(toLatLng(list[0]), PLACE_ZOOM, { animate })
+    else map.fitBounds(L.latLngBounds(list.map(toLatLng)), { padding: [36, 36], maxZoom: PLACE_ZOOM, animate })
   }
 
   // Create the map once, and destroy it on unmount (StrictMode does this once on purpose).
   useEffect(() => {
     const map = L.map(containerRef.current, {
-      crs: L.CRS.EPSG4326,
-      center: WORLD.center,
-      zoom: WORLD.zoom,
-      minZoom: 0,
+      crs: L.CRS.Simple,
+      minZoom: -2,
       maxZoom: MAX_ZOOM,
-      maxBounds: WORLD_BOUNDS.pad(0.05),
+      zoomSnap: 0.25,
+      maxBounds: WORLD_BOUNDS.pad(0.1),
       maxBoundsViscosity: 1,
+      attributionControl: false,
     })
+    map.fitBounds(WORLD_BOUNDS)
     if (WORLD_IMAGE) L.imageOverlay(WORLD_IMAGE, WORLD_BOUNDS, { className: 'tm-world' }).addTo(map)
     else L.svgOverlay(gridSvg(), WORLD_BOUNDS, { className: 'tm-grid', interactive: false }).addTo(map)
     markersLayer.current = L.layerGroup().addTo(map)
     draftLayer.current = L.layerGroup().addTo(map)
-    map.on('click', (e) => latest.current.onMapClick(e.latlng.wrap()))
+    map.on('click', (e) => latest.current.onMapClick(toPoint(e.latlng)))
     mapRef.current = map
     fitTo(latest.current.places)
 
@@ -117,7 +127,7 @@ const MapView = ({ ref, places, selectedId, draft, colors, statusLabels, label, 
     markers.current.clear()
     places.forEach((place) => {
       const active = place.id === selectedId
-      const marker = L.marker([place.lat, place.lng], {
+      const marker = L.marker(toLatLng(place), {
         icon: pinIcon(colors[place.status], { active }),
         title: place.name,
         riseOnHover: true,
@@ -137,20 +147,27 @@ const MapView = ({ ref, places, selectedId, draft, colors, statusLabels, label, 
     if (!layer) return
     layer.clearLayers()
     if (draft) {
-      L.marker([draft.lat, draft.lng], { icon: pinIcon(colors.draft, { draft: true }), interactive: false, keyboard: false }).addTo(layer)
+      L.marker(toLatLng(draft), {
+        icon: pinIcon(colors.draft, { draft: true }),
+        interactive: false,
+        keyboard: false,
+      }).addTo(layer)
     }
   }, [draft, colors])
 
   useImperativeHandle(ref, () => ({
     fitTo,
-    center: () => mapRef.current?.getCenter().wrap() ?? L.latLng(WORLD.center),
+    center: () => (mapRef.current ? toPoint(mapRef.current.getCenter()) : { x: MAP.width / 2, y: MAP.height / 2 }),
     focus(place) {
       const map = mapRef.current
       if (!map) return
-      map.flyTo([place.lat, place.lng], Math.max(map.getZoom(), PLACE_ZOOM), { animate: !prefersReducedMotion(), duration: 0.8 })
+      map.flyTo(toLatLng(place), Math.max(map.getZoom(), PLACE_ZOOM), {
+        animate: !prefersReducedMotion(),
+        duration: 0.8,
+      })
     },
-    panTo(latlng) {
-      mapRef.current?.panTo(latlng, { animate: !prefersReducedMotion() })
+    panTo(point) {
+      mapRef.current?.panTo(toLatLng(point), { animate: !prefersReducedMotion() })
     },
   }))
 

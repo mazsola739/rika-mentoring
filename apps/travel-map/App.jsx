@@ -9,17 +9,16 @@ import PlaceList from './PlaceList.jsx'
 import { TEXT } from './text.js'
 import './app.css'
 
-const round = (n) => Math.round(n * 1e5) / 1e5
 const matchesFilter = (place, filter) => filter === 'all' || place.status === filter
 
 const TravelMap = () => {
   const lang = useLang()
   const t = useText(TEXT)
   const { palette } = useLesson()
-  const [places, setPlaces, saveFailed] = useLocalStorage('rika:travel-map:places', samplePlaces, isPlaceList)
+  const [places, setPlaces, saveFailed] = useLocalStorage('rika:travel-map:places:huebloom', samplePlaces, isPlaceList)
   const [filter, setFilter] = useState('all')
   const [selectedId, setSelectedId] = useState(null)
-  const [draft, setDraft] = useState(null) // the place being added or edited: { id | null, lat, lng, name, status, note, photo }
+  const [draft, setDraft] = useState(null) // the place being added or edited: { id | null, x, y, name, status, note, photo }
   const [message, setMessage] = useState('')
   const mapApi = useRef(null)
 
@@ -28,10 +27,10 @@ const TravelMap = () => {
 
   const visible = places.filter((p) => matchesFilter(p, filter))
   const draftId = draft?.id
-  const draftLat = draft?.lat
-  const draftLng = draft?.lng
+  const draftX = draft?.x
+  const draftY = draft?.y
   // Only the coordinates matter to the map, so typing in the form does not redraw the pin.
-  const draftPoint = useMemo(() => (draftLat === undefined ? null : { lat: draftLat, lng: draftLng }), [draftLat, draftLng])
+  const draftPoint = useMemo(() => (draftX === undefined ? null : { x: draftX, y: draftY }), [draftX, draftY])
   // The map gets plain-string names, and the place being edited is shown by the draft pin instead.
   const mapPlaces = useMemo(
     () =>
@@ -45,8 +44,9 @@ const TravelMap = () => {
   const percent = new Intl.NumberFormat(localeOf(lang), { style: 'percent', maximumFractionDigits: 0 })
   const counts = { all: places.length, been, want: places.length - been }
 
-  const startDraft = (latlng) => {
-    const point = { lat: round(latlng.lat), lng: round(latlng.lng) }
+  // `spot` is a point in map units ({ x, y }), from a map click or the map centre.
+  const startDraft = (spot) => {
+    const point = { x: Math.round(spot.x), y: Math.round(spot.y) }
     // With a form open, a map click only moves its pin.
     setDraft((d) => (d ? { ...d, ...point } : { id: null, ...point, name: '', status: 'want', note: '', photo: null }))
     setSelectedId(null)
@@ -60,8 +60,8 @@ const TravelMap = () => {
   const editPlace = (place) => {
     setDraft({
       id: place.id,
-      lat: place.lat,
-      lng: place.lng,
+      x: place.x,
+      y: place.y,
       name: localize(place.name, lang),
       status: place.status,
       note: localize(place.note, lang),
@@ -74,8 +74,8 @@ const TravelMap = () => {
   const saveDraft = () => {
     const data = {
       name: draft.name.trim(),
-      lat: draft.lat,
-      lng: draft.lng,
+      x: draft.x,
+      y: draft.y,
       status: draft.status,
       note: draft.note.trim(),
       photo: draft.photo,

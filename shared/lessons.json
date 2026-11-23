@@ -1320,26 +1320,26 @@
     },
     "hu": {
       "title": "Travel Bucket List",
-      "short": "Utazási térkép",
-      "learn": "térképkönyvtár (React Leaflet), jelölők, földrajzi adatok (GeoJSON), képfeltöltés",
+      "short": "Utazási térkép egy kitalált világban",
+      "learn": "térképkönyvtár (React Leaflet) saját térképképpel, jelölők, régiók GeoJSON-ben, képfeltöltés",
       "beginner": "helyek listája: jártam ott / szeretnék menni",
       "intermediate": "térkép jelölőkkel, jegyzetek és fotók helyenként",
-      "advanced": "a meglátogatott országok kiszínezve a világtérképen, statisztika (országok, kontinensek), megosztható térkép",
+      "advanced": "a bejárt régiók kiszínezve a térképen, statisztika (szigetek, régiók), megosztható térkép",
       "card": {
-        "build": "Utazási térkép a bejárt és vágyott helyekkel",
-        "learn": "React Leaflet, jelölők, GeoJSON, képfeltöltés"
+        "build": "Utazási térkép egy kitalált égi szigetvilágban",
+        "learn": "React Leaflet, saját térkép, jelölők, GeoJSON"
       }
     },
     "en": {
       "title": "Travel Bucket List",
-      "short": "Travel map",
-      "learn": "a map library (React Leaflet), markers, geographic data (GeoJSON), image upload",
+      "short": "Travel map of a made-up world",
+      "learn": "a map library (React Leaflet) with your own map image, markers, regions in GeoJSON, image upload",
       "beginner": "a list of places: been there / want to go",
       "intermediate": "a map with markers, notes and photos for each place",
-      "advanced": "visited countries highlighted on a world map, statistics (countries, continents), a shareable map",
+      "advanced": "visited regions highlighted on the map, statistics (islands, regions), a shareable map",
       "card": {
-        "build": "A travel map of places visited and dreamed of",
-        "learn": "React Leaflet, markers, GeoJSON, image upload"
+        "build": "A travel map of a made-up world of sky islands",
+        "learn": "React Leaflet, your own map, markers, GeoJSON"
       }
     }
   },

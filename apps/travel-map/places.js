@@ -5,7 +5,8 @@ export const STATUSES = ['been', 'want']
 export const localeOf = (lang) => (lang === 'hu' ? 'hu-HU' : 'en-GB')
 
 // Sample names and notes are bilingual until the user edits them.
-export const localize = (value, lang) => (value && typeof value === 'object' ? (value[lang] ?? value.en ?? '') : (value ?? ''))
+export const localize = (value, lang) =>
+  value && typeof value === 'object' ? (value[lang] ?? value.en ?? '') : (value ?? '')
 
 export function createId() {
   return globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`
@@ -13,50 +14,63 @@ export function createId() {
 
 const isNumber = (n) => typeof n === 'number' && Number.isFinite(n)
 
+// The world is the Huebloom Isles, the made-up sky islands of the Fan Wiki lesson.
+// Places use the map's own coordinates: x from the left edge, y from the top edge, in map units
+// (the whole map is MAP.width x MAP.height), not latitude and longitude.
+export const MAP = { width: 1000, height: 700, square: 100 }
+
 export function isPlaceList(value) {
   return (
     Array.isArray(value) &&
-    value.every((p) => p && typeof p.id === 'string' && isNumber(p.lat) && isNumber(p.lng) && STATUSES.includes(p.status))
+    value.every((p) => p && typeof p.id === 'string' && isNumber(p.x) && isNumber(p.y) && STATUSES.includes(p.status))
   )
 }
 
-// 47.50° N, 19.04° E  ·  47,50° É, 19,04° K
-export function formatCoords(lat, lng, lang) {
-  const num = new Intl.NumberFormat(localeOf(lang), { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-  const [n, s, e, w] = lang === 'hu' ? ['É', 'D', 'K', 'Ny'] : ['N', 'S', 'E', 'W']
-  return `${num.format(Math.abs(lat))}° ${lat >= 0 ? n : s}, ${num.format(Math.abs(lng))}° ${lng >= 0 ? e : w}`
+// The map is divided into 100-unit squares: columns A–J from the left, rows 1–7 from the top.
+export function gridSquare(x, y) {
+  const col = Math.min(MAP.width / MAP.square - 1, Math.max(0, Math.floor(x / MAP.square)))
+  const row = Math.min(MAP.height / MAP.square - 1, Math.max(0, Math.floor(y / MAP.square)))
+  return `${String.fromCharCode(65 + col)}${row + 1}`
+}
+
+// Square C4 · x 312, y 405  ·  Mező: C4 · x 312, y 405
+export function formatCoords(x, y, lang) {
+  const square = gridSquare(x, y)
+  return lang === 'hu'
+    ? `Mező: ${square} · x ${Math.round(x)}, y ${Math.round(y)}`
+    : `Square ${square} · x ${Math.round(x)}, y ${Math.round(y)}`
 }
 
 export function samplePlaces() {
-  const place = (name, lat, lng, status, note) => ({ id: createId(), name, lat, lng, status, note, photo: null })
+  const place = (name, x, y, status, note) => ({ id: createId(), name, x, y, status, note, photo: null })
   return [
-    place({ en: 'Lisbon', hu: 'Lisszabon' }, 38.7223, -9.1393, 'been', {
-      en: 'Tram 28, custard tarts and the view from the Alfama.',
-      hu: 'A 28-as villamos, pastel de nata és a kilátás az Alfamából.',
+    place({ en: 'Plumage Point', hu: 'Tollazat-fok' }, 190, 130, 'been', {
+      en: 'Watched the lighthouse send its colours out at dusk.',
+      hu: 'Alkonyatkor néztük, ahogy a világítótorony szétküldi a színeit.',
     }),
-    place('Budapest', 47.4979, 19.0402, 'been', {
-      en: 'Home. Sunset from Gellért Hill.',
-      hu: 'Itthon. Naplemente a Gellért-hegyről.',
+    place({ en: 'Marigold Market', hu: 'Körömvirág-piac' }, 320, 330, 'been', {
+      en: 'Bought a jar of bottled sunset. Worth every coin.',
+      hu: 'Vettem egy üveg palackozott naplementét. Minden fillért megért.',
     }),
-    place({ en: 'Lake Bled', hu: 'Bledi-tó' }, 46.3683, 14.1146, 'been', {
-      en: 'A rowing boat out to the island.',
-      hu: 'Csónakkal ki a szigetre.',
+    place({ en: 'Tangerine Terraces', hu: 'Mandarin-teraszok' }, 540, 300, 'been', {
+      en: 'Tea on the top terrace, above the clouds.',
+      hu: 'Tea a legfelső teraszon, a felhők fölött.',
     }),
-    place('Reykjavík', 64.1466, -21.9426, 'want', {
-      en: 'Northern lights in winter.',
-      hu: 'Északi fény télen.',
+    place({ en: 'Sky Harbour', hu: 'Égi kikötő' }, 440, 95, 'want', {
+      en: 'Ride a cloudwhale ferry to the Upper Isles.',
+      hu: 'Felhőbálna-komppal a Felső-szigetekre.',
     }),
-    place({ en: 'Kyoto', hu: 'Kiotó' }, 35.0116, 135.7681, 'want', {
-      en: 'Temples and gardens in autumn colours.',
-      hu: 'Templomok és kertek őszi színekben.',
+    place({ en: 'Crayon Caverns', hu: 'Zsírkréta-barlangok' }, 380, 560, 'want', {
+      en: 'Walls that change colour as you walk past.',
+      hu: 'Falak, amelyek színt váltanak, ahogy elsétálsz mellettük.',
     }),
-    place({ en: 'Cape Town', hu: 'Fokváros' }, -33.9249, 18.4241, 'want', {
-      en: 'Table Mountain at sunrise.',
-      hu: 'A Tábla-hegy napfelkeltekor.',
+    place({ en: 'Rosepetal Reef', hu: 'Rózsaszirom-zátony' }, 860, 540, 'want', {
+      en: 'Snorkel through the pink clouds at sunrise.',
+      hu: 'Búvárkodás a rózsaszín felhők között napfelkeltekor.',
     }),
-    place({ en: 'Mexico City', hu: 'Mexikóváros' }, 19.4326, -99.1332, 'want', {
-      en: 'Murals, markets and street food.',
-      hu: 'Falfestmények, piacok és utcai ételek.',
+    place({ en: 'Cobalt Cliffs', hu: 'Kobalt-sziklák' }, 810, 330, 'want', {
+      en: 'The bluest view in all the isles, they say.',
+      hu: 'Azt mondják, innen a legkékebb a kilátás a szigeteken.',
     }),
   ]
 }

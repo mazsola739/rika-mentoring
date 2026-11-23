@@ -164,8 +164,8 @@
     "hu": { "build": "Kártyák jobbra-balra húzva a kedvencekért", "learn": "Pointer gesztusok, Framer Motion animációk" }
   },
   "travel-map": {
-    "en": { "build": "A travel map of places visited and dreamed of", "learn": "React Leaflet, markers, GeoJSON, image upload" },
-    "hu": { "build": "Utazási térkép a bejárt és vágyott helyekkel", "learn": "React Leaflet, jelölők, GeoJSON, képfeltöltés" }
+    "en": { "build": "A travel map of a made-up world of sky islands", "learn": "React Leaflet, your own map, markers, GeoJSON" },
+    "hu": { "build": "Utazási térkép egy kitalált égi szigetvilágban", "learn": "React Leaflet, saját térkép, jelölők, GeoJSON" }
   },
   "data-table": {
     "en": { "build": "A user table with sorting, filters and pages", "learn": "Sorting and paging logic, large data sets" },

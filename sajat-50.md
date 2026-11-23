@@ -250,11 +250,11 @@ Mind React-appok. A lista nehézség szerint halad, a legkönnyebbel kezdődik. 
     - **Közép:** kártyák húzása jobbra-balra animációval, filmek vagy ételek API-ból
     - **Haladó:** közös szoba két embernek, a közös találatok valós időben, szűrők (műfaj, konyha)
 
-42. **Travel Bucket List** – Utazási térkép
-    - **Mit tanulunk:** térképkönyvtár (React Leaflet), jelölők, földrajzi adatok (GeoJSON), képfeltöltés
+42. **Travel Bucket List** – Utazási térkép egy kitalált világban
+    - **Mit tanulunk:** térképkönyvtár (React Leaflet) saját térképképpel, jelölők, régiók GeoJSON-ben, képfeltöltés
     - **Kezdő:** helyek listája: jártam ott / szeretnék menni
     - **Közép:** térkép jelölőkkel, jegyzetek és fotók helyenként
-    - **Haladó:** a meglátogatott országok kiszínezve a világtérképen, statisztika (országok, kontinensek), megosztható térkép
+    - **Haladó:** a bejárt régiók kiszínezve a térképen, statisztika (szigetek, régiók), megosztható térkép
 
 43. **Data Table** – Felhasználókezelő táblázat
     - **Mit tanulunk:** rendezés, szűrés és lapozás logikája, TanStack Table, teljesítmény nagy adatnál, szerveroldali adatkezelés

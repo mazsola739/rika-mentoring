@@ -48,7 +48,7 @@ const PlaceForm = ({ draft, onChange, onSave, onCancel }) => {
         <h3 id="tm-form-title">{draft.id ? f.editTitle : f.newTitle}</h3>
         <p className="tm-form__coords">
           <span className="tm-dot tm-dot--draft" aria-hidden="true" />
-          {formatCoords(draft.lat, draft.lng, lang)}
+          {formatCoords(draft.x, draft.y, lang)}
         </p>
         <p className="tm-form__hint">{f.moveHint}</p>
       </div>
