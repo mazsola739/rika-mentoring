@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { tierFor } from '../shared/tiers.js'
 
 const SLUGS = {
-  'Portfolio / Resume (CV) Website': 'portfolio',
+  'Me, Myself & React': 'portfolio',
   'Dark Mode': 'dark-mode',
   'Password Generator': 'password-generator',
   'Mad Libs': 'mad-libs',

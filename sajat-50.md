@@ -4,7 +4,7 @@
 
 Mind React-appok. A lista nehézség szerint halad, a legkönnyebbel kezdődik. Minden projektnél leírtam, mit tanulunk vele, és mit kell megcsinálni kezdő, közép és haladó szinten. Haladó szinten több projekthez backend is kell (Firebase / Supabase vagy saját Node.js szerver).
 
-1. **Portfolio / Resume (CV) Website** – Portfólió és önéletrajz
+1. **Me, Myself & React** – Portfólió és önéletrajz
     - **Mit tanulunk:** komponensekre bontás, reszponzív dizájn, routing, űrlap küldése, telepítés (Vercel / Netlify), SEO
     - **Kezdő:** egyoldalas bemutatkozás, készségek, elérhetőség
     - **Közép:** projektek kártyákon, külön oldalak, működő kapcsolati űrlap

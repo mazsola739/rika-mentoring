@@ -7,7 +7,7 @@
       "buttons": 1
     },
     "hu": {
-      "title": "Portfolio / Resume (CV) Website",
+      "title": "Me, Myself & React",
       "short": "Portfólió és önéletrajz",
       "learn": "komponensekre bontás, reszponzív dizájn, routing, űrlap küldése, telepítés (Vercel / Netlify), SEO",
       "beginner": "egyoldalas bemutatkozás, készségek, elérhetőség",
@@ -19,7 +19,7 @@
       }
     },
     "en": {
-      "title": "Portfolio / Resume (CV) Website",
+      "title": "Me, Myself & React",
       "short": "Portfolio and résumé site",
       "learn": "component composition, responsive design, routing, form submission, deployment (Vercel / Netlify), SEO",
       "beginner": "a single-page introduction with skills and contact details",
