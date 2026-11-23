@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 // Works like useState, but the value survives a page reload.
 // The third value tells the UI when saving failed (photos can fill the few megabytes of storage).
-export function useLocalStorage(key, initialValue, isValid = () => true) {
+export const useLocalStorage = (key, initialValue, isValid = () => true) => {
   const [value, setValue] = useState(() => {
     try {
       const raw = localStorage.getItem(key)

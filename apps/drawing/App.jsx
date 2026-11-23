@@ -11,7 +11,7 @@ import './app.css'
 const isTyping = (el) =>
   el.isContentEditable || el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT' && ['text', 'search', 'email', 'number'].includes(el.type))
 
-function DrawingApp() {
+const DrawingApp = () => {
   const t = useText(TEXT)
   const { palette } = useLesson()
   // useRef: the parent needs the <canvas> DOM node too, for the PNG export.
@@ -139,10 +139,12 @@ function DrawingApp() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="drawing">
       <DrawingApp />
     </AppFrame>
   )
 }
+
+export default App

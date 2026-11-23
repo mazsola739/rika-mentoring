@@ -5,7 +5,7 @@ const BLOCK = 4 // px per LED block
 
 // Spectrum analyser / oscilloscope drawn on a canvas. The AnalyserNode does the FFT;
 // we only read its numbers every animation frame and paint them.
-export default function Visualizer({ getAnalyser, playing, mode, colors, label, onToggle }) {
+const Visualizer = ({ getAnalyser, playing, mode, colors, label, onToggle }) => {
   const canvasRef = useRef(null)
   const peaksRef = useRef(new Array(BARS).fill(0))
 
@@ -111,3 +111,5 @@ export default function Visualizer({ getAnalyser, playing, mode, colors, label, 
     </button>
   )
 }
+
+export default Visualizer

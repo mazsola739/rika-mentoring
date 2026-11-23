@@ -13,7 +13,7 @@ const ICONS = {
   download: 'M12 4v11M7 10l5 5 5-5M5 20h14',
 }
 
-function Icon({ name }) {
+const Icon = ({ name }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -32,7 +32,7 @@ function Icon({ name }) {
   )
 }
 
-export default function Toolbar({
+const Toolbar = ({
   tool,
   setTool,
   size,
@@ -47,7 +47,7 @@ export default function Toolbar({
   onRedo,
   onClear,
   onDownload,
-}) {
+}) => {
   const t = useText(TEXT)
   const isCustom = !colors.includes(color)
 
@@ -129,3 +129,5 @@ export default function Toolbar({
     </div>
   )
 }
+
+export default Toolbar

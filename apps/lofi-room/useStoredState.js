@@ -10,7 +10,7 @@ function read(key, fallback) {
 }
 
 // useState that also lives in localStorage (e.g. the mixer levels).
-export function useStoredState(key, initial) {
+export const useStoredState = (key, initial) => {
   const [value, setValue] = useState(() => read(key, initial))
 
   useEffect(() => {

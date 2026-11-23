@@ -2,7 +2,7 @@ import { useLang, useText } from '@shared/i18n.js'
 import { STATUSES, formatDate, interviewDays, localize, relativeDays } from './jobs.js'
 import { TEXT } from './text.js'
 
-export function EditIcon() {
+export const EditIcon = () => {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
       <path
@@ -18,7 +18,7 @@ export function EditIcon() {
 }
 
 // The keyboard (and touch) alternative to drag & drop: a plain <select>.
-export function StatusSelect({ job, onMove }) {
+export const StatusSelect = ({ job, onMove }) => {
   const t = useText(TEXT)
   return (
     <label className="jt-status">
@@ -34,7 +34,7 @@ export function StatusSelect({ job, onMove }) {
   )
 }
 
-export function InterviewBadge({ job }) {
+export const InterviewBadge = ({ job }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const days = interviewDays(job)
@@ -49,7 +49,7 @@ export function InterviewBadge({ job }) {
   )
 }
 
-export default function JobCard({ job, isDragging, onDragStart, onDragEnd, onMove, onEdit }) {
+const JobCard = ({ job, isDragging, onDragStart, onDragEnd, onMove, onEdit }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const headingId = `jt-card-${job.id}`
@@ -98,3 +98,5 @@ export default function JobCard({ job, isDragging, onDragStart, onDragEnd, onMov
     </article>
   )
 }
+
+export default JobCard

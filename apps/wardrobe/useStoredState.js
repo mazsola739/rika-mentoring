@@ -11,7 +11,7 @@ function read(key, fallback) {
 
 // useState + localStorage. The third value tells if the last save failed (e.g. storage is full
 // because of too many photos), so the UI can warn instead of silently losing data.
-export function useStoredState(key, initial) {
+export const useStoredState = (key, initial) => {
   const [value, setValue] = useState(() => read(key, initial))
   const [saveFailed, setSaveFailed] = useState(false)
 

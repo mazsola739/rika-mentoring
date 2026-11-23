@@ -4,7 +4,7 @@ import { TEXT } from './text.js'
 
 export const PAGE_SIZES = [10, 25, 50, 100]
 
-export default function Pagination({ page, pageCount, start, end, total, pageSize, format, onPage, onPageSize }) {
+const Pagination = ({ page, pageCount, start, end, total, pageSize, format, onPage, onPageSize }) => {
   const t = useText(TEXT)
 
   return (
@@ -55,3 +55,5 @@ export default function Pagination({ page, pageCount, start, end, total, pageSiz
     </nav>
   )
 }
+
+export default Pagination

@@ -4,7 +4,7 @@ import { PROGRAMS, PROGRAM_KEYS } from '../programs.jsx'
 import { useWindows } from '../WindowContext.jsx'
 import { TEXT } from '../text.js'
 
-export default function StartMenu({ onClose, startButtonRef }) {
+const StartMenu = ({ onClose, startButtonRef }) => {
   const t = useText(TEXT)
   const { open, reset } = useWindows()
   const ref = useRef(null)
@@ -73,3 +73,5 @@ export default function StartMenu({ onClose, startButtonRef }) {
     </div>
   )
 }
+
+export default StartMenu

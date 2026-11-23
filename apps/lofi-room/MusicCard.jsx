@@ -3,7 +3,7 @@ import { TEXT } from './text.js'
 import { BPM, CHORDS } from './lofiLoop.js'
 import Icon from './Icon.jsx'
 
-export default function MusicCard({ playing, loading, error, chord, volume, onToggle, onVolume }) {
+const MusicCard = ({ playing, loading, error, chord, volume, onToggle, onVolume }) => {
   const t = useText(TEXT)
   const label = playing ? t.pauseMusic : t.playMusic
 
@@ -61,3 +61,5 @@ export default function MusicCard({ playing, loading, error, chord, volume, onTo
     </section>
   )
 }
+
+export default MusicCard

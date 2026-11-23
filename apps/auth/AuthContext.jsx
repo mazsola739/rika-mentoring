@@ -45,7 +45,7 @@ function createSession(user, remember) {
 
 const AuthContext = createContext(null)
 
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(readSession)
 
   const login = useCallback(async (credentials, remember) => {
@@ -106,7 +106,7 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-export function useAuth() {
+export const useAuth = () => {
   const auth = useContext(AuthContext)
   if (!auth) throw new Error('useAuth must be used inside <AuthProvider>')
   return auth

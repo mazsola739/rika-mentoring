@@ -18,7 +18,7 @@ const searchText = (product, lang, t) =>
     .join(' ')
     .toLocaleLowerCase(lang)
 
-function ProductCard({ product }) {
+const ProductCard = ({ product }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const money = useMoney()
@@ -66,7 +66,7 @@ function ProductCard({ product }) {
   )
 }
 
-export default function Catalogue({ filters, setFilters }) {
+const Catalogue = ({ filters, setFilters }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const { q, category, sort } = filters
@@ -139,3 +139,5 @@ export default function Catalogue({ filters, setFilters }) {
     </div>
   )
 }
+
+export default Catalogue

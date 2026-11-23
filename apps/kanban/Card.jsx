@@ -5,7 +5,7 @@ import { TEXT } from './text.js'
 
 const LEVEL = { high: 3, medium: 2, low: 1 }
 
-export function Priority({ value }) {
+export const Priority = ({ value }) => {
   const t = useText(TEXT)
   return (
     <span className={`kb-prio kb-prio--${value}`}>
@@ -18,7 +18,7 @@ export function Priority({ value }) {
   )
 }
 
-function GripIcon() {
+const GripIcon = () => {
   return (
     <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
       {[3, 8, 13].map((y) => [5.5, 10.5].map((x) => <circle key={`${x}-${y}`} cx={x} cy={y} r="1.5" fill="currentColor" />))}
@@ -26,7 +26,7 @@ function GripIcon() {
   )
 }
 
-function EditIcon() {
+const EditIcon = () => {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
       <path
@@ -43,7 +43,7 @@ function EditIcon() {
 
 // One component for both uses: the real card in a column, and the floating copy while dragging
 // (`preview` leaves out every interactive control).
-export default function Card({ card, column, preview = false, picked = false, onHandleKey, onHandleBlur, onMoveTo, onEdit }) {
+const Card = ({ card, column, preview = false, picked = false, onHandleKey, onHandleBlur, onMoveTo, onEdit }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const title = localize(card.title, lang)
@@ -100,3 +100,5 @@ export default function Card({ card, column, preview = false, picked = false, on
     </article>
   )
 }
+
+export default Card

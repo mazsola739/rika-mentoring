@@ -3,7 +3,7 @@ import { fromKey, slotsFor } from '../dates.js'
 import { OPENING_HOURS } from '../services.js'
 import { TEXT, useFormat } from '../text.js'
 
-export default function SlotPicker({ dayKey, service, bookings, selectedStart, onSelect }) {
+const SlotPicker = ({ dayKey, service, bookings, selectedStart, onSelect }) => {
   const t = useText(TEXT)
   const format = useFormat()
 
@@ -47,3 +47,5 @@ export default function SlotPicker({ dayKey, service, bookings, selectedStart, o
     </div>
   )
 }
+
+export default SlotPicker

@@ -7,7 +7,7 @@ export const isValidName = (name) => /^[\p{L}\p{N} _-]{2,20}$/u.test(name.trim()
 const ANIMALS = ['Otter', 'Lynx', 'Heron', 'Fox', 'Koala', 'Panda', 'Gecko', 'Robin', 'Seal', 'Hare']
 const randomName = () => `${ANIMALS[Math.floor(Math.random() * ANIMALS.length)]} ${Math.floor(10 + Math.random() * 90)}`
 
-export default function UsernamePrompt({ onJoin }) {
+const UsernamePrompt = ({ onJoin }) => {
   const t = useText(TEXT)
   const [name, setName] = useState('')
   const [touched, setTouched] = useState(false)
@@ -66,3 +66,5 @@ export default function UsernamePrompt({ onJoin }) {
     </form>
   )
 }
+
+export default UsernamePrompt

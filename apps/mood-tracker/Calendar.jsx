@@ -4,7 +4,7 @@ import { moodOf } from './moods.js'
 
 const KEY_STEPS = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }
 
-export default function Calendar({ view, onView, selected, onSelect, entries, today, colors, fmt, locale, t }) {
+const Calendar = ({ view, onView, selected, onSelect, entries, today, colors, fmt, locale, t }) => {
   const gridRef = useRef(null)
   const focusPending = useRef(false)
   const weeks = monthGrid(view)
@@ -120,3 +120,5 @@ export default function Calendar({ view, onView, selected, onSelect, entries, to
     </section>
   )
 }
+
+export default Calendar

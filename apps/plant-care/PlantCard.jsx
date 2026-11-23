@@ -11,7 +11,7 @@ function statusText(status, t) {
   return t.status.ok(status.dueIn)
 }
 
-export default function PlantCard({ plant, now, fmt, lang, t, onWater, onSave, onDelete }) {
+const PlantCard = ({ plant, now, fmt, lang, t, onWater, onSave, onDelete }) => {
   const [mode, setMode] = useState('view') // 'view' | 'edit' | 'confirm'
   const name = tx(plant.name, lang)
   const status = waterStatus(plant, now)
@@ -110,3 +110,5 @@ export default function PlantCard({ plant, now, fmt, lang, t, onWater, onSave, o
     </li>
   )
 }
+
+export default PlantCard

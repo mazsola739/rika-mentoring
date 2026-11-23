@@ -7,7 +7,7 @@ import ColorPicker from './ColorPicker.jsx'
 
 const EMPTY = { name: '', category: 'top', color: 'black', season: 'all', occasion: 'casual', photo: null }
 
-export default function ItemForm({ onAdd, onCancel, canCancel }) {
+const ItemForm = ({ onAdd, onCancel, canCancel }) => {
   const t = useText(TEXT)
   const f = t.form
   const id = useId()
@@ -139,3 +139,5 @@ export default function ItemForm({ onAdd, onCancel, canCancel }) {
     </form>
   )
 }
+
+export default ItemForm

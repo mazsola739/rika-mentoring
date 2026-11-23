@@ -1,7 +1,7 @@
 import { MOODS } from './moods.js'
 
 // Five emoji buttons that behave as one radio group (arrow keys move between them).
-export default function MoodPicker({ value, onChange, colors, labels, legend }) {
+const MoodPicker = ({ value, onChange, colors, labels, legend }) => {
   return (
     <fieldset className="md-picker">
       <legend className="md-label">{legend}</legend>
@@ -19,3 +19,5 @@ export default function MoodPicker({ value, onChange, colors, labels, legend }) 
     </fieldset>
   )
 }
+
+export default MoodPicker

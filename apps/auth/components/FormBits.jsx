@@ -5,7 +5,7 @@ import { TEXT } from '../text.js'
 // We keep an error *code* in state, not the message, so it is re-translated when the language changes.
 export const errorCode = (err) => err?.code ?? 'network'
 
-export function TextField({ id, label, error, ...inputProps }) {
+export const TextField = ({ id, label, error, ...inputProps }) => {
   return (
     <div className="field">
       <label htmlFor={id}>
@@ -29,7 +29,7 @@ export function TextField({ id, label, error, ...inputProps }) {
 
 // A password input with a show / hide toggle. Extra description ids (e.g. the rule list) can be passed in.
 // In React 19 `ref` is a normal prop, so the parent can focus the inner <input> without forwardRef.
-export function PasswordField({ id, label, error, describedBy, ref, ...inputProps }) {
+export const PasswordField = ({ id, label, error, describedBy, ref, ...inputProps }) => {
   const t = useText(TEXT)
   const [visible, setVisible] = useState(false)
   const ids = [error && `${id}-error`, describedBy].filter(Boolean).join(' ') || undefined
@@ -68,7 +68,7 @@ export function PasswordField({ id, label, error, describedBy, ref, ...inputProp
   )
 }
 
-export function FormAlert({ code, onFix }) {
+export const FormAlert = ({ code, onFix }) => {
   const t = useText(TEXT)
   if (!code) return null
   return (

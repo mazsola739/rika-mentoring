@@ -12,7 +12,7 @@ function loadVotes() {
 }
 
 // All feed state in one custom hook: loading, posts, comments, my votes and the actions on them.
-export function useFeed() {
+export const useFeed = () => {
   const [status, setStatus] = useState('loading') // 'loading' | 'ready' | 'error'
   const [posts, setPosts] = useState([])
   const [comments, setComments] = useState([])

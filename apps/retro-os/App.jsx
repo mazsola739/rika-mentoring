@@ -4,7 +4,7 @@ import { PROGRAM_KEYS } from './programs.jsx'
 import Desktop from './components/Desktop.jsx'
 import './app.css'
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="retro-os">
       <WindowProvider apps={PROGRAM_KEYS}>
@@ -13,3 +13,5 @@ export default function App() {
     </AppFrame>
   )
 }
+
+export default App

@@ -27,7 +27,7 @@ function makeFormatters(lang) {
 }
 
 // "Today" that updates itself after midnight while the page stays open.
-function useToday() {
+const useToday = () => {
   const [today, setToday] = useState(todayISO)
   useEffect(() => {
     const timer = setInterval(() => setToday(todayISO()), 60_000)
@@ -36,7 +36,7 @@ function useToday() {
   return today
 }
 
-function MoodTracker() {
+const MoodTracker = () => {
   const t = useText(TEXT)
   const lang = useLang()
   const { palette } = useLesson()
@@ -171,10 +171,12 @@ function MoodTracker() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="mood-tracker">
       <MoodTracker />
     </AppFrame>
   )
 }
+
+export default App

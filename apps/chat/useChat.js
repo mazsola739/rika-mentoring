@@ -23,7 +23,7 @@ const prune = (map, keep) => {
 
 // Everything real-time in one custom hook. The BroadcastChannel plays the role a WebSocket
 // (or Socket.io / Supabase Realtime) connection would have in a real app.
-export function useChat(user) {
+export const useChat = (user) => {
   const [tabId] = useState(() => crypto.randomUUID()) // one id per open tab
   const [messages, setMessages] = useState(store.loadMessages)
   const [channels, setChannels] = useState(store.loadChannels)

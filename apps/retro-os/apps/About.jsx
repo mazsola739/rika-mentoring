@@ -3,7 +3,7 @@ import { useText } from '@shared/i18n.js'
 import { useWindows } from '../WindowContext.jsx'
 import { TEXT } from '../text.js'
 
-export default function About() {
+const About = () => {
   const t = useText(TEXT).about
   const { windows } = useWindows() // any mini app can read the shared window state through Context
 
@@ -28,3 +28,5 @@ export default function About() {
     </div>
   )
 }
+
+export default About

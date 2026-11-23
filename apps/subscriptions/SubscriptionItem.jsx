@@ -11,7 +11,7 @@ const initials = (name) =>
 
 const urgency = (days) => (days <= 3 ? 'urgent' : days <= 7 ? 'soon' : 'later')
 
-export default function SubscriptionItem({ sub, view, money, date, onEdit, onRemove, t }) {
+const SubscriptionItem = ({ sub, view, money, date, onEdit, onRemove, t }) => {
   const equivalent = sub.cycle !== view ? costPer(view, sub) : null
 
   return (
@@ -56,3 +56,5 @@ export default function SubscriptionItem({ sub, view, money, date, onEdit, onRem
     </li>
   )
 }
+
+export default SubscriptionItem

@@ -3,7 +3,7 @@ import { useLang, useText } from '@shared/i18n.js'
 import { localize } from './places.js'
 import { TEXT } from './text.js'
 
-function EditIcon() {
+const EditIcon = () => {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
       <path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z M13.5 6.5l4 4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -11,7 +11,7 @@ function EditIcon() {
   )
 }
 
-function TrashIcon() {
+const TrashIcon = () => {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
       <path d="M4 7h16 M9 7V4h6v3 M6 7l1 13h10l1-13 M10 11v5 M14 11v5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -19,7 +19,7 @@ function TrashIcon() {
   )
 }
 
-export default function PlaceList({ places, selectedId, colors, emptyText, onSelect, onToggle, onEdit, onDelete }) {
+const PlaceList = ({ places, selectedId, colors, emptyText, onSelect, onToggle, onEdit, onDelete }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const listRef = useRef(null)
@@ -73,3 +73,5 @@ export default function PlaceList({ places, selectedId, colors, emptyText, onSel
     </ul>
   )
 }
+
+export default PlaceList

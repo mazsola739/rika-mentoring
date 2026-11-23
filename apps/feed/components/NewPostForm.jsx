@@ -3,7 +3,7 @@ import { useText } from '@shared/i18n.js'
 import { COMMUNITIES } from '../seed.js'
 import { TEXT } from '../text.js'
 
-export default function NewPostForm({ defaultCommunity, onSubmit, onClose }) {
+const NewPostForm = ({ defaultCommunity, onSubmit, onClose }) => {
   const t = useText(TEXT)
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
@@ -95,3 +95,5 @@ export default function NewPostForm({ defaultCommunity, onSubmit, onClose }) {
     </form>
   )
 }
+
+export default NewPostForm

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { centsToInput, parseAmount } from './money.js'
 import { tx } from './text.js'
 
-function GoalForm({ goal, lang, t, onSave, onCancel }) {
+const GoalForm = ({ goal, lang, t, onSave, onCancel }) => {
   const [name, setName] = useState(() => tx(goal?.name, lang))
   const [target, setTarget] = useState(() => (goal ? centsToInput(goal.target) : ''))
   const [submitted, setSubmitted] = useState(false)
@@ -64,7 +64,7 @@ function GoalForm({ goal, lang, t, onSave, onCancel }) {
   )
 }
 
-export default function GoalCard({ goal, balance, dispatch, fmt, lang, t }) {
+const GoalCard = ({ goal, balance, dispatch, fmt, lang, t }) => {
   const [editing, setEditing] = useState(false)
 
   let content
@@ -135,3 +135,5 @@ export default function GoalCard({ goal, balance, dispatch, fmt, lang, t }) {
     </section>
   )
 }
+
+export default GoalCard

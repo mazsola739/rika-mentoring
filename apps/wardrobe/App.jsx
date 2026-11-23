@@ -8,7 +8,7 @@ import ClosetView from './ClosetView.jsx'
 import OutfitsView from './OutfitsView.jsx'
 import './app.css'
 
-function Wardrobe() {
+const Wardrobe = () => {
   const t = useText(TEXT)
   const [tab, setTab] = useState('closet')
   // Items carry their photo as a small data URL, so everything fits into localStorage.
@@ -47,10 +47,12 @@ function Wardrobe() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="wardrobe">
       <Wardrobe />
     </AppFrame>
   )
 }
+
+export default App

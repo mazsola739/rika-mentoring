@@ -5,7 +5,7 @@ import { useWindows } from '../WindowContext.jsx'
 import { TEXT } from '../text.js'
 
 // The clock owns its own state, so only this small component re-renders every second.
-function Clock() {
+const Clock = () => {
   const lang = useLang()
   const [now, setNow] = useState(() => new Date())
 
@@ -24,7 +24,7 @@ function Clock() {
   )
 }
 
-export default function Taskbar({ menuOpen, onToggleMenu, startButtonRef }) {
+const Taskbar = ({ menuOpen, onToggleMenu, startButtonRef }) => {
   const t = useText(TEXT)
   const { windows, focusedId, taskbarClick } = useWindows()
 
@@ -65,3 +65,5 @@ export default function Taskbar({ menuOpen, onToggleMenu, startButtonRef }) {
     </div>
   )
 }
+
+export default Taskbar

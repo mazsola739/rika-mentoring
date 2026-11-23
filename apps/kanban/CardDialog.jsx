@@ -4,7 +4,7 @@ import { COLUMNS, PRIORITIES, localize } from './boardReducer.js'
 import { TEXT } from './text.js'
 
 // Add / edit form in a native modal <dialog> (focus trap and Esc come with the platform).
-export default function CardDialog({ card, column, onSave, onDelete, onClose }) {
+const CardDialog = ({ card, column, onSave, onDelete, onClose }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const f = t.form
@@ -145,3 +145,5 @@ export default function CardDialog({ card, column, onSave, onDelete, onClose }) 
     </dialog>
   )
 }
+
+export default CardDialog

@@ -24,7 +24,7 @@ function probeDuration(url) {
 
 // All player logic: one <audio> element (via ref), the playlist, and a Web Audio graph
 // (element → analyser → gain → speakers) that feeds the visualizer.
-export function usePlayer() {
+export const usePlayer = () => {
   const audioRef = useRef(null)
   const graphRef = useRef(null) // { ctx, analyser, gain } after the first play
   const currentRef = useRef(null) // id of the loaded track, readable inside event handlers right away

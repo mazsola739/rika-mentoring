@@ -3,7 +3,7 @@ import { useText } from '@shared/i18n.js'
 import { TEXT } from './text.js'
 import { formatTime } from './formatTime.js'
 
-export default function Playlist({ player }) {
+const Playlist = ({ player }) => {
   const t = useText(TEXT)
   const [dragging, setDragging] = useState(false)
   const { tracks, current, playing, notice, demoState } = player
@@ -109,3 +109,5 @@ export default function Playlist({ player }) {
     </section>
   )
 }
+
+export default Playlist

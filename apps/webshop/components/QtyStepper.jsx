@@ -3,7 +3,7 @@ import { MAX_QTY } from '../cartReducer.js'
 import { TEXT } from '../text.js'
 
 // A controlled quantity input: the parent owns the value, this component only reports changes.
-export default function QtyStepper({ value, onChange, label }) {
+const QtyStepper = ({ value, onChange, label }) => {
   const t = useText(TEXT)
   return (
     <div className="ws-qty" role="group" aria-label={label ?? t.quantity}>
@@ -28,3 +28,5 @@ export default function QtyStepper({ value, onChange, label }) {
     </div>
   )
 }
+
+export default QtyStepper

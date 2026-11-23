@@ -7,7 +7,7 @@ import { isEmail } from '../validation.js'
 import { TEXT } from '../text.js'
 import { FormAlert, PasswordField, TextField, errorCode } from './FormBits.jsx'
 
-export default function LoginForm({ next, notice }) {
+const LoginForm = ({ next, notice }) => {
   const t = useText(TEXT)
   const { login } = useAuth()
   const [values, setValues] = useState({ email: '', password: '', remember: false })
@@ -119,3 +119,5 @@ export default function LoginForm({ next, notice }) {
     </form>
   )
 }
+
+export default LoginForm

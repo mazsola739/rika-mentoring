@@ -10,7 +10,7 @@ const M = { top: 16, right: 56, bottom: 28, left: 40 }
 const PLOT_W = W - M.left - M.right
 const PLOT_H = H - M.top - M.bottom
 
-export default function MoodChart({ view, entries, colors, fmt, lang, t, onSelect }) {
+const MoodChart = ({ view, entries, colors, fmt, lang, t, onSelect }) => {
   const [active, setActive] = useState(null)
   const total = daysInMonth(view)
   const x = (day) => M.left + ((day - 1) / (total - 1)) * PLOT_W
@@ -114,3 +114,5 @@ export default function MoodChart({ view, entries, colors, fmt, lang, t, onSelec
     </section>
   )
 }
+
+export default MoodChart

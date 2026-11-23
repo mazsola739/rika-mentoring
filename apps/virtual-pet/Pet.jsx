@@ -9,7 +9,7 @@ function shade(hex, amount) {
   return `rgb(${ch(16)}, ${ch(8)}, ${ch(0)})`
 }
 
-function Eyes({ mood }) {
+const Eyes = ({ mood }) => {
   const stroke = { fill: 'none', stroke: INK, strokeWidth: 5, strokeLinecap: 'round' }
   if (mood === 'happy') {
     return (
@@ -48,7 +48,7 @@ function Eyes({ mood }) {
   )
 }
 
-function Mouth({ mood }) {
+const Mouth = ({ mood }) => {
   const stroke = { fill: 'none', stroke: INK, strokeWidth: 4.5, strokeLinecap: 'round' }
   switch (mood) {
     case 'happy':
@@ -71,7 +71,7 @@ function Mouth({ mood }) {
   }
 }
 
-export default function Pet({ color, mood, stage, last, label }) {
+const Pet = ({ color, mood, stage, last, label }) => {
   const droopy = mood === 'tired' || mood === 'sleeping'
   const cheekColor = color === '#D97B66' ? CREAM : '#D97B66'
   const cheekOpacity = mood === 'happy' ? 0.6 : mood === 'okay' ? 0.4 : 0.22
@@ -147,3 +147,5 @@ export default function Pet({ color, mood, stage, last, label }) {
     </svg>
   )
 }
+
+export default Pet

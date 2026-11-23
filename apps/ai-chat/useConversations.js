@@ -60,7 +60,7 @@ function load() {
   return { conversations: [], activeId: null }
 }
 
-export function useConversations() {
+export const useConversations = () => {
   const [state, dispatch] = useReducer(reducer, undefined, load)
 
   // Save a moment after the last change: while a reply streams in, the state changes

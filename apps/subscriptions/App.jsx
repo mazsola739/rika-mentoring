@@ -22,7 +22,7 @@ const SORTERS = {
 }
 
 // "Today" as a date string that updates itself after midnight while the page is open.
-function useToday() {
+const useToday = () => {
   const [today, setToday] = useState(todayISO)
   useEffect(() => {
     const timer = setInterval(() => setToday(todayISO()), 60_000)
@@ -31,7 +31,7 @@ function useToday() {
   return today
 }
 
-function SubscriptionTracker() {
+const SubscriptionTracker = () => {
   const t = useText(TEXT)
   const lang = useLang()
   const today = useToday()
@@ -198,10 +198,12 @@ function SubscriptionTracker() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="subscriptions">
       <SubscriptionTracker />
     </AppFrame>
   )
 }
+
+export default App

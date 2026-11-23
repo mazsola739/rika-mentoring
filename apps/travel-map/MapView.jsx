@@ -32,7 +32,7 @@ const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: r
 
 // Leaflet owns its DOM; React owns the data. Effects keep the two in sync.
 // The parent gets a small imperative API through `ref` (fitTo, focus, center).
-export default function MapView({ ref, places, selectedId, draft, colors, statusLabels, label, onMapClick, onSelect }) {
+const MapView = ({ ref, places, selectedId, draft, colors, statusLabels, label, onMapClick, onSelect }) => {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
   const markersLayer = useRef(null)
@@ -127,3 +127,5 @@ export default function MapView({ ref, places, selectedId, draft, colors, status
 
   return <div ref={containerRef} className="tm-map" role="region" aria-label={label} />
 }
+
+export default MapView

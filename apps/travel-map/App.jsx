@@ -12,7 +12,7 @@ import './app.css'
 const round = (n) => Math.round(n * 1e5) / 1e5
 const matchesFilter = (place, filter) => filter === 'all' || place.status === filter
 
-function TravelMap() {
+const TravelMap = () => {
   const lang = useLang()
   const t = useText(TEXT)
   const { palette } = useLesson()
@@ -237,10 +237,12 @@ function TravelMap() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="travel-map">
       <TravelMap />
     </AppFrame>
   )
 }
+
+export default App

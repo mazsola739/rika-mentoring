@@ -2,7 +2,7 @@ import { useLang } from '@shared/i18n.js'
 import { COLORS } from './data.js'
 
 // A radio group drawn as color dots. Real radio inputs keep it keyboard accessible (arrow keys).
-export default function ColorPicker({ name, value, onChange, legend, anyLabel }) {
+const ColorPicker = ({ name, value, onChange, legend, anyLabel }) => {
   const lang = useLang()
   return (
     <fieldset className="wr-swatches">
@@ -26,3 +26,5 @@ export default function ColorPicker({ name, value, onChange, legend, anyLabel })
     </fieldset>
   )
 }
+
+export default ColorPicker

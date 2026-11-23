@@ -4,7 +4,7 @@ import { useAuth } from '../AuthContext.jsx'
 import { storedRecord } from '../authApi.js'
 import { TEXT, locale } from '../text.js'
 
-function useFormat() {
+const useFormat = () => {
   const lang = useLang()
   const dateTime = new Intl.DateTimeFormat(locale(lang), { dateStyle: 'medium', timeStyle: 'short' })
   const date = new Intl.DateTimeFormat(locale(lang), { dateStyle: 'long' })
@@ -12,7 +12,7 @@ function useFormat() {
 }
 
 // Loads the raw user record from the fake server, with loading / error / retry states.
-function StoredRecord({ userId }) {
+const StoredRecord = ({ userId }) => {
   const t = useText(TEXT)
   const [state, setState] = useState({ status: 'loading' })
   const [attempt, setAttempt] = useState(0)
@@ -43,7 +43,7 @@ function StoredRecord({ userId }) {
   return <pre className="au-code">{JSON.stringify({ name, email, salt, passwordHash }, null, 2)}</pre>
 }
 
-export function Dashboard() {
+export const Dashboard = () => {
   const t = useText(TEXT)
   const { session, user } = useAuth()
   const format = useFormat()
@@ -99,7 +99,7 @@ export function Dashboard() {
   )
 }
 
-export function Account() {
+export const Account = () => {
   const t = useText(TEXT)
   const { user, rename } = useAuth()
   const [name, setName] = useState(user.name)

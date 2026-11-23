@@ -4,7 +4,7 @@ import { TEXT, useFormat } from '../text.js'
 
 const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())
 
-export function BookingSummary({ service, start, end }) {
+export const BookingSummary = ({ service, start, end }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const format = useFormat()
@@ -26,7 +26,7 @@ export function BookingSummary({ service, start, end }) {
   )
 }
 
-export default function BookingForm({ service, start, end, onSubmit, onBack, error }) {
+const BookingForm = ({ service, start, end, onSubmit, onBack, error }) => {
   const t = useText(TEXT)
   const [values, setValues] = useState({ name: '', email: '', note: '' })
   const [touched, setTouched] = useState({})
@@ -102,3 +102,5 @@ export default function BookingForm({ service, start, end, onSubmit, onBack, err
     </form>
   )
 }
+
+export default BookingForm

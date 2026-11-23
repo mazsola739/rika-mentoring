@@ -22,7 +22,7 @@ function errorKey(error) {
 
 // Camera lifecycle: idle → requesting → live, or error. The stream lives in a ref;
 // every track is stopped when the camera is turned off and when the component unmounts.
-export function useCamera(videoRef) {
+export const useCamera = (videoRef) => {
   const [status, setStatus] = useState('idle') // 'idle' | 'requesting' | 'live' | 'error'
   const [error, setError] = useState(null)
   const streamRef = useRef(null)

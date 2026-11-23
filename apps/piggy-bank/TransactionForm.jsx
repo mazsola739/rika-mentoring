@@ -16,7 +16,7 @@ function validate(type, values, balance) {
   return { errors, cents }
 }
 
-export default function TransactionForm({ balance, onAdd, fmt, t }) {
+const TransactionForm = ({ balance, onAdd, fmt, t }) => {
   const [type, setType] = useState('deposit')
   const [values, setValues] = useState(() => ({
     amount: '',
@@ -166,3 +166,5 @@ export default function TransactionForm({ balance, onAdd, fmt, t }) {
     </form>
   )
 }
+
+export default TransactionForm

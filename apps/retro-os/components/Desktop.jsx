@@ -7,7 +7,7 @@ import StartMenu from './StartMenu.jsx'
 import Taskbar from './Taskbar.jsx'
 import Window from './Window.jsx'
 
-function DesktopIcon({ app, selected, onSelect, onOpen }) {
+const DesktopIcon = ({ app, selected, onSelect, onOpen }) => {
   const t = useText(TEXT)
   const { Icon } = PROGRAMS[app]
   const pointerType = useRef('mouse')
@@ -40,7 +40,7 @@ function DesktopIcon({ app, selected, onSelect, onOpen }) {
   )
 }
 
-export default function Desktop() {
+const Desktop = () => {
   const t = useText(TEXT)
   const { windows, open, setBounds } = useWindows()
   const ref = useRef(null)
@@ -97,3 +97,5 @@ export default function Desktop() {
     </div>
   )
 }
+
+export default Desktop

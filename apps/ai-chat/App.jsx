@@ -9,7 +9,7 @@ import Sidebar from './components/Sidebar.jsx'
 import ChatPanel from './components/ChatPanel.jsx'
 import './app.css'
 
-function AiChat() {
+const AiChat = () => {
   const lang = useLang()
   const t = useText(TEXT)
   const { conversations, activeId, active, dispatch, newId } = useConversations()
@@ -68,10 +68,12 @@ function AiChat() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="ai-chat">
       <AiChat />
     </AppFrame>
   )
 }
+
+export default App

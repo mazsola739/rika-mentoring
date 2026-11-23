@@ -4,7 +4,7 @@ import { MONTHS_AHEAD } from '../services.js'
 import { TEXT, useFormat } from '../text.js'
 
 // A month view. Every day is a real <button>; arrow keys move between days like in a date picker.
-export default function Calendar({ month, onMonthChange, selectedKey, onSelect, service, bookings }) {
+const Calendar = ({ month, onMonthChange, selectedKey, onSelect, service, bookings }) => {
   const t = useText(TEXT)
   const format = useFormat()
   const today = new Date()
@@ -78,3 +78,5 @@ export default function Calendar({ month, onMonthChange, selectedKey, onSelect, 
     </div>
   )
 }
+
+export default Calendar

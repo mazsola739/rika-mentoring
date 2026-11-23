@@ -5,7 +5,7 @@ import { byNewest, signedAmount, totalsOf } from './walletReducer.js'
 import { downloadCsv } from './csv.js'
 import { tx } from './text.js'
 
-export default function TransactionList({ transactions, dispatch, fmt, lang, t }) {
+const TransactionList = ({ transactions, dispatch, fmt, lang, t }) => {
   const [type, setType] = useState('all')
   const [category, setCategory] = useState('all')
   const [month, setMonth] = useState('all')
@@ -165,3 +165,5 @@ export default function TransactionList({ transactions, dispatch, fmt, lang, t }
     </section>
   )
 }
+
+export default TransactionList

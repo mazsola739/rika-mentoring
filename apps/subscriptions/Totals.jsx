@@ -2,7 +2,7 @@ import { CATEGORIES } from './categories.js'
 import { CURRENCIES, convert, costPer } from './money.js'
 
 // Summary card: totals are derived from the list on every render with reduce().
-export default function Totals({ subs, view, onView, currency, onCurrency, money, t }) {
+const Totals = ({ subs, view, onView, currency, onCurrency, money, t }) => {
   const total = subs.reduce((sum, s) => sum + convert(costPer(view, s), s.currency, currency), 0)
   const mixed = subs.some((s) => s.currency !== currency)
 
@@ -87,3 +87,5 @@ export default function Totals({ subs, view, onView, currency, onCurrency, money
     </section>
   )
 }
+
+export default Totals

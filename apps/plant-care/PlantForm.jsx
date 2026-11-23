@@ -23,7 +23,7 @@ function validate({ name, every, last }, isEdit) {
   return e
 }
 
-export default function PlantForm({ plant, lang, t, onSave, onCancel }) {
+const PlantForm = ({ plant, lang, t, onSave, onCancel }) => {
   const isEdit = Boolean(plant)
   const [values, setValues] = useState(() => ({
     name: tx(plant?.name, lang),
@@ -186,3 +186,5 @@ export default function PlantForm({ plant, lang, t, onSave, onCancel }) {
     </form>
   )
 }
+
+export default PlantForm

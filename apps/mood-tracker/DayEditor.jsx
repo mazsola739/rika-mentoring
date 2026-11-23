@@ -6,7 +6,7 @@ const NOTE_MAX = 280
 
 // Edits one day. The parent gives it key={date}, so picking another day starts fresh
 // from that day's saved entry: no effect is needed to "sync" the local draft.
-export default function DayEditor({ date, entry, isToday, colors, fmt, lang, t, onSave, onDelete, onToday }) {
+const DayEditor = ({ date, entry, isToday, colors, fmt, lang, t, onSave, onDelete, onToday }) => {
   const [mood, setMood] = useState(entry?.mood ?? 0)
   const [note, setNote] = useState(() => tx(entry?.note, lang))
   const [status, setStatus] = useState(null) // 'saved' | 'deleted' | 'pickMood'
@@ -92,3 +92,5 @@ export default function DayEditor({ date, entry, isToday, colors, fmt, lang, t, 
     </form>
   )
 }
+
+export default DayEditor

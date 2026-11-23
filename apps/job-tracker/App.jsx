@@ -19,7 +19,7 @@ import Stats from './Stats.jsx'
 import { TEXT } from './text.js'
 import './app.css'
 
-function Filters({ filters, onChange }) {
+const Filters = ({ filters, onChange }) => {
   const t = useText(TEXT)
   const set = (patch) => onChange({ ...filters, ...patch })
   const active = filters.query || filters.period !== 'any' || filters.upcoming
@@ -60,7 +60,7 @@ function Filters({ filters, onChange }) {
   )
 }
 
-function Board({ jobs, colorOf, onMove, onEdit }) {
+const Board = ({ jobs, colorOf, onMove, onEdit }) => {
   const t = useText(TEXT)
   // The ref is read synchronously by dragover; the state only drives the "lifted" styling.
   const dragIdRef = useRef(null)
@@ -136,7 +136,7 @@ function Board({ jobs, colorOf, onMove, onEdit }) {
   )
 }
 
-function List({ jobs, colorOf, onMove, onEdit }) {
+const List = ({ jobs, colorOf, onMove, onEdit }) => {
   const lang = useLang()
   const t = useText(TEXT)
   return (
@@ -163,7 +163,7 @@ function List({ jobs, colorOf, onMove, onEdit }) {
   )
 }
 
-function JobTracker() {
+const JobTracker = () => {
   const lang = useLang()
   const t = useText(TEXT)
   const { palette } = useLesson()
@@ -284,10 +284,12 @@ function JobTracker() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="job-tracker">
       <JobTracker />
     </AppFrame>
   )
 }
+
+export default App

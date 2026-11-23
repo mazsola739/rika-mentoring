@@ -5,7 +5,7 @@ import { Face } from '../components/Icons.jsx'
 import { MINES, SIZE, gameReducer, initialGame } from './minesweeper.js'
 
 // Seconds since the first click; the interval only runs while a game is in progress.
-function useGameTimer(game) {
+const useGameTimer = (game) => {
   const [now, setNow] = useState(() => Date.now())
   useEffect(() => {
     if (game.status !== 'playing') return
@@ -19,7 +19,7 @@ function useGameTimer(game) {
 
 const pad3 = (n) => String(Math.max(-99, n)).padStart(3, '0')
 
-export default function Minesweeper() {
+const Minesweeper = () => {
   const t = useText(TEXT).mines
   const [game, dispatch] = useReducer(gameReducer, undefined, initialGame)
   const [flagMode, setFlagMode] = useState(false)
@@ -145,3 +145,5 @@ export default function Minesweeper() {
     </div>
   )
 }
+
+export default Minesweeper

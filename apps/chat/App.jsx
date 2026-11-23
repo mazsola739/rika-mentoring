@@ -27,7 +27,7 @@ function saveUser(name) {
   }
 }
 
-function Hint() {
+const Hint = () => {
   const t = useText(TEXT)
   const supported = typeof BroadcastChannel !== 'undefined'
   return (
@@ -48,7 +48,7 @@ function Hint() {
   )
 }
 
-function Composer({ channel, onSend, onTyping, onStopTyping }) {
+const Composer = ({ channel, onSend, onTyping, onStopTyping }) => {
   const t = useText(TEXT)
   const [text, setText] = useState('')
 
@@ -89,7 +89,7 @@ function Composer({ channel, onSend, onTyping, onStopTyping }) {
   )
 }
 
-function ChatRoom({ user, onChangeName }) {
+const ChatRoom = ({ user, onChangeName }) => {
   const t = useText(TEXT)
   const chat = useChat(user)
   const [active, setActive] = useState('general')
@@ -172,7 +172,7 @@ function ChatRoom({ user, onChangeName }) {
   )
 }
 
-function Chat() {
+const Chat = () => {
   const [user, setUser] = useState(loadUser)
 
   return (
@@ -200,10 +200,12 @@ function Chat() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="chat">
       <Chat />
     </AppFrame>
   )
 }
+
+export default App

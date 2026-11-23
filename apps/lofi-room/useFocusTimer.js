@@ -4,7 +4,7 @@ export const DURATIONS = { focus: 25 * 60 * 1000, break: 5 * 60 * 1000 }
 
 // A 25/5 focus timer. While running we store the moment it ends, not a counter:
 // intervals in background tabs can be delayed, but Date.now() is always right.
-export function useFocusTimer(onComplete) {
+export const useFocusTimer = (onComplete) => {
   const [mode, setMode] = useState('focus')
   const [endsAt, setEndsAt] = useState(null) // timestamp while running, null while paused
   const [left, setLeft] = useState(DURATIONS.focus) // ms left while paused

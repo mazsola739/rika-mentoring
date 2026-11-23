@@ -33,7 +33,7 @@ Kérdezz ezekről:
 \`\`\`jsx
 import { useState } from 'react'
 
-function Counter() {
+const Counter = () => {
   const [count, setCount] = useState(0)
   return (
     <button onClick={() => setCount((c) => c + 1)}>
@@ -52,7 +52,7 @@ A \`useState\` egy olyan értéket ad a komponensnek, ami **megmarad az újraraj
 \`\`\`jsx
 import { useState } from 'react'
 
-function Counter() {
+const Counter = () => {
   const [count, setCount] = useState(0)
   return (
     <button onClick={() => setCount((c) => c + 1)}>
@@ -107,7 +107,7 @@ useEffect(() => {
 Props flow **down**, from parent to child. A child never changes its props; it asks the parent by calling a function it received.
 
 \`\`\`jsx
-function PriceTag({ amount, currency = 'EUR' }) {
+const PriceTag = ({ amount, currency = 'EUR' }) => {
   return <span>{amount} {currency}</span>
 }
 
@@ -121,7 +121,7 @@ function PriceTag({ amount, currency = 'EUR' }) {
 A propok **lefelé** áramlanak, a szülőtől a gyerek felé. A gyerek sosem módosítja a propjait, hanem meghív egy kapott függvényt, hogy a szülő változtasson.
 
 \`\`\`jsx
-function PriceTag({ amount, currency = 'EUR' }) {
+const PriceTag = ({ amount, currency = 'EUR' }) => {
   return <span>{amount} {currency}</span>
 }
 
@@ -141,7 +141,7 @@ function PriceTag({ amount, currency = 'EUR' }) {
 A component is a **function that returns JSX**. JSX looks like HTML, but it is JavaScript: \`className\` instead of \`class\`, and \`{ }\` for any expression.
 
 \`\`\`jsx
-function Card({ title, children }) {
+const Card = ({ title, children }) => {
   return (
     <article className="card">
       <h3>{title}</h3>
@@ -156,7 +156,7 @@ A good rule of thumb: when a piece of UI has its **own state** or appears **more
 A komponens egy **függvény, ami JSX-et ad vissza**. A JSX HTML-nek látszik, de JavaScript: \`class\` helyett \`className\`, és \`{ }\` között bármilyen kifejezés állhat.
 
 \`\`\`jsx
-function Card({ title, children }) {
+const Card = ({ title, children }) => {
   return (
     <article className="card">
       <h3>{title}</h3>
@@ -209,7 +209,7 @@ Ha tömböt renderelsz, a Reactnek elemenként egy **stabil key** kell, hogy ké
 In a controlled input, **React state is the single source of truth**: the value comes from state, and every keystroke updates it.
 
 \`\`\`jsx
-function NameForm() {
+const NameForm = () => {
   const [name, setName] = useState('')
   const error = name.trim().length < 2 ? 'Too short' : ''
 
@@ -231,7 +231,7 @@ Notice that \`error\` is **derived**: it is calculated from \`name\` on every re
 Kontrollált inputnál **a React-állapot az egyetlen igazságforrás**: az érték az állapotból jön, és minden billentyűleütés frissíti.
 
 \`\`\`jsx
-function NameForm() {
+const NameForm = () => {
   const [name, setName] = useState('')
   const error = name.trim().length < 2 ? 'Túl rövid' : ''
 
@@ -261,7 +261,7 @@ Context lets deeply nested components read a value **without passing it through 
 \`\`\`jsx
 const ThemeContext = createContext('light')
 
-function App() {
+const App = () => {
   const [theme, setTheme] = useState('light')
   return (
     <ThemeContext.Provider value={theme}>
@@ -270,7 +270,7 @@ function App() {
   )
 }
 
-function Button() {
+const Button = () => {
   const theme = useContext(ThemeContext)
   return <button className={theme}>OK</button>
 }
@@ -283,7 +283,7 @@ A Context segítségével a mélyen beágyazott komponensek is elérnek egy ért
 \`\`\`jsx
 const ThemeContext = createContext('light')
 
-function App() {
+const App = () => {
   const [theme, setTheme] = useState('light')
   return (
     <ThemeContext.Provider value={theme}>
@@ -292,7 +292,7 @@ function App() {
   )
 }
 
-function Button() {
+const Button = () => {
   const theme = useContext(ThemeContext)
   return <button className={theme}>OK</button>
 }
@@ -355,7 +355,7 @@ Contexttel kombinálva kész egy kis globális store, ami sokszor elég, mielőt
 A custom hook is a function whose name starts with \`use\` and that calls other hooks. It shares **stateful logic**; each component that uses it gets its own state.
 
 \`\`\`js
-function useLocalStorage(key, initial) {
+const useLocalStorage = (key, initial) => {
   const [value, setValue] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem(key)) ?? initial
@@ -377,7 +377,7 @@ Rules of hooks: call them at the **top level** of a component or another hook, n
 A saját hook egy \`use\` kezdetű függvény, ami más hookokat hív. **Állapotos logikát** oszt meg; minden komponens, ami használja, saját állapotot kap.
 
 \`\`\`js
-function useLocalStorage(key, initial) {
+const useLocalStorage = (key, initial) => {
   const [value, setValue] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem(key)) ?? initial
@@ -405,7 +405,7 @@ A hookok szabálya: mindig a komponens vagy egy másik hook **legfelső szintjé
 Every request has three outcomes worth showing: **loading**, **error** (with a retry) and **success** (which may be empty).
 
 \`\`\`jsx
-function useFetch(url) {
+const useFetch = (url) => {
   const [state, setState] = useState({ status: 'loading' })
 
   useEffect(() => {
@@ -431,7 +431,7 @@ For bigger apps, a library like TanStack Query adds caching and refetching on to
 Minden kérésnek három kimenetele van, amit érdemes megmutatni: **betöltés**, **hiba** (újrapróbálással) és **siker** (ami lehet üres is).
 
 \`\`\`jsx
-function useFetch(url) {
+const useFetch = (url) => {
   const [state, setState] = useState({ status: 'loading' })
 
   useEffect(() => {
@@ -501,7 +501,7 @@ Az alapokat is nézd meg: stabil key-ek, és az állapot a fában a lehető lega
 Routing maps the **URL to a screen**. React Router is the common choice, but the core idea fits in a few lines with the hash:
 
 \`\`\`jsx
-function useHashRoute() {
+const useHashRoute = () => {
   const [path, setPath] = useState(location.hash.slice(1) || '/')
   useEffect(() => {
     const onChange = () => setPath(location.hash.slice(1) || '/')
@@ -517,7 +517,7 @@ Then switch on \`path\` to render the right page. Hash routes also work on stati
 A routing az **URL-hez képernyőt rendel**. A React Router a szokásos választás, de az alapötlet néhány sorban is megvan a hash segítségével:
 
 \`\`\`jsx
-function useHashRoute() {
+const useHashRoute = () => {
   const [path, setPath] = useState(location.hash.slice(1) || '/')
   useEffect(() => {
     const onChange = () => setPath(location.hash.slice(1) || '/')

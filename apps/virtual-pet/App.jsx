@@ -141,7 +141,7 @@ function loadSpeed() {
   }
 }
 
-function AdoptForm({ onAdopt, t }) {
+const AdoptForm = ({ onAdopt, t }) => {
   const [name, setName] = useState('')
   const [color, setColor] = useState(PET_COLORS[0])
   const trimmed = name.trim()
@@ -173,7 +173,7 @@ function AdoptForm({ onAdopt, t }) {
   )
 }
 
-function ColorPicker({ value, onChange, t }) {
+const ColorPicker = ({ value, onChange, t }) => {
   return (
     <fieldset className="vp-colors">
       <legend>{t.color}</legend>
@@ -188,7 +188,7 @@ function ColorPicker({ value, onChange, t }) {
   )
 }
 
-function StatBar({ label, value, words }) {
+const StatBar = ({ label, value, words }) => {
   const rounded = Math.round(value)
   const level = levelOf(value)
   return (
@@ -206,7 +206,7 @@ function StatBar({ label, value, words }) {
   )
 }
 
-function AwayNotice({ away, name, lang, onDismiss, t }) {
+const AwayNotice = ({ away, name, lang, onDismiss, t }) => {
   const duration = formatDuration(away.ms, lang)
   const changes = [...away.drops.map((key) => t.awayChanges[key]), ...(away.wokeUp ? [t.awayChanges.woke] : [])]
   const list = new Intl.ListFormat(locale(lang), { type: 'conjunction' }).format(changes)
@@ -220,7 +220,7 @@ function AwayNotice({ away, name, lang, onDismiss, t }) {
   )
 }
 
-function Settings({ pet, speed, onSpeed, dispatch, t }) {
+const Settings = ({ pet, speed, onSpeed, dispatch, t }) => {
   const [renaming, setRenaming] = useState(false)
   const [draft, setDraft] = useState(pet.name)
   const [confirmReset, setConfirmReset] = useState(false)
@@ -296,7 +296,7 @@ function Settings({ pet, speed, onSpeed, dispatch, t }) {
   )
 }
 
-function VirtualPet() {
+const VirtualPet = () => {
   const t = useText(TEXT)
   const lang = useLang()
   // useReducer with a lazy initialiser: the saved pet is loaded once and the time spent away is replayed.
@@ -384,10 +384,12 @@ function VirtualPet() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="virtual-pet">
       <VirtualPet />
     </AppFrame>
   )
 }
+
+export default App

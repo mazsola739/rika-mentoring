@@ -11,7 +11,7 @@ import Checkout from './components/Checkout.jsx'
 import { OrderPage, OrdersPage } from './components/Orders.jsx'
 import './app.css'
 
-function ShopHeader({ route }) {
+const ShopHeader = ({ route }) => {
   const t = useText(TEXT)
   const { count } = useCart()
   const current = (name) => (route.name === name ? 'page' : undefined)
@@ -44,7 +44,7 @@ function ShopHeader({ route }) {
   )
 }
 
-function Shop() {
+const Shop = () => {
   const t = useText(TEXT)
   const route = matchRoute(useHashRoute())
   const rootRef = useRef(null)
@@ -109,7 +109,7 @@ function Shop() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="webshop">
       <CartProvider>
@@ -118,3 +118,5 @@ export default function App() {
     </AppFrame>
   )
 }
+
+export default App

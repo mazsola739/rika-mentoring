@@ -5,7 +5,7 @@ import { colorName } from './colors.js'
 import { readImage } from './image.js'
 
 // Everything that can be put on the board: flat color tiles, uploads and notes.
-export default function AddPanel({ colors, noteColor, onAdd }) {
+const AddPanel = ({ colors, noteColor, onAdd }) => {
   const t = useText(TEXT)
   const lang = useLang()
   const [status, setStatus] = useState(null) // { type: 'uploading' | 'skipped' | 'failed', count }
@@ -77,3 +77,5 @@ export default function AddPanel({ colors, noteColor, onAdd }) {
     </section>
   )
 }
+
+export default AddPanel

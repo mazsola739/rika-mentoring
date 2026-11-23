@@ -13,7 +13,7 @@ function validate(v) {
   return { errors: e, amount }
 }
 
-export default function SubscriptionForm({ initial, defaultCurrency, onSave, onCancel, t }) {
+const SubscriptionForm = ({ initial, defaultCurrency, onSave, onCancel, t }) => {
   const [values, setValues] = useState(() =>
     initial
       ? {
@@ -163,3 +163,5 @@ export default function SubscriptionForm({ initial, defaultCurrency, onSave, onC
     </form>
   )
 }
+
+export default SubscriptionForm

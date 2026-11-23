@@ -9,7 +9,7 @@ const countDescendants = (id, byParent) =>
 
 // A recursive component: a comment renders its replies with <Comment />, and so on, to any depth.
 // `byParent` maps a parent id to its direct replies, so each level finds its children quickly.
-export default function Comment({ comment, byParent, depth, onReply }) {
+const Comment = ({ comment, byParent, depth, onReply }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const timeAgo = useTimeAgo()
@@ -73,3 +73,5 @@ export default function Comment({ comment, byParent, depth, onReply }) {
     </li>
   )
 }
+
+export default Comment

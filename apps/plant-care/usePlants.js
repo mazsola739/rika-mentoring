@@ -15,7 +15,7 @@ function load() {
 
 // The plant list, saved to localStorage on every change. Photos make the data big,
 // so a failed save (quota exceeded) is reported instead of silently ignored.
-export function usePlants() {
+export const usePlants = () => {
   const [plants, setPlants] = useState(load)
   const [saveFailed, setSaveFailed] = useState(false)
 
@@ -32,7 +32,7 @@ export function usePlants() {
 }
 
 // A clock that ticks once a minute, so "thirsty" appears without a page reload.
-export function useNow(interval = 60_000) {
+export const useNow = (interval = 60_000) => {
   const [now, setNow] = useState(() => new Date())
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), interval)

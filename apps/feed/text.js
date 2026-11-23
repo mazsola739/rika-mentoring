@@ -102,7 +102,7 @@ const UNITS = [
 ]
 
 // "5 hours ago" / "5 órája" with Intl.RelativeTimeFormat.
-export function useTimeAgo() {
+export const useTimeAgo = () => {
   const lang = useLang()
   const rtf = new Intl.RelativeTimeFormat(lang === 'hu' ? 'hu-HU' : 'en-GB', { numeric: 'auto' })
   return (iso) => {
@@ -114,7 +114,7 @@ export function useTimeAgo() {
   }
 }
 
-export function useFullDate() {
+export const useFullDate = () => {
   const lang = useLang()
   const fmt = new Intl.DateTimeFormat(lang === 'hu' ? 'hu-HU' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' })
   return (iso) => fmt.format(new Date(iso))

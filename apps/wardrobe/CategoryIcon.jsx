@@ -11,7 +11,7 @@ const SHAPES = {
 
 // The icon is filled with the current CSS `fill` (the item's color). For multicolor items
 // a two-color gradient is used instead; useId keeps the gradient id unique on the page.
-export default function CategoryIcon({ category, multi = false, className = '' }) {
+const CategoryIcon = ({ category, multi = false, className = '' }) => {
   const gradientId = `wr-multi-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`
   const paths = SHAPES[category] ?? SHAPES.top
 
@@ -31,3 +31,5 @@ export default function CategoryIcon({ category, multi = false, className = '' }
     </svg>
   )
 }
+
+export default CategoryIcon

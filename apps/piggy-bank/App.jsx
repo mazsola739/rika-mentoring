@@ -10,7 +10,7 @@ import TransactionList from './TransactionList.jsx'
 import { TEXT } from './text.js'
 import './app.css'
 
-function PiggyBank() {
+const PiggyBank = () => {
   const t = useText(TEXT)
   const lang = useLang()
   const fmt = makeFormatters(lang)
@@ -75,10 +75,12 @@ function PiggyBank() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="piggy-bank">
       <PiggyBank />
     </AppFrame>
   )
 }
+
+export default App

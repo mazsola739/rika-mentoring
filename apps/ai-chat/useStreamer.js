@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 // Simulates a streamed AI reply: after a short "thinking" pause, a timer appends
 // a few characters at a time to the assistant message, until the text is complete or Stop is pressed.
-export function useStreamer(dispatch) {
+export const useStreamer = (dispatch) => {
   const [streaming, setStreaming] = useState(null) // { convId, msgId } while a reply is being typed
   const job = useRef(null) // the running job; a ref, because the timer callback needs the latest value
   const timer = useRef(null)

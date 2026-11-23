@@ -19,7 +19,7 @@ function validate(v) {
   return errors
 }
 
-export default function Checkout({ onPlaced }) {
+const Checkout = ({ onPlaced }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const money = useMoney()
@@ -162,3 +162,5 @@ export default function Checkout({ onPlaced }) {
     </div>
   )
 }
+
+export default Checkout

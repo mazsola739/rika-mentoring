@@ -55,7 +55,7 @@ function parseBlocks(source) {
 }
 
 // Inline formatting: split on `code`, **bold** and *italic*, keep everything else as text.
-function Inline({ text }) {
+const Inline = ({ text }) => {
   const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*|\*[^*\s][^*]*\*)/g)
   return parts.map((part, i) => {
     if (/^`[^`]+`$/.test(part)) return <code key={i}>{part.slice(1, -1)}</code>
@@ -87,7 +87,7 @@ function highlight(code) {
   return out
 }
 
-function CodeBlock({ lang, code }) {
+const CodeBlock = ({ lang, code }) => {
   const t = useText(TEXT)
   const [copied, setCopied] = useState(false)
 
@@ -121,7 +121,7 @@ function CodeBlock({ lang, code }) {
   )
 }
 
-export default function Markdown({ text }) {
+const Markdown = ({ text }) => {
   return parseBlocks(text).map((block, i) => {
     switch (block.type) {
       case 'code':
@@ -162,3 +162,5 @@ export default function Markdown({ text }) {
     }
   })
 }
+
+export default Markdown

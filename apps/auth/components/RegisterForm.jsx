@@ -18,7 +18,7 @@ function validate(values, t) {
   }
 }
 
-function PasswordRules({ password }) {
+const PasswordRules = ({ password }) => {
   const t = useText(TEXT)
   const score = passwordStrength(password)
   return (
@@ -43,7 +43,7 @@ function PasswordRules({ password }) {
   )
 }
 
-export default function RegisterForm() {
+const RegisterForm = () => {
   const t = useText(TEXT)
   const { register } = useAuth()
   const [values, setValues] = useState(EMPTY)
@@ -104,3 +104,5 @@ export default function RegisterForm() {
     </form>
   )
 }
+
+export default RegisterForm

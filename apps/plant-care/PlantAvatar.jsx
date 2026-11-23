@@ -15,7 +15,7 @@ export function plantColor(plant) {
 }
 
 // Without a color (a plant that is not saved yet) the lesson's own accent is used.
-export default function PlantAvatar({ color, className = '' }) {
+const PlantAvatar = ({ color, className = '' }) => {
   const style = color ? { '--pc-avatar': color, '--pc-leaf': LIGHT.has(color) ? PEACOCK.night : '#FFFFFF' } : undefined
   return (
     <span className={`pc-avatar ${className}`} style={style} aria-hidden="true">
@@ -25,3 +25,5 @@ export default function PlantAvatar({ color, className = '' }) {
     </span>
   )
 }
+
+export default PlantAvatar

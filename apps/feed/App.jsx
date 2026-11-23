@@ -17,7 +17,7 @@ const SORTERS = {
 
 // Infinite scroll: when the sentinel element scrolls into view, show the next page.
 // `page` re-creates the observer after each load, so a still-visible sentinel triggers again.
-function useInfiniteScroll(onReachEnd, enabled, page) {
+const useInfiniteScroll = (onReachEnd, enabled, page) => {
   const ref = useRef(null)
   useEffect(() => {
     const el = ref.current
@@ -31,7 +31,7 @@ function useInfiniteScroll(onReachEnd, enabled, page) {
   return ref
 }
 
-function Skeleton() {
+const Skeleton = () => {
   return (
     <div className="fd-skeleton" aria-hidden="true">
       {[0, 1, 2].map((i) => (
@@ -45,7 +45,7 @@ function Skeleton() {
   )
 }
 
-function Feed() {
+const Feed = () => {
   const t = useText(TEXT)
   const feed = useFeed()
   const [sort, setSort] = useState('top')
@@ -195,10 +195,12 @@ function Feed() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="feed">
       <Feed />
     </AppFrame>
   )
 }
+
+export default App

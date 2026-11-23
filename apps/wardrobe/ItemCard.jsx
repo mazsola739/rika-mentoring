@@ -4,7 +4,7 @@ import { TEXT } from './text.js'
 import { colorByKey, itemName } from './data.js'
 import ItemImage from './ItemImage.jsx'
 
-export default function ItemCard({ item, onRemove }) {
+const ItemCard = ({ item, onRemove }) => {
   const t = useText(TEXT)
   const lang = useLang()
   const [confirming, setConfirming] = useState(false)
@@ -42,3 +42,5 @@ export default function ItemCard({ item, onRemove }) {
     </li>
   )
 }
+
+export default ItemCard

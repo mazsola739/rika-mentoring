@@ -3,7 +3,7 @@ import { useText } from '@shared/i18n.js'
 import { TEXT } from '../text.js'
 
 // Used for top-level comments and for replies. The parent decides what happens on submit.
-export default function ReplyForm({ id, label, submitLabel, onSubmit, onCancel, autoFocus = false }) {
+const ReplyForm = ({ id, label, submitLabel, onSubmit, onCancel, autoFocus = false }) => {
   const t = useText(TEXT)
   const [text, setText] = useState('')
   const [status, setStatus] = useState('idle') // 'idle' | 'sending' | 'error'
@@ -63,3 +63,5 @@ export default function ReplyForm({ id, label, submitLabel, onSubmit, onCancel, 
     </form>
   )
 }
+
+export default ReplyForm

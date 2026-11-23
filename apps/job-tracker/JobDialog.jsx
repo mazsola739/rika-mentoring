@@ -10,7 +10,7 @@ function emptyForm(status) {
 }
 
 // Add / edit form in a native <dialog>: showModal() gives focus trapping and Esc for free.
-export default function JobDialog({ job, defaultStatus = 'applied', onSave, onDelete, onClose }) {
+const JobDialog = ({ job, defaultStatus = 'applied', onSave, onDelete, onClose }) => {
   const lang = useLang()
   const t = useText(TEXT).form
   const status = useText(TEXT).statuses
@@ -169,3 +169,5 @@ export default function JobDialog({ job, defaultStatus = 'applied', onSave, onDe
     </dialog>
   )
 }
+
+export default JobDialog

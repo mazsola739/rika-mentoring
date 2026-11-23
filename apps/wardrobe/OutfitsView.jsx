@@ -7,7 +7,7 @@ import ItemImage from './ItemImage.jsx'
 const pick = (list) => list[Math.floor(Math.random() * list.length)]
 const REQUIRED = ['top', 'bottom', 'shoes']
 
-function Slot({ category, item, position, total, hasAny, locked, onPrev, onNext, onLock }) {
+const Slot = ({ category, item, position, total, hasAny, locked, onPrev, onNext, onLock }) => {
   const t = useText(TEXT)
   const b = t.builder
   const lang = useLang()
@@ -50,7 +50,7 @@ function Slot({ category, item, position, total, hasAny, locked, onPrev, onNext,
   )
 }
 
-export default function OutfitsView({ items, outfits, onSave, onRemove }) {
+const OutfitsView = ({ items, outfits, onSave, onRemove }) => {
   const t = useText(TEXT)
   const b = t.builder
   const lang = useLang()
@@ -262,3 +262,5 @@ export default function OutfitsView({ items, outfits, onSave, onRemove }) {
     </div>
   )
 }
+
+export default OutfitsView

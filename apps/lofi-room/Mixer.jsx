@@ -5,7 +5,7 @@ import Icon from './Icon.jsx'
 export const SOUNDS = ['rain', 'cafe', 'fire']
 
 // One slider per ambient sound. Each keeps its own volume, so they can be mixed freely.
-export default function Mixer({ levels, playing, onToggle, onLevel }) {
+const Mixer = ({ levels, playing, onToggle, onLevel }) => {
   const t = useText(TEXT)
 
   return (
@@ -57,3 +57,5 @@ export default function Mixer({ levels, playing, onToggle, onLevel }) {
     </section>
   )
 }
+
+export default Mixer

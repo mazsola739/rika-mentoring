@@ -74,7 +74,7 @@ function loadBest() {
   }
 }
 
-function Snake() {
+const Snake = () => {
   const t = useText(TEXT)
   const { palette } = useLesson()
   // Canvas colours straight from the lesson palette (Jewel Bloom).
@@ -344,10 +344,12 @@ function Snake() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="snake">
       <Snake />
     </AppFrame>
   )
 }
+
+export default App

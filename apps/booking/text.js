@@ -125,7 +125,7 @@ export const TEXT = {
 }
 
 // All Intl formatters in one hook, re-created only when the language changes.
-export function useFormat() {
+export const useFormat = () => {
   const lang = useLang()
   return useMemo(() => {
     const locale = lang === 'hu' ? 'hu-HU' : 'en-GB'

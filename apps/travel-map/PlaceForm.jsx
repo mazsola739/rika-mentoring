@@ -5,7 +5,7 @@ import { resizeImage } from './resizeImage.js'
 import { TEXT } from './text.js'
 
 // A controlled form: the draft lives in the parent, because clicks on the map move its pin too.
-export default function PlaceForm({ draft, onChange, onSave, onCancel }) {
+const PlaceForm = ({ draft, onChange, onSave, onCancel }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const f = t.form
@@ -124,3 +124,5 @@ export default function PlaceForm({ draft, onChange, onSave, onCancel }) {
     </form>
   )
 }
+
+export default PlaceForm

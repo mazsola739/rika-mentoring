@@ -17,7 +17,7 @@ function loadBoard() {
 }
 
 // useReducer with lazy initial state (read storage once), then save after every change.
-export function useBoard() {
+export const useBoard = () => {
   const [board, dispatch] = useReducer(boardReducer, undefined, loadBoard)
 
   useEffect(() => {

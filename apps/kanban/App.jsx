@@ -11,7 +11,7 @@ import './app.css'
 // Column accent colors from the lesson palette (light grey → black as work gets done).
 const COLUMN_COLOR = { todo: 3, doing: 2, done: 0 }
 
-function Kanban() {
+const Kanban = () => {
   const lang = useLang()
   const t = useText(TEXT)
   const { palette } = useLesson()
@@ -96,10 +96,12 @@ function Kanban() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="kanban">
       <Kanban />
     </AppFrame>
   )
 }
+
+export default App

@@ -19,7 +19,7 @@ function makeFormatters(lang) {
   }
 }
 
-function PlantCare() {
+const PlantCare = () => {
   const t = useText(TEXT)
   const lang = useLang()
   const now = useNow()
@@ -130,10 +130,12 @@ function PlantCare() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="plant-care">
       <PlantCare />
     </AppFrame>
   )
 }
+
+export default App

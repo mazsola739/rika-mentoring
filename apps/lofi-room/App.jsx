@@ -17,7 +17,7 @@ const today = () => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
-function LofiRoom() {
+const LofiRoom = () => {
   const t = useText(TEXT)
   // `ensure` and `get` are stable callbacks, so effects that use them do not re-run every render.
   const { ensure, get, error: audioError } = useRoomAudio()
@@ -157,10 +157,12 @@ function LofiRoom() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="lofi-room">
       <LofiRoom />
     </AppFrame>
   )
 }
+
+export default App

@@ -27,7 +27,7 @@ const sameTarget = (a, b) => a?.column === b?.column && a?.index === b?.index
 // Hand-made drag & drop with pointer events (mouse, pen and touch).
 // High-frequency data (pointer position) lives in refs, so moving the pointer does not re-render React;
 // only a change of the drop target updates state.
-export function useCardDrag(onDrop) {
+export const useCardDrag = (onDrop) => {
   const [drag, setDrag] = useState(null) // null | { id, width, over: { column, index } | null }
   const press = useRef(null) // the current press, before and during the drag
   const pointer = useRef({ x: 0, y: 0 })

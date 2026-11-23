@@ -1,5 +1,5 @@
 // Hand-drawn pixel-style icons (own design, no system logos).
-export function NotepadIcon() {
+export const NotepadIcon = () => {
   return (
     <svg viewBox="0 0 32 32" aria-hidden="true" className="ro-svg">
       <path d="M7 3h14l5 5v21H7z" fill="#fffdf6" stroke="#2b2620" strokeWidth="1.5" />
@@ -9,7 +9,7 @@ export function NotepadIcon() {
   )
 }
 
-export function MineIcon() {
+export const MineIcon = () => {
   return (
     <svg viewBox="0 0 32 32" aria-hidden="true" className="ro-svg">
       <path d="M16 3v6M16 23v6M3 16h6M23 16h6M7 7l4 4M21 21l4 4M25 7l-4 4M11 21l-4 4" stroke="#2b2620" strokeWidth="2" />
@@ -19,7 +19,7 @@ export function MineIcon() {
   )
 }
 
-export function AboutIcon() {
+export const AboutIcon = () => {
   return (
     <svg viewBox="0 0 32 32" aria-hidden="true" className="ro-svg">
       <rect x="3" y="5" width="26" height="18" rx="2" fill="var(--solid)" stroke="#2b2620" strokeWidth="1.5" />
@@ -32,7 +32,7 @@ export function AboutIcon() {
 }
 
 // Minesweeper face: 'play' | 'won' | 'lost' | 'tense'
-export function Face({ mood }) {
+export const Face = ({ mood }) => {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className="ro-face">
       <circle cx="12" cy="12" r="10" fill="#ffd35a" stroke="#2b2620" strokeWidth="1.5" />

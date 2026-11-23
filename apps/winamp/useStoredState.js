@@ -10,7 +10,7 @@ function read(key, fallback) {
 }
 
 // useState that is remembered in localStorage (volume, shuffle, repeat).
-export function useStoredState(key, initial) {
+export const useStoredState = (key, initial) => {
   const [value, setValue] = useState(() => read(key, initial))
   useEffect(() => {
     try {

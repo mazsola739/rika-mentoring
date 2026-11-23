@@ -7,7 +7,7 @@ import ItemCard from './ItemCard.jsx'
 import ItemForm from './ItemForm.jsx'
 import CategoryIcon from './CategoryIcon.jsx'
 
-function Filters({ filters, setFilters }) {
+const Filters = ({ filters, setFilters }) => {
   const t = useText(TEXT)
   const f = t.filters
   const set = (field, value) => setFilters((prev) => ({ ...prev, [field]: value }))
@@ -69,7 +69,7 @@ function Filters({ filters, setFilters }) {
   )
 }
 
-export default function ClosetView({ items, onAdd, onRemove, onLoadSamples }) {
+const ClosetView = ({ items, onAdd, onRemove, onLoadSamples }) => {
   const t = useText(TEXT)
   const lang = useLang()
   const [filters, setFilters] = useState(EMPTY_FILTERS)
@@ -146,3 +146,5 @@ export default function ClosetView({ items, onAdd, onRemove, onLoadSamples }) {
     </div>
   )
 }
+
+export default ClosetView

@@ -16,7 +16,7 @@ function read(key, fallback, isValid, upgrade) {
 // useState + localStorage. `saveFailed` becomes true when the browser refuses to store
 // the value (usually because uploaded images filled the ~5 MB quota).
 // `upgrade` turns data saved by an older version of the app into the current shape.
-export function useStoredState(key, initial, isValid = () => true, upgrade = (value) => value) {
+export const useStoredState = (key, initial, isValid = () => true, upgrade = (value) => value) => {
   const [value, setValue] = useState(() => read(key, initial, isValid, upgrade))
   const [saveFailed, setSaveFailed] = useState(false)
 

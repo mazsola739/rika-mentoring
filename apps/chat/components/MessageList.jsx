@@ -18,7 +18,7 @@ function avatarColors(name, colors) {
 
 const dayKey = (ts) => new Date(ts).toDateString()
 
-export default function MessageList({ messages, me }) {
+const MessageList = ({ messages, me }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const { palette } = useLesson()
@@ -102,3 +102,5 @@ export default function MessageList({ messages, me }) {
     </div>
   )
 }
+
+export default MessageList

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 // Works like useState, but the value survives a page reload.
 // `isValid` protects the app from old or hand-edited data in storage.
-export function useLocalStorage(key, initialValue, isValid = () => true) {
+export const useLocalStorage = (key, initialValue, isValid = () => true) => {
   const [value, setValue] = useState(() => {
     try {
       const raw = localStorage.getItem(key)

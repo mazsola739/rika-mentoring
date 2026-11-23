@@ -7,7 +7,7 @@ import { TEXT } from '../text.js'
 
 const KEY_STEP = 16
 
-export default function Window({ win }) {
+const Window = ({ win }) => {
   const t = useText(TEXT)
   const { focusedId, bounds, focus, close, minimize, toggleMaximize, move } = useWindows()
   const ref = useRef(null)
@@ -127,3 +127,5 @@ export default function Window({ win }) {
     </section>
   )
 }
+
+export default Window

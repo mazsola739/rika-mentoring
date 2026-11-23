@@ -4,7 +4,7 @@ import { TEXT, pick, useFullDate, useTimeAgo } from '../text.js'
 import Comment from './Comment.jsx'
 import ReplyForm from './ReplyForm.jsx'
 
-function VoteBox({ score, myVote, busy, onVote }) {
+const VoteBox = ({ score, myVote, busy, onVote }) => {
   const t = useText(TEXT)
   return (
     <div className="fd-vote" aria-busy={busy}>
@@ -37,7 +37,7 @@ function VoteBox({ score, myVote, busy, onVote }) {
   )
 }
 
-function CommentSection({ post, comments, onAddComment }) {
+const CommentSection = ({ post, comments, onAddComment }) => {
   const t = useText(TEXT)
   // Group the flat comment list by parent once per change: { root: [...], c1: [...], … }.
   const byParent = useMemo(() => {
@@ -66,7 +66,7 @@ function CommentSection({ post, comments, onAddComment }) {
   )
 }
 
-export default function PostCard({ post, comments, myVote, busy, onVote, onAddComment }) {
+const PostCard = ({ post, comments, myVote, busy, onVote, onAddComment }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const timeAgo = useTimeAgo()
@@ -101,3 +101,5 @@ export default function PostCard({ post, comments, myVote, busy, onVote, onAddCo
     </article>
   )
 }
+
+export default PostCard

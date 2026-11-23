@@ -15,7 +15,7 @@ function parse(hash) {
   return { path: path || '/', query: Object.fromEntries(new URLSearchParams(search)) }
 }
 
-export function useHashRoute() {
+export const useHashRoute = () => {
   const hash = useSyncExternalStore(subscribe, getHash)
   return useMemo(() => parse(hash), [hash])
 }

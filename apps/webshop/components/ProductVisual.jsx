@@ -3,7 +3,7 @@ import { COLORS } from '../products.js'
 // A product "photo" drawn with CSS: a simple flat shape (scarf, notebook, phone case,
 // tote bag or art print) in the product's colour, with details in its accent colour.
 // The colours reach the CSS as custom properties, so one stylesheet draws every product.
-export default function ProductVisual({ product, label, large = false }) {
+const ProductVisual = ({ product, label, large = false }) => {
   const colors = {
     '--ws-color': COLORS[product.color].hex,
     '--ws-accent': COLORS[product.accent].hex,
@@ -28,3 +28,5 @@ export default function ProductVisual({ product, label, large = false }) {
     </div>
   )
 }
+
+export default ProductVisual

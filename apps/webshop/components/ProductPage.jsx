@@ -6,7 +6,7 @@ import { TEXT, useMoney } from '../text.js'
 import ProductVisual from './ProductVisual.jsx'
 import QtyStepper from './QtyStepper.jsx'
 
-export default function ProductPage({ id }) {
+const ProductPage = ({ id }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const money = useMoney()
@@ -87,3 +87,5 @@ export default function ProductPage({ id }) {
     </article>
   )
 }
+
+export default ProductPage

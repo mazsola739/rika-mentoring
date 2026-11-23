@@ -8,7 +8,7 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 
 const pad = (n) => String(n).padStart(2, '0')
 
-export default function FocusTimer({ timer, sessionsToday, doneMode, onStart }) {
+const FocusTimer = ({ timer, sessionsToday, doneMode, onStart }) => {
   const t = useText(TEXT)
   const totalSeconds = Math.ceil(timer.remaining / 1000)
   const min = Math.floor(totalSeconds / 60)
@@ -71,3 +71,5 @@ export default function FocusTimer({ timer, sessionsToday, doneMode, onStart }) 
     </section>
   )
 }
+
+export default FocusTimer

@@ -21,7 +21,7 @@ export function computeStats(jobs) {
   }
 }
 
-export default function Stats({ jobs }) {
+const Stats = ({ jobs }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const stats = computeStats(jobs)
@@ -63,3 +63,5 @@ export default function Stats({ jobs }) {
     </section>
   )
 }
+
+export default Stats

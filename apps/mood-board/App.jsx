@@ -9,7 +9,7 @@ import BoardItem from './BoardItem.jsx'
 import AddPanel from './AddPanel.jsx'
 import './app.css'
 
-function SelectionBar({ item, editing, colors, onColor, onEdit, onFront, onRemove }) {
+const SelectionBar = ({ item, editing, colors, onColor, onEdit, onFront, onRemove }) => {
   const t = useText(TEXT)
   const lang = useLang()
   if (!item) return <p className="mb-bar mb-tip">{t.tip}</p>
@@ -61,7 +61,7 @@ function SelectionBar({ item, editing, colors, onColor, onEdit, onFront, onRemov
   )
 }
 
-function MoodBoard() {
+const MoodBoard = () => {
   const t = useText(TEXT)
   const { palette } = useLesson()
   const boards = useBoards()
@@ -163,10 +163,12 @@ function MoodBoard() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="mood-board">
       <MoodBoard />
     </AppFrame>
   )
 }
+
+export default App

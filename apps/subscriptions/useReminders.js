@@ -26,7 +26,7 @@ function notify(title, body, tag) {
 
 // Browser notifications for renewals coming up within REMIND_DAYS.
 // `upcoming` is a list of { id, nextDate, title, body } prepared by the caller.
-export function useReminders(upcoming) {
+export const useReminders = (upcoming) => {
   const [permission, setPermission] = useState(supported ? Notification.permission : 'unsupported')
   const [enabled, setEnabled] = useLocalStorage('rika:subscriptions:reminders', false)
   const active = enabled && permission === 'granted'

@@ -5,7 +5,7 @@ import { useCardDrag } from './useCardDrag.js'
 import Card from './Card.jsx'
 import { TEXT } from './text.js'
 
-export default function Board({ board, dispatch, colorOf, onAdd, onEdit, announce }) {
+const Board = ({ board, dispatch, colorOf, onAdd, onEdit, announce }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const [picked, setPicked] = useState(null) // keyboard drag: { id, origin: { column, index } }
@@ -171,3 +171,5 @@ export default function Board({ board, dispatch, colorOf, onAdd, onEdit, announc
     </>
   )
 }
+
+export default Board

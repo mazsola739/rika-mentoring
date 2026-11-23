@@ -31,7 +31,7 @@ const PATHS = {
   ),
 }
 
-export default function Icon({ name, size = 20 }) {
+const Icon = ({ name, size = 20 }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -49,3 +49,5 @@ export default function Icon({ name, size = 20 }) {
     </svg>
   )
 }
+
+export default Icon

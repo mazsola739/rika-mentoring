@@ -4,7 +4,7 @@ import { TEXT } from '../text.js'
 
 const isChannelName = (name) => /^[a-z0-9-]{2,20}$/.test(name)
 
-function NewChannelForm({ channels, onCreate, onClose }) {
+const NewChannelForm = ({ channels, onCreate, onClose }) => {
   const t = useText(TEXT)
   const [name, setName] = useState('')
   const normalized = name.trim().toLowerCase().replace(/\s+/g, '-')
@@ -57,7 +57,7 @@ function NewChannelForm({ channels, onCreate, onClose }) {
   )
 }
 
-export default function Sidebar({ channels, active, unread, online, me, onSelect, onCreate }) {
+const Sidebar = ({ channels, active, unread, online, me, onSelect, onCreate }) => {
   const t = useText(TEXT)
   const [creating, setCreating] = useState(false)
 
@@ -103,3 +103,5 @@ export default function Sidebar({ channels, active, unread, online, me, onSelect
     </aside>
   )
 }
+
+export default Sidebar

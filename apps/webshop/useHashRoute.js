@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 // No library needed, and it works on GitHub Pages because the server never sees the hash.
 const readPath = () => window.location.hash.replace(/^#/, '') || '/'
 
-export function useHashRoute() {
+export const useHashRoute = () => {
   const [path, setPath] = useState(readPath)
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { useLang, useText } from '@shared/i18n.js'
 import { serviceById } from '../services.js'
 import { TEXT, useFormat } from '../text.js'
 
-function BookingRow({ booking, isPast, onCancel }) {
+const BookingRow = ({ booking, isPast, onCancel }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const format = useFormat()
@@ -64,7 +64,7 @@ function BookingRow({ booking, isPast, onCancel }) {
   )
 }
 
-export default function MyBookings({ bookings, onCancel, onBook }) {
+const MyBookings = ({ bookings, onCancel, onBook }) => {
   const t = useText(TEXT)
   const [notice, setNotice] = useState(false)
   const now = Date.now()
@@ -114,3 +114,5 @@ export default function MyBookings({ bookings, onCancel, onBook }) {
     </div>
   )
 }
+
+export default MyBookings

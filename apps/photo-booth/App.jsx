@@ -27,7 +27,7 @@ function sleep(ms, signal) {
 
 const uid = () => globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`
 
-function CameraOverlay({ camera, t }) {
+const CameraOverlay = ({ camera, t }) => {
   if (camera.status === 'live') return null
   if (camera.status === 'requesting') {
     return (
@@ -66,7 +66,7 @@ function CameraOverlay({ camera, t }) {
   )
 }
 
-function PhotoBooth() {
+const PhotoBooth = () => {
   const t = useText(TEXT)
   const lang = useLang()
   const { palette } = useLesson()
@@ -253,10 +253,12 @@ function PhotoBooth() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="photo-booth">
       <PhotoBooth />
     </AppFrame>
   )
 }
+
+export default App

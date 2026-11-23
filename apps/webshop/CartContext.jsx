@@ -20,7 +20,7 @@ const CartContext = createContext(null)
 
 // Global cart state: any component under <CartProvider> can read or change the cart,
 // without passing props through every level (no "prop drilling").
-export function CartProvider({ children }) {
+export const CartProvider = ({ children }) => {
   // The third argument is a lazy initializer: localStorage is read only once, on the first render.
   const [lines, dispatch] = useReducer(cartReducer, undefined, loadCart)
 
@@ -65,7 +65,7 @@ export function CartProvider({ children }) {
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
-export function useCart() {
+export const useCart = () => {
   const cart = useContext(CartContext)
   if (!cart) throw new Error('useCart must be used inside <CartProvider>')
   return cart

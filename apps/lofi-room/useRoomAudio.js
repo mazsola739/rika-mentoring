@@ -3,7 +3,7 @@ import { createRoomAudio } from './engine.js'
 
 // Holds one audio engine for the room. `ensure()` must be called from an event handler
 // (a user gesture): that is the moment the AudioContext is allowed to start.
-export function useRoomAudio() {
+export const useRoomAudio = () => {
   const engineRef = useRef(null)
   const [error, setError] = useState(false)
 

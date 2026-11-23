@@ -7,7 +7,7 @@ const shortId = (id) => id.slice(0, 8).toUpperCase()
 
 // A small data-fetching hook: loading / error / data, plus a retry function.
 // The `ignore` flag drops a late answer if the component already unmounted or the id changed.
-function useRequest(request, deps) {
+const useRequest = (request, deps) => {
   const [state, setState] = useState({ status: 'loading', data: null, error: '' })
   const [attempt, setAttempt] = useState(0)
 
@@ -26,7 +26,7 @@ function useRequest(request, deps) {
   return { ...state, retry: () => setAttempt((n) => n + 1) }
 }
 
-function RequestState({ state, t }) {
+const RequestState = ({ state, t }) => {
   if (state.status === 'loading') {
     return (
       <p className="ws-loading" role="status">
@@ -44,7 +44,7 @@ function RequestState({ state, t }) {
   )
 }
 
-export function OrderPage({ id, initialOrder }) {
+export const OrderPage = ({ id, initialOrder }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const money = useMoney()
@@ -121,7 +121,7 @@ export function OrderPage({ id, initialOrder }) {
   )
 }
 
-export function OrdersPage() {
+export const OrdersPage = () => {
   const t = useText(TEXT)
   const money = useMoney()
   const date = useDateTime()

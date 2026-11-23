@@ -52,7 +52,7 @@ function upgradeBoards(boards) {
 
 const topZ = (board) => board.items.reduce((max, item) => Math.max(max, item.z), 0)
 
-export function useBoards() {
+export const useBoards = () => {
   const [boards, setBoards, boardsFailed] = useStoredState(
     'rika:mood-board:boards',
     seedBoards,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 // useState that survives a page reload. The initial value can be a function (lazy init).
-export function useLocalStorage(key, initialValue) {
+export const useLocalStorage = (key, initialValue) => {
   const [value, setValue] = useState(() => {
     try {
       const raw = localStorage.getItem(key)

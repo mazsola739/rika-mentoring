@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useLang, useText } from '@shared/i18n.js'
 import { TEXT } from '../text.js'
 
-function ConversationItem({ conversation, active, onSelect, onRename, onDelete }) {
+const ConversationItem = ({ conversation, active, onSelect, onRename, onDelete }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const [mode, setMode] = useState('view') // 'view' | 'rename' | 'delete'
@@ -99,7 +99,7 @@ function ConversationItem({ conversation, active, onSelect, onRename, onDelete }
   )
 }
 
-export default function Sidebar({ conversations, activeId, open, onToggle, onNew, onSelect, onRename, onDelete }) {
+const Sidebar = ({ conversations, activeId, open, onToggle, onNew, onSelect, onRename, onDelete }) => {
   const t = useText(TEXT)
   return (
     <aside className={`ac-side${open ? ' is-open' : ''}`} aria-label={t.chats}>
@@ -127,3 +127,5 @@ export default function Sidebar({ conversations, activeId, open, onToggle, onNew
     </aside>
   )
 }
+
+export default Sidebar

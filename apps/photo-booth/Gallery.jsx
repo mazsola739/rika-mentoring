@@ -1,7 +1,7 @@
 import { useLang, useText } from '@shared/i18n.js'
 import { TEXT } from './text.js'
 
-export default function Gallery({ photos, selectedId, onSelect, onRemove }) {
+const Gallery = ({ photos, selectedId, onSelect, onRemove }) => {
   const t = useText(TEXT)
   const lang = useLang()
   const format = new Intl.DateTimeFormat(lang === 'hu' ? 'hu-HU' : 'en-GB', { timeStyle: 'short' })
@@ -54,3 +54,5 @@ export default function Gallery({ photos, selectedId, onSelect, onRemove }) {
     </section>
   )
 }
+
+export default Gallery

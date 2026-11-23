@@ -18,7 +18,7 @@ const ICONS = {
 
 const isTyping = (el) => el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName)
 
-function TransportButton({ icon, label, onClick, keyHint }) {
+const TransportButton = ({ icon, label, onClick, keyHint }) => {
   return (
     <button type="button" className="wa-btn wa-transport" onClick={onClick} aria-label={label} title={`${label} (${keyHint})`}>
       <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
@@ -28,7 +28,7 @@ function TransportButton({ icon, label, onClick, keyHint }) {
   )
 }
 
-function RetroPlayer() {
+const RetroPlayer = () => {
   const t = useText(TEXT)
   const { palette } = useLesson()
   const player = usePlayer()
@@ -185,10 +185,12 @@ function RetroPlayer() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="winamp">
       <RetroPlayer />
     </AppFrame>
   )
 }
+
+export default App

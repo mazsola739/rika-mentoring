@@ -6,7 +6,7 @@ const WindowContext = createContext(null)
 // One provider for the whole desktop: icons, windows, the taskbar and the Start menu
 // all read the same window list and send actions to the same reducer.
 // `apps` lists the known program keys, so saved windows of removed apps are dropped on load.
-export function WindowProvider({ apps, children }) {
+export const WindowProvider = ({ apps, children }) => {
   const [state, dispatch] = useReducer(windowReducer, apps, loadState)
   const [bounds, setBounds] = useState({ width: 640, height: 520 }) // measured by the desktop
 
@@ -38,7 +38,7 @@ export function WindowProvider({ apps, children }) {
   return <WindowContext.Provider value={value}>{children}</WindowContext.Provider>
 }
 
-export function useWindows() {
+export const useWindows = () => {
   const ctx = useContext(WindowContext)
   if (!ctx) throw new Error('useWindows must be used inside <WindowProvider>')
   return ctx

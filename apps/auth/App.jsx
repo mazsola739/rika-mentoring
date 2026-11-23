@@ -12,20 +12,20 @@ import './app.css'
 const PROTECTED = ['/dashboard', '/account']
 
 // Redirects run in an effect: rendering must stay free of side effects.
-function Redirect({ to }) {
+const Redirect = ({ to }) => {
   useEffect(() => navigate(to, { replace: true }), [to])
   return null
 }
 
 // The route guard: render the page only with a session, otherwise send the visitor to the login
 // form and remember where they wanted to go (?next=…).
-function RequireAuth({ path, children }) {
+const RequireAuth = ({ path, children }) => {
   const { user } = useAuth()
   if (!user) return <Redirect to={`/login?next=${encodeURIComponent(path)}`} />
   return children
 }
 
-function SignedOutLayout({ children }) {
+const SignedOutLayout = ({ children }) => {
   const t = useText(TEXT)
   return (
     <div className="au-split">
@@ -45,7 +45,7 @@ function SignedOutLayout({ children }) {
   )
 }
 
-function SignedInLayout({ path, children }) {
+const SignedInLayout = ({ path, children }) => {
   const t = useText(TEXT)
   const { logout } = useAuth()
   return (
@@ -78,7 +78,7 @@ function SignedInLayout({ path, children }) {
   )
 }
 
-function AuthDemo() {
+const AuthDemo = () => {
   const t = useText(TEXT)
   const { user } = useAuth()
   const { path, query } = useHashRoute()
@@ -112,7 +112,7 @@ function AuthDemo() {
   return <Redirect to="/login" />
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="auth">
       <AuthProvider>
@@ -123,3 +123,5 @@ export default function App() {
     </AppFrame>
   )
 }
+
+export default App

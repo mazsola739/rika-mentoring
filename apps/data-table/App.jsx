@@ -16,7 +16,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const isEdits = (value) =>
   value !== null && typeof value === 'object' && !Array.isArray(value) && Object.values(value).every((patch) => patch && typeof patch === 'object')
 
-function SortIcon({ dir }) {
+const SortIcon = ({ dir }) => {
   return (
     <svg className="dt-sort__icon" viewBox="0 0 12 16" width="10" height="14" aria-hidden="true" focusable="false">
       <path d="M6 1 10 6H2z" fill="currentColor" opacity={dir === 'asc' ? 1 : 0.3} />
@@ -25,7 +25,7 @@ function SortIcon({ dir }) {
   )
 }
 
-function DataTable() {
+const DataTable = () => {
   const lang = useLang()
   const t = useText(TEXT)
   const locale = lang === 'hu' ? 'hu-HU' : 'en-GB'
@@ -381,10 +381,12 @@ function DataTable() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="data-table">
       <DataTable />
     </AppFrame>
   )
 }
+
+export default App

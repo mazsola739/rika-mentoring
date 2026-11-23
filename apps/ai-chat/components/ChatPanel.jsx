@@ -4,7 +4,7 @@ import Markdown from '../Markdown.jsx'
 import { SUGGESTIONS } from '../replies.js'
 import { TEXT } from '../text.js'
 
-function Message({ message }) {
+const Message = ({ message }) => {
   const t = useText(TEXT)
   const isUser = message.role === 'user'
   const thinking = message.status === 'streaming' && !message.text
@@ -34,7 +34,7 @@ function Message({ message }) {
 }
 
 // Keeps the list scrolled to the bottom while new text arrives, unless the user scrolled up to read.
-function useAutoScroll(dep) {
+const useAutoScroll = (dep) => {
   const ref = useRef(null)
   const stick = useRef(true)
   const [away, setAway] = useState(false)
@@ -61,7 +61,7 @@ function useAutoScroll(dep) {
   return { ref, onScroll, away, jump }
 }
 
-function Composer({ streaming, onSend, onStop, focusKey }) {
+const Composer = ({ streaming, onSend, onStop, focusKey }) => {
   const t = useText(TEXT)
   const [text, setText] = useState('')
   const ref = useRef(null)
@@ -124,7 +124,7 @@ function Composer({ streaming, onSend, onStop, focusKey }) {
   )
 }
 
-export default function ChatPanel({ conversation, streaming, onSend, onStop }) {
+const ChatPanel = ({ conversation, streaming, onSend, onStop }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const messages = conversation?.messages ?? []
@@ -165,3 +165,5 @@ export default function ChatPanel({ conversation, streaming, onSend, onStop }) {
     </section>
   )
 }
+
+export default ChatPanel

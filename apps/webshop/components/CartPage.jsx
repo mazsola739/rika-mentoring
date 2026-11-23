@@ -6,7 +6,7 @@ import ProductVisual from './ProductVisual.jsx'
 import QtyStepper from './QtyStepper.jsx'
 
 // The totals box is shared by the cart and the checkout page.
-export function CartTotals() {
+export const CartTotals = () => {
   const t = useText(TEXT)
   const money = useMoney()
   const { subtotal, shipping, total } = useCart()
@@ -28,7 +28,7 @@ export function CartTotals() {
   )
 }
 
-export default function CartPage() {
+const CartPage = () => {
   const lang = useLang()
   const t = useText(TEXT)
   const money = useMoney()
@@ -98,3 +98,5 @@ export default function CartPage() {
     </div>
   )
 }
+
+export default CartPage

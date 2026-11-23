@@ -12,7 +12,7 @@ function loadText() {
   }
 }
 
-export default function Notepad() {
+const Notepad = () => {
   const t = useText(TEXT).notepad
   const [text, setText] = useState(loadText)
   const [saved, setSaved] = useState(true)
@@ -56,3 +56,5 @@ export default function Notepad() {
     </div>
   )
 }
+
+export default Notepad

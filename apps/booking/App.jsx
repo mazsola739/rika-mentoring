@@ -16,7 +16,7 @@ const thisMonth = () => {
   return new Date(now.getFullYear(), now.getMonth(), 1)
 }
 
-function Steps({ step, onGo, canGo }) {
+const Steps = ({ step, onGo, canGo }) => {
   const t = useText(TEXT)
   const current = STEPS.indexOf(step)
   return (
@@ -33,7 +33,7 @@ function Steps({ step, onGo, canGo }) {
   )
 }
 
-function OpeningHours() {
+const OpeningHours = () => {
   const t = useText(TEXT)
   const format = useFormat()
   const order = [1, 2, 3, 4, 5, 6, 0]
@@ -52,7 +52,7 @@ function OpeningHours() {
   )
 }
 
-function BookingFlow({ data, onShowMine }) {
+const BookingFlow = ({ data, onShowMine }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const format = useFormat()
@@ -263,7 +263,7 @@ function BookingFlow({ data, onShowMine }) {
   )
 }
 
-function Booking() {
+const Booking = () => {
   const t = useText(TEXT)
   const data = useBookings()
   const [tab, setTab] = useState('book')
@@ -310,10 +310,12 @@ function Booking() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="booking">
       <Booking />
     </AppFrame>
   )
 }
+
+export default App

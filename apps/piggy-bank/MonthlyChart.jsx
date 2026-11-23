@@ -21,7 +21,7 @@ function barPath(x, y, w, h) {
   return `M${x},${BASE} V${y + r} Q${x},${y} ${x + r},${y} H${x + w - r} Q${x + w},${y} ${x + w},${y + r} V${BASE} Z`
 }
 
-export default function MonthlyChart({ series, fmt, t }) {
+const MonthlyChart = ({ series, fmt, t }) => {
   const [active, setActive] = useState(null)
   const [asTable, setAsTable] = useState(false)
 
@@ -151,3 +151,5 @@ export default function MonthlyChart({ series, fmt, t }) {
     </section>
   )
 }
+
+export default MonthlyChart

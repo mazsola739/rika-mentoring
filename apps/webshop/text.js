@@ -179,7 +179,7 @@ export const TEXT = {
 const locale = (lang) => (lang === 'hu' ? 'hu-HU' : 'en-GB')
 
 // Money formatting with Intl: "€64.00" in English, "64,00 €" in Hungarian.
-export function useMoney() {
+export const useMoney = () => {
   const lang = useLang()
   return useMemo(() => {
     const fmt = new Intl.NumberFormat(locale(lang), { style: 'currency', currency: 'EUR' })
@@ -187,7 +187,7 @@ export function useMoney() {
   }, [lang])
 }
 
-export function useDateTime() {
+export const useDateTime = () => {
   const lang = useLang()
   return useMemo(() => {
     const fmt = new Intl.DateTimeFormat(locale(lang), { dateStyle: 'medium', timeStyle: 'short' })

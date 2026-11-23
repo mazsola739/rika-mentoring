@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ASPECT, drawEnd, drawSegments, drawStart, redraw } from './render.js'
 
 // The canvas element itself. Pointer events cover mouse, touch and pen with one API.
-export default function Canvas({ canvasRef, history, tool, color, size, label, onStroke }) {
+const Canvas = ({ canvasRef, history, tool, color, size, label, onStroke }) => {
   const wrapRef = useRef(null)
   const cursorRef = useRef(null)
   const strokeRef = useRef(null) // the stroke being drawn right now (no re-render per move)
@@ -108,3 +108,5 @@ export default function Canvas({ canvasRef, history, tool, color, size, label, o
     </div>
   )
 }
+
+export default Canvas

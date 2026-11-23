@@ -3,7 +3,7 @@ import { cancelBooking, createBooking, listBookings } from './bookingApi.js'
 
 // Loads all bookings from the fake server and offers create / cancel.
 // Free and busy slots are *derived* from this list, never stored separately.
-export function useBookings() {
+export const useBookings = () => {
   const [bookings, setBookings] = useState([])
   const [status, setStatus] = useState('loading') // 'loading' | 'ready' | 'error'
   const [attempt, setAttempt] = useState(0)

@@ -5,7 +5,7 @@ import { TEXT } from './text.js'
 export const boardName = (board, index, t) => board.name.trim() || t.untitled(index + 1)
 
 // Switch, add, rename and delete boards.
-export default function BoardTabs({ boards, active, onSelect, onAdd, onRename, onRemove }) {
+const BoardTabs = ({ boards, active, onSelect, onAdd, onRename, onRemove }) => {
   const t = useText(TEXT)
   const [confirming, setConfirming] = useState(false)
   const activeIndex = boards.findIndex((b) => b.id === active.id)
@@ -79,3 +79,5 @@ export default function BoardTabs({ boards, active, onSelect, onAdd, onRename, o
     </div>
   )
 }
+
+export default BoardTabs

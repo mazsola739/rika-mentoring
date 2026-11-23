@@ -1,6 +1,6 @@
 import { REMIND_DAYS } from './useReminders.js'
 
-export default function RemindersPanel({ upcoming, reminders, t }) {
+const RemindersPanel = ({ upcoming, reminders, t }) => {
   const r = t.reminders
 
   let status
@@ -50,3 +50,5 @@ export default function RemindersPanel({ upcoming, reminders, t }) {
     </section>
   )
 }
+
+export default RemindersPanel

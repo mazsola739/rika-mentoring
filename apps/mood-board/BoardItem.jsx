@@ -26,7 +26,7 @@ function fit(box, item) {
   return { x: clamp(x, 0, 1 - w), y: clamp(y, 0, BOARD_HEIGHT - h), w, h }
 }
 
-export default function BoardItem({
+const BoardItem = ({
   item,
   boardRef,
   selected,
@@ -38,7 +38,7 @@ export default function BoardItem({
   onRemove,
   onEdit,
   onEditDone,
-}) {
+}) => {
   const t = useText(TEXT)
   const lang = useLang()
   // While dragging we only update this local draft; the board (and localStorage) gets
@@ -164,3 +164,5 @@ export default function BoardItem({
     </div>
   )
 }
+
+export default BoardItem

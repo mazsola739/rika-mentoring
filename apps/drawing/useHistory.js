@@ -20,7 +20,7 @@ function reducer(state, action) {
   }
 }
 
-export function useHistory() {
+export const useHistory = () => {
   const [state, dispatch] = useReducer(reducer, { done: [], undone: [] })
   return {
     history: state.done,

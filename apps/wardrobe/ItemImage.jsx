@@ -3,7 +3,7 @@ import CategoryIcon from './CategoryIcon.jsx'
 
 // An uploaded photo, or — when there is none — a flat tile with the category icon in the item's color.
 // Older saved samples may still carry a `pattern` key; it is simply ignored and they get a tile too.
-export default function ItemImage({ item, alt = '', className = '' }) {
+const ItemImage = ({ item, alt = '', className = '' }) => {
   const classes = `wr-img ${className}`
   if (item.photo) return <img className={classes} src={item.photo} alt={alt} loading="lazy" />
 
@@ -22,3 +22,5 @@ export default function ItemImage({ item, alt = '', className = '' }) {
     </span>
   )
 }
+
+export default ItemImage
