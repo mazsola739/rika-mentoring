@@ -2,11 +2,11 @@ import { useEffect, useImperativeHandle, useRef } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-// The map is one world image served with the site, no map tiles from the internet.
-// Drop an equirectangular ("plate carrée", 2:1) world map into media/ as world.webp / .png / .jpg
-// and it is picked up at build time. Until then a simple ocean with a latitude/longitude grid is drawn.
-const MAP_FILES = import.meta.glob('./media/world.{webp,png,jpg,jpeg}', { eager: true, query: '?url', import: 'default' })
-export const WORLD_IMAGE = Object.values(MAP_FILES)[0] ?? null
+// The map is one world image, a static file of the site, no map tiles from the internet.
+// It lives in public/media/travel-map/ so it has a stable address (the starter project can use it too).
+// Set this to '../../media/travel-map/world.webp' once the equirectangular ("plate carrée", 2:1) map is there;
+// while it is null, a simple ocean with a latitude/longitude grid is drawn instead.
+export const WORLD_IMAGE = null
 
 // In an equirectangular map latitude and longitude are straight lines, so Leaflet's EPSG:4326
 // projection lays the image out exactly: the whole world is these bounds.

@@ -3,10 +3,11 @@ import { useText } from '@shared/i18n.js'
 import VideoPlayer from './VideoPlayer.jsx'
 import { TEXT } from './text.js'
 import './app.css'
-import VIDEO_SRC from './media/rika-sample.mp4'
 
-// The sample clip is served with the site (Vite copies it into the build and gives it a hashed name).
-// It is a placeholder until the site's own video arrives: replace media/rika-sample.mp4 to change it.
+// The clip is a static file of the site (public/media/video-player/), so it has a stable address that
+// the lesson's starter project can use too. It is a placeholder until the site's own video arrives.
+// The page lives at apps/video-player/, so the site root is two folders up.
+const VIDEO_SRC = '../../media/video-player/rika-sample.mp4'
 
 function VideoLesson() {
   const t = useText(TEXT)

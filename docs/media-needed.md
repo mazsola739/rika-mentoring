@@ -5,7 +5,12 @@ Amíg a te fájljaid nem érkeznek meg, a leckék kódból rajzolt képekkel, k�
 és egy saját mintaklippel működnek. Ezek helykitöltők, a te fájljaid kerülnek a helyükre.
 
 **Hova:** `public/media/<lecke-mappa>/` (a mappát a táblázat mutatja). Ha egyszerűbb, bedobhatod őket
-egy mappába leckénként szétválogatva, és én átnevezem és bekötöm őket.
+egy mappába leckénként szétválogatva, és én átnevezem, átalakítom (például WebP-be) és bekötöm őket.
+
+**Miért a `public/media`?** Az innen kiszolgált fájlok címe nem változik a buildben, így a GitHub Pages-oldaladon
+fix címen érhetők el, például `https://<felhasználónév>.github.io/rika-mentoring/media/book-library/bk001.webp`.
+Ugyanezt a címet használja az oldal is, és a diákok kezdőcsomagjai is innen töltik be a képeket és az adatokat.
+(Ehhez a repónak nyilvánosnak kell lennie, vagy fizetős GitHub-csomag kell, mert a Pages privát repóból ingyen nem megy.)
 
 **Formátumok:** kép WebP vagy JPG (átlátszósághoz PNG), videó MP4 (H.264 + AAC), hang MP3 vagy OGG.
 Csak saját vagy szabadon felhasználható (jogtiszta) anyag kerüljön fel, mert az oldal nyilvános lesz.
