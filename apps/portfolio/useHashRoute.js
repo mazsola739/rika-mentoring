@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-// Minimális router a # utáni útvonalra (pl. #/projects/dark-mode).
-// Könyvtár nélkül is megmutatja a routing lényegét, és GitHub Pages-en is működik.
+// A minimal router for the path after # (e.g. #/projects/dark-mode).
+// It shows the core of routing without a library, and it works on GitHub Pages too.
 const readPath = () => window.location.hash.replace(/^#/, '') || '/'
 
 export function useHashRoute() {

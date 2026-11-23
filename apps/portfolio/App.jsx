@@ -13,7 +13,7 @@ import ProjectPage from './components/ProjectPage.jsx'
 import Contact from './components/Contact.jsx'
 import './app.css'
 
-// Simán görget, kivéve ha a felhasználó csökkentett mozgást kér.
+// Scrolls smoothly, unless the user asks for reduced motion.
 function scrollToSection(id, smooth = true) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   document
@@ -30,10 +30,10 @@ function Portfolio() {
   const windowRef = useRef(null)
   const pendingScroll = useRef(null)
 
-  // Oldalváltáskor az „ablak” tetejére ugrunk, vagy a kért szakaszhoz görgetünk.
+  // On a page change, jump to the top of the "window", or scroll to the requested section.
   useEffect(() => {
     if (pendingScroll.current) {
-      // Oldalváltás után azonnal ugrunk: az új tartalomhoz nincs mit „animálni”.
+      // After a page change, jump at once: there is nothing to animate in brand-new content.
       scrollToSection(pendingScroll.current, false)
       pendingScroll.current = null
     } else if (path !== '/') {

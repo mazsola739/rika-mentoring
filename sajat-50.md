@@ -5,10 +5,10 @@
 Mind React-appok. A lista nehézség szerint halad, a legkönnyebbel kezdődik. Minden projektnél leírtam, mit tanulunk vele, és mit kell megcsinálni kezdő, közép és haladó szinten. Haladó szinten több projekthez backend is kell (Firebase / Supabase vagy saját Node.js szerver).
 
 1. **Me, Myself & React** – Portfólió és önéletrajz
-    - **Mit tanulunk:** komponensekre bontás, reszponzív dizájn, routing, űrlap küldése, telepítés (Vercel / Netlify), SEO
+    - **Mit tanulunk:** komponensekre bontás, reszponzív dizájn, routing, űrlap küldése, telepítés (GitHub Pages), SEO
     - **Kezdő:** egyoldalas bemutatkozás, készségek, elérhetőség
     - **Közép:** projektek kártyákon, külön oldalak, működő kapcsolati űrlap
-    - **Haladó:** tartalom CMS-ből, blog, animációk, Lighthouse 90+ pont, saját domain
+    - **Haladó:** finom animációk, Lighthouse 90+ pont, az oldal élesben a GitHub Pages-en
 
 2. **Dark Mode** – Sötét / világos mód
     - **Mit tanulunk:** Context API, CSS-változók, `useEffect` és `matchMedia`, saját `useDarkMode` hook
@@ -19,7 +19,7 @@ Mind React-appok. A lista nehézség szerint halad, a legkönnyebbel kezdődik. 
 3. **Password Generator** – Biztonságos jelszógenerátor
     - **Mit tanulunk:** vezérelt űrlapelemek (csúszka, jelölőnégyzetek), véletlenszám-logika, vágólap API
     - **Kezdő:** jelszó generálása megadott hosszal, másolás gombbal
-    - **Közép:** kis- és nagybetű, szám, speciális karakter kapcsolói, erősségjelző
+    - **Közép:** kis- és nagybetű, szám, szimbólum kapcsolói, erősségjelző
     - **Haladó:** `crypto.getRandomValues` a `Math.random` helyett, kiejthető jelszavak, ellenőrzés, hogy a jelszó szerepelt-e adatszivárgásban
 
 4. **Mad Libs** – Szóbehelyettesítős játék

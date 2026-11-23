@@ -1,0 +1,72 @@
+/* The Stargazer page. Every colour is written out by hand for now. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: #1f2433;
+  background: #f4f1ea;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ddd6c8;
+}
+
+.logo {
+  margin: 0;
+  color: #3346a8;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.article {
+  padding: 24px;
+  border: 1px solid #ddd6c8;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.article h1 {
+  margin: 4px 0;
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.article__kicker {
+  margin: 0;
+  color: #3346a8;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.article__meta {
+  margin: 0 0 16px;
+  color: #666b7a;
+  font-size: 14px;
+}
+
+.tip {
+  margin: 20px 0;
+  padding: 12px 16px;
+  border-left: 4px solid #3346a8;
+  border-radius: 8px;
+  background: #ebe8f7;
+}

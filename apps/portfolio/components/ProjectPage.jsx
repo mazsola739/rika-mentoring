@@ -2,7 +2,7 @@ import lessons from '@shared/lessons.json'
 import { paletteFor, paletteVars } from '@shared/ui/palette.js'
 import Inline from '@shared/ui/Inline.jsx'
 
-// Egy projekt saját oldala (esettanulmány): kihívás, megoldás, tanulság, technológiák, élő demó.
+// A project's own page (a case study): challenge, solution, what was learned, technologies, live demo.
 export default function ProjectPage({ project, lang, t, onBack }) {
   if (!project) {
     return (

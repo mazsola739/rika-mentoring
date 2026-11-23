@@ -1,4 +1,4 @@
-// A portfólió saját navigációja. A gombok a megfelelő szakaszhoz görgetnek.
+// The portfolio's own navigation. The buttons scroll to their section.
 export default function SiteHeader({ profile, nav, onNavigate }) {
   return (
     <header className="pf-header">

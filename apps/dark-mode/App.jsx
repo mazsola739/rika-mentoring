@@ -3,7 +3,7 @@ import { useText } from '@shared/i18n.js'
 import { ThemeProvider, useTheme } from './ThemeContext.jsx'
 import './app.css'
 
-// A két téma CSS-változói. Ugyanebből az objektumból rajzoljuk ki a „színmintákat” is.
+// The CSS variables of the two themes; the swatches are drawn from the same object.
 const THEMES = {
   light: { '--bg': '#fbf5ea', '--surface': '#ffffff', '--text': '#2b211b', '--muted': '#6b5a4c', '--accent': '#0c5c45' },
   dark: { '--bg': '#0b0d1c', '--surface': '#161c36', '--text': '#f1ead9', '--muted': '#a9b0cf', '--accent': '#d9a441' },
@@ -58,9 +58,9 @@ function ModeSwitch() {
   const { mode, setMode } = useTheme()
   const t = useText(TEXT)
   return (
-    <div className="dm-seg" role="radiogroup" aria-label={t.modeLabel}>
+    <div className="dm-seg" role="group" aria-label={t.modeLabel}>
       {Object.keys(ICONS).map((key) => (
-        <button key={key} type="button" role="radio" aria-checked={mode === key} onClick={() => setMode(key)}>
+        <button key={key} type="button" aria-pressed={mode === key} onClick={() => setMode(key)}>
           {ICONS[key]}
           {t.modes[key]}
         </button>

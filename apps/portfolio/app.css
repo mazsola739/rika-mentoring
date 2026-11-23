@@ -1,4 +1,4 @@
-/* ── Böngészőablak-keret ───────────────────────────────── */
+/* ── Browser-window frame ──────────────────────────────── */
 .pf-window {
   overflow: hidden;
   border: 1px solid var(--line);
@@ -70,7 +70,7 @@
   container-type: inline-size;
 }
 
-/* ── A portfólió oldal ─────────────────────────────────── */
+/* ── The portfolio page ────────────────────────────────── */
 .pf {
   color: var(--ink);
   background: #fffdf8;
@@ -256,7 +256,7 @@
   text-underline-offset: 3px;
 }
 
-/* ── Kapcsolat és űrlap ────────────────────────────────── */
+/* ── Contact and form ──────────────────────────────────── */
 .pf-contact__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
@@ -376,7 +376,7 @@
   color: var(--solid-text);
 }
 
-/* ── Projektek ─────────────────────────────────────────── */
+/* ── Projects ──────────────────────────────────────────── */
 .pf-scroll-anchor {
   scroll-margin-top: 16px;
 }
@@ -472,7 +472,7 @@
   font-weight: 600;
 }
 
-/* ── Projektoldal ──────────────────────────────────────── */
+/* ── Project page ──────────────────────────────────────── */
 .pf-project__head {
   position: relative;
   isolation: isolate;

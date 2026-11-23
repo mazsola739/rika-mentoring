@@ -3,7 +3,8 @@
 //   starters/<slug>/     what this lesson adds or replaces, plus starter.json (folder name, titles)
 // The result, public/starters/<slug>.zip, is a ready git repository with one "starting point" commit,
 // so a student can always get back to the start with `git restore .`.
-// Run with: npm run starters (it also runs before dev and build). Needs git; no npm packages.
+// Run with: npm run starters (it also runs before dev and build), or `node scripts/build-starters.mjs <slug>…`
+// for some lessons only. Needs git; no npm packages.
 import { execFileSync } from 'node:child_process'
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -110,11 +111,14 @@ function git(cwd, args) {
   })
 }
 
+// `node scripts/build-starters.mjs dark-mode` builds only the lessons named; with no names, all of them.
+const only = new Set(process.argv.slice(2))
+
 mkdirSync(outDir, { recursive: true })
 const built = []
 for (const lesson of lessons) {
   const own = join(startersDir, lesson.slug)
-  if (!existsSync(own)) continue
+  if (!existsSync(own) || (only.size && !only.has(lesson.slug))) continue
   const meta = JSON.parse(readFileSync(join(own, 'starter.json'), 'utf8'))
   const work = mkdtempSync(join(tmpdir(), 'rika-starter-'))
   const project = join(work, meta.folder)

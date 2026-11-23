@@ -1,4 +1,4 @@
-// Böngészőablak-keret, hogy a portfólió úgy nézzen ki, mint egy valódi weboldal.
+// A browser-window frame, so the portfolio looks like a real website.
 export default function BrowserWindow({ url, badge, children }) {
   return (
     <div className="pf-window">

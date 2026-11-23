@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { createMockApi } from '@shared/mock-api/index.js'
 
-// Kamu backend: 0,5–1,1 mp késleltetés, és minden ötödik kérés szándékosan elbukik,
-// hogy a hibakezelést is lássuk.
+// Fake backend: 0.5–1.1 s delay, and about one request in five fails on purpose,
+// so that the error handling can be seen too.
 const api = createMockApi('portfolio', { latency: [500, 1100], failRate: 0.2 })
 
 const EMPTY = { name: '', email: '', message: '' }
@@ -22,7 +22,7 @@ export default function ContactForm({ t }) {
   const [error, setError] = useState('')
   const [count, setCount] = useState(null)
 
-  // Betöltéskor lekérjük, hány üzenet van már a „szerveren”. Hiba esetén kétszer újrapróbáljuk.
+  // On load, ask how many messages the "server" already has. On an error, retry twice.
   useEffect(() => {
     let ignore = false
     const load = (attempt = 0) =>

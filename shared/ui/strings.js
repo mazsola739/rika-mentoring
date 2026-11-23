@@ -28,7 +28,7 @@ export const FRAME_TEXT = {
     progress: 'Haladásod',
     done: 'Kész',
     whatWeBuild: 'Mit építünk?',
-    guideLevels: ['Kezdő szint', 'Közép szint', 'Haladó szint'],
+    guideLevels: ['Kezdő szint', 'Középszint', 'Haladó szint'],
     starterTitle: 'Az alap',
     starterInfo: 'Kész Vite + React projekt egy kezdő committal. Csomagold ki, és kövesd a 0. lépést.',
     starterDownload: 'Letöltés (ZIP)',

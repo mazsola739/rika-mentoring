@@ -1,4 +1,4 @@
-// A portfólió tartalma. Minta Mira kitalált mintaprofil – a saját adataiddal bármikor lecserélhető.
+// The portfolio content. Mira Minta is a made-up sample profile; swap in your own details any time.
 
 export const PROFILE = {
   hu: {
@@ -37,7 +37,7 @@ export const PROFILE = {
   },
 }
 
-// Önértékelés ötfokú skálán – a szintjelző oszlopok mutatják.
+// Self-assessment on a five-point scale, shown by the level bars.
 export const SKILLS = [
   { name: { hu: 'React', en: 'React' }, level: 4 },
   { name: { hu: 'JavaScript', en: 'JavaScript' }, level: 4 },
@@ -49,7 +49,7 @@ export const SKILLS = [
   { name: { hu: 'Vite', en: 'Vite' }, level: 3 },
 ]
 
-// A projektek a portfólió többi leckéje: cím, leírás és tananyag a lessons.json-ból jön.
+// The projects are other lessons of the course: title, summary and topics come from lessons.json.
 export const PROJECTS = [
   {
     slug: 'dark-mode',

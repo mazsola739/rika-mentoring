@@ -2,10 +2,10 @@
   "portfolio": {
     "title": "Me, Myself & React",
     "short": "Portfolio and résumé site",
-    "learn": "component composition, responsive design, routing, form submission, deployment (Vercel / Netlify), SEO",
+    "learn": "component composition, responsive design, routing, form submission, deployment (GitHub Pages), SEO",
     "beginner": "a single-page introduction with skills and contact details",
     "intermediate": "project cards, separate pages, a working contact form",
-    "advanced": "content from a CMS, a blog, animations, a Lighthouse score of 90+, a custom domain"
+    "advanced": "subtle animations, a Lighthouse score of 90+, the page live on GitHub Pages"
   },
   "dark-mode": {
     "title": "Dark Mode",

@@ -9,10 +9,10 @@
     "hu": {
       "title": "Me, Myself & React",
       "short": "Portfólió és önéletrajz",
-      "learn": "komponensekre bontás, reszponzív dizájn, routing, űrlap küldése, telepítés (Vercel / Netlify), SEO",
+      "learn": "komponensekre bontás, reszponzív dizájn, routing, űrlap küldése, telepítés (GitHub Pages), SEO",
       "beginner": "egyoldalas bemutatkozás, készségek, elérhetőség",
       "intermediate": "projektek kártyákon, külön oldalak, működő kapcsolati űrlap",
-      "advanced": "tartalom CMS-ből, blog, animációk, Lighthouse 90+ pont, saját domain",
+      "advanced": "finom animációk, Lighthouse 90+ pont, az oldal élesben a GitHub Pages-en",
       "card": {
         "build": "Bemutatkozó oldal projektekkel és űrlappal",
         "learn": "Komponensek, reszponzív dizájn, routing"
@@ -21,10 +21,10 @@
     "en": {
       "title": "Me, Myself & React",
       "short": "Portfolio and résumé site",
-      "learn": "component composition, responsive design, routing, form submission, deployment (Vercel / Netlify), SEO",
+      "learn": "component composition, responsive design, routing, form submission, deployment (GitHub Pages), SEO",
       "beginner": "a single-page introduction with skills and contact details",
       "intermediate": "project cards, separate pages, a working contact form",
-      "advanced": "content from a CMS, a blog, animations, a Lighthouse score of 90+, a custom domain",
+      "advanced": "subtle animations, a Lighthouse score of 90+, the page live on GitHub Pages",
       "card": {
         "build": "A personal site with projects and a contact form",
         "learn": "Components, responsive layout, routing, deploys"
@@ -63,7 +63,7 @@
         "learn": "Context API, CSS variables, a custom hook"
       }
     },
-    "starter": false
+    "starter": true
   },
   {
     "n": 3,
@@ -77,7 +77,7 @@
       "short": "Biztonságos jelszógenerátor",
       "learn": "vezérelt űrlapelemek (csúszka, jelölőnégyzetek), véletlenszám-logika, vágólap API",
       "beginner": "jelszó generálása megadott hosszal, másolás gombbal",
-      "intermediate": "kis- és nagybetű, szám, speciális karakter kapcsolói, erősségjelző",
+      "intermediate": "kis- és nagybetű, szám, szimbólum kapcsolói, erősségjelző",
       "advanced": "`crypto.getRandomValues` a `Math.random` helyett, kiejthető jelszavak, ellenőrzés, hogy a jelszó szerepelt-e adatszivárgásban",
       "card": {
         "build": "Erős jelszavak csúszkával és beállításokkal",
@@ -96,7 +96,7 @@
         "learn": "Controlled inputs, randomness, Clipboard API"
       }
     },
-    "starter": false
+    "starter": true
   },
   {
     "n": 4,

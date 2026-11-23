@@ -1,4 +1,5 @@
 .pw {
+  --pw-danger: #b23a0a;
   display: grid;
   gap: 22px;
 }
@@ -79,6 +80,22 @@
   gap: 22px;
 }
 
+/* Left cell: the kind of password and the length; right cell: the character sets. */
+.pw__column {
+  display: grid;
+  gap: 22px;
+  align-content: start;
+}
+
+/* In pronounceable mode the character sets are hidden, so the left cell takes the whole row. */
+.pw__settings > :only-child {
+  grid-column: 1 / -1;
+}
+
+.pw__length {
+  align-content: start;
+}
+
 .pw__length input {
   width: 100%;
 }
@@ -109,6 +126,30 @@
 .pw__check input {
   width: 18px;
   height: 18px;
+}
+
+.pw__breach {
+  display: grid;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.pw__breach h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+}
+
+.pw__breach-result {
+  min-height: 1.5em;
+  margin: 0;
+  font-weight: 600;
+  color: var(--solid-text);
+}
+
+.pw__breach-result.is-bad {
+  color: var(--pw-danger);
 }
 
 .pw__note {

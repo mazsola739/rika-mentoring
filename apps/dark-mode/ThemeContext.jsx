@@ -3,14 +3,14 @@ import { useDarkMode } from './useDarkMode.js'
 
 const ThemeContext = createContext(null)
 
-// A Provider egyszer hívja meg a hookot, és minden gyerekkomponens ugyanazt az állapotot látja.
+// The Provider calls the hook once, so every child component sees the same state.
 export function ThemeProvider({ children }) {
-  const theme = useDarkMode()
-  return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
+  const value = useDarkMode()
+  return <ThemeContext value={value}>{children}</ThemeContext>
 }
 
 export function useTheme() {
-  const theme = useContext(ThemeContext)
-  if (!theme) throw new Error('useTheme must be used inside <ThemeProvider>')
-  return theme
+  const value = useContext(ThemeContext)
+  if (!value) throw new Error('useTheme must be used inside <ThemeProvider>')
+  return value
 }

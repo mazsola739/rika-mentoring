@@ -62,7 +62,12 @@ No raw HTML: the text is rendered as React elements.
 - Code style by lesson: lessons 1–26 use `function Name() {}` components, 27–50 arrow functions
   (`const Name = () => {}`). Class components appear only in lesson 1's detour.
 - Data and pictures the starter needs come from this site (`public/media/…`, the lesson APIs), never from other services.
-- Write the Hungarian and the English version with the same steps, code and file names; only the prose differs.
+- Write the Hungarian and the English version with the same steps, the same code structure and the same file, component,
+  function and variable names (always English). What the learner types as visible UI text (labels, messages, sample
+  content) and as code comments is in the guide's language: Hungarian in `hu.md`, English in `en.md`. Line numbers in
+  `mark=` must match the code shown in each file.
+- Files that already come with the starter are shared by both languages, so they are in English; the Hungarian guide
+  says so where it matters ("the sample text is in English, feel free to translate it").
 
 ## The starter: `starters/<slug>/`
 
