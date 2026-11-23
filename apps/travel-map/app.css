@@ -149,6 +149,22 @@
 .tm .leaflet-container {
   font: inherit;
   font-size: 13px;
+  background: var(--paper-2);
+}
+
+/* Placeholder world until the real map image arrives: sea and a 30° latitude/longitude grid. */
+.tm-grid__sea {
+  fill: color-mix(in srgb, var(--solid) 12%, #eef5f8);
+}
+
+.tm-grid__lines line {
+  stroke: color-mix(in srgb, var(--solid-dark) 22%, transparent);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.tm-grid__lines line.main {
+  stroke: color-mix(in srgb, var(--solid-dark) 45%, transparent);
 }
 
 .tm .leaflet-container:focus-visible {

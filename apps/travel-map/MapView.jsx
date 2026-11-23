@@ -2,7 +2,30 @@ import { useEffect, useImperativeHandle, useRef } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-const WORLD = { center: [25, 10], zoom: 2 }
+// The map is one world image served with the site, no map tiles from the internet.
+// Drop an equirectangular ("plate carrée", 2:1) world map into media/ as world.webp / .png / .jpg
+// and it is picked up at build time. Until then a simple ocean with a latitude/longitude grid is drawn.
+const MAP_FILES = import.meta.glob('./media/world.{webp,png,jpg,jpeg}', { eager: true, query: '?url', import: 'default' })
+export const WORLD_IMAGE = Object.values(MAP_FILES)[0] ?? null
+
+// In an equirectangular map latitude and longitude are straight lines, so Leaflet's EPSG:4326
+// projection lays the image out exactly: the whole world is these bounds.
+const WORLD_BOUNDS = L.latLngBounds([-90, -180], [90, 180])
+const WORLD = { center: [20, 10], zoom: 1 }
+const MAX_ZOOM = 5 // a 4096 px wide map is sharp up to about zoom 3
+const PLACE_ZOOM = 4
+
+// The placeholder background: ocean, a 30° grid, and the equator and the prime meridian a little stronger.
+function gridSvg() {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  svg.setAttribute('viewBox', '-180 -90 360 180')
+  svg.setAttribute('preserveAspectRatio', 'none')
+  const lines = []
+  for (let lng = -150; lng <= 150; lng += 30) lines.push(`<line x1="${lng}" y1="-90" x2="${lng}" y2="90" class="${lng === 0 ? 'main' : ''}"/>`)
+  for (let lat = -60; lat <= 60; lat += 30) lines.push(`<line x1="-180" y1="${-lat}" x2="180" y2="${-lat}" class="${lat === 0 ? 'main' : ''}"/>`)
+  svg.innerHTML = `<rect x="-180" y="-90" width="360" height="180" class="tm-grid__sea"/><g class="tm-grid__lines">${lines.join('')}</g>`
+  return svg
+}
 
 // A CSS pin instead of Leaflet's default PNG marker (whose image paths break in bundlers).
 // `color` only ever comes from our own palette constants, never from user input.
@@ -50,17 +73,23 @@ const MapView = ({ ref, places, selectedId, draft, colors, statusLabels, label, 
     if (!map) return
     const animate = !prefersReducedMotion()
     if (list.length === 0) map.setView(WORLD.center, WORLD.zoom, { animate })
-    else if (list.length === 1) map.setView([list[0].lat, list[0].lng], 6, { animate })
-    else map.fitBounds(L.latLngBounds(list.map((p) => [p.lat, p.lng])), { padding: [36, 36], maxZoom: 8, animate })
+    else if (list.length === 1) map.setView([list[0].lat, list[0].lng], PLACE_ZOOM, { animate })
+    else map.fitBounds(L.latLngBounds(list.map((p) => [p.lat, p.lng])), { padding: [36, 36], maxZoom: PLACE_ZOOM, animate })
   }
 
   // Create the map once, and destroy it on unmount (StrictMode does this once on purpose).
   useEffect(() => {
-    const map = L.map(containerRef.current, { center: WORLD.center, zoom: WORLD.zoom, minZoom: 2, worldCopyJump: true })
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map)
+    const map = L.map(containerRef.current, {
+      crs: L.CRS.EPSG4326,
+      center: WORLD.center,
+      zoom: WORLD.zoom,
+      minZoom: 0,
+      maxZoom: MAX_ZOOM,
+      maxBounds: WORLD_BOUNDS.pad(0.05),
+      maxBoundsViscosity: 1,
+    })
+    if (WORLD_IMAGE) L.imageOverlay(WORLD_IMAGE, WORLD_BOUNDS, { className: 'tm-world' }).addTo(map)
+    else L.svgOverlay(gridSvg(), WORLD_BOUNDS, { className: 'tm-grid', interactive: false }).addTo(map)
     markersLayer.current = L.layerGroup().addTo(map)
     draftLayer.current = L.layerGroup().addTo(map)
     map.on('click', (e) => latest.current.onMapClick(e.latlng.wrap()))
@@ -118,7 +147,7 @@ const MapView = ({ ref, places, selectedId, draft, colors, statusLabels, label, 
     focus(place) {
       const map = mapRef.current
       if (!map) return
-      map.flyTo([place.lat, place.lng], Math.max(map.getZoom(), 6), { animate: !prefersReducedMotion(), duration: 0.8 })
+      map.flyTo([place.lat, place.lng], Math.max(map.getZoom(), PLACE_ZOOM), { animate: !prefersReducedMotion(), duration: 0.8 })
     },
     panTo(latlng) {
       mapRef.current?.panTo(latlng, { animate: !prefersReducedMotion() })

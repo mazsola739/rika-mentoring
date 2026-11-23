@@ -3,7 +3,7 @@ import AppFrame, { useLesson } from '@shared/ui/AppFrame.jsx'
 import { useLang, useText } from '@shared/i18n.js'
 import { useLocalStorage } from './useLocalStorage.js'
 import { STATUSES, createId, isPlaceList, localeOf, localize, samplePlaces } from './places.js'
-import MapView from './MapView.jsx'
+import MapView, { WORLD_IMAGE } from './MapView.jsx'
 import PlaceForm from './PlaceForm.jsx'
 import PlaceList from './PlaceList.jsx'
 import { TEXT } from './text.js'
@@ -193,6 +193,7 @@ const TravelMap = () => {
             onSelect={setSelectedId}
           />
           <p className="tm-hint">{t.mapHint}</p>
+          {!WORLD_IMAGE && <p className="tm-hint">{t.mapPending}</p>}
         </div>
 
         <div className="tm-side">
