@@ -482,6 +482,98 @@ input[type='range'] {
   }
 }
 
+/* Tabs under the header: the guide and the solution, with the starter download on the right. */
+.lp-tabs {
+  position: sticky;
+  top: 61px; /* right under the sticky top bar (60px + its border) */
+  z-index: 20;
+  border-bottom: 1px solid var(--line);
+  background: rgb(255 255 255 / 0.94);
+  backdrop-filter: blur(10px);
+}
+
+.lp-tabs__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.lp-tabs__list {
+  display: flex;
+  gap: 4px;
+}
+
+.lp-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 54px;
+  padding: 0 16px;
+  border-bottom: 3px solid transparent;
+  color: var(--ink-soft);
+  font: 700 15px/1 var(--font-body);
+  text-decoration: none;
+}
+
+.lp-tab:hover {
+  color: var(--ink);
+}
+
+.lp-tab[aria-current='page'] {
+  border-bottom-color: var(--solid);
+  color: var(--ink);
+}
+
+.lp-tab:focus-visible,
+.lp-starter:focus-visible {
+  outline: 3px solid var(--solid-light);
+  outline-offset: -3px;
+}
+
+.lp-tab.is-disabled {
+  color: color-mix(in srgb, var(--ink-soft) 60%, transparent);
+  cursor: default;
+}
+
+.lp-tab small {
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: var(--paper-2);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.lp-starter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--solid-text);
+  color: var(--solid-text);
+  font: 700 13px/1 var(--font-body);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.lp-starter:hover {
+  background: var(--solid-text);
+  color: #fff;
+}
+
+.lp-starter svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .lp-main {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
@@ -497,7 +589,7 @@ input[type='range'] {
 .lp-aside {
   align-self: start;
   position: sticky;
-  top: 80px;
+  top: 136px;
   display: grid;
   gap: 22px;
   padding: 22px;
@@ -666,5 +758,20 @@ input[type='range'] {
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+}
+
+/* On narrow screens the tab bar would wrap to two rows and cover the content, so it scrolls away. */
+@media (max-width: 640px) {
+  .lp-tabs {
+    position: static;
+  }
+
+  .lp-tabs__inner {
+    padding-bottom: 12px;
+  }
+
+  .lp-aside {
+    top: 80px;
   }
 }

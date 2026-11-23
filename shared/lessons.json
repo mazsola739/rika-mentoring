@@ -29,7 +29,8 @@
         "build": "A personal site with projects and a contact form",
         "learn": "Components, responsive layout, routing, deploys"
       }
-    }
+    },
+    "starter": true
   },
   {
     "n": 2,
@@ -61,7 +62,8 @@
         "build": "A light / dark switch that remembers your choice",
         "learn": "Context API, CSS variables, a custom hook"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 3,
@@ -93,7 +95,8 @@
         "build": "Strong passwords with a slider and options",
         "learn": "Controlled inputs, randomness, Clipboard API"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 4,
@@ -125,7 +128,8 @@
         "build": "A word game that turns your words into a story",
         "learn": "Controlled fields, string templates, conditions"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 5,
@@ -157,7 +161,8 @@
         "build": "QR codes from text or links, ready to download",
         "learn": "npm packages, controlled input, file download"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 6,
@@ -189,7 +194,8 @@
         "build": "Study cards that flip, shuffle and save progress",
         "learn": "3D CSS flip, shuffling, a useLocalStorage hook"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 7,
@@ -221,7 +227,8 @@
         "build": "Random color palettes you can lock and copy",
         "learn": "Arrays in state, keyboard events, Clipboard API"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 8,
@@ -253,7 +260,8 @@
         "build": "A calculator for the four basic operations",
         "learn": "useState, event handling, components and props"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 9,
@@ -285,7 +293,8 @@
         "build": "A to-do list with filters that remembers tasks",
         "learn": "Lists with keys, CRUD in state, useEffect"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 10,
@@ -317,7 +326,8 @@
         "build": "A grocery list grouped by aisle",
         "learn": "Grouping and sorting arrays, controlled forms"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 11,
@@ -349,7 +359,8 @@
         "build": "A notes app with search and dates",
         "learn": "CRUD, derived values for search, dates"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 12,
@@ -381,7 +392,8 @@
         "build": "A photo gallery with a slideshow and a lightbox",
         "learn": "setInterval with cleanup, modals, file upload"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 13,
@@ -413,7 +425,8 @@
         "build": "A card-matching memory game with animations",
         "learn": "Complex state, setTimeout, shuffling, animations"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 14,
@@ -445,7 +458,8 @@
         "build": "A currency converter with live exchange rates",
         "learn": "fetch, loading and error states, a useFetch hook"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 15,
@@ -477,7 +491,8 @@
         "build": "A space picture of the day, browsable by date",
         "learn": "APIs with a key, dates, images or videos, caching"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 16,
@@ -509,7 +524,8 @@
         "build": "A typing test with live speed and accuracy",
         "learn": "useRef, timers, computing on every keystroke"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 17,
@@ -541,7 +557,8 @@
         "build": "A piano you play with the mouse or keyboard",
         "learn": "Keyboard events, Web Audio API, UI from arrays"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 18,
@@ -573,7 +590,8 @@
         "build": "A video player with its own controls",
         "learn": "useRef, the HTML5 video API, accessibility"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 19,
@@ -605,7 +623,8 @@
         "build": "A five-letter word-guessing game",
         "learn": "Global key events, a grid in state, game logic"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 20,
@@ -637,7 +656,8 @@
         "build": "A movie finder with detail pages",
         "learn": "React Router, useFetch and useDebounce hooks"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 21,
@@ -669,7 +689,8 @@
         "build": "Book search with your own reading lists",
         "learn": "Searching an API, moving items between lists"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 22,
@@ -701,7 +722,8 @@
         "build": "A sign-up form split into clear steps",
         "learn": "State across steps, validation, React Hook Form"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 23,
@@ -733,7 +755,8 @@
         "build": "A fan wiki with lists and detail pages",
         "learn": "Dynamic routing, search, filters, pagination"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 24,
@@ -765,7 +788,8 @@
         "build": "Star ratings and reviews with averages",
         "learn": "Reusable components, derived data, sorting"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 25,
@@ -797,7 +821,8 @@
         "build": "A meme maker with templates and your own photos",
         "learn": "Drawing on canvas, image upload, downloads"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 26,
@@ -829,7 +854,8 @@
         "build": "A blog with posts written in Markdown",
         "learn": "Routing, CRUD, rendering Markdown"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 27,
@@ -861,7 +887,8 @@
         "build": "A wallet with savings goals and charts",
         "learn": "useReducer, reduce over arrays, Recharts"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 28,
@@ -893,7 +920,8 @@
         "build": "Track subscriptions, renewals and monthly costs",
         "learn": "Date calculations, totals, sorting, notifications"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 29,
@@ -925,7 +953,8 @@
         "build": "Watering reminders for your plants",
         "learn": "Time-based logic, image upload, notifications"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 30,
@@ -957,7 +986,8 @@
         "build": "A mood journal with a calendar and charts",
         "learn": "Dates, calendar grids, charts, aggregating data"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 31,
@@ -989,7 +1019,8 @@
         "build": "A pet that gets hungry even while you're away",
         "learn": "State over time, useReducer, animations, saving"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 32,
@@ -1021,7 +1052,8 @@
         "build": "The classic snake game on a canvas",
         "learn": "Game loop, useRef for fresh state, collisions"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 33,
@@ -1053,7 +1085,8 @@
         "build": "A cozy study room with mixable sounds and a timer",
         "learn": "Several sounds at once, sliders, timer cleanup"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 34,
@@ -1085,7 +1118,8 @@
         "build": "A digital closet that suggests outfits",
         "learn": "Image upload, multi-filter search, a weather API"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 35,
@@ -1117,7 +1151,8 @@
         "build": "A drawing app with brushes, undo and export",
         "learn": "Canvas API, mouse and touch events, undo stack"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 36,
@@ -1149,7 +1184,8 @@
         "build": "A retro music player with a playlist and visuals",
         "learn": "Audio handling, playlist state, visualization"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 37,
@@ -1181,7 +1217,8 @@
         "build": "A board for job applications and interviews",
         "learn": "Drag & drop, CRUD, reminders, statistics"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 38,
@@ -1213,7 +1250,8 @@
         "build": "A Kanban board with drag-and-drop cards",
         "learn": "dnd-kit, nested state, useReducer"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 39,
@@ -1245,7 +1283,8 @@
         "build": "A webcam photo booth with filters and GIFs",
         "learn": "getUserMedia, drawing on canvas, filters, timing"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 40,
@@ -1277,7 +1316,8 @@
         "build": "A board for pinning images, notes and colors",
         "learn": "Free dragging and resizing, saving positions"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 41,
@@ -1309,7 +1349,8 @@
         "build": "Swipe cards left or right to pick favorites",
         "learn": "Pointer gestures, Framer Motion animations"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 42,
@@ -1341,7 +1382,8 @@
         "build": "A travel map of a made-up world of sky islands",
         "learn": "React Leaflet, your own map, markers, GeoJSON"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 43,
@@ -1373,7 +1415,8 @@
         "build": "A user table with sorting, filters and pages",
         "learn": "Sorting and paging logic, large data sets"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 44,
@@ -1405,7 +1448,8 @@
         "build": "An online store with a cart and checkout",
         "learn": "Global state, routing, cart logic, payments"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 45,
@@ -1437,7 +1481,8 @@
         "build": "Sign-up and login with protected pages",
         "learn": "Form validation, protected routes, tokens"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 46,
@@ -1469,7 +1514,8 @@
         "build": "A feed of posts with votes and threaded comments",
         "learn": "Recursive comments, instant votes, infinite scroll"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 47,
@@ -1501,7 +1547,8 @@
         "build": "Appointment booking with free time slots",
         "learn": "date-fns, booking conflicts, forms, time zones"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 48,
@@ -1533,7 +1580,8 @@
         "build": "Your own AI chatbot with streamed answers",
         "learn": "Streaming, rendering Markdown, many conversations"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 49,
@@ -1565,7 +1613,8 @@
         "build": "A Windows 95-style desktop with mini apps",
         "learn": "Window management, drag and resize, Context"
       }
-    }
+    },
+    "starter": false
   },
   {
     "n": 50,
@@ -1597,6 +1646,7 @@
         "build": "A real-time chat with channels and users",
         "learn": "WebSockets, real-time state, users and channels"
       }
-    }
+    },
+    "starter": false
   }
 ]

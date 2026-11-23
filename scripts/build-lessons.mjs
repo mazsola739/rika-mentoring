@@ -1,7 +1,7 @@
 // A sajat-50.md (magyar, ez adja a sorrendet) és a content/lessons.en.json (angol)
 // alapján legyártja a kétnyelvű shared/lessons.json-t.
 // Futtatás: npm run lessons (a dev és a build előtt magától lefut).
-import { readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { tierFor } from '../shared/tiers.js'
 
 const SLUGS = {
@@ -87,6 +87,8 @@ const CARD_MAX = 52
 
 for (const lesson of lessons) {
   lesson.en = english[lesson.slug]
+  // A downloadable starter project exists for this lesson (built by scripts/build-starters.mjs).
+  lesson.starter = existsSync(new URL(`../starters/${lesson.slug}/starter.json`, import.meta.url))
   for (const lang of ['hu', 'en']) {
     const card = cards[lesson.slug]?.[lang]
     if (!card?.build || !card?.learn)

@@ -6,10 +6,11 @@
   "description": "Rika Mentoring – 50 React-lecke mintás színvilágokban, micro frontendekkel",
   "scripts": {
     "lessons": "node scripts/build-lessons.mjs",
+    "starters": "node scripts/build-starters.mjs",
     "scaffold": "node scripts/scaffold-apps.mjs",
-    "predev": "npm run lessons",
+    "predev": "npm run lessons && npm run starters",
     "dev": "vite",
-    "prebuild": "npm run lessons",
+    "prebuild": "npm run lessons && npm run starters",
     "build": "vite build",
     "preview": "vite preview"
   },
