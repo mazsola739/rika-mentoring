@@ -1,0 +1,604 @@
+.tm {
+  container-type: inline-size;
+  display: grid;
+  gap: 18px;
+}
+
+/* ── Statistics ─────────────────────────────────────────── */
+.tm-stats {
+  display: grid;
+  gap: 12px;
+}
+
+.tm-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.tm-tile {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+}
+
+.tm-tile dt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.tm-tile dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--solid-text);
+}
+
+.tm-dot {
+  flex: none;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pin, var(--solid));
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+.tm-dot--draft {
+  background: var(--accent);
+}
+
+.tm-progress {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.tm-progress__bar {
+  display: block;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.tm-progress__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.3s ease;
+}
+
+/* ── Toolbar ───────────────────────────────────────────── */
+.tm-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+
+.tm-chips,
+.tm-toolbar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tm-chip__count {
+  min-width: 22px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--paper-2);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.chip[aria-pressed='true'] .tm-chip__count {
+  background: rgb(255 255 255 / 0.22);
+  color: inherit;
+}
+
+.tm-warning {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--paper));
+  font-size: 14.5px;
+}
+
+/* ── Map and side column ───────────────────────────────── */
+.tm-layout {
+  display: grid;
+  gap: 18px;
+}
+
+.tm-mapcol {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-width: 0;
+}
+
+.tm-map {
+  height: 320px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--paper-2);
+  isolation: isolate; /* keeps Leaflet's internal z-indexes (up to 1000) inside the map */
+}
+
+.tm .leaflet-container {
+  font: inherit;
+  font-size: 13px;
+}
+
+.tm .leaflet-container:focus-visible {
+  outline: 3px solid var(--solid-light);
+  outline-offset: 2px;
+}
+
+.tm-hint {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+}
+
+/* The pin: a rounded square rotated around its sharp corner, which becomes the tip. */
+.tm-marker {
+  background: none;
+  border: 0;
+}
+
+.tm-pin {
+  position: absolute;
+  top: 14px;
+  left: 15px;
+  width: 26px;
+  height: 26px;
+  border: 3px solid #fff;
+  border-radius: 50% 50% 50% 0;
+  background: var(--pin);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.35);
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+  transition: transform 0.15s ease;
+}
+
+.tm-pin::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.tm-pin.is-active {
+  transform: rotate(-45deg) scale(1.25);
+}
+
+.tm-pin.is-draft {
+  border-style: dashed;
+  border-color: #100513;
+  animation: tm-bounce 1.2s ease-in-out infinite;
+}
+
+@keyframes tm-bounce {
+  50% {
+    transform: rotate(-45deg) translate(3px, -3px);
+  }
+}
+
+.tm-tip {
+  display: grid;
+  gap: 1px;
+}
+
+.tm-tip strong {
+  font-size: 13.5px;
+}
+
+.tm-tip small {
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+.tm-side {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.tm-side__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: 19px;
+}
+
+/* ── Form ──────────────────────────────────────────────── */
+.tm-form {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--accent);
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.tm-form__head {
+  display: grid;
+  gap: 2px;
+}
+
+.tm-form__head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 21px;
+}
+
+.tm-form__coords {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.tm-form__hint {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.tm-textarea {
+  min-height: 64px;
+  resize: vertical;
+}
+
+.tm-radios {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.tm-radios legend {
+  margin-bottom: 6px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tm-radios__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tm-radio {
+  position: relative;
+  display: inline-flex;
+}
+
+.tm-radio input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.tm-radio span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tm-radio input:checked + span {
+  border-color: var(--solid);
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+.tm-radio--want input:checked + span {
+  border-color: #fb7101;
+  background: #fb7101;
+  color: #100513;
+}
+
+.tm-radio input:focus-visible + span {
+  outline: 3px solid var(--solid-light);
+  outline-offset: 2px;
+}
+
+.tm-photo {
+  display: grid;
+  gap: 8px;
+}
+
+.tm-photo__label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tm-photo__label small {
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.tm-photo__preview {
+  width: 100%;
+  max-height: 180px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.tm-photo__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.tm-file {
+  cursor: pointer;
+}
+
+.tm-file:focus-within {
+  outline: 3px solid var(--solid-light);
+  outline-offset: 3px;
+}
+
+.tm-file.is-busy {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.tm-error {
+  color: #b0103a;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tm-form [aria-invalid='true'] {
+  border-color: #b0103a;
+}
+
+.tm-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ── List ──────────────────────────────────────────────── */
+.tm-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tm-item {
+  display: grid;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.tm-item.is-selected {
+  border-color: var(--pin);
+  box-shadow: 0 0 0 2px var(--pin);
+}
+
+.tm-item__main {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  width: 100%;
+  padding: 4px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tm-item__main:hover {
+  background: var(--paper-2);
+}
+
+.tm-item__photo {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.tm-item__pin {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--pin) 14%, var(--paper));
+}
+
+.tm-item__pin::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: var(--pin);
+}
+
+.tm-item__text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.tm-item__text strong {
+  font-size: 15px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.tm-item__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tm-item__note {
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.tm-item__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.tm-mini {
+  min-height: 36px;
+  margin-right: auto;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 600 13px/1.2 var(--font-body);
+  cursor: pointer;
+}
+
+.tm-mini:hover {
+  background: var(--paper-2);
+}
+
+.tm-icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.tm-icon-btn:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.tm-empty {
+  margin: 0;
+  padding: 20px 14px;
+  border: 2px dashed var(--line);
+  border-radius: 14px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.tm-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tm-link {
+  padding: 6px 2px;
+  border: 0;
+  background: none;
+  color: var(--solid-text);
+  font: 600 14px/1.2 var(--font-body);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ── Wide panels: map and list side by side ────────────── */
+@container (min-width: 700px) {
+  .tm-layout {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .tm-map {
+    height: 480px;
+  }
+
+  .tm-places .tm-list {
+    max-height: 440px;
+    padding-right: 4px;
+    overflow-y: auto;
+  }
+}
+
+@container (max-width: 380px) {
+  .tm-tile {
+    padding: 10px;
+  }
+
+  .tm-tile dd {
+    font-size: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tm-pin,
+  .tm-item,
+  .tm-progress__bar span {
+    transition: none;
+  }
+
+  .tm-pin.is-draft {
+    animation: none;
+  }
+}

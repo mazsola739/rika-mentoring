@@ -1,0 +1,413 @@
+/* Mono Botanical palette: the three results differ in tone and texture, never in colour alone. */
+.wd {
+  --wd-black: #050505;
+  --wd-mid: #616161;
+  --wd-grey: #a7a7a7;
+  --wd-light: #dddddd;
+  --wd-present: repeating-linear-gradient(135deg, #a7a7a7 0 5px, #bcbcbc 5px 10px);
+
+  container-type: inline-size;
+  display: grid;
+  gap: 18px;
+}
+
+.wd__head {
+  display: grid;
+  gap: 12px;
+}
+
+.wd__intro,
+.wd__note {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.wd__note {
+  font-size: 14px;
+}
+
+.wd__modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wd-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.wd-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wd-game {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.wd-game__info {
+  justify-self: stretch;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--paper-2);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ── Board ─────────────────────────────────────────────── */
+.wd-stage {
+  position: relative;
+  width: min(330px, 100%);
+}
+
+.wd-board {
+  display: grid;
+  gap: 6px;
+}
+
+.wd-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.wd-tile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: 2px solid var(--wd-light);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 700 clamp(22px, 8cqi, 30px) / 1 var(--font-body);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.wd-tile.is-filled {
+  border-color: var(--wd-mid);
+  animation: wd-pop 0.12s ease;
+}
+
+.wd-tile.is-correct {
+  border-color: var(--solid);
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+.wd-tile.is-present {
+  border-color: var(--wd-grey);
+  background: var(--wd-present);
+  color: var(--wd-black);
+}
+
+.wd-tile.is-absent {
+  border-color: #ececec;
+  background: #ececec;
+  color: var(--wd-mid);
+}
+
+.wd-tile--mini {
+  width: 20px;
+  border-radius: 5px;
+}
+
+.wd-row.is-revealing .wd-tile {
+  animation: wd-flip 0.5s ease both;
+  animation-delay: calc(var(--i) * 250ms);
+}
+
+.wd-row.is-win .wd-tile {
+  animation: wd-bounce 0.6s ease;
+  animation-delay: calc(var(--i) * 90ms);
+}
+
+.wd-row.is-shaking {
+  animation: wd-shake 0.42s ease;
+}
+
+/* Until the middle of the flip the tile still looks "typed"; then it turns to its result. */
+@keyframes wd-flip {
+  0% {
+    transform: rotateX(0);
+    border-color: var(--wd-mid);
+    background: var(--paper);
+    color: var(--ink);
+  }
+  50% {
+    transform: rotateX(90deg);
+    border-color: var(--wd-mid);
+    background: var(--paper);
+    color: var(--ink);
+  }
+  100% {
+    transform: rotateX(0);
+  }
+}
+
+@keyframes wd-pop {
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes wd-bounce {
+  30% {
+    transform: translateY(-14px);
+  }
+  60% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes wd-shake {
+  20%,
+  60% {
+    transform: translateX(-7px);
+  }
+  40%,
+  80% {
+    transform: translateX(7px);
+  }
+}
+
+.wd-toast {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  z-index: 2;
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--wd-black);
+  color: #fff;
+  font-weight: 700;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  box-shadow: var(--shadow);
+  animation: wd-toast 1.8s ease both;
+}
+
+@keyframes wd-toast {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -6px);
+  }
+  10%,
+  85% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ── On-screen keyboard ───────────────────────────────── */
+.wd-keyboard {
+  display: grid;
+  gap: 6px;
+  width: min(500px, 100%);
+}
+
+.wd-keyboard__row {
+  display: flex;
+  justify-content: center;
+  gap: clamp(3px, 1cqi, 6px);
+}
+
+.wd-key {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 44px;
+  height: 54px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--wd-light);
+  color: var(--wd-black);
+  font: 700 clamp(12px, 3.4cqi, 16px) / 1 var(--font-body);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.15s ease;
+}
+
+.wd-key:hover {
+  background: #cfcfcf;
+}
+
+.wd-key--wide {
+  flex-grow: 1.6;
+  max-width: 70px;
+  font-size: clamp(11px, 3cqi, 14px);
+}
+
+.wd-key.is-correct {
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+.wd-key.is-present {
+  background: var(--wd-present);
+}
+
+.wd-key.is-absent {
+  border-color: var(--wd-light);
+  background: var(--paper);
+  color: #767676;
+}
+
+/* ── Result and statistics ────────────────────────────── */
+.wd-result {
+  justify-self: stretch;
+  display: grid;
+  gap: 12px;
+  padding: 22px clamp(16px, 4cqi, 28px);
+  border-top: 6px solid var(--solid);
+  border-radius: var(--radius);
+  background: var(--paper-2);
+  text-align: center;
+}
+
+.wd-result h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 28px;
+}
+
+.wd-result p {
+  margin: 0;
+}
+
+.wd-result__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.wd-result__note {
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.wd-stats {
+  display: grid;
+  gap: 10px;
+  text-align: left;
+}
+
+.wd-stats h4 {
+  margin: 4px 0 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.wd-stats__numbers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  text-align: center;
+}
+
+.wd-stats__numbers div {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 4px;
+  border-radius: 12px;
+  background: var(--paper);
+}
+
+.wd-stats__numbers dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.wd-stats__numbers dt {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.wd-dist {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wd-dist li {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.wd-dist__bar {
+  width: max(28px, var(--w));
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--wd-grey);
+  color: var(--wd-black);
+  text-align: right;
+}
+
+.wd-dist li.is-current .wd-dist__bar {
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+.wd-statsbox {
+  justify-self: stretch;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.wd-statsbox summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.wd-statsbox[open] summary {
+  margin-bottom: 12px;
+}
+
+@container (max-width: 400px) {
+  .wd-stats__numbers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wd-key {
+    height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wd-tile,
+  .wd-row,
+  .wd-toast,
+  .wd-row.is-revealing .wd-tile,
+  .wd-row.is-win .wd-tile,
+  .wd-row.is-shaking {
+    animation: none;
+  }
+}

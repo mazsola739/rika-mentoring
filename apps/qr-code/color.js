@@ -1,0 +1,15 @@
+// Relative luminance and contrast ratio, as defined by WCAG 2.x.
+const channel = (value) => {
+  const c = value / 255
+  return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4
+}
+
+export function luminance(hex) {
+  const n = parseInt(hex.slice(1), 16)
+  return 0.2126 * channel((n >> 16) & 255) + 0.7152 * channel((n >> 8) & 255) + 0.0722 * channel(n & 255)
+}
+
+export function contrastRatio(a, b) {
+  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+  return (light + 0.05) / (dark + 0.05)
+}

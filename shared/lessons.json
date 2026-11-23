@@ -1,0 +1,1602 @@
+[
+  {
+    "n": 1,
+    "slug": "portfolio",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Portfolio / Resume (CV) Website",
+      "short": "Portfólió és önéletrajz",
+      "learn": "komponensekre bontás, reszponzív dizájn, routing, űrlap küldése, telepítés (Vercel / Netlify), SEO",
+      "beginner": "egyoldalas bemutatkozás, készségek, elérhetőség",
+      "intermediate": "projektek kártyákon, külön oldalak, működő kapcsolati űrlap",
+      "advanced": "tartalom CMS-ből, blog, animációk, Lighthouse 90+ pont, saját domain",
+      "card": {
+        "build": "Bemutatkozó oldal projektekkel és űrlappal",
+        "learn": "Komponensek, reszponzív dizájn, routing"
+      }
+    },
+    "en": {
+      "title": "Portfolio / Resume (CV) Website",
+      "short": "Portfolio and résumé site",
+      "learn": "component composition, responsive design, routing, form submission, deployment (Vercel / Netlify), SEO",
+      "beginner": "a single-page introduction with skills and contact details",
+      "intermediate": "project cards, separate pages, a working contact form",
+      "advanced": "content from a CMS, a blog, animations, a Lighthouse score of 90+, a custom domain",
+      "card": {
+        "build": "A personal site with projects and a contact form",
+        "learn": "Components, responsive layout, routing, deploys"
+      }
+    }
+  },
+  {
+    "n": 2,
+    "slug": "dark-mode",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Dark Mode",
+      "short": "Sötét / világos mód",
+      "learn": "Context API, CSS-változók, `useEffect` és `matchMedia`, saját `useDarkMode` hook",
+      "beginner": "kapcsoló, ami átváltja az oldal színeit",
+      "intermediate": "a választás megjegyzése, a rendszerbeállítás (`prefers-color-scheme`) követése",
+      "advanced": "több téma, villanásmentes betöltés, animált átmenet, Context-alapú témarendszer egy egész apphoz",
+      "card": {
+        "build": "Sötét mód kapcsoló, ami megjegyzi a választást",
+        "learn": "Context API, CSS-változók, saját hook"
+      }
+    },
+    "en": {
+      "title": "Dark Mode",
+      "short": "Light / dark theme switch",
+      "learn": "Context API, CSS custom properties, `useEffect` and `matchMedia`, a custom `useDarkMode` hook",
+      "beginner": "a toggle that switches the page colors",
+      "intermediate": "remember the choice and follow the system setting (`prefers-color-scheme`)",
+      "advanced": "multiple themes, flicker-free loading, animated transitions, Context-based theming for a whole app",
+      "card": {
+        "build": "A light / dark switch that remembers your choice",
+        "learn": "Context API, CSS variables, a custom hook"
+      }
+    }
+  },
+  {
+    "n": 3,
+    "slug": "password-generator",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Password Generator",
+      "short": "Biztonságos jelszógenerátor",
+      "learn": "vezérelt űrlapelemek (csúszka, jelölőnégyzetek), véletlenszám-logika, vágólap API",
+      "beginner": "jelszó generálása megadott hosszal, másolás gombbal",
+      "intermediate": "kis- és nagybetű, szám, speciális karakter kapcsolói, erősségjelző",
+      "advanced": "`crypto.getRandomValues` a `Math.random` helyett, kiejthető jelszavak, ellenőrzés, hogy a jelszó szerepelt-e adatszivárgásban",
+      "card": {
+        "build": "Erős jelszavak csúszkával és beállításokkal",
+        "learn": "Vezérelt űrlapelemek, véletlen, vágólap API"
+      }
+    },
+    "en": {
+      "title": "Password Generator",
+      "short": "Secure password generator",
+      "learn": "controlled form inputs (slider, checkboxes), random-number logic, the Clipboard API",
+      "beginner": "generate a password of a given length, with a copy button",
+      "intermediate": "toggles for lowercase, uppercase, digits and symbols, a strength meter",
+      "advanced": "`crypto.getRandomValues` instead of `Math.random`, pronounceable passwords, a check against known data breaches",
+      "card": {
+        "build": "Strong passwords with a slider and options",
+        "learn": "Controlled inputs, randomness, Clipboard API"
+      }
+    }
+  },
+  {
+    "n": 4,
+    "slug": "mad-libs",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Mad Libs",
+      "short": "Szóbehelyettesítős játék",
+      "learn": "vezérelt űrlapmezők, szövegsablonok és szöveg-összefűzés, feltételes megjelenítés",
+      "beginner": "néhány mező (név, állat, ige), a beírt szavakból vicces történet lesz",
+      "intermediate": "több sablon vagy véletlen sablon, a mezők a sablonból generálódnak, újrakezdés",
+      "advanced": "saját sablon írása `{főnév}` jelölőkkel, megosztható link, felolvasás (Speech Synthesis API), kétjátékos mód",
+      "card": {
+        "build": "Szójáték, ami a szavaidból vicces történetet ír",
+        "learn": "Vezérelt mezők, szövegsablonok, feltételek"
+      }
+    },
+    "en": {
+      "title": "Mad Libs",
+      "short": "Fill-in-the-blanks word game",
+      "learn": "controlled form fields, string templates and concatenation, conditional rendering",
+      "beginner": "a few fields (name, animal, verb) turned into a funny story",
+      "intermediate": "multiple or random templates, fields generated from the template, restart",
+      "advanced": "custom templates with `{noun}` placeholders, a shareable link, read-aloud (Speech Synthesis API), two-player mode",
+      "card": {
+        "build": "A word game that turns your words into a story",
+        "learn": "Controlled fields, string templates, conditions"
+      }
+    }
+  },
+  {
+    "n": 5,
+    "slug": "qr-code",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "QR Code Generator",
+      "short": "QR-kód szövegből vagy linkből",
+      "learn": "külső npm-csomag használata, vezérelt input, fájl letöltése a böngészőből",
+      "beginner": "szöveg vagy link beírása, QR-kód megjelenítése egy könyvtárral",
+      "intermediate": "szín, méret, logó a közepén, letöltés PNG-ként és SVG-ként",
+      "advanced": "QR-kód beolvasása kamerával, Wi-Fi és névjegy típusú QR-kódok, előzmények",
+      "card": {
+        "build": "QR-kód szövegből vagy linkből, letölthetően",
+        "learn": "npm-csomagok, vezérelt input, fájlletöltés"
+      }
+    },
+    "en": {
+      "title": "QR Code Generator",
+      "short": "QR codes from text or links",
+      "learn": "using an external npm package, controlled inputs, downloading a file from the browser",
+      "beginner": "enter text or a link and render the QR code with a library",
+      "intermediate": "color, size, a logo in the center, download as PNG and SVG",
+      "advanced": "scan QR codes with the camera, Wi-Fi and contact QR types, history",
+      "card": {
+        "build": "QR codes from text or links, ready to download",
+        "learn": "npm packages, controlled input, file download"
+      }
+    }
+  },
+  {
+    "n": 6,
+    "slug": "flashcards",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Flashcards",
+      "short": "Tanulókártyák",
+      "learn": "kártyafordítás 3D CSS-animációval, lépésenként haladó logika, keverés, mentés a `useLocalStorage` hookkal",
+      "beginner": "kártyák kérdéssel és válasszal, kattintásra megfordulnak, előző / következő gomb",
+      "intermediate": "saját paklik, „tudom / nem tudom” jelölés, keverés, haladásjelző, mentés",
+      "advanced": "a nehezebb kártyák gyakrabban jönnek elő (spaced repetition), képek a kártyán, import / export, megosztható paklik",
+      "card": {
+        "build": "Tanulókártyák fordítással, keveréssel, mentéssel",
+        "learn": "3D CSS-fordítás, keverés, useLocalStorage hook"
+      }
+    },
+    "en": {
+      "title": "Flashcards",
+      "short": "Study cards",
+      "learn": "3D CSS card-flip animation, step-by-step logic, shuffling, persistence with the `useLocalStorage` hook",
+      "beginner": "cards with a question and an answer that flip on click, previous / next buttons",
+      "intermediate": "custom decks, “know it / don't know it” marking, shuffle, progress bar, saving",
+      "advanced": "harder cards return more often (spaced repetition), images on cards, import / export, shareable decks",
+      "card": {
+        "build": "Study cards that flip, shuffle and save progress",
+        "learn": "3D CSS flip, shuffling, a useLocalStorage hook"
+      }
+    }
+  },
+  {
+    "n": 7,
+    "slug": "color-palette",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Color Palette Generator",
+      "short": "Véletlen színpaletta",
+      "learn": "tömbök az állapotban (frissítés másolattal), billentyűesemények, vágólap API, színkódok",
+      "beginner": "5 véletlen szín gombnyomásra, hex kód kiírása, másolás vágólapra",
+      "intermediate": "színek rögzítése, szóközre új paletta, kedvencek mentése",
+      "advanced": "harmonikus paletták színelmélet alapján, kontrasztellenőrzés (WCAG), export CSS-változóként, megosztható link",
+      "card": {
+        "build": "Véletlen színpaletták zárolással és másolással",
+        "learn": "Tömbök az állapotban, billentyűk, vágólap API"
+      }
+    },
+    "en": {
+      "title": "Color Palette Generator",
+      "short": "Random color palettes",
+      "learn": "arrays in state (updating via copies), keyboard events, the Clipboard API, color codes",
+      "beginner": "5 random colors on a click, hex codes, copy to clipboard",
+      "intermediate": "lock colors, press space for a new palette, save favorites",
+      "advanced": "harmonious palettes based on color theory, contrast checks (WCAG), export as CSS variables, a shareable link",
+      "card": {
+        "build": "Random color palettes you can lock and copy",
+        "learn": "Arrays in state, keyboard events, Clipboard API"
+      }
+    }
+  },
+  {
+    "n": 8,
+    "slug": "calculator",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Calculator",
+      "short": "Számológép alapműveletekkel",
+      "learn": "`useState`, eseménykezelés, komponensek és props (gombok), feltételes megjelenítés",
+      "beginner": "számgombok, a négy alapművelet, eredmény, törlés (C)",
+      "intermediate": "billentyűzetes bevitel, tizedesek, százalék, előjelváltás, előzmények listája",
+      "advanced": "műveleti sorrend és zárójelek, tudományos funkciók, saját kifejezés-feldolgozó, tesztek",
+      "card": {
+        "build": "Számológép a négy alapművelettel",
+        "learn": "useState, eseménykezelés, komponensek és props"
+      }
+    },
+    "en": {
+      "title": "Calculator",
+      "short": "Basic arithmetic calculator",
+      "learn": "`useState`, event handling, components and props (buttons), conditional rendering",
+      "beginner": "number buttons, the four basic operations, result, clear (C)",
+      "intermediate": "keyboard input, decimals, percent, sign toggle, a history list",
+      "advanced": "operator precedence and parentheses, scientific functions, a custom expression parser, tests",
+      "card": {
+        "build": "A calculator for the four basic operations",
+        "learn": "useState, event handling, components and props"
+      }
+    }
+  },
+  {
+    "n": 9,
+    "slug": "todo",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "To-Do List",
+      "short": "Feladatkezelő",
+      "learn": "listák renderelése `key`-jel, létrehozás/módosítás/törlés az állapotban, szűrés, `useEffect`, saját `useLocalStorage` hook",
+      "beginner": "feladat hozzáadása, kipipálása, törlése",
+      "intermediate": "szerkesztés, szűrés (összes / aktív / kész), mentés a `useLocalStorage` hookkal",
+      "advanced": "határidő és prioritás, húzással átrendezés, backend adatbázissal és bejelentkezéssel, tesztek",
+      "card": {
+        "build": "Feladatlista szűrőkkel, ami megjegyzi a teendőket",
+        "learn": "Listák key-jel, CRUD az állapotban, useEffect"
+      }
+    },
+    "en": {
+      "title": "To-Do List",
+      "short": "Task manager",
+      "learn": "rendering lists with `key`, create/update/delete in state, filtering, `useEffect`, a custom `useLocalStorage` hook",
+      "beginner": "add, complete and delete tasks",
+      "intermediate": "editing, filters (all / active / done), persistence with the `useLocalStorage` hook",
+      "advanced": "due dates and priorities, drag-to-reorder, a backend with a database and login, tests",
+      "card": {
+        "build": "A to-do list with filters that remembers tasks",
+        "learn": "Lists with keys, CRUD in state, useEffect"
+      }
+    }
+  },
+  {
+    "n": 10,
+    "slug": "shopping-list",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Shopping List",
+      "short": "Bevásárlólista",
+      "learn": "csoportosítás és rendezés tömbökkel, vezérelt űrlap, adatok megőrzése a `useLocalStorage` hookkal",
+      "beginner": "tétel hozzáadása mennyiséggel, kipipálás, törlés",
+      "intermediate": "kategóriák (zöldség, tejtermék, …), mentés, a kész tételek a lista aljára kerülnek",
+      "advanced": "közös lista több felhasználóval valós időben, offline működés (PWA), korábbi tételek ajánlása",
+      "card": {
+        "build": "Bevásárlólista kategóriák szerint csoportosítva",
+        "learn": "Csoportosítás és rendezés, vezérelt űrlap"
+      }
+    },
+    "en": {
+      "title": "Shopping List",
+      "short": "Grocery list",
+      "learn": "grouping and sorting arrays, controlled forms, persistence with the `useLocalStorage` hook",
+      "beginner": "add items with a quantity, check them off, delete them",
+      "intermediate": "categories (produce, dairy, …), saving, completed items move to the bottom",
+      "advanced": "a shared real-time list for several users, offline support (PWA), suggestions from past items",
+      "card": {
+        "build": "A grocery list grouped by aisle",
+        "learn": "Grouping and sorting arrays, controlled forms"
+      }
+    }
+  },
+  {
+    "n": 11,
+    "slug": "notes",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Notes App",
+      "short": "Jegyzetek",
+      "learn": "létrehozás/módosítás/törlés, keresés és szűrés számolt értékekkel, dátumkezelés, `useLocalStorage` hook",
+      "beginner": "jegyzet írása, mentése, törlése",
+      "intermediate": "kategóriák, keresés, mentés a hookkal, utolsó módosítás dátuma",
+      "advanced": "formázott szöveg (Markdown), címkék, szinkron több eszköz között backenddel, offline mód",
+      "card": {
+        "build": "Jegyzetelő app kereséssel és dátumokkal",
+        "learn": "CRUD, keresés számolt értékekkel, dátumok"
+      }
+    },
+    "en": {
+      "title": "Notes App",
+      "short": "Notes",
+      "learn": "create/update/delete, search and filtering with derived values, date handling, the `useLocalStorage` hook",
+      "beginner": "write, save and delete notes",
+      "intermediate": "categories, search, persistence with the hook, last-edited date",
+      "advanced": "rich text (Markdown), tags, sync across devices with a backend, offline mode",
+      "card": {
+        "build": "A notes app with search and dates",
+        "learn": "CRUD, derived values for search, dates"
+      }
+    }
+  },
+  {
+    "n": 12,
+    "slug": "image-gallery",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Image Gallery & Carousel",
+      "short": "Képgaléria lapozóval",
+      "learn": "`setInterval` és leállítása a `useEffect`-ben, modális ablak, fájlfeltöltés, billentyűesemények",
+      "beginner": "képek rácsban, kattintásra nagy nézet",
+      "intermediate": "képfeltöltés, magától lapozó carousel kézi léptetéssel, nyilakkal is",
+      "advanced": "lusta betöltés, végtelen görgetés, albumok, felhős képtárhely, húzással átrendezés",
+      "card": {
+        "build": "Képgaléria diavetítéssel és nagyítóval",
+        "learn": "setInterval leállítással, modális ablak, feltöltés"
+      }
+    },
+    "en": {
+      "title": "Image Gallery & Carousel",
+      "short": "Image gallery with a slideshow",
+      "learn": "`setInterval` and cleanup in `useEffect`, modal dialogs, file upload, keyboard events",
+      "beginner": "images in a grid, a large view on click",
+      "intermediate": "image upload, an auto-advancing carousel with manual controls, arrow keys",
+      "advanced": "lazy loading, infinite scroll, albums, cloud image hosting, drag-to-reorder",
+      "card": {
+        "build": "A photo gallery with a slideshow and a lightbox",
+        "learn": "setInterval with cleanup, modals, file upload"
+      }
+    }
+  },
+  {
+    "n": 13,
+    "slug": "memory-game",
+    "tier": {
+      "key": "kezdo",
+      "buttons": 1
+    },
+    "hu": {
+      "title": "Memory Game",
+      "short": "Kártyafordítós párkereső",
+      "learn": "összetettebb állapot (kártyák, kiválasztott pár), `setTimeout`, keverés, CSS-animációk",
+      "beginner": "kártyák megfordítása, párok keresése, „nyertél” üzenet",
+      "intermediate": "lépésszámláló, időmérő, fordítási animáció, nehézségi szintek (rácsméret)",
+      "advanced": "legjobb eredmények mentése, témák (emoji, képek API-ból), kétjátékos mód, billentyűvezérlés",
+      "card": {
+        "build": "Párkereső memóriajáték fordítós kártyákkal",
+        "learn": "Összetett állapot, setTimeout, keverés, animációk"
+      }
+    },
+    "en": {
+      "title": "Memory Game",
+      "short": "Card-matching game",
+      "learn": "more complex state (cards, the selected pair), `setTimeout`, shuffling, CSS animations",
+      "beginner": "flip cards, find pairs, a “you won” message",
+      "intermediate": "move counter, timer, flip animation, difficulty levels (grid size)",
+      "advanced": "best scores, themes (emoji, images from an API), two-player mode, keyboard controls",
+      "card": {
+        "build": "A card-matching memory game with animations",
+        "learn": "Complex state, setTimeout, shuffling, animations"
+      }
+    }
+  },
+  {
+    "n": 14,
+    "slug": "currency-converter",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Currency Converter",
+      "short": "Pénznemváltó",
+      "learn": "adatlekérés `fetch`-csel, töltés- és hibaállapot, saját `useFetch` hook, API-kulcs környezeti változóban",
+      "beginner": "összeg és két pénznem, átváltás fix árfolyammal",
+      "intermediate": "élő árfolyamok API-ból a `useFetch` hookkal, csere gomb, hibakezelés",
+      "advanced": "árfolyamgrafikon az elmúlt 30 napról, kedvenc pénznempárok, gyorsítótárazás, offline az utolsó ismert árfolyam",
+      "card": {
+        "build": "Pénznemváltó friss árfolyamokkal",
+        "learn": "fetch, töltés- és hibaállapot, useFetch hook"
+      }
+    },
+    "en": {
+      "title": "Currency Converter",
+      "short": "Currency converter",
+      "learn": "data fetching with `fetch`, loading and error states, a custom `useFetch` hook, an API key in an environment variable",
+      "beginner": "an amount and two currencies, conversion at a fixed rate",
+      "intermediate": "live rates from an API via the `useFetch` hook, a swap button, error handling",
+      "advanced": "a 30-day rate chart, favorite currency pairs, caching, the last known rate offline",
+      "card": {
+        "build": "A currency converter with live exchange rates",
+        "learn": "fetch, loading and error states, a useFetch hook"
+      }
+    }
+  },
+  {
+    "n": 15,
+    "slug": "space-explorer",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Space Explorer",
+      "short": "A NASA napi csillagászati képe",
+      "learn": "API kulccsal, dátumkezelés, médiatípus szerinti megjelenítés (kép / videó), gyorsítótárazás",
+      "beginner": "a napi kép címmel és magyarázattal",
+      "intermediate": "dátumválasztó az archívumhoz, kedvencek, videós napok kezelése",
+      "advanced": "további NASA-adatok (pl. Mars-fotók) szűréssel, végtelen görgetés, galéria nagy nézettel",
+      "card": {
+        "build": "A NASA napi képe, dátum szerint lapozva",
+        "learn": "API kulccsal, dátumok, kép vagy videó, cache"
+      }
+    },
+    "en": {
+      "title": "Space Explorer",
+      "short": "NASA's Astronomy Picture of the Day",
+      "learn": "APIs with a key, date handling, rendering by media type (image / video), caching",
+      "beginner": "today's picture with its title and explanation",
+      "intermediate": "a date picker for the archive, favorites, handling video days",
+      "advanced": "more NASA data (e.g. Mars photos) with filters, infinite scroll, a gallery with a large view",
+      "card": {
+        "build": "NASA's picture of the day, browsable by date",
+        "learn": "APIs with a key, dates, images or videos, caching"
+      }
+    }
+  },
+  {
+    "n": 16,
+    "slug": "typing-test",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Typing Speed Test",
+      "short": "Gépelési sebességmérő",
+      "learn": "`useRef`, időmérés és az időzítő leállítása, számolás minden leütésnél, felesleges újrarenderelések elkerülése",
+      "beginner": "szöveg begépelése, idő mérése, karakter/perc kiírása",
+      "intermediate": "valós idejű kiemelés (helyes / hibás), szó/perc és pontosság, időkorlátos mód (30 / 60 mp)",
+      "advanced": "élő grafikon a gépelés közben, előzmények és fejlődés, ranglista, többjátékos verseny",
+      "card": {
+        "build": "Gépelésteszt élő sebességgel és pontossággal",
+        "learn": "useRef, időzítők, számolás minden leütésnél"
+      }
+    },
+    "en": {
+      "title": "Typing Speed Test",
+      "short": "Typing speed test",
+      "learn": "`useRef`, timing and stopping the timer, computing on every keystroke, avoiding unnecessary re-renders",
+      "beginner": "type a passage, measure the time, show characters per minute",
+      "intermediate": "live highlighting (correct / wrong), words per minute and accuracy, timed mode (30 / 60 s)",
+      "advanced": "a live chart while typing, history and progress, a leaderboard, a multiplayer race",
+      "card": {
+        "build": "A typing test with live speed and accuracy",
+        "learn": "useRef, timers, computing on every keystroke"
+      }
+    }
+  },
+  {
+    "n": 17,
+    "slug": "piano",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Musical Instrument",
+      "short": "Interaktív zongora",
+      "learn": "billentyűesemények, `useRef` hangokhoz, tömbből generált felület, Web Audio API",
+      "beginner": "zongorabillentyűk, kattintásra hang",
+      "intermediate": "játék a számítógép billentyűzetével, több oktáv, hangszín választása",
+      "advanced": "hangszintézis Web Audio API-val, felvétel és visszajátszás, MIDI-billentyűzet, dallamtanító mód",
+      "card": {
+        "build": "Zongora, amin egérrel vagy billentyűzettel játszol",
+        "learn": "Billentyűesemények, Web Audio API, tömbből UI"
+      }
+    },
+    "en": {
+      "title": "Musical Instrument",
+      "short": "Interactive piano",
+      "learn": "keyboard events, `useRef` for sounds, UI generated from an array, the Web Audio API",
+      "beginner": "piano keys that play a sound on click",
+      "intermediate": "play with the computer keyboard, multiple octaves, a choice of instrument sounds",
+      "advanced": "sound synthesis with the Web Audio API, record and play back, MIDI keyboard support, a melody-teaching mode",
+      "card": {
+        "build": "A piano you play with the mouse or keyboard",
+        "learn": "Keyboard events, Web Audio API, UI from arrays"
+      }
+    }
+  },
+  {
+    "n": 18,
+    "slug": "video-player",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Video Player",
+      "short": "Videólejátszó saját vezérlőkkel",
+      "learn": "`useRef` a DOM-elemhez, HTML5 videó API (`play`, `currentTime`), saját vezérlők, akadálymentesség",
+      "beginner": "videó lejátszása saját lejátszás / szünet gombbal",
+      "intermediate": "tekerősáv, hangerő, teljes képernyő, lejátszási sebesség, billentyűparancsok",
+      "advanced": "lejátszási lista, feliratok, folytatás ott, ahol abbahagytad, kép a képben mód",
+      "card": {
+        "build": "Videólejátszó saját vezérlőkkel",
+        "learn": "useRef, HTML5 videó API, akadálymentesség"
+      }
+    },
+    "en": {
+      "title": "Video Player",
+      "short": "Video player with custom controls",
+      "learn": "`useRef` for the DOM element, the HTML5 video API (`play`, `currentTime`), custom controls, accessibility",
+      "beginner": "play a video with a custom play / pause button",
+      "intermediate": "seek bar, volume, fullscreen, playback speed, keyboard shortcuts",
+      "advanced": "a playlist, subtitles, resume where you left off, picture-in-picture",
+      "card": {
+        "build": "A video player with its own controls",
+        "learn": "useRef, the HTML5 video API, accessibility"
+      }
+    }
+  },
+  {
+    "n": 19,
+    "slug": "wordle",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Wordle-szerű játék",
+      "short": "Szókitaláló",
+      "learn": "globális billentyűesemények, rács az állapotban, játéklogika, animációk",
+      "beginner": "5 betűs szó kitalálása 6 próbából, színes visszajelzés",
+      "intermediate": "képernyő-billentyűzet a betűk állapotával, érvényes szavak ellenőrzése, animációk",
+      "advanced": "napi szó (mindenkinek ugyanaz), statisztikák és sorozat, eredmény megosztása emoji-rácsként, magyar szólista",
+      "card": {
+        "build": "Ötbetűs szókitaláló játék",
+        "learn": "Globális billentyűk, rács állapotban, játéklogika"
+      }
+    },
+    "en": {
+      "title": "Wordle-style Game",
+      "short": "Word-guessing game",
+      "learn": "global keyboard events, a grid in state, game logic, animations",
+      "beginner": "guess a 5-letter word in 6 tries with colored feedback",
+      "intermediate": "an on-screen keyboard showing letter states, a valid-word check, animations",
+      "advanced": "a daily word (the same for everyone), statistics and streaks, results shared as an emoji grid, a Hungarian word list",
+      "card": {
+        "build": "A five-letter word-guessing game",
+        "learn": "Global key events, a grid in state, game logic"
+      }
+    }
+  },
+  {
+    "n": 20,
+    "slug": "movie-search",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Movie Search",
+      "short": "Filmkereső",
+      "learn": "routing (React Router) paraméterekkel, saját `useFetch` és `useDebounce` hook, üres és hibaállapotok",
+      "beginner": "keresőmező, találatok címmel és poszterrel",
+      "intermediate": "adatlap külön oldalon, a keresés csak a gépelés után indul (debounce), „nincs találat” kezelése",
+      "advanced": "lapozás vagy végtelen görgetés, szűrés év és műfaj szerint, kedvencek, a keresés az URL-ben marad",
+      "card": {
+        "build": "Filmkereső részletes adatlapokkal",
+        "learn": "React Router, useFetch és useDebounce hook"
+      }
+    },
+    "en": {
+      "title": "Movie Search",
+      "short": "Movie finder",
+      "learn": "routing (React Router) with parameters, custom `useFetch` and `useDebounce` hooks, empty and error states",
+      "beginner": "a search box, results with title and poster",
+      "intermediate": "a detail page, search that starts once typing stops (debounce), “no results” handling",
+      "advanced": "pagination or infinite scroll, filters by year and genre, favorites, the search kept in the URL",
+      "card": {
+        "build": "A movie finder with detail pages",
+        "learn": "React Router, useFetch and useDebounce hooks"
+      }
+    }
+  },
+  {
+    "n": 21,
+    "slug": "book-library",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Book Library",
+      "short": "Könyvkereső és olvasólista",
+      "learn": "keresés API-ban, tételek mozgatása listák között, `useFetch` hook, API-adatok átalakítása",
+      "beginner": "saját könyvlista (cím, szerző), olvasási státusz",
+      "intermediate": "könyvkeresés API-ból (Open Library / Google Books), polcok: olvasom / elolvastam / szeretném elolvasni",
+      "advanced": "értékelés és jegyzetek, olvasási cél és statisztika, bejelentkezés és felhős mentés",
+      "card": {
+        "build": "Könyvkereső saját olvasólistákkal",
+        "learn": "Keresés API-ban, tételek mozgatása listák között"
+      }
+    },
+    "en": {
+      "title": "Book Library",
+      "short": "Book search and reading list",
+      "learn": "searching an API, moving items between lists, the `useFetch` hook, transforming API data",
+      "beginner": "your own book list (title, author) with a reading status",
+      "intermediate": "book search via an API (Open Library / Google Books), shelves: reading / read / want to read",
+      "advanced": "ratings and notes, a reading goal and statistics, login and cloud saving",
+      "card": {
+        "build": "Book search with your own reading lists",
+        "learn": "Searching an API, moving items between lists"
+      }
+    }
+  },
+  {
+    "n": 22,
+    "slug": "multi-step-form",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Multi-Step Form",
+      "short": "Többlépéses űrlap",
+      "learn": "űrlapállapot több lépésen át, validálás, React Hook Form és Zod, felhasználói élmény",
+      "beginner": "három lépés előre-hátra gombokkal, összefoglaló a végén",
+      "intermediate": "validálás lépésenként, haladásjelző, az adatok megmaradnak lépésváltáskor",
+      "advanced": "React Hook Form + Zod, feltételes lépések, piszkozat mentése, beküldés API-ra",
+      "card": {
+        "build": "Regisztrációs űrlap áttekinthető lépésekben",
+        "learn": "Állapot lépéseken át, validálás, React Hook Form"
+      }
+    },
+    "en": {
+      "title": "Multi-Step Form",
+      "short": "Multi-step form",
+      "learn": "form state across steps, validation, React Hook Form and Zod, user experience",
+      "beginner": "three steps with back / next buttons, a summary at the end",
+      "intermediate": "per-step validation, a progress indicator, data kept when switching steps",
+      "advanced": "React Hook Form + Zod, conditional steps, saved drafts, submission to an API",
+      "card": {
+        "build": "A sign-up form split into clear steps",
+        "learn": "State across steps, validation, React Hook Form"
+      }
+    }
+  },
+  {
+    "n": 23,
+    "slug": "fan-wiki",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Fan Wiki",
+      "short": "Rajongói wiki",
+      "learn": "lista és adatlap API-ból, dinamikus routing, keresés és szűrés, lapozás",
+      "beginner": "szereplők listája képpel és névvel",
+      "intermediate": "adatlap minden szereplőhöz, keresés és szűrés, adatok API-ból",
+      "advanced": "lapozás, kapcsolatok a szereplők között, epizódlista, szerkeszthető bejegyzések",
+      "card": {
+        "build": "Rajongói wiki listákkal és adatlapokkal",
+        "learn": "Dinamikus routing, keresés, szűrés, lapozás"
+      }
+    },
+    "en": {
+      "title": "Fan Wiki",
+      "short": "Fan wiki",
+      "learn": "list and detail views from an API, dynamic routing, search and filtering, pagination",
+      "beginner": "a list of characters with image and name",
+      "intermediate": "a detail page for each character, search and filters, data from an API",
+      "advanced": "pagination, relationships between characters, an episode list, editable entries",
+      "card": {
+        "build": "A fan wiki with lists and detail pages",
+        "learn": "Dynamic routing, search, filters, pagination"
+      }
+    }
+  },
+  {
+    "n": 24,
+    "slug": "review-rating",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Review & Rating App",
+      "short": "Értékelő és véleményező app",
+      "learn": "újrahasznosítható komponens (csillagok), számolt adatok (átlag), rendezés és szűrés, később backend",
+      "beginner": "tételek listája, csillagos értékelés, szöveges vélemény",
+      "intermediate": "átlagos értékelés, rendezés értékelés szerint, szűrés, adatlap",
+      "advanced": "bejelentkezés, egy felhasználó egy értékelés, „hasznos volt” szavazás, moderálás, backend",
+      "card": {
+        "build": "Csillagos értékelések és vélemények átlaggal",
+        "learn": "Újrahasznosítható komponens, átlag, rendezés"
+      }
+    },
+    "en": {
+      "title": "Review & Rating App",
+      "short": "Ratings and reviews",
+      "learn": "a reusable component (stars), derived data (averages), sorting and filtering, later a backend",
+      "beginner": "a list of items, star ratings, written reviews",
+      "intermediate": "average rating, sorting by rating, filters, a detail page",
+      "advanced": "login, one review per user, “helpful” votes, moderation, a backend",
+      "card": {
+        "build": "Star ratings and reviews with averages",
+        "learn": "Reusable components, derived data, sorting"
+      }
+    }
+  },
+  {
+    "n": 25,
+    "slug": "meme-generator",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Meme Generator",
+      "short": "Mémkészítő",
+      "learn": "rajzolás canvasra, képfeltöltés, sablonok API-ból, kép letöltése",
+      "beginner": "kép választása, felső és alsó szöveg rá",
+      "intermediate": "népszerű sablonok API-ból, saját kép feltöltése, betűtípus, méret, szín, letöltés",
+      "advanced": "szövegdobozok húzása és forgatása, matricák, mémgaléria és megosztás",
+      "card": {
+        "build": "Mémkészítő sablonokkal és saját képekkel",
+        "learn": "Rajzolás canvasra, képfeltöltés, letöltés"
+      }
+    },
+    "en": {
+      "title": "Meme Generator",
+      "short": "Meme maker",
+      "learn": "drawing on canvas, image upload, templates from an API, downloading images",
+      "beginner": "pick an image and add top and bottom text",
+      "intermediate": "popular templates from an API, upload your own image, font, size, color, download",
+      "advanced": "drag and rotate text boxes, stickers, a meme gallery and sharing",
+      "card": {
+        "build": "A meme maker with templates and your own photos",
+        "learn": "Drawing on canvas, image upload, downloads"
+      }
+    }
+  },
+  {
+    "n": 26,
+    "slug": "blog",
+    "tier": {
+      "key": "kezdo-plus",
+      "buttons": 2
+    },
+    "hu": {
+      "title": "Blog Platform",
+      "short": "Blog",
+      "learn": "routing, létrehozás/módosítás/törlés, Markdown megjelenítése, később backend és adatbázis",
+      "beginner": "bejegyzések listája és egy bejegyzés oldala",
+      "intermediate": "új bejegyzés írása, szerkesztés, törlés, Markdown-támogatás",
+      "advanced": "backend adatbázissal, szerzők bejelentkezéssel, kommentek, címkék, keresés, SEO",
+      "card": {
+        "build": "Blog Markdownban írt bejegyzésekkel",
+        "learn": "Routing, CRUD, Markdown megjelenítése"
+      }
+    },
+    "en": {
+      "title": "Blog Platform",
+      "short": "Blog",
+      "learn": "routing, create/update/delete, rendering Markdown, later a backend and database",
+      "beginner": "a list of posts and a single post page",
+      "intermediate": "write, edit and delete posts, Markdown support",
+      "advanced": "a backend with a database, author login, comments, tags, search, SEO",
+      "card": {
+        "build": "A blog with posts written in Markdown",
+        "learn": "Routing, CRUD, rendering Markdown"
+      }
+    }
+  },
+  {
+    "n": 27,
+    "slug": "piggy-bank",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Piggy Bank / Wallet",
+      "short": "Digitális pénztárca és malacpersely",
+      "learn": "összetett állapot `useReducer`-rel, számolás tömbökön (`reduce`), grafikonok (Recharts), adatexport",
+      "beginner": "befizetés és kivétel, egyenleg kiírása",
+      "intermediate": "kategóriák, tranzakciólista szűréssel, megtakarítási cél haladásjelzővel, mentés",
+      "advanced": "grafikonok havi bontásban, több pénztárca és pénznem, ismétlődő tételek, export CSV-be",
+      "card": {
+        "build": "Pénztárca megtakarítási célokkal és grafikonnal",
+        "learn": "useReducer, reduce tömbökön, Recharts"
+      }
+    },
+    "en": {
+      "title": "Piggy Bank / Wallet",
+      "short": "Digital wallet and piggy bank",
+      "learn": "complex state with `useReducer`, calculations over arrays (`reduce`), charts (Recharts), data export",
+      "beginner": "deposits and withdrawals, the current balance",
+      "intermediate": "categories, a filterable transaction list, a savings goal with a progress bar, saving",
+      "advanced": "monthly charts, multiple wallets and currencies, recurring items, CSV export",
+      "card": {
+        "build": "A wallet with savings goals and charts",
+        "learn": "useReducer, reduce over arrays, Recharts"
+      }
+    }
+  },
+  {
+    "n": 28,
+    "slug": "subscriptions",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Subscription Tracker",
+      "short": "Előfizetéskövető",
+      "learn": "dátumszámítás (következő megújulás), összesítés, rendezés, böngészőértesítések",
+      "beginner": "előfizetések listája névvel és havi díjjal, összesítés",
+      "intermediate": "havi és éves nézet, megújulási dátum, kategóriák, logók",
+      "advanced": "értesítés a megújulás előtt, költésgrafikon, pénznemváltás, „melyiket mondjam le?” javaslatok",
+      "card": {
+        "build": "Előfizetések, megújulások és havi költségek",
+        "learn": "Dátumszámítás, összesítés, rendezés, értesítések"
+      }
+    },
+    "en": {
+      "title": "Subscription Tracker",
+      "short": "Subscription tracker",
+      "learn": "date calculations (next renewal), totals, sorting, browser notifications",
+      "beginner": "a list of subscriptions with name and monthly price, plus a total",
+      "intermediate": "monthly and yearly views, renewal dates, categories, logos",
+      "advanced": "a reminder before renewal, a spending chart, currency conversion, “which one should I cancel?” suggestions",
+      "card": {
+        "build": "Track subscriptions, renewals and monthly costs",
+        "learn": "Date calculations, totals, sorting, notifications"
+      }
+    }
+  },
+  {
+    "n": 29,
+    "slug": "plant-care",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Plant Care Tracker",
+      "short": "Növénygondozó",
+      "learn": "időalapú logika (mikor kell öntözni), képfeltöltés, böngészőértesítések, PWA-alapok",
+      "beginner": "növények listája névvel és fotóval",
+      "intermediate": "öntözési gyakoriság, „szomjas vagyok” jelzés, öntözési napló",
+      "advanced": "értesítések, gondozási adatok API-ból, telepíthető app (PWA)",
+      "card": {
+        "build": "Öntözési emlékeztető a növényeidhez",
+        "learn": "Időalapú logika, képfeltöltés, értesítések"
+      }
+    },
+    "en": {
+      "title": "Plant Care Tracker",
+      "short": "Plant care tracker",
+      "learn": "time-based logic (when to water), image upload, browser notifications, PWA basics",
+      "beginner": "a list of plants with name and photo",
+      "intermediate": "watering frequency, an “I'm thirsty” indicator, a watering log",
+      "advanced": "notifications, care data from an API, an installable app (PWA)",
+      "card": {
+        "build": "Watering reminders for your plants",
+        "learn": "Time-based logic, image upload, notifications"
+      }
+    }
+  },
+  {
+    "n": 30,
+    "slug": "mood-tracker",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Mood Tracker",
+      "short": "Hangulatnapló",
+      "learn": "dátumkezelés, naptárrács generálása, grafikonok, adatok összesítése",
+      "beginner": "napi hangulat kiválasztása emojival, rövid jegyzet",
+      "intermediate": "színes naptárnézet, mentés, a nap részletei kattintásra",
+      "advanced": "grafikon a hangulat alakulásáról, összefüggések (alvás, sport), heti összefoglaló, emlékeztető értesítés",
+      "card": {
+        "build": "Hangulatnapló naptárral és grafikonokkal",
+        "learn": "Dátumok, naptárrács, grafikonok, összesítés"
+      }
+    },
+    "en": {
+      "title": "Mood Tracker",
+      "short": "Mood journal",
+      "learn": "date handling, generating a calendar grid, charts, aggregating data",
+      "beginner": "pick today's mood with an emoji and add a short note",
+      "intermediate": "a color-coded calendar view, saving, day details on click",
+      "advanced": "a mood trend chart, correlations (sleep, exercise), a weekly summary, reminder notifications",
+      "card": {
+        "build": "A mood journal with a calendar and charts",
+        "learn": "Dates, calendar grids, charts, aggregating data"
+      }
+    }
+  },
+  {
+    "n": 31,
+    "slug": "virtual-pet",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Virtual Pet (Tamagotchi-szerű)",
+      "short": "Virtuális háziállat",
+      "learn": "idővel változó állapot, a bezárás alatt eltelt idő kiszámolása, `useReducer`, animációk, mentés",
+      "beginner": "háziállat állapotokkal (éhség, kedv), etetés és játék gombok",
+      "intermediate": "az állapotok idővel csökkennek, hangulat szerinti kinézet, mentés",
+      "advanced": "az idő akkor is telik, ha bezárod az oldalt, fejlődési szakaszok, minijátékok, értesítések",
+      "card": {
+        "build": "Kisállat, ami akkor is éhes lesz, ha nem vagy ott",
+        "learn": "Idővel változó állapot, useReducer, animációk"
+      }
+    },
+    "en": {
+      "title": "Virtual Pet (Tamagotchi-style)",
+      "short": "Virtual pet",
+      "learn": "state that changes over time, computing time elapsed while closed, `useReducer`, animations, saving",
+      "beginner": "a pet with stats (hunger, mood), feed and play buttons",
+      "intermediate": "stats decrease over time, the look follows the mood, saving",
+      "advanced": "time passes even when the page is closed, growth stages, mini-games, notifications",
+      "card": {
+        "build": "A pet that gets hungry even while you're away",
+        "learn": "State over time, useReducer, animations, saving"
+      }
+    }
+  },
+  {
+    "n": 32,
+    "slug": "snake",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Snake",
+      "short": "Kígyós játék",
+      "learn": "játékciklus (`setInterval` / `requestAnimationFrame`), `useRef` a friss állapothoz, ütközésvizsgálat, canvas",
+      "beginner": "a kígyó mozgatása nyilakkal, étel felvétele, növekedés",
+      "intermediate": "ütközés a falba és saját magába, pontszám, gyorsuló tempó, szünet",
+      "advanced": "rajzolás canvasra, rekordok mentése, pályák akadályokkal, mobilos húzásvezérlés",
+      "card": {
+        "build": "A klasszikus kígyós játék canvasra rajzolva",
+        "learn": "Játékciklus, useRef friss állapothoz, ütközés"
+      }
+    },
+    "en": {
+      "title": "Snake",
+      "short": "Classic snake game",
+      "learn": "a game loop (`setInterval` / `requestAnimationFrame`), `useRef` for fresh state, collision detection, canvas",
+      "beginner": "move the snake with the arrow keys, eat food, grow",
+      "intermediate": "wall and self collisions, score, increasing speed, pause",
+      "advanced": "canvas rendering, high scores, levels with obstacles, swipe controls on mobile",
+      "card": {
+        "build": "The classic snake game on a canvas",
+        "learn": "Game loop, useRef for fresh state, collisions"
+      }
+    }
+  },
+  {
+    "n": 33,
+    "slug": "lofi-room",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Lofi Study Room",
+      "short": "Hangulatos tanulószoba",
+      "learn": "több hang lejátszása egyszerre, csúszkák, időzítő leállítással, hangulatos CSS",
+      "beginner": "háttérkép és lofi zene lejátszása",
+      "intermediate": "háttérhangok (eső, kávézó, tűz) külön hangerővel, fókuszidőzítő",
+      "advanced": "témák (éjszakai város, erdő), teendőlista a szobában, tanulási statisztika, közös szoba barátokkal valós időben",
+      "card": {
+        "build": "Tanulószoba keverhető hangokkal és időzítővel",
+        "learn": "Több hang egyszerre, csúszkák, időzítő leállítása"
+      }
+    },
+    "en": {
+      "title": "Lofi Study Room",
+      "short": "Cozy study room",
+      "learn": "playing several sounds at once, sliders, a timer with cleanup, atmospheric CSS",
+      "beginner": "a background image and lofi music playback",
+      "intermediate": "ambient sounds (rain, café, fire) with separate volumes, a focus timer",
+      "advanced": "themes (night city, forest), a to-do list in the room, study statistics, a shared room with friends in real time",
+      "card": {
+        "build": "A cozy study room with mixable sounds and a timer",
+        "learn": "Several sounds at once, sliders, timer cleanup"
+      }
+    }
+  },
+  {
+    "n": 34,
+    "slug": "wardrobe",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Digital Wardrobe",
+      "short": "Digitális ruhatár",
+      "learn": "képfeltöltés és -kezelés, szűrés több feltétellel, időjárás API, kombinációk generálása",
+      "beginner": "ruhadarabok feltöltése fotóval és kategóriával",
+      "intermediate": "szettek összeállítása, szűrés szín, évszak és alkalom szerint",
+      "advanced": "„mit vegyek fel ma?” az aktuális időjárás alapján, viselési napló, háttéreltávolítás a fotókról",
+      "card": {
+        "build": "Digitális ruhatár, ami szettet ajánl",
+        "learn": "Képfeltöltés, több feltételes szűrés, időjárás API"
+      }
+    },
+    "en": {
+      "title": "Digital Wardrobe",
+      "short": "Digital wardrobe",
+      "learn": "image upload and handling, multi-criteria filtering, a weather API, generating combinations",
+      "beginner": "upload clothing items with a photo and category",
+      "intermediate": "build outfits, filter by color, season and occasion",
+      "advanced": "“what should I wear today?” based on the current weather, a wear log, background removal from photos",
+      "card": {
+        "build": "A digital closet that suggests outfits",
+        "learn": "Image upload, multi-filter search, a weather API"
+      }
+    }
+  },
+  {
+    "n": 35,
+    "slug": "drawing",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Drawing App",
+      "short": "Rajzolóprogram",
+      "learn": "canvas API, egér- és érintésesemények, `useRef`, visszavonás (előzmény-verem), kép exportálása",
+      "beginner": "rajzolás egérrel, szín választása",
+      "intermediate": "ecsetméret, radír, visszavonás, mentés képként",
+      "advanced": "rétegek, alakzatok, érintőképernyő és toll, közös rajzolás valós időben",
+      "card": {
+        "build": "Rajzolóprogram ecsetekkel, visszavonással",
+        "learn": "Canvas API, egér- és érintésesemények, visszavonás"
+      }
+    },
+    "en": {
+      "title": "Drawing App",
+      "short": "Drawing app",
+      "learn": "the Canvas API, mouse and touch events, `useRef`, undo (history stack), exporting images",
+      "beginner": "draw with the mouse and pick a color",
+      "intermediate": "brush size, eraser, undo, save as an image",
+      "advanced": "layers, shapes, touch and stylus support, collaborative drawing in real time",
+      "card": {
+        "build": "A drawing app with brushes, undo and export",
+        "learn": "Canvas API, mouse and touch events, undo stack"
+      }
+    }
+  },
+  {
+    "n": 36,
+    "slug": "winamp",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Winamp Clone",
+      "short": "Retró zenelejátszó",
+      "learn": "hangkezelés, lejátszási lista állapota, OAuth bejelentkezés (Spotify), hangvizualizáció, egyedi retró CSS",
+      "beginner": "retró kinézetű lejátszó saját zenefájlokkal: lejátszás, szünet, következő",
+      "intermediate": "lejátszási lista, tekerősáv, hangerő, keverés és ismétlés",
+      "advanced": "Spotify API bejelentkezéssel, hangvizualizáció Web Audio API-val, cserélhető skinek",
+      "card": {
+        "build": "Retró zenelejátszó listával és vizualizációval",
+        "learn": "Hangkezelés, lejátszási lista, hangvizualizáció"
+      }
+    },
+    "en": {
+      "title": "Winamp Clone",
+      "short": "Retro music player",
+      "learn": "audio handling, playlist state, OAuth login (Spotify), audio visualization, custom retro CSS",
+      "beginner": "a retro-style player for your own music files: play, pause, next",
+      "intermediate": "playlist, seek bar, volume, shuffle and repeat",
+      "advanced": "the Spotify API with login, an audio visualizer with the Web Audio API, swappable skins",
+      "card": {
+        "build": "A retro music player with a playlist and visuals",
+        "learn": "Audio handling, playlist state, visualization"
+      }
+    }
+  },
+  {
+    "n": 37,
+    "slug": "job-tracker",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Job Application Tracker",
+      "short": "Jelentkezéskövető",
+      "learn": "drag & drop (dnd-kit), létrehozás/módosítás/törlés, szűrés, dátumok és emlékeztetők, statisztika",
+      "beginner": "jelentkezések listája (cég, pozíció, dátum, státusz)",
+      "intermediate": "státusz-oszlopok húzással (jelentkeztem → interjú → ajánlat), keresés, szűrés",
+      "advanced": "interjú-emlékeztetők, statisztikák (válaszarány), önéletrajz-verziók csatolása, bejelentkezés és felhős mentés",
+      "card": {
+        "build": "Tábla az álláspályázatokhoz és interjúkhoz",
+        "learn": "Drag & drop, CRUD, emlékeztetők, statisztika"
+      }
+    },
+    "en": {
+      "title": "Job Application Tracker",
+      "short": "Job application tracker",
+      "learn": "drag & drop (dnd-kit), create/update/delete, filtering, dates and reminders, statistics",
+      "beginner": "a list of applications (company, role, date, status)",
+      "intermediate": "status columns with drag & drop (applied → interview → offer), search, filters",
+      "advanced": "interview reminders, statistics (response rate), attached résumé versions, login and cloud saving",
+      "card": {
+        "build": "A board for job applications and interviews",
+        "learn": "Drag & drop, CRUD, reminders, statistics"
+      }
+    }
+  },
+  {
+    "n": 38,
+    "slug": "kanban",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Kanban Board",
+      "short": "Feladattábla húzással",
+      "learn": "drag & drop könyvtárral (dnd-kit), egymásba ágyazott állapot (oszlopok → kártyák), `useReducer`",
+      "beginner": "három oszlop (To-Do / In Progress / Done), kártya hozzáadása",
+      "intermediate": "húzás oszlopok között, prioritás (High / Medium / Low), szerkesztés, mentés",
+      "advanced": "több tábla, határidők, csapattagok, valós idejű közös szerkesztés, backend",
+      "card": {
+        "build": "Kanban-tábla húzható kártyákkal",
+        "learn": "dnd-kit, egymásba ágyazott állapot, useReducer"
+      }
+    },
+    "en": {
+      "title": "Kanban Board",
+      "short": "Drag-and-drop task board",
+      "learn": "drag & drop with a library (dnd-kit), nested state (columns → cards), `useReducer`",
+      "beginner": "three columns (To-Do / In Progress / Done), add cards",
+      "intermediate": "drag between columns, priorities (High / Medium / Low), editing, saving",
+      "advanced": "multiple boards, due dates, team members, real-time collaboration, a backend",
+      "card": {
+        "build": "A Kanban board with drag-and-drop cards",
+        "learn": "dnd-kit, nested state, useReducer"
+      }
+    }
+  },
+  {
+    "n": 39,
+    "slug": "photo-booth",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Photo Booth",
+      "short": "Webkamerás fotófülke",
+      "learn": "kamera elérése (`getUserMedia`), rajzolás canvasra, szűrők, időzítés, kép és GIF készítése",
+      "beginner": "a webkamera képe az oldalon, fotó gombnyomásra",
+      "intermediate": "visszaszámlálás, négyképes fotócsík, szűrők, letöltés",
+      "advanced": "polaroid és egyéni keretek, arcra illeszkedő matricák, GIF készítése, galéria",
+      "card": {
+        "build": "Webkamerás fotófülke szűrőkkel és GIF-ekkel",
+        "learn": "getUserMedia, rajzolás canvasra, szűrők, időzítés"
+      }
+    },
+    "en": {
+      "title": "Photo Booth",
+      "short": "Webcam photo booth",
+      "learn": "camera access (`getUserMedia`), drawing on canvas, filters, timing, creating images and GIFs",
+      "beginner": "the webcam feed on the page, take a photo with a button",
+      "intermediate": "countdown, a four-shot photo strip, filters, download",
+      "advanced": "polaroid and custom frames, face-tracking stickers, GIF creation, a gallery",
+      "card": {
+        "build": "A webcam photo booth with filters and GIFs",
+        "learn": "getUserMedia, drawing on canvas, filters, timing"
+      }
+    }
+  },
+  {
+    "n": 40,
+    "slug": "mood-board",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Mood Board",
+      "short": "Inspirációs tábla",
+      "learn": "szabad húzás és átméretezés, pozíciók tárolása, képfeltöltés, több tábla kezelése",
+      "beginner": "képek és jegyzetek feltöltése egy táblára",
+      "intermediate": "elemek szabad húzása, átméretezés, több tábla",
+      "advanced": "színpaletta kinyerése a képekből, képkeresés Unsplash API-ból, megosztható tábla, export képként",
+      "card": {
+        "build": "Tábla képek, jegyzetek és színek kitűzéséhez",
+        "learn": "Szabad húzás és átméretezés, pozíciók mentése"
+      }
+    },
+    "en": {
+      "title": "Mood Board",
+      "short": "Inspiration board",
+      "learn": "free dragging and resizing, storing positions, image upload, managing multiple boards",
+      "beginner": "upload images and notes to a board",
+      "intermediate": "drag items freely, resize them, multiple boards",
+      "advanced": "extract color palettes from images, image search via the Unsplash API, shareable boards, export as an image",
+      "card": {
+        "build": "A board for pinning images, notes and colors",
+        "learn": "Free dragging and resizing, saving positions"
+      }
+    }
+  },
+  {
+    "n": 41,
+    "slug": "swipe",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Swipe-os választó (Tinder-szerű)",
+      "short": "Kártyák jobbra-balra",
+      "learn": "gesztusok (pointer események), animációk (Framer Motion), API, később valós idejű közös állapot",
+      "beginner": "kártyák egymás után, igen / nem gombokkal",
+      "intermediate": "kártyák húzása jobbra-balra animációval, filmek vagy ételek API-ból",
+      "advanced": "közös szoba két embernek, a közös találatok valós időben, szűrők (műfaj, konyha)",
+      "card": {
+        "build": "Kártyák jobbra-balra húzva a kedvencekért",
+        "learn": "Pointer gesztusok, Framer Motion animációk"
+      }
+    },
+    "en": {
+      "title": "Swipe Picker (Tinder-style)",
+      "short": "Swipe cards left and right",
+      "learn": "gestures (pointer events), animations (Framer Motion), APIs, later shared real-time state",
+      "beginner": "cards one after another with yes / no buttons",
+      "intermediate": "swipe cards left and right with animation, movies or dishes from an API",
+      "advanced": "a shared room for two people, matches in real time, filters (genre, cuisine)",
+      "card": {
+        "build": "Swipe cards left or right to pick favorites",
+        "learn": "Pointer gestures, Framer Motion animations"
+      }
+    }
+  },
+  {
+    "n": 42,
+    "slug": "travel-map",
+    "tier": {
+      "key": "kozep",
+      "buttons": 3
+    },
+    "hu": {
+      "title": "Travel Bucket List",
+      "short": "Utazási térkép",
+      "learn": "térképkönyvtár (React Leaflet), jelölők, földrajzi adatok (GeoJSON), képfeltöltés",
+      "beginner": "helyek listája: jártam ott / szeretnék menni",
+      "intermediate": "térkép jelölőkkel, jegyzetek és fotók helyenként",
+      "advanced": "a meglátogatott országok kiszínezve a világtérképen, statisztika (országok, kontinensek), megosztható térkép",
+      "card": {
+        "build": "Utazási térkép a bejárt és vágyott helyekkel",
+        "learn": "React Leaflet, jelölők, GeoJSON, képfeltöltés"
+      }
+    },
+    "en": {
+      "title": "Travel Bucket List",
+      "short": "Travel map",
+      "learn": "a map library (React Leaflet), markers, geographic data (GeoJSON), image upload",
+      "beginner": "a list of places: been there / want to go",
+      "intermediate": "a map with markers, notes and photos for each place",
+      "advanced": "visited countries highlighted on a world map, statistics (countries, continents), a shareable map",
+      "card": {
+        "build": "A travel map of places visited and dreamed of",
+        "learn": "React Leaflet, markers, GeoJSON, image upload"
+      }
+    }
+  },
+  {
+    "n": 43,
+    "slug": "data-table",
+    "tier": {
+      "key": "halado",
+      "buttons": 4
+    },
+    "hu": {
+      "title": "Data Table",
+      "short": "Felhasználókezelő táblázat",
+      "learn": "rendezés, szűrés és lapozás logikája, TanStack Table, teljesítmény nagy adatnál, szerveroldali adatkezelés",
+      "beginner": "felhasználók táblázatban",
+      "intermediate": "rendezés oszlopra kattintva, keresés, szűrés, lapozás",
+      "advanced": "szerkesztés a táblázatban, több sor kijelölése, sok ezer sor gyors megjelenítése, szerveroldali lapozás, export",
+      "card": {
+        "build": "Felhasználótábla rendezéssel és lapozással",
+        "learn": "Rendezés, szűrés és lapozás, nagy adathalmazok"
+      }
+    },
+    "en": {
+      "title": "Data Table",
+      "short": "User management table",
+      "learn": "sorting, filtering and pagination logic, TanStack Table, performance with large data sets, server-side data handling",
+      "beginner": "users in a table",
+      "intermediate": "sort by clicking a column, search, filters, pagination",
+      "advanced": "inline editing, multi-row selection, rendering thousands of rows smoothly, server-side pagination, export",
+      "card": {
+        "build": "A user table with sorting, filters and pages",
+        "learn": "Sorting and paging logic, large data sets"
+      }
+    }
+  },
+  {
+    "n": 44,
+    "slug": "webshop",
+    "tier": {
+      "key": "halado",
+      "buttons": 4
+    },
+    "hu": {
+      "title": "E-commerce Store (Webshop)",
+      "short": "Webshop",
+      "learn": "globális állapotkezelés (Context / Redux / Zustand), routing, kosárlogika, fizetés bekötése",
+      "beginner": "terméklista és termékoldal",
+      "intermediate": "kosár globális állapottal, végösszeg, szűrés, keresés",
+      "advanced": "checkout, tesztfizetés (Stripe teszt mód), rendeléskezelés, admin felület, bejelentkezés",
+      "card": {
+        "build": "Webshop kosárral és fizetéssel",
+        "learn": "Globális állapot, routing, kosárlogika, fizetés"
+      }
+    },
+    "en": {
+      "title": "E-commerce Store",
+      "short": "Online store",
+      "learn": "global state management (Context / Redux / Zustand), routing, cart logic, payment integration",
+      "beginner": "a product list and product pages",
+      "intermediate": "a cart with global state, totals, filters, search",
+      "advanced": "checkout, test payments (Stripe test mode), order management, an admin panel, login",
+      "card": {
+        "build": "An online store with a cart and checkout",
+        "learn": "Global state, routing, cart logic, payments"
+      }
+    }
+  },
+  {
+    "n": 45,
+    "slug": "auth",
+    "tier": {
+      "key": "halado",
+      "buttons": 4
+    },
+    "hu": {
+      "title": "User Authentication System",
+      "short": "Regisztráció és bejelentkezés",
+      "learn": "űrlapvalidálás, védett oldalak, tokenek és session, Firebase / Supabase, majd saját backend",
+      "beginner": "regisztrációs és bejelentkezési űrlap validálással",
+      "intermediate": "bejelentkezés kész szolgáltatással (Firebase / Supabase), védett oldalak, kijelentkezés",
+      "advanced": "saját backend JWT-vel vagy sessionnel, jelszó-visszaállítás e-mailben, Google-bejelentkezés, szerepkörök",
+      "card": {
+        "build": "Regisztráció és belépés védett oldalakkal",
+        "learn": "Űrlapvalidálás, védett oldalak, tokenek"
+      }
+    },
+    "en": {
+      "title": "User Authentication System",
+      "short": "Sign-up and login",
+      "learn": "form validation, protected routes, tokens and sessions, Firebase / Supabase, then a custom backend",
+      "beginner": "sign-up and login forms with validation",
+      "intermediate": "login with a hosted service (Firebase / Supabase), protected pages, logout",
+      "advanced": "a custom backend with JWT or sessions, password reset by email, Google sign-in, roles",
+      "card": {
+        "build": "Sign-up and login with protected pages",
+        "learn": "Form validation, protected routes, tokens"
+      }
+    }
+  },
+  {
+    "n": 46,
+    "slug": "feed",
+    "tier": {
+      "key": "halado",
+      "buttons": 4
+    },
+    "hu": {
+      "title": "Reddit-szerű feed",
+      "short": "Posztok szavazással és kommentekkel",
+      "learn": "rekurzív komponensek (kommentfa), azonnali felületfrissítés szavazáskor, végtelen görgetés, backend",
+      "beginner": "posztok listája, fel / le szavazás",
+      "intermediate": "rendezés (legújabb / legnépszerűbb), kommentek egy szinten, új poszt írása",
+      "advanced": "egymásba ágyazott kommentek tetszőleges mélységig, közösségek, bejelentkezés, végtelen görgetés, backend",
+      "card": {
+        "build": "Posztfolyam szavazással és kommentfákkal",
+        "learn": "Rekurzív komponensek, végtelen görgetés"
+      }
+    },
+    "en": {
+      "title": "Reddit-style Feed",
+      "short": "Posts with votes and comments",
+      "learn": "recursive components (comment tree), instant UI updates when voting, infinite scroll, a backend",
+      "beginner": "a list of posts with up / down votes",
+      "intermediate": "sorting (newest / top), single-level comments, writing new posts",
+      "advanced": "nested comments of any depth, communities, login, infinite scroll, a backend",
+      "card": {
+        "build": "A feed of posts with votes and threaded comments",
+        "learn": "Recursive comments, instant votes, infinite scroll"
+      }
+    }
+  },
+  {
+    "n": 47,
+    "slug": "booking",
+    "tier": {
+      "key": "halado",
+      "buttons": 4
+    },
+    "hu": {
+      "title": "Booking App (Időpontfoglaló)",
+      "short": "Időpontfoglaló",
+      "learn": "dátum- és időkezelés (date-fns), foglalási ütközések, űrlapok, backend és adatbázis, időzónák",
+      "beginner": "szolgáltatások listája, időpont választása fix listából",
+      "intermediate": "naptár szabad és foglalt időpontokkal, foglalási űrlap, visszaigazolás",
+      "advanced": "admin felület a nyitvatartáshoz, ütközések kezelése, e-mail emlékeztető, backend",
+      "card": {
+        "build": "Időpontfoglaló szabad idősávokkal",
+        "learn": "date-fns, foglalási ütközések, űrlapok, időzónák"
+      }
+    },
+    "en": {
+      "title": "Booking App",
+      "short": "Appointment booking",
+      "learn": "date and time handling (date-fns), booking conflicts, forms, a backend and database, time zones",
+      "beginner": "a list of services, choose a time from a fixed list",
+      "intermediate": "a calendar with free and booked slots, a booking form, confirmation",
+      "advanced": "an admin panel for opening hours, conflict handling, email reminders, a backend",
+      "card": {
+        "build": "Appointment booking with free time slots",
+        "learn": "date-fns, booking conflicts, forms, time zones"
+      }
+    }
+  },
+  {
+    "n": 48,
+    "slug": "ai-chat",
+    "tier": {
+      "key": "halado",
+      "buttons": 4
+    },
+    "hu": {
+      "title": "AI Chat Assistant",
+      "short": "Saját AI chatbot",
+      "learn": "folyamatosan érkező (streamelt) válaszok kezelése, backend az API-kulcs elrejtésére, Markdown és kód megjelenítése, több beszélgetés állapota",
+      "beginner": "chatfelület, üzenet küldése, válasz megjelenítése",
+      "intermediate": "AI API bekötése, gépelődő válasz, beszélgetés-előzmények",
+      "advanced": "backend az API-kulcshoz, több beszélgetés, kódkiemelés, saját dokumentumokból válaszoló asszisztens",
+      "card": {
+        "build": "Saját AI chatbot folyamatosan érkező válaszokkal",
+        "learn": "Streamelés, Markdown és kód, több beszélgetés"
+      }
+    },
+    "en": {
+      "title": "AI Chat Assistant",
+      "short": "Your own AI chatbot",
+      "learn": "handling streamed responses, a backend that hides the API key, rendering Markdown and code, state for multiple conversations",
+      "beginner": "a chat interface: send a message, show the reply",
+      "intermediate": "connect an AI API, replies that stream in as they are typed, conversation history",
+      "advanced": "a backend for the API key, multiple conversations, code highlighting, an assistant that answers from your own documents",
+      "card": {
+        "build": "Your own AI chatbot with streamed answers",
+        "learn": "Streaming, rendering Markdown, many conversations"
+      }
+    }
+  },
+  {
+    "n": 49,
+    "slug": "retro-os",
+    "tier": {
+      "key": "halado",
+      "buttons": 4
+    },
+    "hu": {
+      "title": "Retro OS Desktop",
+      "short": "Windows 95-szerű asztal a böngészőben",
+      "learn": "ablakkezelés állapota (pozíció, sorrend, fókusz), húzás és átméretezés, mini appokból felépülő szerkezet, Context",
+      "beginner": "asztal ikonokkal, Start menü, óra a tálcán",
+      "intermediate": "megnyitható, húzható, bezárható ablakok, a kattintott mindig felül",
+      "advanced": "átméretezés, kis méretre tétel a tálcára, mini appok (jegyzettömb, aknakereső, lejátszó), állapot mentése",
+      "card": {
+        "build": "Windows 95-szerű asztal ablakokkal és mini appokkal",
+        "learn": "Ablakkezelés, húzás és átméretezés, Context"
+      }
+    },
+    "en": {
+      "title": "Retro OS Desktop",
+      "short": "A Windows 95-style desktop in the browser",
+      "learn": "window-management state (position, stacking order, focus), dragging and resizing, an architecture built from mini apps, Context",
+      "beginner": "a desktop with icons, a Start menu, a clock in the taskbar",
+      "intermediate": "windows that open, drag and close, with the clicked one always on top",
+      "advanced": "resizing, minimizing to the taskbar, mini apps (notepad, minesweeper, player), saved state",
+      "card": {
+        "build": "A Windows 95-style desktop with mini apps",
+        "learn": "Window management, drag and resize, Context"
+      }
+    }
+  },
+  {
+    "n": 50,
+    "slug": "chat",
+    "tier": {
+      "key": "halado",
+      "buttons": 4
+    },
+    "hu": {
+      "title": "Real-Time Chat / Slack Clone",
+      "short": "Valós idejű chat csatornákkal",
+      "learn": "WebSocket / Socket.io vagy Supabase Realtime, valós idejű állapot, backend, felhasználók és csatornák",
+      "beginner": "chatfelület, üzenetek listája helyben",
+      "intermediate": "valós idejű üzenetek, felhasználónevek, időbélyegek",
+      "advanced": "csatornák, privát üzenetek, „gépel…” jelzés, online státusz, fájlküldés, saját Socket.io szerver",
+      "card": {
+        "build": "Valós idejű chat csatornákkal és felhasználókkal",
+        "learn": "WebSocket, valós idejű állapot, csatornák"
+      }
+    },
+    "en": {
+      "title": "Real-Time Chat / Slack Clone",
+      "short": "Real-time chat with channels",
+      "learn": "WebSocket / Socket.io or Supabase Realtime, real-time state, a backend, users and channels",
+      "beginner": "a chat interface with a local message list",
+      "intermediate": "real-time messages, usernames, timestamps",
+      "advanced": "channels, direct messages, a “typing…” indicator, online status, file sharing, your own Socket.io server",
+      "card": {
+        "build": "A real-time chat with channels and users",
+        "learn": "WebSockets, real-time state, users and channels"
+      }
+    }
+  }
+]

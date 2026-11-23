@@ -1,0 +1,375 @@
+/* ── Lesson card: business card with traced paper waves ──────────────
+   Every size is relative to the card width (cqw), so the card looks the same at any size.
+   Every colour comes from one accent (--c), so any lesson colour works. */
+.lc {
+  --lc-f0: color-mix(in srgb, var(--c) 58%, #000);
+  --lc-f1: color-mix(in srgb, var(--c) 84%, #000);
+  --lc-f2: var(--c);
+  --lc-f3: color-mix(in srgb, var(--c) 64%, #fff);
+  --lc-soft: color-mix(in srgb, var(--c) 38%, #fff);
+  --lc-b0: color-mix(in srgb, var(--c) 86%, #000);
+  --lc-b1: color-mix(in srgb, var(--c) 82%, #fff);
+  --lc-b2: color-mix(in srgb, var(--c) 6%, #fff);
+  --lc-deep: color-mix(in srgb, var(--c) 38%, #000);
+  --lc-ink: #0b1220;
+  --lc-font: 'Montserrat', var(--font-display);
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  aspect-ratio: 1.545;
+  perspective: 1400px;
+  container-type: inline-size;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lc__inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.lc.is-flipped .lc__inner {
+  transform: rotateY(180deg);
+}
+
+.lc__face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.lc__front {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--lc-f0);
+}
+
+.lc__front:focus-visible {
+  outline: 3px solid var(--lc-f3);
+  outline-offset: 3px;
+}
+
+.lc__back {
+  background: var(--lc-b0);
+  transform: rotateY(180deg);
+}
+
+/* Paper layers */
+.lc__f1 {
+  fill: var(--lc-f1);
+}
+.lc__f2 {
+  fill: var(--lc-f2);
+}
+.lc__f3 {
+  fill: var(--lc-f3);
+}
+.lc__b1 {
+  fill: var(--lc-b1);
+}
+.lc__b2 {
+  fill: var(--lc-b2);
+}
+
+.lc__rim {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.18);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.lc__rim--back {
+  stroke: rgb(255 255 255 / 0.16);
+}
+
+/* Front text, on the darkest part at the right */
+.lc__front-text {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 63%;
+  right: 2.5%;
+  display: grid;
+  /* The column never grows past the text area, so a long word shows up as overflow and the title shrinks. */
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  align-content: center;
+  gap: 2.6cqw;
+  text-align: center;
+}
+
+.lc__mark {
+  display: grid;
+  place-items: center;
+  width: 10.5cqw;
+  height: 10.5cqw;
+  margin-bottom: 2cqw;
+  border: 2px solid #fff;
+  transform: rotate(45deg);
+}
+
+.lc__mark span {
+  transform: rotate(-45deg);
+  color: #fff;
+  font: 700 4.2cqw/1 var(--lc-font);
+}
+
+.lc__title {
+  justify-self: stretch;
+  color: #fff;
+  font: 700 calc(var(--fs, 4.1) * 1cqw) / 1.12 var(--lc-font);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.lc__level {
+  color: var(--lc-soft);
+  font: 600 max(2.2cqw, 8px) / 1 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Back */
+.lc__back-in {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  align-items: start;
+  align-content: start;
+  gap: 4.09cqw;
+  padding: 5.91cqw 5.91cqw 0;
+}
+
+.lc__back-title {
+  margin: 0;
+  color: var(--lc-ink);
+  font: 700 calc(var(--fs, 4.77) * 1cqw) / 1.1 var(--lc-font);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.lc__sub {
+  margin: 1.82cqw 0 0;
+  white-space: nowrap;
+  color: var(--lc-deep);
+  font: 700 max(2.23cqw, 8px) / 1 var(--font-body);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* The lesson link: a sharp white button in the bottom-right corner, on the colour waves,
+   written in the card's deep shade. On hover it turns dark (the deep shade, white text). */
+.lc__open {
+  position: absolute;
+  right: 3.6cqw;
+  bottom: 3.6cqw;
+  display: flex;
+  align-items: center;
+  padding: 2.1cqw 3.3cqw;
+  border: 1px solid #fff;
+  background: #fff;
+  color: var(--lc-deep);
+  font: 700 max(2.4cqw, 9px) / 1 var(--font-body);
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 0.8cqw 2.4cqw rgb(0 0 0 / 0.22);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.lc__open:hover,
+.lc__open:focus-visible {
+  border-color: var(--lc-deep);
+  background: var(--lc-deep);
+  color: #fff;
+}
+
+.lc__open:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.lc__facts {
+  display: grid;
+  gap: 2.27cqw;
+  margin: 0;
+}
+
+.lc__fact {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.27cqw;
+}
+
+.lc__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: max(5cqw, 16px);
+  height: max(5cqw, 16px);
+  border-radius: 5px;
+  background: var(--lc-deep);
+  color: #fff;
+}
+
+.lc__icon svg {
+  width: 59%;
+  height: 59%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lc__label {
+  margin-bottom: 2px;
+  color: var(--lc-deep);
+  font: 700 max(2.16cqw, 7.5px) / 1.2 var(--font-body);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.lc__txt {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: var(--lc-ink);
+  font: 400 max(2.57cqw, 9.5px) / 1.35 var(--font-body);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Small cards (phones): the icons give their room to the text. */
+@container (max-width: 379px) {
+  .lc__icon {
+    display: none;
+  }
+
+  .lc__sub {
+    letter-spacing: 0.12em;
+  }
+}
+
+/* Keyboard-only way back to the front (bottom-left, the link has the right corner);
+   invisible until it gets keyboard focus. */
+.lc__unflip {
+  position: absolute;
+  left: 5.91cqw;
+  bottom: 5.91cqw;
+  padding: 1.4cqw 2.2cqw;
+  border: 1px solid var(--lc-deep);
+  background: var(--lc-b2);
+  color: var(--lc-deep);
+  font: 700 max(2cqw, 8px) / 1 var(--font-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lc__unflip:focus-visible {
+  outline: 2px solid var(--lc-deep);
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+/* The card's own shadow, as on the reference: a dark contact line and two long soft
+   lobes under the halves, lighter in the middle. It starts tucked under the card,
+   so lifting the card on hover never opens a gap. */
+.lc__drop {
+  position: absolute;
+  z-index: -1;
+  top: 96.32%;
+  left: -6%;
+  width: 112%;
+  height: 10.3%;
+  pointer-events: none;
+}
+
+.lc__drop::before,
+.lc__drop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 35.7%;
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.6s ease;
+}
+
+.lc__drop::before {
+  background:
+    radial-gradient(18.8% 64.3% at 26.8% 35.7%, rgb(0 0 0 / 0.36), rgb(0 0 0 / 0.3) 33%, rgb(0 0 0 / 0) 100%),
+    radial-gradient(18.8% 64.3% at 73.2% 35.7%, rgb(0 0 0 / 0.36), rgb(0 0 0 / 0.3) 33%, rgb(0 0 0 / 0) 100%);
+}
+
+.lc__drop::after {
+  --lc-mask: linear-gradient(
+    90deg,
+    transparent 5%,
+    #000 7.5%,
+    #000 38%,
+    rgb(0 0 0 / 0.15) 50%,
+    #000 62%,
+    #000 92.5%,
+    transparent 95%
+  );
+  background: linear-gradient(rgb(0 0 0 / 0.5) 35.7%, rgb(0 0 0 / 0) 57.1%);
+  -webkit-mask-image: var(--lc-mask);
+  mask-image: var(--lc-mask);
+}
+
+/* Hover (or keyboard focus): the card rises and its shadow grows softer. */
+@media (hover: hover) {
+  .lc:hover .lc__inner {
+    transform: translateY(-6px);
+  }
+
+  .lc.is-flipped:hover .lc__inner {
+    transform: translateY(-6px) rotateY(180deg);
+  }
+
+  .lc:hover .lc__drop::before {
+    opacity: 0.8;
+    transform: scaleY(1.25);
+  }
+
+  .lc:hover .lc__drop::after {
+    opacity: 0.4;
+  }
+}
+
+.lc:has(:focus-visible) .lc__inner {
+  transform: translateY(-6px);
+}
+
+.lc.is-flipped:has(:focus-visible) .lc__inner {
+  transform: translateY(-6px) rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lc__inner,
+  .lc__drop::before,
+  .lc__drop::after {
+    transition: none;
+  }
+}

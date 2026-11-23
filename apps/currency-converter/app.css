@@ -1,0 +1,389 @@
+.cc {
+  container-type: inline-size;
+  display: grid;
+  gap: 22px;
+}
+
+.cc-muted {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.cc-section-title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ── Form ─────────────────────────────────────────────── */
+.cc-form {
+  display: grid;
+  gap: 16px;
+}
+
+.cc-amount .input {
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.cc-amount .input[aria-invalid='true'] {
+  border-color: var(--accent);
+}
+
+.cc-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: end;
+  gap: 12px;
+}
+
+.cc-select select {
+  appearance: auto;
+  text-overflow: ellipsis;
+}
+
+.cc-swap {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--solid-text);
+  font-size: 20px;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    background-color 0.15s ease;
+}
+
+.cc-swap:hover {
+  background: var(--paper-2);
+  transform: rotate(180deg);
+}
+
+/* ── Result ───────────────────────────────────────────── */
+.cc-result {
+  display: grid;
+  gap: 10px;
+  padding: 22px clamp(18px, 3vw, 28px);
+  border-radius: 24px;
+}
+
+.cc-result__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cc-result__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.cc-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.16);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.cc-badge--cached,
+.cc-badge--fixed {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.cc-result__value {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.cc-result__from {
+  font-size: 16px;
+  opacity: 0.85;
+}
+
+.cc-result__value strong {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 7cqi, 46px);
+  font-weight: 700;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.cc-result__value--hint {
+  font-size: 16px;
+}
+
+.cc-result__rate {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
+.cc-result__skeleton {
+  height: 62px;
+  border-radius: 12px;
+  background: rgb(255 255 255 / 0.14);
+}
+
+.cc-star {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  margin-top: 4px;
+  padding: 8px 16px;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--solid-ink);
+  font: 600 14px/1 var(--font-body);
+  cursor: pointer;
+}
+
+.cc-star:hover,
+.cc-star[data-saved='true'] {
+  background: rgb(255 255 255 / 0.14);
+}
+
+.cc-star span {
+  font-size: 17px;
+  color: var(--accent);
+}
+
+/* ── Status line ──────────────────────────────────────── */
+.cc-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.cc-status--warn {
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.cc-status--warn p {
+  flex: 1 1 260px;
+  margin: 0;
+}
+
+.cc-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--line);
+  border-top-color: var(--solid);
+  border-radius: 50%;
+  animation: cc-spin 0.8s linear infinite;
+}
+
+@keyframes cc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Saved pairs ──────────────────────────────────────── */
+.cc-pairs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Chart ────────────────────────────────────────────── */
+.cc-chart__frame {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.cc-chart__readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cc-chart__readout > span {
+  display: grid;
+}
+
+.cc-chart__readout small {
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.cc-chart__readout strong {
+  font-size: 18px;
+}
+
+.cc-chart__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+}
+
+.cc-chart__stats div {
+  display: grid;
+}
+
+.cc-chart__stats dt {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cc-chart__stats dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.cc-chart__plot {
+  position: relative;
+}
+
+.cc-chart__svg {
+  display: block;
+  width: 100%;
+  height: 180px;
+  overflow: visible;
+  touch-action: pan-y;
+  cursor: crosshair;
+}
+
+.cc-chart__grid {
+  stroke: var(--line);
+  stroke-dasharray: 4 6;
+}
+
+.cc-chart__line {
+  fill: none;
+  stroke: var(--solid);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.cc-chart__cursor {
+  stroke: var(--ink-soft);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.6;
+}
+
+.cc-chart__dots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cc-chart__dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border: 3px solid var(--paper);
+  border-radius: 50%;
+  background: var(--solid);
+  box-shadow: 0 0 0 1px var(--solid);
+}
+
+.cc-chart__axis {
+  display: flex;
+  justify-content: space-between;
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+.cc-chart__note {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.cc-chart__note--error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--ink);
+}
+
+.cc-chart__skeleton {
+  height: 232px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--paper-2) 0%, var(--paper) 50%, var(--paper-2) 100%);
+  background-size: 200% 100%;
+  animation: cc-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes cc-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.cc-source {
+  font-size: 13px;
+}
+
+/* Narrow panel: the two selects stack and the swap button turns sideways. */
+@container (max-width: 480px) {
+  .cc-pair {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .cc-swap {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+
+  .cc-swap:hover {
+    transform: rotate(270deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-spinner,
+  .cc-chart__skeleton {
+    animation: none;
+  }
+}

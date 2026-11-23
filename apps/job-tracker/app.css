@@ -1,0 +1,604 @@
+.jt {
+  container-type: inline-size;
+  display: grid;
+  gap: 18px;
+}
+
+/* ── Statistics ─────────────────────────────────────────── */
+.jt-stats {
+  display: grid;
+  gap: 12px;
+}
+
+.jt-stats__tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.jt-tile {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+}
+
+.jt-tile dt {
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.jt-tile dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--solid-text);
+}
+
+.jt-tile small {
+  color: var(--ink-soft);
+  font-size: 12.5px;
+}
+
+.jt-next {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--paper-2);
+  font-size: 15px;
+}
+
+.jt-next.is-soon {
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+.jt-next__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* ── Toolbar and filters ───────────────────────────────── */
+.jt-toolbar {
+  display: grid;
+  gap: 14px;
+}
+
+.jt-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  align-items: end;
+}
+
+.jt-filters__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.jt-toolbar__end {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.jt-segment {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.jt-link {
+  padding: 6px 2px;
+  border: 0;
+  background: none;
+  color: var(--solid-text);
+  font: 600 14px/1.2 var(--font-body);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.jt-summary {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.jt-hint {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+/* ── Board ─────────────────────────────────────────────── */
+.jt-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.jt-col {
+  display: grid;
+  gap: 10px;
+  min-height: 140px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--jt-col, var(--solid));
+  border-radius: 14px;
+  background: var(--paper-2);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.jt-col.is-over {
+  border-color: var(--solid);
+  border-top-color: var(--jt-col, var(--solid));
+  background: color-mix(in srgb, var(--solid) 8%, var(--paper));
+  box-shadow: inset 0 0 0 2px var(--solid);
+}
+
+.jt-col__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jt-col__head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.jt-col__dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--jt-col, var(--solid));
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+
+.jt-col__count {
+  margin-left: auto;
+  min-width: 26px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.jt-col__list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jt-col__empty {
+  display: grid;
+  place-items: center;
+  min-height: 80px;
+  margin: 0;
+  padding: 12px;
+  border: 2px dashed var(--line);
+  border-radius: 12px;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  text-align: center;
+}
+
+/* ── Card ──────────────────────────────────────────────── */
+.jt-card {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  box-shadow: 0 1px 2px rgb(29 26 22 / 0.06);
+  cursor: grab;
+  transition:
+    opacity 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.jt-card:hover {
+  box-shadow: 0 4px 14px rgb(29 26 22 / 0.1);
+}
+
+.jt-card.is-dragging {
+  opacity: 0.4;
+}
+
+.jt-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.jt-card__company {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.jt-card__role {
+  margin: -4px 0 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.jt-card__meta {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.jt-card__meta div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 6px;
+}
+
+.jt-card__meta dt {
+  color: var(--ink-soft);
+}
+
+.jt-card__meta dt::after {
+  content: ':';
+}
+
+.jt-card__meta dd {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.jt-card__notes {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.4;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.jt-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 6px;
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--solid) 12%, var(--paper));
+  color: var(--solid-text);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.jt-badge.is-soon {
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+.jt-badge.is-past {
+  background: var(--paper-2);
+  color: var(--ink-soft);
+}
+
+.jt-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.jt-select {
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 600 13.5px/1.2 var(--font-body);
+  cursor: pointer;
+}
+
+.jt-select:focus-visible {
+  border-color: var(--solid);
+  outline-offset: 1px;
+}
+
+.jt-icon-btn {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin: -6px -6px 0 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.jt-icon-btn:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+/* ── List view ─────────────────────────────────────────── */
+.jt-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  list-style: none;
+  overflow: hidden;
+}
+
+.jt-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 12px 14px;
+  background: var(--paper);
+}
+
+.jt-row + .jt-row {
+  border-top: 1px solid var(--line);
+}
+
+.jt-row__main {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.jt-row__main span {
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.jt-row__main .jt-badge {
+  margin-top: 4px;
+}
+
+.jt-row__date {
+  color: var(--ink-soft);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.jt-row .jt-status {
+  grid-column: 2;
+}
+
+.jt-row .jt-icon-btn {
+  grid-column: 3;
+  grid-row: 1;
+  margin: 0;
+}
+
+.jt-row .jt-row__date {
+  grid-column: 2;
+}
+
+/* ── Empty states and footer ───────────────────────────── */
+.jt-empty {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 36px 16px;
+  border: 2px dashed var(--line);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.jt-empty p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.jt-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ── Dialog ────────────────────────────────────────────── */
+.jt-dialog {
+  width: min(580px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 24px 60px rgb(29 26 22 / 0.28);
+}
+
+.jt-dialog::backdrop {
+  background: rgb(18 14 42 / 0.45);
+}
+
+.jt-form {
+  container-type: inline-size;
+  display: grid;
+  gap: 18px;
+  padding: clamp(18px, 4vw, 28px);
+}
+
+.jt-form__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.jt-form__head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+}
+
+.jt-form__head .jt-icon-btn {
+  margin: 0;
+}
+
+.jt-form__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+.jt-textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.jt-error {
+  color: #b3133f;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.jt-form [aria-invalid='true'] {
+  border-color: #b3133f;
+}
+
+.jt-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.jt-form__delete {
+  margin-left: auto;
+  color: #b3133f;
+}
+
+.jt-confirm {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--paper-2);
+}
+
+.jt-confirm p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.jt-btn-danger {
+  background: #b3133f;
+  color: #fff;
+}
+
+.jt-btn-danger:hover {
+  background: #8c0e31;
+}
+
+/* ── Responsive layout (container queries on the app root) ─ */
+@container (min-width: 440px) {
+  .jt-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jt-filters {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 190px);
+  }
+
+  .jt-filters__chips {
+    grid-column: 1 / -1;
+  }
+
+  .jt-row {
+    grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 150px) auto;
+  }
+
+  .jt-row .jt-row__date,
+  .jt-row .jt-status,
+  .jt-row .jt-icon-btn {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .jt-form__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jt-form__wide {
+    grid-column: 1 / -1;
+  }
+}
+
+@container (min-width: 600px) {
+  .jt-stats__tiles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .jt-toolbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .jt-filters {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 170px);
+  }
+}
+
+@container (min-width: 700px) {
+  .jt-board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .jt-col {
+    padding: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jt-card,
+  .jt-col {
+    transition: none;
+  }
+}

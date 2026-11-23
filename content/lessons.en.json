@@ -1,0 +1,402 @@
+{
+  "portfolio": {
+    "title": "Portfolio / Resume (CV) Website",
+    "short": "Portfolio and résumé site",
+    "learn": "component composition, responsive design, routing, form submission, deployment (Vercel / Netlify), SEO",
+    "beginner": "a single-page introduction with skills and contact details",
+    "intermediate": "project cards, separate pages, a working contact form",
+    "advanced": "content from a CMS, a blog, animations, a Lighthouse score of 90+, a custom domain"
+  },
+  "dark-mode": {
+    "title": "Dark Mode",
+    "short": "Light / dark theme switch",
+    "learn": "Context API, CSS custom properties, `useEffect` and `matchMedia`, a custom `useDarkMode` hook",
+    "beginner": "a toggle that switches the page colors",
+    "intermediate": "remember the choice and follow the system setting (`prefers-color-scheme`)",
+    "advanced": "multiple themes, flicker-free loading, animated transitions, Context-based theming for a whole app"
+  },
+  "password-generator": {
+    "title": "Password Generator",
+    "short": "Secure password generator",
+    "learn": "controlled form inputs (slider, checkboxes), random-number logic, the Clipboard API",
+    "beginner": "generate a password of a given length, with a copy button",
+    "intermediate": "toggles for lowercase, uppercase, digits and symbols, a strength meter",
+    "advanced": "`crypto.getRandomValues` instead of `Math.random`, pronounceable passwords, a check against known data breaches"
+  },
+  "mad-libs": {
+    "title": "Mad Libs",
+    "short": "Fill-in-the-blanks word game",
+    "learn": "controlled form fields, string templates and concatenation, conditional rendering",
+    "beginner": "a few fields (name, animal, verb) turned into a funny story",
+    "intermediate": "multiple or random templates, fields generated from the template, restart",
+    "advanced": "custom templates with `{noun}` placeholders, a shareable link, read-aloud (Speech Synthesis API), two-player mode"
+  },
+  "qr-code": {
+    "title": "QR Code Generator",
+    "short": "QR codes from text or links",
+    "learn": "using an external npm package, controlled inputs, downloading a file from the browser",
+    "beginner": "enter text or a link and render the QR code with a library",
+    "intermediate": "color, size, a logo in the center, download as PNG and SVG",
+    "advanced": "scan QR codes with the camera, Wi-Fi and contact QR types, history"
+  },
+  "flashcards": {
+    "title": "Flashcards",
+    "short": "Study cards",
+    "learn": "3D CSS card-flip animation, step-by-step logic, shuffling, persistence with the `useLocalStorage` hook",
+    "beginner": "cards with a question and an answer that flip on click, previous / next buttons",
+    "intermediate": "custom decks, “know it / don't know it” marking, shuffle, progress bar, saving",
+    "advanced": "harder cards return more often (spaced repetition), images on cards, import / export, shareable decks"
+  },
+  "color-palette": {
+    "title": "Color Palette Generator",
+    "short": "Random color palettes",
+    "learn": "arrays in state (updating via copies), keyboard events, the Clipboard API, color codes",
+    "beginner": "5 random colors on a click, hex codes, copy to clipboard",
+    "intermediate": "lock colors, press space for a new palette, save favorites",
+    "advanced": "harmonious palettes based on color theory, contrast checks (WCAG), export as CSS variables, a shareable link"
+  },
+  "calculator": {
+    "title": "Calculator",
+    "short": "Basic arithmetic calculator",
+    "learn": "`useState`, event handling, components and props (buttons), conditional rendering",
+    "beginner": "number buttons, the four basic operations, result, clear (C)",
+    "intermediate": "keyboard input, decimals, percent, sign toggle, a history list",
+    "advanced": "operator precedence and parentheses, scientific functions, a custom expression parser, tests"
+  },
+  "todo": {
+    "title": "To-Do List",
+    "short": "Task manager",
+    "learn": "rendering lists with `key`, create/update/delete in state, filtering, `useEffect`, a custom `useLocalStorage` hook",
+    "beginner": "add, complete and delete tasks",
+    "intermediate": "editing, filters (all / active / done), persistence with the `useLocalStorage` hook",
+    "advanced": "due dates and priorities, drag-to-reorder, a backend with a database and login, tests"
+  },
+  "shopping-list": {
+    "title": "Shopping List",
+    "short": "Grocery list",
+    "learn": "grouping and sorting arrays, controlled forms, persistence with the `useLocalStorage` hook",
+    "beginner": "add items with a quantity, check them off, delete them",
+    "intermediate": "categories (produce, dairy, …), saving, completed items move to the bottom",
+    "advanced": "a shared real-time list for several users, offline support (PWA), suggestions from past items"
+  },
+  "notes": {
+    "title": "Notes App",
+    "short": "Notes",
+    "learn": "create/update/delete, search and filtering with derived values, date handling, the `useLocalStorage` hook",
+    "beginner": "write, save and delete notes",
+    "intermediate": "categories, search, persistence with the hook, last-edited date",
+    "advanced": "rich text (Markdown), tags, sync across devices with a backend, offline mode"
+  },
+  "image-gallery": {
+    "title": "Image Gallery & Carousel",
+    "short": "Image gallery with a slideshow",
+    "learn": "`setInterval` and cleanup in `useEffect`, modal dialogs, file upload, keyboard events",
+    "beginner": "images in a grid, a large view on click",
+    "intermediate": "image upload, an auto-advancing carousel with manual controls, arrow keys",
+    "advanced": "lazy loading, infinite scroll, albums, cloud image hosting, drag-to-reorder"
+  },
+  "memory-game": {
+    "title": "Memory Game",
+    "short": "Card-matching game",
+    "learn": "more complex state (cards, the selected pair), `setTimeout`, shuffling, CSS animations",
+    "beginner": "flip cards, find pairs, a “you won” message",
+    "intermediate": "move counter, timer, flip animation, difficulty levels (grid size)",
+    "advanced": "best scores, themes (emoji, images from an API), two-player mode, keyboard controls"
+  },
+  "currency-converter": {
+    "title": "Currency Converter",
+    "short": "Currency converter",
+    "learn": "data fetching with `fetch`, loading and error states, a custom `useFetch` hook, an API key in an environment variable",
+    "beginner": "an amount and two currencies, conversion at a fixed rate",
+    "intermediate": "live rates from an API via the `useFetch` hook, a swap button, error handling",
+    "advanced": "a 30-day rate chart, favorite currency pairs, caching, the last known rate offline"
+  },
+  "space-explorer": {
+    "title": "Space Explorer",
+    "short": "NASA's Astronomy Picture of the Day",
+    "learn": "APIs with a key, date handling, rendering by media type (image / video), caching",
+    "beginner": "today's picture with its title and explanation",
+    "intermediate": "a date picker for the archive, favorites, handling video days",
+    "advanced": "more NASA data (e.g. Mars photos) with filters, infinite scroll, a gallery with a large view"
+  },
+  "typing-test": {
+    "title": "Typing Speed Test",
+    "short": "Typing speed test",
+    "learn": "`useRef`, timing and stopping the timer, computing on every keystroke, avoiding unnecessary re-renders",
+    "beginner": "type a passage, measure the time, show characters per minute",
+    "intermediate": "live highlighting (correct / wrong), words per minute and accuracy, timed mode (30 / 60 s)",
+    "advanced": "a live chart while typing, history and progress, a leaderboard, a multiplayer race"
+  },
+  "piano": {
+    "title": "Musical Instrument",
+    "short": "Interactive piano",
+    "learn": "keyboard events, `useRef` for sounds, UI generated from an array, the Web Audio API",
+    "beginner": "piano keys that play a sound on click",
+    "intermediate": "play with the computer keyboard, multiple octaves, a choice of instrument sounds",
+    "advanced": "sound synthesis with the Web Audio API, record and play back, MIDI keyboard support, a melody-teaching mode"
+  },
+  "video-player": {
+    "title": "Video Player",
+    "short": "Video player with custom controls",
+    "learn": "`useRef` for the DOM element, the HTML5 video API (`play`, `currentTime`), custom controls, accessibility",
+    "beginner": "play a video with a custom play / pause button",
+    "intermediate": "seek bar, volume, fullscreen, playback speed, keyboard shortcuts",
+    "advanced": "a playlist, subtitles, resume where you left off, picture-in-picture"
+  },
+  "wordle": {
+    "title": "Wordle-style Game",
+    "short": "Word-guessing game",
+    "learn": "global keyboard events, a grid in state, game logic, animations",
+    "beginner": "guess a 5-letter word in 6 tries with colored feedback",
+    "intermediate": "an on-screen keyboard showing letter states, a valid-word check, animations",
+    "advanced": "a daily word (the same for everyone), statistics and streaks, results shared as an emoji grid, a Hungarian word list"
+  },
+  "movie-search": {
+    "title": "Movie Search",
+    "short": "Movie finder",
+    "learn": "routing (React Router) with parameters, custom `useFetch` and `useDebounce` hooks, empty and error states",
+    "beginner": "a search box, results with title and poster",
+    "intermediate": "a detail page, search that starts once typing stops (debounce), “no results” handling",
+    "advanced": "pagination or infinite scroll, filters by year and genre, favorites, the search kept in the URL"
+  },
+  "book-library": {
+    "title": "Book Library",
+    "short": "Book search and reading list",
+    "learn": "searching an API, moving items between lists, the `useFetch` hook, transforming API data",
+    "beginner": "your own book list (title, author) with a reading status",
+    "intermediate": "book search via an API (Open Library / Google Books), shelves: reading / read / want to read",
+    "advanced": "ratings and notes, a reading goal and statistics, login and cloud saving"
+  },
+  "multi-step-form": {
+    "title": "Multi-Step Form",
+    "short": "Multi-step form",
+    "learn": "form state across steps, validation, React Hook Form and Zod, user experience",
+    "beginner": "three steps with back / next buttons, a summary at the end",
+    "intermediate": "per-step validation, a progress indicator, data kept when switching steps",
+    "advanced": "React Hook Form + Zod, conditional steps, saved drafts, submission to an API"
+  },
+  "fan-wiki": {
+    "title": "Fan Wiki",
+    "short": "Fan wiki",
+    "learn": "list and detail views from an API, dynamic routing, search and filtering, pagination",
+    "beginner": "a list of characters with image and name",
+    "intermediate": "a detail page for each character, search and filters, data from an API",
+    "advanced": "pagination, relationships between characters, an episode list, editable entries"
+  },
+  "review-rating": {
+    "title": "Review & Rating App",
+    "short": "Ratings and reviews",
+    "learn": "a reusable component (stars), derived data (averages), sorting and filtering, later a backend",
+    "beginner": "a list of items, star ratings, written reviews",
+    "intermediate": "average rating, sorting by rating, filters, a detail page",
+    "advanced": "login, one review per user, “helpful” votes, moderation, a backend"
+  },
+  "meme-generator": {
+    "title": "Meme Generator",
+    "short": "Meme maker",
+    "learn": "drawing on canvas, image upload, templates from an API, downloading images",
+    "beginner": "pick an image and add top and bottom text",
+    "intermediate": "popular templates from an API, upload your own image, font, size, color, download",
+    "advanced": "drag and rotate text boxes, stickers, a meme gallery and sharing"
+  },
+  "blog": {
+    "title": "Blog Platform",
+    "short": "Blog",
+    "learn": "routing, create/update/delete, rendering Markdown, later a backend and database",
+    "beginner": "a list of posts and a single post page",
+    "intermediate": "write, edit and delete posts, Markdown support",
+    "advanced": "a backend with a database, author login, comments, tags, search, SEO"
+  },
+  "piggy-bank": {
+    "title": "Piggy Bank / Wallet",
+    "short": "Digital wallet and piggy bank",
+    "learn": "complex state with `useReducer`, calculations over arrays (`reduce`), charts (Recharts), data export",
+    "beginner": "deposits and withdrawals, the current balance",
+    "intermediate": "categories, a filterable transaction list, a savings goal with a progress bar, saving",
+    "advanced": "monthly charts, multiple wallets and currencies, recurring items, CSV export"
+  },
+  "subscriptions": {
+    "title": "Subscription Tracker",
+    "short": "Subscription tracker",
+    "learn": "date calculations (next renewal), totals, sorting, browser notifications",
+    "beginner": "a list of subscriptions with name and monthly price, plus a total",
+    "intermediate": "monthly and yearly views, renewal dates, categories, logos",
+    "advanced": "a reminder before renewal, a spending chart, currency conversion, “which one should I cancel?” suggestions"
+  },
+  "plant-care": {
+    "title": "Plant Care Tracker",
+    "short": "Plant care tracker",
+    "learn": "time-based logic (when to water), image upload, browser notifications, PWA basics",
+    "beginner": "a list of plants with name and photo",
+    "intermediate": "watering frequency, an “I'm thirsty” indicator, a watering log",
+    "advanced": "notifications, care data from an API, an installable app (PWA)"
+  },
+  "mood-tracker": {
+    "title": "Mood Tracker",
+    "short": "Mood journal",
+    "learn": "date handling, generating a calendar grid, charts, aggregating data",
+    "beginner": "pick today's mood with an emoji and add a short note",
+    "intermediate": "a color-coded calendar view, saving, day details on click",
+    "advanced": "a mood trend chart, correlations (sleep, exercise), a weekly summary, reminder notifications"
+  },
+  "virtual-pet": {
+    "title": "Virtual Pet (Tamagotchi-style)",
+    "short": "Virtual pet",
+    "learn": "state that changes over time, computing time elapsed while closed, `useReducer`, animations, saving",
+    "beginner": "a pet with stats (hunger, mood), feed and play buttons",
+    "intermediate": "stats decrease over time, the look follows the mood, saving",
+    "advanced": "time passes even when the page is closed, growth stages, mini-games, notifications"
+  },
+  "snake": {
+    "title": "Snake",
+    "short": "Classic snake game",
+    "learn": "a game loop (`setInterval` / `requestAnimationFrame`), `useRef` for fresh state, collision detection, canvas",
+    "beginner": "move the snake with the arrow keys, eat food, grow",
+    "intermediate": "wall and self collisions, score, increasing speed, pause",
+    "advanced": "canvas rendering, high scores, levels with obstacles, swipe controls on mobile"
+  },
+  "lofi-room": {
+    "title": "Lofi Study Room",
+    "short": "Cozy study room",
+    "learn": "playing several sounds at once, sliders, a timer with cleanup, atmospheric CSS",
+    "beginner": "a background image and lofi music playback",
+    "intermediate": "ambient sounds (rain, café, fire) with separate volumes, a focus timer",
+    "advanced": "themes (night city, forest), a to-do list in the room, study statistics, a shared room with friends in real time"
+  },
+  "wardrobe": {
+    "title": "Digital Wardrobe",
+    "short": "Digital wardrobe",
+    "learn": "image upload and handling, multi-criteria filtering, a weather API, generating combinations",
+    "beginner": "upload clothing items with a photo and category",
+    "intermediate": "build outfits, filter by color, season and occasion",
+    "advanced": "“what should I wear today?” based on the current weather, a wear log, background removal from photos"
+  },
+  "drawing": {
+    "title": "Drawing App",
+    "short": "Drawing app",
+    "learn": "the Canvas API, mouse and touch events, `useRef`, undo (history stack), exporting images",
+    "beginner": "draw with the mouse and pick a color",
+    "intermediate": "brush size, eraser, undo, save as an image",
+    "advanced": "layers, shapes, touch and stylus support, collaborative drawing in real time"
+  },
+  "winamp": {
+    "title": "Winamp Clone",
+    "short": "Retro music player",
+    "learn": "audio handling, playlist state, OAuth login (Spotify), audio visualization, custom retro CSS",
+    "beginner": "a retro-style player for your own music files: play, pause, next",
+    "intermediate": "playlist, seek bar, volume, shuffle and repeat",
+    "advanced": "the Spotify API with login, an audio visualizer with the Web Audio API, swappable skins"
+  },
+  "job-tracker": {
+    "title": "Job Application Tracker",
+    "short": "Job application tracker",
+    "learn": "drag & drop (dnd-kit), create/update/delete, filtering, dates and reminders, statistics",
+    "beginner": "a list of applications (company, role, date, status)",
+    "intermediate": "status columns with drag & drop (applied → interview → offer), search, filters",
+    "advanced": "interview reminders, statistics (response rate), attached résumé versions, login and cloud saving"
+  },
+  "kanban": {
+    "title": "Kanban Board",
+    "short": "Drag-and-drop task board",
+    "learn": "drag & drop with a library (dnd-kit), nested state (columns → cards), `useReducer`",
+    "beginner": "three columns (To-Do / In Progress / Done), add cards",
+    "intermediate": "drag between columns, priorities (High / Medium / Low), editing, saving",
+    "advanced": "multiple boards, due dates, team members, real-time collaboration, a backend"
+  },
+  "photo-booth": {
+    "title": "Photo Booth",
+    "short": "Webcam photo booth",
+    "learn": "camera access (`getUserMedia`), drawing on canvas, filters, timing, creating images and GIFs",
+    "beginner": "the webcam feed on the page, take a photo with a button",
+    "intermediate": "countdown, a four-shot photo strip, filters, download",
+    "advanced": "polaroid and custom frames, face-tracking stickers, GIF creation, a gallery"
+  },
+  "mood-board": {
+    "title": "Mood Board",
+    "short": "Inspiration board",
+    "learn": "free dragging and resizing, storing positions, image upload, managing multiple boards",
+    "beginner": "upload images and notes to a board",
+    "intermediate": "drag items freely, resize them, multiple boards",
+    "advanced": "extract color palettes from images, image search via the Unsplash API, shareable boards, export as an image"
+  },
+  "swipe": {
+    "title": "Swipe Picker (Tinder-style)",
+    "short": "Swipe cards left and right",
+    "learn": "gestures (pointer events), animations (Framer Motion), APIs, later shared real-time state",
+    "beginner": "cards one after another with yes / no buttons",
+    "intermediate": "swipe cards left and right with animation, movies or dishes from an API",
+    "advanced": "a shared room for two people, matches in real time, filters (genre, cuisine)"
+  },
+  "travel-map": {
+    "title": "Travel Bucket List",
+    "short": "Travel map",
+    "learn": "a map library (React Leaflet), markers, geographic data (GeoJSON), image upload",
+    "beginner": "a list of places: been there / want to go",
+    "intermediate": "a map with markers, notes and photos for each place",
+    "advanced": "visited countries highlighted on a world map, statistics (countries, continents), a shareable map"
+  },
+  "data-table": {
+    "title": "Data Table",
+    "short": "User management table",
+    "learn": "sorting, filtering and pagination logic, TanStack Table, performance with large data sets, server-side data handling",
+    "beginner": "users in a table",
+    "intermediate": "sort by clicking a column, search, filters, pagination",
+    "advanced": "inline editing, multi-row selection, rendering thousands of rows smoothly, server-side pagination, export"
+  },
+  "webshop": {
+    "title": "E-commerce Store",
+    "short": "Online store",
+    "learn": "global state management (Context / Redux / Zustand), routing, cart logic, payment integration",
+    "beginner": "a product list and product pages",
+    "intermediate": "a cart with global state, totals, filters, search",
+    "advanced": "checkout, test payments (Stripe test mode), order management, an admin panel, login"
+  },
+  "auth": {
+    "title": "User Authentication System",
+    "short": "Sign-up and login",
+    "learn": "form validation, protected routes, tokens and sessions, Firebase / Supabase, then a custom backend",
+    "beginner": "sign-up and login forms with validation",
+    "intermediate": "login with a hosted service (Firebase / Supabase), protected pages, logout",
+    "advanced": "a custom backend with JWT or sessions, password reset by email, Google sign-in, roles"
+  },
+  "feed": {
+    "title": "Reddit-style Feed",
+    "short": "Posts with votes and comments",
+    "learn": "recursive components (comment tree), instant UI updates when voting, infinite scroll, a backend",
+    "beginner": "a list of posts with up / down votes",
+    "intermediate": "sorting (newest / top), single-level comments, writing new posts",
+    "advanced": "nested comments of any depth, communities, login, infinite scroll, a backend"
+  },
+  "booking": {
+    "title": "Booking App",
+    "short": "Appointment booking",
+    "learn": "date and time handling (date-fns), booking conflicts, forms, a backend and database, time zones",
+    "beginner": "a list of services, choose a time from a fixed list",
+    "intermediate": "a calendar with free and booked slots, a booking form, confirmation",
+    "advanced": "an admin panel for opening hours, conflict handling, email reminders, a backend"
+  },
+  "ai-chat": {
+    "title": "AI Chat Assistant",
+    "short": "Your own AI chatbot",
+    "learn": "handling streamed responses, a backend that hides the API key, rendering Markdown and code, state for multiple conversations",
+    "beginner": "a chat interface: send a message, show the reply",
+    "intermediate": "connect an AI API, replies that stream in as they are typed, conversation history",
+    "advanced": "a backend for the API key, multiple conversations, code highlighting, an assistant that answers from your own documents"
+  },
+  "retro-os": {
+    "title": "Retro OS Desktop",
+    "short": "A Windows 95-style desktop in the browser",
+    "learn": "window-management state (position, stacking order, focus), dragging and resizing, an architecture built from mini apps, Context",
+    "beginner": "a desktop with icons, a Start menu, a clock in the taskbar",
+    "intermediate": "windows that open, drag and close, with the clicked one always on top",
+    "advanced": "resizing, minimizing to the taskbar, mini apps (notepad, minesweeper, player), saved state"
+  },
+  "chat": {
+    "title": "Real-Time Chat / Slack Clone",
+    "short": "Real-time chat with channels",
+    "learn": "WebSocket / Socket.io or Supabase Realtime, real-time state, a backend, users and channels",
+    "beginner": "a chat interface with a local message list",
+    "intermediate": "real-time messages, usernames, timestamps",
+    "advanced": "channels, direct messages, a “typing…” indicator, online status, file sharing, your own Socket.io server"
+  }
+}

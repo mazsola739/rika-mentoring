@@ -1,0 +1,10 @@
+node_modules
+dist
+.DS_Store
+*.log
+
+# Local Claude Code settings
+.claude/settings.local.json
+
+# Design working files (mood images, references, a copyrighted PDF): kept local, not published
+resources/

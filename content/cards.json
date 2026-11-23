@@ -1,0 +1,202 @@
+{
+  "portfolio": {
+    "en": { "build": "A personal site with projects and a contact form", "learn": "Components, responsive layout, routing, deploys" },
+    "hu": { "build": "Bemutatkozó oldal projektekkel és űrlappal", "learn": "Komponensek, reszponzív dizájn, routing" }
+  },
+  "dark-mode": {
+    "en": { "build": "A light / dark switch that remembers your choice", "learn": "Context API, CSS variables, a custom hook" },
+    "hu": { "build": "Sötét mód kapcsoló, ami megjegyzi a választást", "learn": "Context API, CSS-változók, saját hook" }
+  },
+  "password-generator": {
+    "en": { "build": "Strong passwords with a slider and options", "learn": "Controlled inputs, randomness, Clipboard API" },
+    "hu": { "build": "Erős jelszavak csúszkával és beállításokkal", "learn": "Vezérelt űrlapelemek, véletlen, vágólap API" }
+  },
+  "mad-libs": {
+    "en": { "build": "A word game that turns your words into a story", "learn": "Controlled fields, string templates, conditions" },
+    "hu": { "build": "Szójáték, ami a szavaidból vicces történetet ír", "learn": "Vezérelt mezők, szövegsablonok, feltételek" }
+  },
+  "qr-code": {
+    "en": { "build": "QR codes from text or links, ready to download", "learn": "npm packages, controlled input, file download" },
+    "hu": { "build": "QR-kód szövegből vagy linkből, letölthetően", "learn": "npm-csomagok, vezérelt input, fájlletöltés" }
+  },
+  "flashcards": {
+    "en": { "build": "Study cards that flip, shuffle and save progress", "learn": "3D CSS flip, shuffling, a useLocalStorage hook" },
+    "hu": { "build": "Tanulókártyák fordítással, keveréssel, mentéssel", "learn": "3D CSS-fordítás, keverés, useLocalStorage hook" }
+  },
+  "color-palette": {
+    "en": { "build": "Random color palettes you can lock and copy", "learn": "Arrays in state, keyboard events, Clipboard API" },
+    "hu": { "build": "Véletlen színpaletták zárolással és másolással", "learn": "Tömbök az állapotban, billentyűk, vágólap API" }
+  },
+  "calculator": {
+    "en": { "build": "A calculator for the four basic operations", "learn": "useState, event handling, components and props" },
+    "hu": { "build": "Számológép a négy alapművelettel", "learn": "useState, eseménykezelés, komponensek és props" }
+  },
+  "todo": {
+    "en": { "build": "A to-do list with filters that remembers tasks", "learn": "Lists with keys, CRUD in state, useEffect" },
+    "hu": { "build": "Feladatlista szűrőkkel, ami megjegyzi a teendőket", "learn": "Listák key-jel, CRUD az állapotban, useEffect" }
+  },
+  "shopping-list": {
+    "en": { "build": "A grocery list grouped by aisle", "learn": "Grouping and sorting arrays, controlled forms" },
+    "hu": { "build": "Bevásárlólista kategóriák szerint csoportosítva", "learn": "Csoportosítás és rendezés, vezérelt űrlap" }
+  },
+  "notes": {
+    "en": { "build": "A notes app with search and dates", "learn": "CRUD, derived values for search, dates" },
+    "hu": { "build": "Jegyzetelő app kereséssel és dátumokkal", "learn": "CRUD, keresés számolt értékekkel, dátumok" }
+  },
+  "image-gallery": {
+    "en": { "build": "A photo gallery with a slideshow and a lightbox", "learn": "setInterval with cleanup, modals, file upload" },
+    "hu": { "build": "Képgaléria diavetítéssel és nagyítóval", "learn": "setInterval leállítással, modális ablak, feltöltés" }
+  },
+  "memory-game": {
+    "en": { "build": "A card-matching memory game with animations", "learn": "Complex state, setTimeout, shuffling, animations" },
+    "hu": { "build": "Párkereső memóriajáték fordítós kártyákkal", "learn": "Összetett állapot, setTimeout, keverés, animációk" }
+  },
+  "currency-converter": {
+    "en": { "build": "A currency converter with live exchange rates", "learn": "fetch, loading and error states, a useFetch hook" },
+    "hu": { "build": "Pénznemváltó friss árfolyamokkal", "learn": "fetch, töltés- és hibaállapot, useFetch hook" }
+  },
+  "space-explorer": {
+    "en": { "build": "NASA's picture of the day, browsable by date", "learn": "APIs with a key, dates, images or videos, caching" },
+    "hu": { "build": "A NASA napi képe, dátum szerint lapozva", "learn": "API kulccsal, dátumok, kép vagy videó, cache" }
+  },
+  "typing-test": {
+    "en": { "build": "A typing test with live speed and accuracy", "learn": "useRef, timers, computing on every keystroke" },
+    "hu": { "build": "Gépelésteszt élő sebességgel és pontossággal", "learn": "useRef, időzítők, számolás minden leütésnél" }
+  },
+  "piano": {
+    "en": { "build": "A piano you play with the mouse or keyboard", "learn": "Keyboard events, Web Audio API, UI from arrays" },
+    "hu": { "build": "Zongora, amin egérrel vagy billentyűzettel játszol", "learn": "Billentyűesemények, Web Audio API, tömbből UI" }
+  },
+  "video-player": {
+    "en": { "build": "A video player with its own controls", "learn": "useRef, the HTML5 video API, accessibility" },
+    "hu": { "build": "Videólejátszó saját vezérlőkkel", "learn": "useRef, HTML5 videó API, akadálymentesség" }
+  },
+  "wordle": {
+    "en": { "build": "A five-letter word-guessing game", "learn": "Global key events, a grid in state, game logic" },
+    "hu": { "build": "Ötbetűs szókitaláló játék", "learn": "Globális billentyűk, rács állapotban, játéklogika" }
+  },
+  "movie-search": {
+    "en": { "build": "A movie finder with detail pages", "learn": "React Router, useFetch and useDebounce hooks" },
+    "hu": { "build": "Filmkereső részletes adatlapokkal", "learn": "React Router, useFetch és useDebounce hook" }
+  },
+  "book-library": {
+    "en": { "build": "Book search with your own reading lists", "learn": "Searching an API, moving items between lists" },
+    "hu": { "build": "Könyvkereső saját olvasólistákkal", "learn": "Keresés API-ban, tételek mozgatása listák között" }
+  },
+  "multi-step-form": {
+    "en": { "build": "A sign-up form split into clear steps", "learn": "State across steps, validation, React Hook Form" },
+    "hu": { "build": "Regisztrációs űrlap áttekinthető lépésekben", "learn": "Állapot lépéseken át, validálás, React Hook Form" }
+  },
+  "fan-wiki": {
+    "en": { "build": "A fan wiki with lists and detail pages", "learn": "Dynamic routing, search, filters, pagination" },
+    "hu": { "build": "Rajongói wiki listákkal és adatlapokkal", "learn": "Dinamikus routing, keresés, szűrés, lapozás" }
+  },
+  "review-rating": {
+    "en": { "build": "Star ratings and reviews with averages", "learn": "Reusable components, derived data, sorting" },
+    "hu": { "build": "Csillagos értékelések és vélemények átlaggal", "learn": "Újrahasznosítható komponens, átlag, rendezés" }
+  },
+  "meme-generator": {
+    "en": { "build": "A meme maker with templates and your own photos", "learn": "Drawing on canvas, image upload, downloads" },
+    "hu": { "build": "Mémkészítő sablonokkal és saját képekkel", "learn": "Rajzolás canvasra, képfeltöltés, letöltés" }
+  },
+  "blog": {
+    "en": { "build": "A blog with posts written in Markdown", "learn": "Routing, CRUD, rendering Markdown" },
+    "hu": { "build": "Blog Markdownban írt bejegyzésekkel", "learn": "Routing, CRUD, Markdown megjelenítése" }
+  },
+  "piggy-bank": {
+    "en": { "build": "A wallet with savings goals and charts", "learn": "useReducer, reduce over arrays, Recharts" },
+    "hu": { "build": "Pénztárca megtakarítási célokkal és grafikonnal", "learn": "useReducer, reduce tömbökön, Recharts" }
+  },
+  "subscriptions": {
+    "en": { "build": "Track subscriptions, renewals and monthly costs", "learn": "Date calculations, totals, sorting, notifications" },
+    "hu": { "build": "Előfizetések, megújulások és havi költségek", "learn": "Dátumszámítás, összesítés, rendezés, értesítések" }
+  },
+  "plant-care": {
+    "en": { "build": "Watering reminders for your plants", "learn": "Time-based logic, image upload, notifications" },
+    "hu": { "build": "Öntözési emlékeztető a növényeidhez", "learn": "Időalapú logika, képfeltöltés, értesítések" }
+  },
+  "mood-tracker": {
+    "en": { "build": "A mood journal with a calendar and charts", "learn": "Dates, calendar grids, charts, aggregating data" },
+    "hu": { "build": "Hangulatnapló naptárral és grafikonokkal", "learn": "Dátumok, naptárrács, grafikonok, összesítés" }
+  },
+  "virtual-pet": {
+    "en": { "build": "A pet that gets hungry even while you're away", "learn": "State over time, useReducer, animations, saving" },
+    "hu": { "build": "Kisállat, ami akkor is éhes lesz, ha nem vagy ott", "learn": "Idővel változó állapot, useReducer, animációk" }
+  },
+  "snake": {
+    "en": { "build": "The classic snake game on a canvas", "learn": "Game loop, useRef for fresh state, collisions" },
+    "hu": { "build": "A klasszikus kígyós játék canvasra rajzolva", "learn": "Játékciklus, useRef friss állapothoz, ütközés" }
+  },
+  "lofi-room": {
+    "en": { "build": "A cozy study room with mixable sounds and a timer", "learn": "Several sounds at once, sliders, timer cleanup" },
+    "hu": { "build": "Tanulószoba keverhető hangokkal és időzítővel", "learn": "Több hang egyszerre, csúszkák, időzítő leállítása" }
+  },
+  "wardrobe": {
+    "en": { "build": "A digital closet that suggests outfits", "learn": "Image upload, multi-filter search, a weather API" },
+    "hu": { "build": "Digitális ruhatár, ami szettet ajánl", "learn": "Képfeltöltés, több feltételes szűrés, időjárás API" }
+  },
+  "drawing": {
+    "en": { "build": "A drawing app with brushes, undo and export", "learn": "Canvas API, mouse and touch events, undo stack" },
+    "hu": { "build": "Rajzolóprogram ecsetekkel, visszavonással", "learn": "Canvas API, egér- és érintésesemények, visszavonás" }
+  },
+  "winamp": {
+    "en": { "build": "A retro music player with a playlist and visuals", "learn": "Audio handling, playlist state, visualization" },
+    "hu": { "build": "Retró zenelejátszó listával és vizualizációval", "learn": "Hangkezelés, lejátszási lista, hangvizualizáció" }
+  },
+  "job-tracker": {
+    "en": { "build": "A board for job applications and interviews", "learn": "Drag & drop, CRUD, reminders, statistics" },
+    "hu": { "build": "Tábla az álláspályázatokhoz és interjúkhoz", "learn": "Drag & drop, CRUD, emlékeztetők, statisztika" }
+  },
+  "kanban": {
+    "en": { "build": "A Kanban board with drag-and-drop cards", "learn": "dnd-kit, nested state, useReducer" },
+    "hu": { "build": "Kanban-tábla húzható kártyákkal", "learn": "dnd-kit, egymásba ágyazott állapot, useReducer" }
+  },
+  "photo-booth": {
+    "en": { "build": "A webcam photo booth with filters and GIFs", "learn": "getUserMedia, drawing on canvas, filters, timing" },
+    "hu": { "build": "Webkamerás fotófülke szűrőkkel és GIF-ekkel", "learn": "getUserMedia, rajzolás canvasra, szűrők, időzítés" }
+  },
+  "mood-board": {
+    "en": { "build": "A board for pinning images, notes and colors", "learn": "Free dragging and resizing, saving positions" },
+    "hu": { "build": "Tábla képek, jegyzetek és színek kitűzéséhez", "learn": "Szabad húzás és átméretezés, pozíciók mentése" }
+  },
+  "swipe": {
+    "en": { "build": "Swipe cards left or right to pick favorites", "learn": "Pointer gestures, Framer Motion animations" },
+    "hu": { "build": "Kártyák jobbra-balra húzva a kedvencekért", "learn": "Pointer gesztusok, Framer Motion animációk" }
+  },
+  "travel-map": {
+    "en": { "build": "A travel map of places visited and dreamed of", "learn": "React Leaflet, markers, GeoJSON, image upload" },
+    "hu": { "build": "Utazási térkép a bejárt és vágyott helyekkel", "learn": "React Leaflet, jelölők, GeoJSON, képfeltöltés" }
+  },
+  "data-table": {
+    "en": { "build": "A user table with sorting, filters and pages", "learn": "Sorting and paging logic, large data sets" },
+    "hu": { "build": "Felhasználótábla rendezéssel és lapozással", "learn": "Rendezés, szűrés és lapozás, nagy adathalmazok" }
+  },
+  "webshop": {
+    "en": { "build": "An online store with a cart and checkout", "learn": "Global state, routing, cart logic, payments" },
+    "hu": { "build": "Webshop kosárral és fizetéssel", "learn": "Globális állapot, routing, kosárlogika, fizetés" }
+  },
+  "auth": {
+    "en": { "build": "Sign-up and login with protected pages", "learn": "Form validation, protected routes, tokens" },
+    "hu": { "build": "Regisztráció és belépés védett oldalakkal", "learn": "Űrlapvalidálás, védett oldalak, tokenek" }
+  },
+  "feed": {
+    "en": { "build": "A feed of posts with votes and threaded comments", "learn": "Recursive comments, instant votes, infinite scroll" },
+    "hu": { "build": "Posztfolyam szavazással és kommentfákkal", "learn": "Rekurzív komponensek, végtelen görgetés" }
+  },
+  "booking": {
+    "en": { "build": "Appointment booking with free time slots", "learn": "date-fns, booking conflicts, forms, time zones" },
+    "hu": { "build": "Időpontfoglaló szabad idősávokkal", "learn": "date-fns, foglalási ütközések, űrlapok, időzónák" }
+  },
+  "ai-chat": {
+    "en": { "build": "Your own AI chatbot with streamed answers", "learn": "Streaming, rendering Markdown, many conversations" },
+    "hu": { "build": "Saját AI chatbot folyamatosan érkező válaszokkal", "learn": "Streamelés, Markdown és kód, több beszélgetés" }
+  },
+  "retro-os": {
+    "en": { "build": "A Windows 95-style desktop with mini apps", "learn": "Window management, drag and resize, Context" },
+    "hu": { "build": "Windows 95-szerű asztal ablakokkal és mini appokkal", "learn": "Ablakkezelés, húzás és átméretezés, Context" }
+  },
+  "chat": {
+    "en": { "build": "A real-time chat with channels and users", "learn": "WebSockets, real-time state, users and channels" },
+    "hu": { "build": "Valós idejű chat csatornákkal és felhasználókkal", "learn": "WebSocket, valós idejű állapot, csatornák" }
+  }
+}

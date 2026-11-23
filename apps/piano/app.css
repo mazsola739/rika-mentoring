@@ -1,0 +1,247 @@
+.pn {
+  --pn-night: #070707;
+  --pn-key-h: clamp(150px, 30cqi, 200px);
+
+  container-type: inline-size;
+  display: grid;
+  gap: 18px;
+}
+
+.pn__intro,
+.pn__tip {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.pn__tip {
+  font-size: 14px;
+}
+
+.pn__warning {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--paper-2);
+  font-weight: 600;
+}
+
+/* ── Controls ─────────────────────────────────────────── */
+.pn-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 16px 24px;
+}
+
+.pn-control {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.pn-control:first-child {
+  grid-column: 1 / -1;
+}
+
+.pn-control__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.pn-control__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pn-control__note {
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.pn-control--volume input {
+  width: 100%;
+}
+
+.pn-octave-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pn-octave-switch .btn {
+  min-width: 44px;
+  padding: 0;
+  font-size: 20px;
+}
+
+.pn-octave-switch strong {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Keyboard ─────────────────────────────────────────── */
+.pn-keys {
+  display: flex;
+  padding: 14px 12px 12px;
+  border-radius: 20px;
+  background: var(--pn-night);
+  box-shadow: var(--shadow);
+  touch-action: none; /* sliding over the keys plays them instead of scrolling */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pn-octave {
+  position: relative;
+  display: flex;
+  flex: var(--whites) 1 0;
+  min-width: 0;
+}
+
+.pn-key {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 0 0 10px;
+  border: 0;
+  font-family: var(--font-body);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pn-key--white {
+  flex: 1 1 0;
+  min-width: 0;
+  height: var(--pn-key-h);
+  margin: 0 1px;
+  border-radius: 0 0 9px 9px;
+  background: #fff;
+  color: var(--pn-night);
+  box-shadow: inset 0 -6px 0 #e4e4e4;
+  transition:
+    background-color 0.06s ease,
+    box-shadow 0.06s ease;
+}
+
+.pn-key--white.is-active {
+  background: var(--solid-light);
+  box-shadow: inset 0 -3px 0 var(--solid);
+}
+
+.pn-key--black {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: calc(100% / var(--whites) * 0.62);
+  height: 60%;
+  padding-bottom: 8px;
+  border-radius: 0 0 7px 7px;
+  background: linear-gradient(#2a2a2a, var(--pn-night) 70%);
+  color: #fff;
+  box-shadow:
+    0 3px 0 #000,
+    inset 0 -4px 0 #1b1b1b;
+  transform: translateX(-50%);
+  transition: background-color 0.06s ease;
+}
+
+.pn-key--black.is-active {
+  background: var(--accent);
+  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.25);
+}
+
+.pn-key:focus-visible {
+  z-index: 2;
+  outline: 3px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.pn-key__kbd {
+  min-width: 22px;
+  padding: 2px 5px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  font: 700 12px/1.2 var(--font-body);
+  text-align: center;
+  opacity: 0.75;
+}
+
+.pn-key__name {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+/* ── Recorder ─────────────────────────────────────────── */
+.pn-recorder {
+  display: grid;
+  gap: 10px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper-2);
+}
+
+.pn-recorder__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pn-recorder__status {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.pn-rec__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.pn-rec.is-on {
+  background: var(--pn-night);
+}
+
+.pn-rec.is-on .pn-rec__dot {
+  animation: pn-pulse 1s ease-in-out infinite;
+}
+
+@keyframes pn-pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Narrow panel: the two octaves sit on top of each other instead of side by side. */
+@container (max-width: 560px) {
+  .pn-keys {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .pn-octave {
+    flex: none;
+  }
+
+  .pn-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pn-key__name {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-rec.is-on .pn-rec__dot {
+    animation: none;
+  }
+}

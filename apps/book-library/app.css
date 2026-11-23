@@ -1,0 +1,445 @@
+.bl {
+  container-type: inline-size;
+  display: grid;
+  gap: 28px;
+}
+
+.bl-muted {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.bl-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+}
+
+/* ── Search ───────────────────────────────────────────── */
+.bl-search {
+  display: grid;
+  gap: 14px;
+}
+
+.bl-search__form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 10px;
+}
+
+.bl-target {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.bl-target > span {
+  margin-right: 2px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.bl-status {
+  min-height: 1.4em;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.bl-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 18px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bl-result {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  min-width: 0;
+}
+
+.bl-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 8px 12px 12px 8px;
+  object-fit: cover;
+  background: var(--paper-2);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.18);
+}
+
+/* No cover: BookCover.jsx sets a flat peacock colour (picked from the title) inline. */
+.bl-cover--empty {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.bl-cover__icon {
+  align-self: center;
+  width: 42%;
+  max-width: 44px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bl-cover__title {
+  display: -webkit-box;
+  overflow: hidden;
+  justify-self: stretch;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.bl-result__body {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.bl-result__body strong {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.bl-result__add {
+  min-height: 40px;
+  padding: 8px 12px;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.bl-result__on {
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-2);
+  color: var(--solid-text);
+  font: 600 13px/1.2 var(--font-body);
+  cursor: pointer;
+}
+
+/* ── Skeletons and states ─────────────────────────────── */
+.bl-result--skeleton {
+  grid-template-rows: auto;
+  gap: 8px;
+}
+
+.bl-skel {
+  display: block;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--paper-2) 0%, var(--paper) 50%, var(--paper-2) 100%);
+  background-size: 200% 100%;
+  animation: bl-shimmer 1.4s ease-in-out infinite;
+}
+
+.bl-skel--cover {
+  aspect-ratio: 2 / 3;
+}
+
+.bl-skel--line {
+  height: 14px;
+}
+
+.bl-skel--short {
+  width: 60%;
+}
+
+@keyframes bl-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.bl-state {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  background: var(--paper-2);
+  color: var(--ink-soft);
+}
+
+.bl-state p {
+  margin: 0;
+}
+
+.bl-state strong {
+  color: var(--ink);
+}
+
+.bl-state--error {
+  border-style: solid;
+  border-left: 4px solid var(--accent);
+  color: var(--ink);
+}
+
+/* ── Shelves ──────────────────────────────────────────── */
+.bl-shelves-wrap {
+  display: grid;
+  gap: 12px;
+  scroll-margin-top: 16px;
+}
+
+.bl-shelves {
+  display: grid;
+  gap: 14px;
+  padding: clamp(16px, 3cqi, 22px);
+  border-radius: 20px;
+  background: var(--paper-2);
+}
+
+.bl-shelves__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+}
+
+.bl-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bl-tabs__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--paper-2);
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.bl-tabs .chip[aria-pressed='true'] .bl-tabs__count {
+  background: rgb(255 255 255 / 0.22);
+  color: inherit;
+}
+
+.bl-shelves .bl-state {
+  background: var(--paper);
+}
+
+.bl-shelf {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bl-book {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 14px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+}
+
+/* The shelf thumbnail is small: just the icon, the title is printed beside it. */
+.bl-book__cover.bl-cover--empty {
+  grid-template-rows: 1fr;
+  padding: 4px;
+}
+
+.bl-book__cover .bl-cover__title {
+  display: none;
+}
+
+.bl-book__body {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.bl-book__title {
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.bl-book__title a {
+  text-decoration: none;
+}
+
+.bl-book__title a:hover {
+  text-decoration: underline;
+}
+
+.bl-book__meta {
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.bl-book__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.bl-move {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 600 13px/1.2 var(--font-body);
+  cursor: pointer;
+}
+
+.bl-move:hover {
+  border-color: var(--solid);
+  color: var(--solid-text);
+}
+
+.bl-move--remove {
+  color: var(--ink-soft);
+}
+
+.bl-move--remove:hover {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+}
+
+.bl-rating {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.bl-rating button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--line);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.bl-rating button[data-on='true'] {
+  color: var(--solid-text);
+}
+
+.bl-rating button:hover {
+  background: var(--paper-2);
+}
+
+.bl-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  min-height: 1.5em;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.bl-notice__undo {
+  min-height: 32px;
+  padding: 4px 12px;
+  border: 1px solid var(--solid);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--solid-text);
+  font: 700 13px/1 var(--font-body);
+  cursor: pointer;
+}
+
+/* ── Manual form ──────────────────────────────────────── */
+.bl-manual {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.bl-manual summary {
+  padding: 14px 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bl-manual__form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  padding: 0 18px 18px;
+}
+
+.bl-manual__form > p,
+.bl-manual__form > label:first-of-type {
+  grid-column: 1 / -1;
+}
+
+.bl-manual__form .btn {
+  align-self: end;
+}
+
+.bl-credit {
+  font-size: 13px;
+}
+
+@container (max-width: 480px) {
+  .bl-search__form,
+  .bl-manual__form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bl-results {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bl-book {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bl-skel {
+    animation: none;
+  }
+}

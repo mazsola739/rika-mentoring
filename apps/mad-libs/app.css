@@ -1,0 +1,87 @@
+.ml {
+  display: grid;
+  gap: 22px;
+}
+
+.ml__picker {
+  display: grid;
+  gap: 10px;
+}
+
+.ml__picker-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.ml__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ml__random {
+  border-style: dashed;
+}
+
+.ml__form {
+  display: grid;
+  gap: 18px;
+}
+
+.ml__intro {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.ml__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px 16px;
+}
+
+.ml__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.ml__progress {
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.ml__story {
+  display: grid;
+  gap: 16px;
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 20px;
+  background: #fffdf8;
+  border: 2px solid var(--line);
+  border-left: 8px solid var(--solid);
+}
+
+.ml__story h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 30px);
+}
+
+.ml__story p {
+  margin: 0;
+  font-size: clamp(17px, 1.8vw, 19px);
+  line-height: 1.75;
+}
+
+.ml__story mark {
+  padding: 0.1em 0.45em;
+  border-radius: 8px;
+  background: var(--solid);
+  color: var(--solid-ink);
+  font-weight: 700;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}

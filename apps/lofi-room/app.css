@@ -1,0 +1,504 @@
+.lr {
+  /* --lr-night, --lr-teal, --lr-plum, --lr-ruby, --lr-gold… are set from PEACOCK in App.jsx. */
+  display: grid;
+  gap: 16px;
+  container-type: inline-size;
+}
+
+/* ── The room: flat night scene + atmosphere layers ──────── */
+.lr-room {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: #fff;
+  /* Deep night: a touch of peacock blue at the top, fading into the night color. */
+  background: linear-gradient(
+    170deg,
+    color-mix(in srgb, var(--lr-blue) 28%, var(--lr-night)) 0%,
+    var(--lr-night) 55%,
+    color-mix(in srgb, var(--lr-teal) 30%, var(--lr-night)) 100%
+  );
+}
+
+.lr-room__sky,
+.lr-room__cafe,
+.lr-room__rain,
+.lr-room__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Two soft, blurred glows (teal and plum) float in the dark, like distant city lights. */
+.lr-room__sky {
+  background:
+    radial-gradient(circle at 18% 22%, color-mix(in srgb, var(--lr-teal-light) 45%, transparent), transparent 42%),
+    radial-gradient(circle at 82% 78%, color-mix(in srgb, var(--lr-plum) 55%, transparent), transparent 46%);
+  filter: blur(40px);
+}
+
+.lr-room__cafe {
+  background: radial-gradient(circle at 85% 8%, color-mix(in srgb, var(--lr-gold) 55%, transparent), transparent 55%);
+  opacity: calc(var(--cafe) * 0.5);
+  transition: opacity 0.6s ease;
+}
+
+/* Rain: thin vertical lines, cut into drops by a moving mask. Two layers with different
+   spacing and speed, so the drops do not line up. */
+.lr-room__rain {
+  inset: -20%;
+  rotate: 10deg;
+  opacity: calc(var(--rain) * 0.75);
+  transition: opacity 0.6s ease;
+}
+
+.lr-room__rain span {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, rgb(255 255 255 / 0.32) 0 1px, transparent 1px 23px);
+  -webkit-mask-image: repeating-linear-gradient(180deg, #000 0 16px, transparent 16px 70px);
+  mask-image: repeating-linear-gradient(180deg, #000 0 16px, transparent 16px 70px);
+  -webkit-mask-size: 100% 70px;
+  mask-size: 100% 70px;
+  --drop: 70px;
+  animation: lr-rain 0.55s linear infinite;
+}
+
+.lr-room__rain span:last-child {
+  background: repeating-linear-gradient(90deg, transparent 0 11px, rgb(255 255 255 / 0.22) 11px 12px, transparent 12px 37px);
+  -webkit-mask-image: repeating-linear-gradient(180deg, transparent 0 40px, #000 40px 60px, transparent 60px 96px);
+  mask-image: repeating-linear-gradient(180deg, transparent 0 40px, #000 40px 60px, transparent 60px 96px);
+  -webkit-mask-size: 100% 96px;
+  mask-size: 100% 96px;
+  --drop: 96px;
+  animation-duration: 0.8s;
+}
+
+@keyframes lr-rain {
+  from {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+  to {
+    -webkit-mask-position: 0 var(--drop);
+    mask-position: 0 var(--drop);
+  }
+}
+
+/* Fire: a warm gold-to-ruby glow rising from the bottom edge that flickers gently. */
+.lr-room__glow {
+  top: 35%;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    color-mix(in srgb, var(--lr-gold) 70%, var(--lr-ruby)),
+    color-mix(in srgb, var(--lr-ruby) 40%, transparent) 40%,
+    transparent 72%
+  );
+  transform-origin: 50% 100%;
+  opacity: calc(var(--fire) * 0.7);
+  transition: opacity 0.6s ease;
+  animation: lr-flicker 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes lr-flicker {
+  0% {
+    scale: 1 1;
+    filter: brightness(1);
+  }
+  35% {
+    scale: 1.04 1.08;
+    filter: brightness(1.15);
+  }
+  60% {
+    scale: 0.98 0.96;
+    filter: brightness(0.92);
+  }
+  100% {
+    scale: 1.02 1.05;
+    filter: brightness(1.08);
+  }
+}
+
+.lr-room__content {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 16px;
+  padding: clamp(14px, 3cqw, 24px);
+}
+
+.lr-side {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+/* ── Glass cards ─────────────────────────────────────────── */
+.lr-card {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: 18px;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--lr-night) 68%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.lr-card__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lr-card__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.lr-card :focus-visible {
+  outline: 3px solid var(--lr-gold);
+  outline-offset: 2px;
+}
+
+.lr-btn {
+  background: var(--lr-gold);
+  color: var(--lr-night);
+}
+
+.lr-btn:hover {
+  background: color-mix(in srgb, var(--lr-gold) 85%, #fff);
+}
+
+.lr-btn--ghost {
+  border-color: rgb(255 255 255 / 0.4);
+  background: transparent;
+  color: #fff;
+}
+
+.lr-btn--ghost:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+
+.lr-round {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex: none;
+  margin-left: auto;
+  border: 1px solid rgb(255 255 255 / 0.4);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.lr-round:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+
+.lr-round--accent {
+  margin-left: 0;
+  border-color: var(--lr-gold);
+  background: var(--lr-gold);
+  color: var(--lr-night);
+}
+
+.lr-round--accent:hover {
+  background: color-mix(in srgb, var(--lr-gold) 85%, #fff);
+}
+
+.lr-card input[type='range'] {
+  width: 100%;
+  accent-color: var(--lr-gold);
+}
+
+/* ── Timer ───────────────────────────────────────────────── */
+.lr-timer {
+  justify-items: center;
+  text-align: center;
+}
+
+.lr-timer .lr-card__title {
+  justify-self: start;
+}
+
+.lr-modes {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: 999px;
+}
+
+.lr-mode {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgb(255 255 255 / 0.85);
+  font: 600 14px/1 var(--font-body);
+  cursor: pointer;
+}
+
+.lr-mode[aria-pressed='true'] {
+  background: #fff;
+  color: var(--lr-night);
+}
+
+.lr-ring {
+  position: relative;
+  width: min(220px, 100%);
+  aspect-ratio: 1;
+}
+
+.lr-ring svg {
+  width: 100%;
+  height: 100%;
+  rotate: -90deg;
+}
+
+.lr-ring circle {
+  fill: none;
+  stroke-width: 7;
+}
+
+.lr-ring__track {
+  stroke: rgb(255 255 255 / 0.15);
+}
+
+.lr-ring__bar {
+  stroke: var(--lr-gold);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s linear;
+}
+
+.lr-ring__label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 2px;
+}
+
+.lr-ring__time {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 9cqw, 54px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.lr-ring__mode {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.lr-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.lr-sessions,
+.lr-done {
+  margin: 0;
+  font-size: 14px;
+}
+
+.lr-sessions {
+  opacity: 0.8;
+}
+
+.lr-done:empty {
+  display: none;
+}
+
+.lr-done {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgb(255 255 255 / 0.12);
+}
+
+/* ── Music ───────────────────────────────────────────────── */
+.lr-music__info {
+  min-width: 0;
+  margin-right: auto;
+}
+
+.lr-music__meta {
+  margin: 2px 0 0;
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.lr-eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 22px;
+}
+
+.lr-eq span {
+  width: 4px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--lr-gold);
+  opacity: 0.45;
+}
+
+.lr-music.is-playing .lr-eq span {
+  opacity: 1;
+  animation: lr-eq 0.9s ease-in-out infinite alternate;
+}
+
+.lr-music.is-playing .lr-eq span:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lr-music.is-playing .lr-eq span:nth-child(3) {
+  animation-delay: -0.55s;
+}
+
+.lr-music.is-playing .lr-eq span:nth-child(4) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lr-eq {
+  from {
+    height: 5px;
+  }
+  to {
+    height: 22px;
+  }
+}
+
+.lr-chords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lr-chords li {
+  padding: 5px 10px;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.lr-chords li.is-current {
+  border-color: var(--lr-gold);
+  background: var(--lr-gold);
+  color: var(--lr-night);
+}
+
+.lr-slider {
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.lr-status {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.lr-status:empty {
+  display: none;
+}
+
+/* ── Ambient mixer ───────────────────────────────────────── */
+.lr-sounds {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lr-sound {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) 42px;
+  align-items: center;
+  gap: 10px;
+}
+
+.lr-sound__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.lr-sound__value {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  opacity: 0.8;
+}
+
+/* ── Below the room ─────────────────────────────────────── */
+.lr-note,
+.lr-error {
+  margin: 0;
+  font-size: 14px;
+}
+
+.lr-note {
+  color: var(--ink-soft);
+}
+
+.lr-error {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #fdecee;
+  color: #8a1c2b;
+}
+
+@container (max-width: 640px) {
+  .lr-room__content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@container (max-width: 360px) {
+  .lr-sound {
+    grid-template-columns: minmax(0, 1fr) 42px;
+  }
+
+  .lr-sound input {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lr-room__rain span,
+  .lr-room__glow,
+  .lr-music.is-playing .lr-eq span {
+    animation: none;
+  }
+}

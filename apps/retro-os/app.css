@@ -1,0 +1,617 @@
+/* ── Retro OS (prefix: ro-) ────────────────────────────── */
+.ro-desktop {
+  --ro-face: #e9e4da;
+  --ro-hi: #ffffff;
+  --ro-light: #f6f2ea;
+  --ro-shadow: #8b8478;
+  --ro-dark: #2b2620;
+  /* Peacock teal and blue: the classic flat desktop color, with a gentle fade. */
+  --ro-wall: #02616b;
+  --ro-wall-2: #3176b7;
+
+  position: relative;
+  height: 520px;
+  overflow: hidden;
+  border: 1px solid var(--ro-dark);
+  border-radius: 14px;
+  color: var(--ro-dark);
+  font: 13px/1.4 var(--font-body);
+  user-select: none;
+  isolation: isolate;
+}
+
+.ro-wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(160deg, var(--ro-wall) 35%, var(--ro-wall-2) 130%);
+}
+
+/* The OS logo: four flat peacock squares, used on the Start button and in About. */
+.ro-logo {
+  flex: none;
+  background: conic-gradient(#dd204d 0 25%, #f5c259 0 50%, #06a7ac 0 75%, #3176b7 0);
+}
+
+.ro-svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+}
+
+/* Bevels: the classic raised / sunken look, drawn with two-tone borders. */
+.ro-raised {
+  border: 1px solid;
+  border-color: var(--ro-hi) var(--ro-dark) var(--ro-dark) var(--ro-hi);
+  background: var(--ro-face);
+  box-shadow:
+    inset -1px -1px 0 var(--ro-shadow),
+    inset 1px 1px 0 var(--ro-light);
+}
+
+.ro-inset {
+  border: 1px solid;
+  border-color: var(--ro-shadow) var(--ro-hi) var(--ro-hi) var(--ro-shadow);
+  box-shadow: inset 1px 1px 0 var(--ro-dark);
+}
+
+.ro-desktop button {
+  font: inherit;
+  color: inherit;
+}
+
+/* ── Desktop icons ─────────────────────────────────────── */
+.ro-icons {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  z-index: 1;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ro-icon {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  width: 78px;
+  padding: 6px 2px;
+  border: 1px dotted transparent;
+  border-radius: 4px;
+  background: none;
+  cursor: default;
+}
+
+.ro-icon__img {
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(1px 2px 0 rgb(0 0 0 / 0.35));
+}
+
+.ro-icon__label {
+  max-width: 100%;
+  padding: 1px 5px;
+  border-radius: 2px;
+  background: rgb(11 37 48 / 0.55);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 1px 1px rgb(0 0 0 / 0.6);
+}
+
+.ro-icon.is-selected .ro-icon__label {
+  background: var(--solid-dark);
+}
+
+.ro-icon.is-selected .ro-icon__img {
+  filter: drop-shadow(1px 2px 0 rgb(0 0 0 / 0.35)) sepia(0.5) hue-rotate(140deg) saturate(1.4);
+}
+
+.ro-icon:focus-visible {
+  border-color: #fff;
+  outline: 2px solid var(--ro-dark);
+  outline-offset: 1px;
+}
+
+/* ── Windows ───────────────────────────────────────────── */
+.ro-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  min-width: min(220px, calc(100% - 8px));
+  padding: 3px;
+  box-shadow:
+    inset -1px -1px 0 var(--ro-shadow),
+    inset 1px 1px 0 var(--ro-light),
+    4px 6px 0 rgb(11 37 48 / 0.28);
+}
+
+.ro-window[hidden] {
+  display: none;
+}
+
+.ro-window.is-max {
+  padding: 2px;
+  box-shadow: none;
+}
+
+.ro-titlebar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 3px 0 4px;
+  background: linear-gradient(90deg, #8b8478, #b9b2a6);
+  color: #f6f2ea;
+  font-weight: 700;
+  cursor: grab;
+  touch-action: none; /* lets pointer events drag on touch screens instead of scrolling */
+}
+
+.ro-window.is-active .ro-titlebar {
+  background: linear-gradient(90deg, var(--solid-dark), color-mix(in srgb, var(--solid) 65%, var(--solid-dark)));
+  color: #fff;
+}
+
+.ro-window.is-max .ro-titlebar {
+  cursor: default;
+}
+
+.ro-titlebar:active {
+  cursor: grabbing;
+}
+
+.ro-titlebar:focus-visible {
+  outline: 2px dotted #fff;
+  outline-offset: -3px;
+}
+
+.ro-titlebar__icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+
+.ro-titlebar__text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ro-titlebar__buttons {
+  display: flex;
+  flex: none;
+  gap: 2px;
+}
+
+.ro-tbtn {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 20px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.ro-tbtn svg {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: var(--ro-dark);
+  stroke-width: 1.8;
+}
+
+.ro-tbtn:active {
+  border-color: var(--ro-dark) var(--ro-hi) var(--ro-hi) var(--ro-dark);
+}
+
+.ro-window__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  padding: 6px 4px 4px;
+  overflow: auto;
+  user-select: text;
+}
+
+/* ── Taskbar ───────────────────────────────────────────── */
+.ro-taskbar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 40px;
+  padding: 4px;
+  border-top: 1px solid var(--ro-hi);
+  background: var(--ro-face);
+  box-shadow: inset 0 1px 0 var(--ro-light);
+}
+
+.ro-start {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px 0 6px;
+  font-weight: 800 !important;
+  cursor: pointer;
+}
+
+.ro-start[aria-expanded='true'] {
+  border-color: var(--ro-dark) var(--ro-hi) var(--ro-hi) var(--ro-dark);
+  box-shadow: inset 1px 1px 0 var(--ro-shadow);
+}
+
+.ro-start__logo {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--ro-dark);
+  border-radius: 4px;
+}
+
+.ro-tasks {
+  display: flex;
+  flex: 1;
+  gap: 4px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+}
+
+.ro-tasks li {
+  min-width: 0;
+}
+
+.ro-task {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 150px;
+  height: 30px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+
+.ro-task svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.ro-task span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ro-task.is-active {
+  background: repeating-conic-gradient(var(--ro-face) 0 25%, var(--ro-light) 0 50%) 0 0 / 2px 2px;
+  font-weight: 700;
+}
+
+.ro-clock {
+  flex: none;
+  display: grid;
+  place-items: center;
+  height: 30px;
+  padding: 0 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Start menu ────────────────────────────────────────── */
+.ro-startmenu {
+  position: absolute;
+  bottom: 38px;
+  left: 4px;
+  z-index: 10001;
+  display: flex;
+  width: 224px;
+  padding: 3px;
+}
+
+.ro-startmenu__band {
+  display: flex;
+  align-items: flex-end;
+  width: 28px;
+  padding: 8px 0;
+  background: linear-gradient(0deg, var(--solid-dark), var(--solid));
+  color: #fff;
+}
+
+.ro-startmenu__band span {
+  font: 600 17px/28px var(--font-display);
+  letter-spacing: 0.04em;
+  transform: rotate(180deg);
+  writing-mode: vertical-rl;
+}
+
+.ro-startmenu__items {
+  display: grid;
+  flex: 1;
+  padding: 2px;
+}
+
+.ro-startmenu__items hr {
+  width: 100%;
+  margin: 3px 0;
+  border: 0;
+  border-top: 1px solid var(--ro-shadow);
+  border-bottom: 1px solid var(--ro-hi);
+}
+
+.ro-startmenu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  padding: 4px 8px;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ro-startmenu__item svg {
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+
+.ro-startmenu__item:hover,
+.ro-startmenu__item:focus-visible {
+  outline: none;
+  background: var(--solid-dark);
+  color: #fff !important;
+}
+
+/* ── Shared bits inside windows ────────────────────────── */
+.ro-menubar {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.ro-menubar__btn {
+  min-height: 24px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+}
+
+.ro-menubar__btn:hover {
+  border-color: var(--ro-hi) var(--ro-shadow) var(--ro-shadow) var(--ro-hi);
+}
+
+.ro-status {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.ro-status span {
+  flex: 1;
+  padding: 1px 6px;
+  border: 1px solid;
+  border-color: var(--ro-shadow) var(--ro-hi) var(--ro-hi) var(--ro-shadow);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ro-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* Notepad */
+.ro-notepad {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.ro-notepad__area {
+  flex: 1;
+  min-height: 90px;
+  padding: 6px 8px;
+  border: 1px solid;
+  border-color: var(--ro-shadow) var(--ro-hi) var(--ro-hi) var(--ro-shadow);
+  background: #fff;
+  color: var(--ro-dark);
+  font: 14px/1.5 ui-monospace, 'Cascadia Code', Consolas, monospace;
+  resize: none;
+}
+
+.ro-notepad__area:focus-visible {
+  outline: 2px solid var(--solid);
+  outline-offset: -2px;
+}
+
+/* Minesweeper */
+.ro-mines {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  padding: 2px;
+}
+
+.ro-mines__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 4px 6px;
+}
+
+.ro-led {
+  min-width: 46px;
+  padding: 0 4px;
+  background: #1b0d0b;
+  color: #ff5a4a;
+  font: 700 20px/26px ui-monospace, 'Cascadia Code', Consolas, monospace;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+.ro-face-btn {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.ro-face-btn:active {
+  border-color: var(--ro-dark) var(--ro-hi) var(--ro-hi) var(--ro-dark);
+}
+
+.ro-face {
+  width: 24px;
+  height: 24px;
+}
+
+.ro-mines__grid {
+  display: grid;
+  border-width: 2px;
+}
+
+.ro-mines__row {
+  display: flex;
+}
+
+.ro-cell {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font: 800 14px/1 ui-monospace, 'Cascadia Code', Consolas, monospace !important;
+  cursor: pointer;
+}
+
+.ro-cell.ro-raised {
+  border-width: 2px;
+  border-color: var(--ro-hi) var(--ro-shadow) var(--ro-shadow) var(--ro-hi);
+  box-shadow: none;
+}
+
+.ro-cell.is-open {
+  border: 0;
+  border-top: 1px solid var(--ro-shadow);
+  border-left: 1px solid var(--ro-shadow);
+  background: #d9d3c7;
+  cursor: default;
+}
+
+.ro-cell.is-mine {
+  color: var(--ro-dark) !important;
+}
+
+.ro-cell.is-hit {
+  background: #ef5b4c;
+}
+
+.ro-cell:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--solid-dark);
+  outline-offset: -2px;
+}
+
+.ro-cell.n1 { color: #1f4fd1 !important; }
+.ro-cell.n2 { color: #1e7a35 !important; }
+.ro-cell.n3 { color: #c0262d !important; }
+.ro-cell.n4 { color: #1d2a7a !important; }
+.ro-cell.n5 { color: #7a1d1d !important; }
+.ro-cell.n6 { color: #137b7b !important; }
+.ro-cell.n7 { color: #000 !important; }
+.ro-cell.n8 { color: #555 !important; }
+
+.ro-mines__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 10px;
+  width: 100%;
+  font-size: 12px;
+}
+
+.ro-mines__msg {
+  font-weight: 700;
+}
+
+/* About */
+.ro-about {
+  display: grid;
+  gap: 8px;
+  padding: 4px 6px;
+  font-size: 13px;
+}
+
+.ro-about p {
+  margin: 0;
+}
+
+.ro-about ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.ro-about__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ro-about__head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.ro-about__logo {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ro-dark);
+  border-radius: 8px;
+}
+
+.ro-about__sys {
+  padding: 4px 8px !important;
+  background: #fff;
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  .ro-task span {
+    display: none;
+  }
+
+  .ro-task {
+    width: 36px;
+    justify-content: center;
+  }
+}

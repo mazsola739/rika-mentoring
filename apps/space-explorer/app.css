@@ -1,0 +1,407 @@
+.sx {
+  container-type: inline-size;
+  display: grid;
+  gap: 20px;
+}
+
+.sx-intro {
+  margin: 0;
+  font-size: 16px;
+}
+
+.sx-muted {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.sx-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.sx-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--solid);
+  color: var(--solid-ink);
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+/* ── Date navigation ──────────────────────────────────── */
+.sx-nav {
+  display: grid;
+  grid-template-columns: auto minmax(150px, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 16px;
+  background: var(--paper-2);
+}
+
+.sx-nav__step {
+  padding-inline: 14px;
+}
+
+.sx-nav__step span[aria-hidden] {
+  font-size: 20px;
+  line-height: 0.8;
+}
+
+.sx-nav__date .input {
+  text-align: center;
+  font-weight: 600;
+}
+
+.sx-nav__quick {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ── Picture card ─────────────────────────────────────── */
+.sx-card {
+  display: grid;
+  gap: 14px;
+}
+
+.sx-media {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--ink);
+}
+
+.sx-media img {
+  display: block;
+  width: 100%;
+  max-height: 560px;
+  object-fit: contain;
+}
+
+.sx-media figcaption {
+  padding: 8px 14px;
+  background: var(--ink);
+  font-size: 13px;
+  text-align: right;
+}
+
+.sx-media figcaption a {
+  color: #fff;
+}
+
+.sx-media--video {
+  aspect-ratio: 16 / 9;
+}
+
+.sx-media--video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.sx-media--note {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 28px 20px;
+  background: var(--paper-2);
+  text-align: center;
+}
+
+.sx-media--note p {
+  max-width: 440px;
+  margin: 0;
+}
+
+.sx-media__thumb {
+  max-width: min(100%, 360px);
+  border-radius: 12px;
+}
+
+.sx-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 20px;
+}
+
+.sx-card__date {
+  margin: 0;
+  color: var(--solid-text);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sx-card__title {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 5cqi, 32px);
+}
+
+.sx-card__credit {
+  margin: 4px 0 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.sx-fav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 600 14px/1 var(--font-body);
+  cursor: pointer;
+}
+
+.sx-fav span {
+  font-size: 18px;
+  color: var(--solid-text);
+}
+
+.sx-fav:hover {
+  background: var(--paper-2);
+}
+
+.sx-fav[data-on='true'] {
+  border-color: var(--solid);
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+.sx-fav[data-on='true'] span {
+  color: inherit;
+}
+
+.sx-card__lang {
+  justify-self: start;
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--paper-2);
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.sx-card__text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.sx-card__meta {
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+/* ── Loading skeleton ─────────────────────────────────── */
+.sx-skel {
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--paper-2) 0%, var(--paper) 50%, var(--paper-2) 100%);
+  background-size: 200% 100%;
+  animation: sx-shimmer 1.4s ease-in-out infinite;
+}
+
+.sx-skel--media {
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+}
+
+.sx-skel--title {
+  width: 60%;
+  height: 30px;
+}
+
+.sx-skel--line {
+  height: 14px;
+}
+
+@keyframes sx-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+/* ── Error ────────────────────────────────────────────── */
+.sx-error {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 14px;
+  background: var(--paper-2);
+}
+
+.sx-error p {
+  margin: 0;
+}
+
+.sx-error__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* ── Favorites ────────────────────────────────────────── */
+.sx-favs__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sx-favs__item {
+  position: relative;
+}
+
+.sx-favs__open {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  padding: 0 0 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sx-favs__item[data-current='true'] .sx-favs__open {
+  border-color: var(--solid-text);
+  box-shadow: 0 0 0 2px var(--solid);
+}
+
+.sx-favs__open img,
+.sx-favs__fallback {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 6px;
+  object-fit: cover;
+  background-color: var(--ink);
+}
+
+/* Favourite without a picture: a flat night-to-teal block with a small planet. */
+.sx-favs__fallback {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #09182d, #02616b);
+  color: #06a7ac;
+}
+
+.sx-favs__fallback svg {
+  width: 34%;
+  max-width: 48px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.sx-favs__date {
+  padding-inline: 10px;
+  color: var(--solid-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sx-favs__title {
+  display: -webkit-box;
+  padding-inline: 10px;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.sx-favs__remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.92);
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.2);
+}
+
+.sx-favs__remove:hover {
+  background: #fff;
+}
+
+.sx-source {
+  font-size: 13px;
+}
+
+/* Narrow panel: arrow-only step buttons, so the date input keeps its room. */
+@container (max-width: 460px) {
+  .sx-nav__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .sx-nav {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .sx-nav__step {
+    padding-inline: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-skel {
+    animation: none;
+  }
+}

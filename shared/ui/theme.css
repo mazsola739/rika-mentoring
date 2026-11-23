@@ -1,0 +1,662 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ── Foundations ────────────────────────────────────────── */
+:root {
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ink: #0b1220;
+  --ink-soft: #5b6576;
+  --paper: #ffffff;
+  --paper-2: #f1f4f8;
+  --page: #f7f8fa;
+  --line: #e4e8ee;
+  --radius: 16px;
+  --shadow: 0 1px 2px rgb(11 18 32 / 0.05), 0 8px 24px rgb(11 18 32 / 0.06);
+  --shadow-lg: 0 2px 4px rgb(11 18 32 / 0.04), 0 24px 48px rgb(11 18 32 / 0.12);
+
+  /* "Páva" palette (also saved in resources/pava-szinek/) */
+  --pava-night: #070b1a;
+  --pava-surface: #111e3d;
+  --pava-deep-teal: #083f58;
+  --pava-green: #017b6b;
+  --pava-turquoise: #01c5ac;
+  --pava-sky: #0197d8;
+  --pava-blue: #013e8e;
+  --pava-violet: #9a03b7;
+  --pava-magenta: #f70677;
+  --pava-orange: #fd7701;
+  --pava-gold: #feb800;
+
+  /* Short names used by the layout */
+  --night: var(--pava-night);
+  --night-2: var(--pava-surface);
+  --surface: var(--pava-surface);
+  --teal: var(--pava-green);
+  --teal-light: var(--pava-turquoise);
+  --turquoise: var(--pava-turquoise);
+  --sky: var(--pava-sky);
+  --blue: var(--pava-blue);
+  --violet: var(--pava-violet);
+  --plum: var(--pava-violet);
+  --magenta: var(--pava-magenta);
+  --ruby: var(--pava-magenta);
+  --orange: var(--pava-orange);
+  --gold: var(--pava-gold);
+  --on-night: #eef2fa;
+  --on-night-soft: #9aa7c2;
+
+  /* Default accent, overridden per lesson by paletteVars() */
+  --solid: #017b6b;
+  --solid-dark: #01504a;
+  --solid-light: #80bdb5;
+  --solid-ink: #ffffff;
+  --solid-text: #017b6b;
+  --accent: #feb800;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--page);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+a {
+  color: inherit;
+}
+
+code {
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 0.88em;
+  padding: 0.08em 0.4em;
+  border-radius: 6px;
+  background: var(--paper-2);
+}
+
+:focus-visible {
+  outline: 3px solid var(--solid-light);
+  outline-offset: 3px;
+}
+
+.container {
+  width: min(1200px, 100%);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Color ──────────────────────────────────────────────── */
+.solid {
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+.solid code {
+  background: rgb(0 0 0 / 0.16);
+  color: inherit;
+}
+
+.panel {
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Level bars. */
+.meter {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 16px;
+}
+
+.meter__bar {
+  width: 5px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.25;
+}
+
+.meter__bar.is-on {
+  opacity: 1;
+}
+
+/* ── Közös vezérlők az appokhoz ─────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font: 600 15px/1 var(--font-body);
+  color: var(--solid-ink);
+  background: var(--solid);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--solid-dark);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--ghost {
+  color: var(--ink);
+  background: var(--paper);
+  border-color: var(--line);
+}
+
+.btn--ghost:hover {
+  background: var(--paper-2);
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field > span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.field small {
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.input:focus-visible {
+  border-color: var(--solid);
+  outline-offset: 1px;
+}
+
+input[type='checkbox'],
+input[type='radio'],
+input[type='range'] {
+  accent-color: var(--solid);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  font: 600 14px/1 var(--font-body);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: var(--solid);
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+/* ── Nyelvváltó ─────────────────────────────────────────── */
+.langswitch {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+}
+
+.langswitch button {
+  min-width: 44px;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  font: 700 13px/1 var(--font-body);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.langswitch button[aria-pressed='true'] {
+  background: var(--ink);
+  color: #fff;
+}
+
+.langswitch--dark {
+  border-color: rgb(255 255 255 / 0.2);
+  background: rgb(255 255 255 / 0.06);
+}
+
+.langswitch--dark button {
+  color: var(--on-night-soft);
+}
+
+.langswitch--dark button[aria-pressed='true'] {
+  background: var(--gold);
+  color: var(--night);
+}
+
+/* ── Lesson page ────────────────────────────────────────── */
+
+/* Sticky top bar: brand, breadcrumb, language. */
+.lp-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  background: rgb(7 11 26 / 0.92);
+  backdrop-filter: blur(12px);
+  color: var(--on-night);
+}
+
+.lp-topbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 60px;
+}
+
+.lp-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--on-night);
+  text-decoration: none;
+}
+
+.lp-brand__mark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--turquoise), var(--sky) 55%, var(--violet));
+  color: #fff;
+  font: 800 15px/1 var(--font-display);
+}
+
+.lp-brand__name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.lp-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  margin-right: auto;
+  padding-left: 20px;
+  border-left: 1px solid rgb(255 255 255 / 0.12);
+  color: var(--on-night-soft);
+  font-size: 14px;
+}
+
+.lp-crumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.lp-crumbs a:hover {
+  color: var(--on-night);
+}
+
+.lp-crumbs [aria-current] {
+  overflow: hidden;
+  color: var(--on-night);
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Header: like the front of the lesson card — dark lesson color with paper-cut waves. */
+.lp-head {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(900px 360px at 0% 0%, rgb(255 255 255 / 0.08), transparent 60%),
+    color-mix(in srgb, var(--solid) 58%, var(--night));
+  color: #fff;
+
+  /* The same layer colors as the card front */
+  --wave-1: color-mix(in srgb, var(--solid) 84%, #000);
+  --wave-2: var(--solid);
+  --wave-3: color-mix(in srgb, var(--solid) 64%, #fff);
+}
+
+/* The card's waves sit on the right, mirrored, so the lightest layer is at the page edge. */
+.lp-head__waves {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(42%, 520px);
+  height: 100%;
+  transform: scaleX(-1);
+}
+
+.lp-head__inner {
+  position: relative;
+  padding-block: clamp(40px, 6vw, 72px) clamp(36px, 5vw, 60px);
+}
+
+.lp-head__num {
+  position: absolute;
+  top: clamp(24px, 4vw, 40px);
+  right: 24px;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-shadow: 0 4px 18px rgb(0 0 0 / 0.3);
+  pointer-events: none;
+}
+
+.lp-title__meta {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.lp-badge {
+  padding: 5px 10px;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 0.12);
+  color: #fff;
+}
+
+.lp-title__tier {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgb(255 255 255 / 0.85);
+}
+
+.lp-title__tier .meter {
+  color: #fff;
+}
+
+.lp-title {
+  position: relative;
+  max-width: 20ch;
+  margin: 16px 0 8px;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.lp-lead {
+  position: relative;
+  max-width: 560px;
+  margin: 0;
+  color: rgb(255 255 255 / 0.82);
+  font-size: 18px;
+}
+
+@media (max-width: 720px) {
+  .lp-head__waves {
+    width: 38%;
+    opacity: 0.55;
+  }
+
+  .lp-title,
+  .lp-lead {
+    max-width: 75%;
+  }
+}
+
+.lp-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 24px;
+  padding-block: 32px 48px;
+}
+
+.lp-app {
+  min-width: 0;
+  padding: clamp(18px, 3vw, 32px);
+}
+
+.lp-aside {
+  align-self: start;
+  position: sticky;
+  top: 80px;
+  display: grid;
+  gap: 22px;
+  padding: 22px;
+}
+
+.lp-aside h2 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.lp-aside p {
+  margin: 0;
+}
+
+.levels {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.levels li {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--page);
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+.levels__name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  color: var(--solid-text);
+  font-weight: 700;
+}
+
+.lp-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding-block: 0 56px;
+}
+
+.lp-nav a {
+  display: grid;
+  gap: 2px;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  text-decoration: none;
+  transition: border-color 0.15s ease;
+}
+
+.lp-nav a:hover {
+  border-color: var(--solid);
+}
+
+.lp-nav small {
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.lp-nav strong {
+  font-family: var(--font-display);
+  font-size: 18px;
+}
+
+.lp-nav__next {
+  grid-column: 2;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .lp-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-aside {
+    position: static;
+  }
+}
+
+@media (max-width: 720px) {
+  .lp-brand__name {
+    display: none;
+  }
+
+  .lp-crumbs {
+    padding-left: 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    padding-inline: 16px;
+  }
+
+  .lp-crumbs > a,
+  .lp-crumbs > span[aria-hidden] {
+    display: none;
+  }
+
+  .lp-nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lp-nav__next {
+    grid-column: auto;
+  }
+}
+
+/* ── „Fejlesztés alatt” helyőrző ───────────────────────── */
+.soon {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 32px 8px;
+  text-align: center;
+}
+
+.soon__badge {
+  width: 112px;
+  height: 112px;
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+}
+
+.soon__eyebrow {
+  margin: 10px 0 0;
+  color: var(--solid-text);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.soon h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 28px;
+}
+
+.soon p {
+  margin: 0;
+  max-width: 520px;
+}
+
+.soon__first {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--paper-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

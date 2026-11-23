@@ -1,0 +1,272 @@
+.dr {
+  display: grid;
+  gap: 16px;
+  container-type: inline-size;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────── */
+.dr-toolbar {
+  display: grid;
+  grid-template-columns: auto minmax(150px, 1fr);
+  gap: 14px 20px;
+  align-items: end;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper-2);
+}
+
+.dr-label {
+  display: block;
+  margin-bottom: 6px;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.dr-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dr-tool,
+.dr-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 600 14px/1 var(--font-body);
+  cursor: pointer;
+}
+
+.dr-tool:hover,
+.dr-action:hover:not(:disabled) {
+  border-color: var(--ink-soft);
+}
+
+.dr-tool[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+}
+
+.dr-action:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.dr-size__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dr-size input {
+  flex: 1;
+  min-width: 0;
+}
+
+.dr-size__preview {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background:
+    linear-gradient(45deg, var(--paper-2) 25%, transparent 25% 75%, var(--paper-2) 75%) 0 0 / 12px 12px,
+    linear-gradient(45deg, var(--paper-2) 25%, transparent 25% 75%, var(--paper-2) 75%) 6px 6px / 12px 12px,
+    var(--paper);
+}
+
+.dr-size__preview span {
+  max-width: 58px;
+  max-height: 58px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.15);
+}
+
+.dr-colors {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.dr-colors__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dr-swatch {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.2);
+  cursor: pointer;
+}
+
+.dr-swatch[aria-pressed='true'],
+.dr-swatch--custom.is-active {
+  box-shadow:
+    inset 0 0 0 1px rgb(0 0 0 / 0.2),
+    0 0 0 3px var(--paper),
+    0 0 0 5px var(--ink);
+}
+
+/* The native color input sits invisibly on top of a rainbow dot. */
+.dr-swatch--custom {
+  display: block;
+  overflow: hidden;
+  background: conic-gradient(#f43f5e, #f97316, #fde047, #22c55e, #38bdf8, #8b5cf6, #d946ef, #f43f5e);
+}
+
+.dr-swatch--custom input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dr-swatch--custom:focus-within {
+  outline: 3px solid var(--solid-light);
+  outline-offset: 3px;
+}
+
+.dr-actions {
+  grid-column: 1 / -1;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.dr-download {
+  margin-left: auto;
+}
+
+/* ── Canvas ──────────────────────────────────────────────── */
+.dr-canvas {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.dr-canvas canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  /* No scrolling or zooming while a finger draws on the canvas. */
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.dr-cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1.5px solid rgb(0 0 0 / 0.55);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.8);
+  pointer-events: none;
+}
+
+.dr-cursor[hidden] {
+  display: none;
+}
+
+.dr-cursor.is-eraser {
+  border-style: dashed;
+}
+
+.dr-error {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #fdecee;
+  color: #8a1c2b;
+}
+
+/* ── Shortcuts ───────────────────────────────────────────── */
+.dr-keys {
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.dr-keys summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dr-keys dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 8px 16px;
+  margin: 12px 0 0;
+}
+
+.dr-keys dl > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dr-keys dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.dr-keys kbd {
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-bottom-width: 3px;
+  border-radius: 7px;
+  background: var(--paper-2);
+  font: 700 12px/1.2 var(--font-body);
+  white-space: nowrap;
+}
+
+@container (max-width: 520px) {
+  .dr-toolbar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Icon-only buttons; the text stays for screen readers. */
+  .dr-tool span,
+  .dr-action span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .dr-tool,
+  .dr-action {
+    width: 44px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .dr-download {
+    margin-left: 0;
+  }
+}
