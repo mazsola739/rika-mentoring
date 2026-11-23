@@ -13,7 +13,13 @@ export function Inline({ text }) {
     const key = m.index
     const [, code, bold, linkText, href, termText, termKey, kbd] = m
     if (code !== undefined) out.push(<code key={key}>{code}</code>)
-    else if (bold !== undefined) out.push(<strong key={key}>{bold}</strong>)
+    // Bold text may hold the other marks, e.g. **The `ignore` flag.**
+    else if (bold !== undefined)
+      out.push(
+        <strong key={key}>
+          <Inline text={bold} />
+        </strong>,
+      )
     else if (linkText !== undefined) {
       const url = safeHref(href)
       const external = url && /^https?:/.test(url)

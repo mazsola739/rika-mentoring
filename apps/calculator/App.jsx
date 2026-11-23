@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import AppFrame from '@shared/ui/AppFrame.jsx'
 import { useLang, useText } from '@shared/i18n.js'
 import { INITIAL, formatNumber, press } from './calculator.js'
+import FormulaBar from './FormulaBar.jsx'
 import './app.css'
 
 const TEXT = {
@@ -9,7 +10,6 @@ const TEXT = {
     calculator: 'Calculator',
     labels: {
       clear: 'Clear',
-      backspace: 'Delete last digit',
       percent: 'Percent',
       '÷': 'Divide',
       '×': 'Multiply',
@@ -30,7 +30,6 @@ const TEXT = {
     calculator: 'Számológép',
     labels: {
       clear: 'Törlés',
-      backspace: 'Utolsó számjegy törlése',
       percent: 'Százalék',
       '÷': 'Osztás',
       '×': 'Szorzás',
@@ -52,10 +51,10 @@ const TEXT = {
 const op = (value) => ({ id: value, label: value, action: { type: 'operator', value }, kind: 'op' })
 const digit = (value) => ({ id: value, label: value, action: { type: 'digit', value }, kind: 'digit' })
 
-// The keypad is data: one array, rendered by one component.
+// The keypad is data: one array, rendered by one component. Five rows, the 0 takes two places.
 const KEYS = [
   { id: 'clear', label: 'C', action: { type: 'clear' }, kind: 'fn' },
-  { id: 'backspace', label: '⌫', action: { type: 'backspace' }, kind: 'fn' },
+  { id: 'negate', label: '±', action: { type: 'negate' }, kind: 'fn' },
   { id: 'percent', label: '%', action: { type: 'percent' }, kind: 'fn' },
   op('÷'),
   digit('7'),
@@ -70,13 +69,17 @@ const KEYS = [
   digit('2'),
   digit('3'),
   op('+'),
-  { id: 'negate', label: '±', action: { type: 'negate' }, kind: 'fn' },
-  digit('0'),
+  { ...digit('0'), wide: true },
   { id: 'decimal', label: '.', action: { type: 'decimal' }, kind: 'digit' },
   { id: 'equals', label: '=', action: { type: 'equals' }, kind: 'equals' },
 ]
 
-// Physical keys → the id of the on-screen button.
+// Actions that only the keyboard has, without a button of their own.
+const KEYBOARD_ONLY = {
+  backspace: { id: 'backspace', action: { type: 'backspace' } },
+}
+
+// Physical keys → the id of the on-screen button (or of a keyboard-only action).
 const KEYBOARD = {
   '+': '+',
   '-': '−',
@@ -97,10 +100,13 @@ const KEYBOARD = {
 }
 
 function CalcButton({ item, label, ariaLabel, pressed, flash, onPress }) {
+  let className = `calc-key calc-key--${item.kind}`
+  if (item.wide) className += ' calc-key--wide'
+  if (flash) className += ' is-flash'
   return (
     <button
       type="button"
-      className={`calc-key calc-key--${item.kind}${flash ? ' is-flash' : ''}`}
+      className={className}
       aria-label={ariaLabel}
       aria-pressed={item.kind === 'op' ? pressed : undefined}
       onClick={() => onPress(item)}
@@ -117,17 +123,21 @@ function Calculator() {
   const [state, setState] = useState(INITIAL)
   const [flash, setFlash] = useState(null) // the key that was just typed on the keyboard
 
-  // Functional update: React gives us the latest state, even for fast key presses.
+  // Updater function: React gives us the latest state, even for fast key presses.
   const run = (item) => setState((s) => press(s, item.action))
 
   useEffect(() => {
     const onKeyDown = (e) => {
-      if (e.ctrlKey || e.metaKey || e.altKey) return
+      // Ctrl (Cmd on a Mac) shortcuts stay with the browser. Ctrl + Alt is AltGr, though:
+      // on a Hungarian keyboard that is how you type *, so those key presses are ours.
+      if (e.metaKey || (e.ctrlKey && !e.altKey)) return
+      // Typing into the formula field (or any other field) belongs to that field.
+      if (e.target.closest?.('input, textarea, select, [contenteditable="true"]')) return
       const id = /^[0-9]$/.test(e.key) ? e.key : KEYBOARD[e.key]
-      const item = KEYS.find((k) => k.id === id)
+      const item = KEYS.find((k) => k.id === id) ?? KEYBOARD_ONLY[id]
       if (!item) return
-      // Enter keeps its normal job on links and other buttons (language switch, history…).
-      if (e.key === 'Enter' && e.target !== document.body && !e.target.closest('.calc-key')) return
+      // Enter keeps its normal job on links and other buttons (language switch, history, formula buttons…).
+      if (e.key === 'Enter' && e.target !== document.body && !e.target.closest?.('.calc-key')) return
       // Enter would also "click" a focused keypad button, and / opens quick find in Firefox.
       e.preventDefault()
       setState((s) => press(s, item.action))
@@ -146,6 +156,7 @@ function Calculator() {
   const formatExpression = (text) => text.replace(/-?\d+(\.\d+)?(e[+-]\d+)?/g, (n) => formatNumber(n, locale))
   const shown = state.error ? t.errors[state.error] : formatNumber(state.display, locale)
   const decimalLabel = lang === 'hu' ? ',' : '.'
+  const count = state.history.length
 
   return (
     <div className="calc">
@@ -153,7 +164,7 @@ function Calculator() {
         <div className="calc__device" role="group" aria-label={t.calculator}>
           <div className="calc__screen">
             <div className="calc__expression" aria-hidden="true">
-              {formatExpression(state.expression) || '\u00a0'}
+              {formatExpression(state.expression) || ' '}
             </div>
             <output
               className={`calc__display${shown.length > 12 ? ' is-long' : ''}${state.error ? ' is-error' : ''}`}
@@ -181,8 +192,11 @@ function Calculator() {
 
         <section className="calc__history" aria-labelledby="calc-history-title">
           <div className="calc__history-head">
-            <h3 id="calc-history-title">{t.history}</h3>
-            {state.history.length > 0 && (
+            <h3 id="calc-history-title">
+              {t.history}
+              {count > 0 && <span className="calc__count"> ({count})</span>}
+            </h3>
+            {count > 0 && (
               <button
                 type="button"
                 className="btn btn--ghost calc__small"
@@ -192,7 +206,7 @@ function Calculator() {
               </button>
             )}
           </div>
-          {state.history.length === 0 ? (
+          {count === 0 ? (
             <p className="calc__empty">{t.noHistory}</p>
           ) : (
             <ol className="calc__history-list">
@@ -211,6 +225,8 @@ function Calculator() {
             </ol>
           )}
         </section>
+
+        <FormulaBar />
       </div>
     </div>
   )

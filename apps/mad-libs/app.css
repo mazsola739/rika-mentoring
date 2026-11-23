@@ -3,6 +3,7 @@
   gap: 22px;
 }
 
+/* Rows of chips: the stories, and the number of players */
 .ml__picker {
   display: grid;
   gap: 10px;
@@ -26,20 +27,33 @@
   border-style: dashed;
 }
 
+.ml__hint,
+.ml__note {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.ml__note {
+  padding: 12px 16px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  background: var(--paper-2);
+}
+
+/* The form with the words */
 .ml__form {
   display: grid;
   gap: 18px;
 }
 
-.ml__intro {
-  margin: 0;
-  color: var(--ink-soft);
-}
-
 .ml__fields {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
   gap: 14px 16px;
+}
+
+.ml__label::first-letter {
+  text-transform: uppercase;
 }
 
 .ml__actions {
@@ -54,6 +68,64 @@
   font-size: 14px;
 }
 
+/* Writing your own template */
+.ml__editor {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper-2);
+}
+
+.ml__textarea {
+  box-sizing: border-box;
+  min-height: 130px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.ml__field-list {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.ml__problem {
+  margin: 0;
+  color: #b4234a;
+  font-weight: 600;
+}
+
+/* Two-player mode: one field at a time, in the colour of the player whose turn it is */
+.ml__turn {
+  display: grid;
+  gap: 14px;
+  padding: clamp(18px, 3vw, 26px);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+}
+
+.ml__turn.ml__player-1 {
+  border-color: var(--ml-p1);
+  background: color-mix(in srgb, var(--ml-p1) 12%, var(--paper));
+}
+
+.ml__turn.ml__player-2 {
+  border-color: var(--ml-p2);
+  background: color-mix(in srgb, var(--ml-p2) 14%, var(--paper));
+}
+
+.ml__turn-player {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.6vw, 24px);
+  font-weight: 800;
+  color: var(--ink);
+}
+
+/* The finished story */
 .ml__story {
   display: grid;
   gap: 16px;
@@ -64,16 +136,17 @@
   border-left: 8px solid var(--solid);
 }
 
-.ml__story h3 {
+.ml__story h2 {
   margin: 0;
   font-family: var(--font-display);
   font-size: clamp(24px, 3vw, 30px);
 }
 
-.ml__story p {
+.ml__story-text {
   margin: 0;
   font-size: clamp(17px, 1.8vw, 19px);
   line-height: 1.75;
+  overflow-wrap: anywhere;
 }
 
 .ml__story mark {
@@ -84,4 +157,42 @@
   font-weight: 700;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+}
+
+.ml__story mark.ml__player-1 {
+  background: color-mix(in srgb, var(--ml-p1) 40%, var(--paper));
+  color: var(--ink);
+}
+
+.ml__story mark.ml__player-2 {
+  background: color-mix(in srgb, var(--ml-p2) 45%, var(--paper));
+  color: var(--ink);
+}
+
+/* Who wrote which word: two small colour samples under the story */
+.ml__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.ml__legend span::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  border-radius: 3px;
+  vertical-align: -1px;
+}
+
+.ml__legend .ml__player-1::before {
+  background: var(--ml-p1);
+}
+
+.ml__legend .ml__player-2::before {
+  background: var(--ml-p2);
 }

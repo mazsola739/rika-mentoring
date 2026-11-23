@@ -1,0 +1,457 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses (qr, field, group, chip, modes, button, history, scanner). */
+
+/* The white card in the middle of the page */
+.qr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(16 24 40 / 0.08);
+}
+
+.qr h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.qr h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+/* Two columns on wide screens: the settings on the left, the QR code on the right */
+.qr__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+
+.qr__controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 20px;
+  min-width: 0;
+}
+
+@media (min-width: 760px) {
+  .qr__layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+  }
+
+  .qr__preview {
+    position: sticky;
+    top: 24px;
+  }
+}
+
+/* A label with its input: <label class="field"><span>Label</span><input /></label> */
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field > span {
+  font-weight: 600;
+}
+
+.field input:not([type]),
+.field input[type='text'],
+.field input[type='tel'],
+.field input[type='email'],
+.field textarea,
+.field select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #c5ccd8;
+  border-radius: 10px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+.field textarea {
+  min-height: 96px;
+  resize: vertical;
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 15px;
+}
+
+.field input[type='range'] {
+  width: 100%;
+  margin: 0;
+  accent-color: #e5402b;
+}
+
+.field__hint {
+  color: #5a6478;
+  font-size: 13px;
+}
+
+/* A field on one row: the colour picker */
+.field--row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.field input[type='color'] {
+  width: 52px;
+  height: 36px;
+  padding: 2px;
+  border: 1px solid #c5ccd8;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.field code {
+  color: #5a6478;
+  font-size: 14px;
+}
+
+/* A group of fields with a title (fieldset + legend) */
+.group {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.group legend {
+  margin-bottom: 8px;
+  padding: 0;
+  font-weight: 700;
+}
+
+/* The fields of the Wi-Fi and contact forms */
+.form {
+  display: grid;
+  gap: 14px;
+}
+
+/* A checkbox with its text */
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 30px;
+  cursor: pointer;
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #e5402b;
+}
+
+/* Small round buttons in a row; the chosen one has aria-pressed="true" */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  min-height: 40px;
+  padding: 6px 16px;
+  border: 1px solid #c5ccd8;
+  border-radius: 999px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chip--emoji {
+  min-width: 48px;
+  padding: 4px 10px;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.chip:hover {
+  border-color: #1c2333;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: #1c2333;
+  background: #1c2333;
+  color: #fff;
+}
+
+/* The type switch at the top (Text, Wi-Fi, Contact) */
+.modes {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  background: #eef1f5;
+}
+
+.modes__button {
+  flex: 1;
+  min-height: 40px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #5a6478;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modes__button:hover {
+  color: #1c2333;
+}
+
+.modes__button[aria-pressed='true'] {
+  background: #fff;
+  color: #1c2333;
+  box-shadow: 0 2px 6px rgb(16 24 40 / 0.12);
+}
+
+/* The QR code and its download buttons */
+.qr__preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  min-width: 0;
+}
+
+.qr__stage {
+  display: grid;
+  place-items: center;
+  min-height: 288px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #f1f3f7;
+}
+
+.qr__image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgb(16 24 40 / 0.1);
+}
+
+.qr__empty,
+.qr__error {
+  max-width: 240px;
+  margin: 0;
+  text-align: center;
+}
+
+.qr__empty {
+  color: #5a6478;
+}
+
+.qr__error {
+  color: #b4234a;
+  font-weight: 600;
+}
+
+.qr__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Buttons and button-like links: an outline by default, filled with .button--primary */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 8px 18px;
+  box-sizing: border-box;
+  border: 2px solid #1c2333;
+  border-radius: 999px;
+  background: transparent;
+  color: #1c2333;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: rgb(28 35 51 / 0.06);
+}
+
+.button--primary {
+  border-color: #ff513c;
+  background: #ff513c;
+  color: #1c2333;
+}
+
+.button--primary:hover {
+  border-color: #ff7563;
+  background: #ff7563;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+/* Below the generator: the history and the camera scanner */
+.qr__extras {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e3e7ee;
+}
+
+@media (min-width: 760px) {
+  .qr__extras {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* minmax(0, 1fr): one column that never grows wider than the box, however long a line is */
+.history,
+.scanner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.history__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.history__clear {
+  padding: 4px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #b4234a;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.history__clear:hover {
+  background: #fbeef1;
+}
+
+.history__empty {
+  margin: 0;
+  color: #5a6478;
+}
+
+.history__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One line per item: long texts end in "…" */
+.history__item {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  overflow: hidden;
+  border: 1px solid #e3e7ee;
+  border-radius: 10px;
+  background: #fff;
+  color: inherit;
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 14px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.history__item:hover {
+  border-color: #1c2333;
+}
+
+.scanner > .button {
+  justify-self: start;
+}
+
+.scanner__camera {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+}
+
+.scanner__video {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  background: #1c2333;
+  object-fit: cover;
+}
+
+.scanner__note {
+  margin: 0;
+  padding: 10px 14px;
+  border-left: 3px solid #feb800;
+  border-radius: 8px;
+  background: #fff8e6;
+}
+
+.scanner__found {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #eef1f5;
+}
+
+.scanner__found p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Phones: a little less space around everything */
+@media (max-width: 480px) {
+  body {
+    padding: 16px;
+  }
+
+  .qr {
+    padding: 20px;
+  }
+
+  .qr__stage {
+    min-height: 240px;
+  }
+}

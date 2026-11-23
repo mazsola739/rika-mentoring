@@ -1,0 +1,367 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses (todo, add-todo, todo-item, filters, tag, login…). */
+
+/* The white card in the middle of the page */
+.todo {
+  display: grid;
+  gap: 20px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(16 24 40 / 0.08);
+}
+
+.todo h1 {
+  margin: 0;
+  color: #083f58;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.todo h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Text fields, menus and date fields (every input except the checkboxes) */
+.todo input:not([type='checkbox']),
+.todo select {
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid #c5ccd8;
+  border-radius: 10px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+/* Buttons: an outline by default, filled with .button--primary, smaller with .button--small */
+.button {
+  padding: 9px 18px;
+  border: 2px solid #017b6b;
+  border-radius: 999px;
+  background: transparent;
+  color: #015e52;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #e3f4f1;
+}
+
+.button--primary {
+  background: #017b6b;
+  color: #fff;
+}
+
+.button--primary:hover {
+  border-color: #01695c;
+  background: #01695c;
+}
+
+.button--small {
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.todo :focus-visible {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+/* The form for new tasks */
+.add-todo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.add-todo__text {
+  flex: 1 1 14rem;
+}
+
+/* With the priority menu and the date field (advanced level), the text gets a row of its own */
+.add-todo:has(select) .add-todo__text {
+  flex-basis: 100%;
+}
+
+/* The filter buttons: the chosen one is dark (aria-pressed="true") */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filters__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid #c5ccd8;
+  border-radius: 999px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.filters__button:hover {
+  border-color: #083f58;
+}
+
+.filters__button[aria-pressed='true'] {
+  border-color: #083f58;
+  background: #083f58;
+  color: #fff;
+}
+
+.filters__count {
+  min-width: 1.6em;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #eef1f5;
+  color: #3d4656;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* The list and its rows */
+.todo-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 10px 12px;
+  border: 1px solid #e3e7ee;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.todo-item[draggable='true'] {
+  cursor: grab;
+}
+
+.todo-item.is-dragging {
+  border-style: dashed;
+  opacity: 0.45;
+}
+
+.todo-item.is-editing {
+  border-color: #017b6b;
+  background: #f3faf8;
+}
+
+.todo-item__label {
+  display: flex;
+  flex: 1 1 12rem;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.todo-item__label input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: #017b6b;
+  cursor: pointer;
+}
+
+.todo-item__text {
+  overflow-wrap: anywhere;
+}
+
+.todo-item.is-done .todo-item__text {
+  color: #7a8496;
+  text-decoration: line-through;
+}
+
+.todo-item__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.todo-item__tags:empty {
+  display: none;
+}
+
+.todo-item__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: auto;
+}
+
+/* Editing a task: the text field and its buttons in one row */
+.todo-edit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.todo-edit__input {
+  flex: 1 1 12rem;
+}
+
+/* Small labels for the priority and the due date */
+.tag {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #eef1f5;
+  color: #3d4656;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tag--high {
+  background: #fde4ee;
+  color: #a3064f;
+}
+
+.tag--low {
+  background: #eef1f5;
+  color: #5a6478;
+}
+
+.tag--overdue {
+  background: #b4234a;
+  color: #fff;
+}
+
+.tag--today {
+  background: #fff1d6;
+  color: #7a4200;
+}
+
+.tag--later {
+  background: #e3f2fb;
+  color: #015b85;
+}
+
+/* The empty list, the line under the list, loading and errors */
+.todo-empty {
+  margin: 0;
+  padding: 24px;
+  border: 2px dashed #d3d9e2;
+  border-radius: 12px;
+  color: #5a6478;
+  text-align: center;
+}
+
+.todo-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin: 0;
+  color: #5a6478;
+  font-size: 14px;
+}
+
+.todo-save {
+  margin-left: auto;
+}
+
+.todo-save--failed {
+  color: #b4234a;
+  font-weight: 600;
+}
+
+.todo-status {
+  margin: 0;
+  padding: 24px;
+  color: #5a6478;
+  text-align: center;
+}
+
+.todo-status--error {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  color: #b4234a;
+  font-weight: 600;
+}
+
+.todo-status p {
+  margin: 0;
+}
+
+/* The logged-in user, above the list */
+.todo-user {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #eef1f5;
+}
+
+/* The login form */
+.login {
+  display: grid;
+  gap: 14px;
+  max-width: 380px;
+}
+
+.login__hint {
+  margin: 0;
+  color: #5a6478;
+  font-size: 14px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.todo .field input {
+  font-weight: 400;
+}
+
+.login__error {
+  margin: 0;
+  color: #b4234a;
+  font-weight: 600;
+}
+
+.login .button {
+  justify-self: start;
+}
+
+/* Phones: a little less space around everything */
+@media (max-width: 480px) {
+  body {
+    padding: 16px;
+  }
+
+  .todo {
+    padding: 20px;
+  }
+}

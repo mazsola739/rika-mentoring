@@ -1,80 +1,45 @@
 import { useEffect, useState } from 'react'
 import AppFrame, { useLesson } from '@shared/ui/AppFrame.jsx'
 import { useText } from '@shared/i18n.js'
-import { buildPng, buildSvg, download, fileNameFor, isTooLong } from './qr.js'
+import { TEXT } from './text.js'
+import { buildPng, download, fileNameFor } from './qr.js'
 import { contrastRatio } from './color.js'
+import { contactText, wifiText } from './formats.js'
+import useQrCode from './useQrCode.js'
+import useHistory from './useHistory.js'
+import WifiForm from './WifiForm.jsx'
+import ContactForm from './ContactForm.jsx'
+import History from './History.jsx'
+import Scanner from './Scanner.jsx'
 import './app.css'
 
+const MODES = ['text', 'wifi', 'contact']
 const LEVELS = { L: 7, M: 15, Q: 25, H: 30 }
+const LOGOS = ['❤️', '☕', '🎵', '⭐', '🍕']
+const START_WIFI = { ssid: '', password: '', security: 'WPA', hidden: false }
+const START_CONTACT = { name: '', phone: '', email: '' }
 
-const TEXT = {
-  en: {
-    input: 'Text or link',
-    placeholder: 'https://example.com or any text',
-    examples: 'Try',
-    exampleItems: [
-      { label: 'Link', value: 'https://react.dev' },
-      { label: 'Email', value: 'mailto:hello@example.com' },
-      { label: 'Text', value: 'Hello from my first React app!' },
-    ],
-    chars: (n) => `${n} characters`,
-    color: 'Color',
-    custom: 'Custom color',
-    lowContrast: 'Low contrast: scanners may not read this color on a white background.',
-    size: 'PNG size',
-    px: (n) => `${n} × ${n} px`,
-    level: 'Error correction',
-    levels: { L: 'Low', M: 'Medium', Q: 'Strong', H: 'Maximum' },
-    levelHint: (p) => `About ${p}% of the code can be damaged or covered and it still scans.`,
-    badge: 'Logo in the center',
-    badgeText: 'Logo text (max. 3 characters)',
-    badgeNote: 'A logo covers part of the code, so maximum error correction is switched on.',
-    preview: 'Preview',
-    empty: 'Type some text or paste a link and your QR code appears here.',
-    tooLong: 'This text is too long for a QR code. Shorten it or choose a lower error correction.',
-    failed: 'The QR code could not be generated.',
-    meta: (v, m) => `Version ${v} · ${m} × ${m} modules`,
-    png: 'Download PNG',
-    svg: 'Download SVG',
-    started: (file) => `Download started: ${file}`,
-    downloadFailed: 'The download failed. Please try again.',
-    alt: (v) => `QR code for: ${v}`,
-  },
-  hu: {
-    input: 'Szöveg vagy link',
-    placeholder: 'https://pelda.hu vagy bármilyen szöveg',
-    examples: 'Példák',
-    exampleItems: [
-      { label: 'Link', value: 'https://react.dev' },
-      { label: 'E-mail', value: 'mailto:hello@example.com' },
-      { label: 'Szöveg', value: 'Üdv az első React-appomból!' },
-    ],
-    chars: (n) => `${n} karakter`,
-    color: 'Szín',
-    custom: 'Egyéni szín',
-    lowContrast: 'Alacsony kontraszt: ezt a színt fehér háttéren a szkennerek nehezen olvassák.',
-    size: 'PNG mérete',
-    px: (n) => `${n} × ${n} px`,
-    level: 'Hibajavítás',
-    levels: { L: 'Alacsony', M: 'Közepes', Q: 'Erős', H: 'Maximális' },
-    levelHint: (p) => `A kód kb. ${p}%-a sérülhet vagy takarható ki úgy, hogy még beolvasható maradjon.`,
-    badge: 'Logó középen',
-    badgeText: 'Logó szövege (max. 3 karakter)',
-    badgeNote: 'A logó kitakarja a kód egy részét, ezért a maximális hibajavítás kapcsol be.',
-    preview: 'Előnézet',
-    empty: 'Írj be egy szöveget vagy illessz be egy linket, és itt megjelenik a QR-kód.',
-    tooLong: 'Ez a szöveg túl hosszú egy QR-kódhoz. Rövidítsd, vagy válassz gyengébb hibajavítást.',
-    failed: 'Nem sikerült elkészíteni a QR-kódot.',
-    meta: (v, m) => `${v}. verzió · ${m} × ${m} modul`,
-    png: 'PNG letöltése',
-    svg: 'SVG letöltése',
-    started: (file) => `Elindult a letöltés: ${file}`,
-    downloadFailed: 'A letöltés nem sikerült. Próbáld újra!',
-    alt: (v) => `QR-kód ehhez: ${v}`,
-  },
+function shorten(s, max = 80) {
+  return s.length > max ? `${s.slice(0, max)}…` : s
 }
 
-const shorten = (s, max = 80) => (s.length > max ? `${s.slice(0, max)}…` : s)
+function ModeTabs({ mode, onChange, t }) {
+  return (
+    <div className="qr__modes" role="group" aria-label={t.modeLabel}>
+      {MODES.map((key) => (
+        <button
+          key={key}
+          type="button"
+          className="qr__mode"
+          aria-pressed={mode === key}
+          onClick={() => onChange(key)}
+        >
+          {t.modes[key]}
+        </button>
+      ))}
+    </div>
+  )
+}
 
 function ColorPicker({ colors, value, onChange, t }) {
   const isCustom = !colors.includes(value)
@@ -109,36 +74,71 @@ function ColorPicker({ colors, value, onChange, t }) {
   )
 }
 
+// The center logo: none, one of the emojis, or a short text of your own.
+function LogoPicker({ logo, onChange, ownText, onOwnTextChange, t }) {
+  return (
+    <fieldset className="qr__group">
+      <legend>{t.logo}</legend>
+      <div className="qr__chips">
+        <button type="button" className="chip" aria-pressed={logo === ''} onClick={() => onChange('')}>
+          {t.logoNone}
+        </button>
+        {LOGOS.map((item) => (
+          <button
+            key={item}
+            type="button"
+            className="chip qr__emoji"
+            aria-pressed={logo === item}
+            onClick={() => onChange(item)}
+          >
+            {item}
+          </button>
+        ))}
+        <button type="button" className="chip" aria-pressed={logo === 'own'} onClick={() => onChange('own')}>
+          {t.logoOwn}
+        </button>
+      </div>
+      {logo === 'own' && (
+        <label className="field">
+          <span>{t.badgeText}</span>
+          <input
+            className="input qr__badge-input"
+            value={ownText}
+            maxLength={3}
+            onChange={(e) => onOwnTextChange(e.target.value)}
+          />
+        </label>
+      )}
+      {logo !== '' && <small className="qr__hint">{t.badgeNote}</small>}
+    </fieldset>
+  )
+}
+
 function QrGenerator() {
   const t = useText(TEXT)
   const { palette } = useLesson()
+  const [mode, setMode] = useState('text')
   const [text, setText] = useState('https://react.dev')
+  const [wifi, setWifi] = useState(START_WIFI)
+  const [contact, setContact] = useState(START_CONTACT)
   const [color, setColor] = useState(palette.solid)
   const [size, setSize] = useState(512)
   const [level, setLevel] = useState('M')
-  const [badgeOn, setBadgeOn] = useState(false)
-  const [badgeText, setBadgeText] = useState('RM')
-  const [result, setResult] = useState(null) // { markup, version, modules } or { error }
+  const [logo, setLogo] = useState('') // '', an emoji, or 'own'
+  const [ownText, setOwnText] = useState('RM')
   const [status, setStatus] = useState('')
+  const history = useHistory()
 
-  const value = text.trim()
   // Derived values: no extra state needed, they are recomputed on every render.
-  const effectiveLevel = badgeOn ? 'H' : level
-  const badge = badgeOn ? badgeText.trim().slice(0, 3) : ''
+  let value = text.trim()
+  if (mode === 'wifi') value = wifi.ssid.trim() ? wifiText(wifi) : ''
+  if (mode === 'contact') value = contact.name.trim() ? contactText(contact) : ''
+  const badge = logo === 'own' ? ownText.trim().slice(0, 3) : logo
+  const effectiveLevel = badge ? 'H' : level
   const swatches = [...new Set(['#111111', palette.solid, palette.dark, ...palette.colors].map((c) => c.toUpperCase()))]
   const lowContrast = contrastRatio(color, '#ffffff') < 3
 
-  // The library works asynchronously. `ignore` drops answers that arrive after the input changed again.
-  useEffect(() => {
-    if (!value) return
-    let ignore = false
-    buildSvg(value, { color, level: effectiveLevel, size, badge })
-      .then((qr) => !ignore && setResult(qr))
-      .catch((error) => !ignore && setResult({ error: isTooLong(error) ? 'tooLong' : 'failed' }))
-    return () => {
-      ignore = true
-    }
-  }, [value, color, effectiveLevel, size, badge])
+  const result = useQrCode(value, { color, level: effectiveLevel, size, badge })
 
   // The download message disappears after a while; the cleanup cancels the old timer.
   useEffect(() => {
@@ -147,55 +147,73 @@ function QrGenerator() {
     return () => clearTimeout(timer)
   }, [status])
 
-  const base = fileNameFor(value)
+  // A Wi-Fi code holds the password, so it never goes into the file name.
+  const base = mode === 'wifi' ? 'qr-wifi' : mode === 'contact' ? 'qr-contact' : fileNameFor(value)
   const ready = value && result?.markup
+  const altLabel = mode === 'wifi' ? wifi.ssid.trim() : mode === 'contact' ? contact.name.trim() : shorten(value)
 
-  const savePng = async () => {
+  async function savePng() {
     try {
       const blob = await buildPng(value, { color, level: effectiveLevel, size, badge })
       download(blob, `${base}.png`)
       setStatus(t.started(`${base}.png`))
+      history.remember(value)
     } catch {
       setStatus(t.downloadFailed)
     }
   }
 
-  const saveSvg = () => {
+  function saveSvg() {
     download(new Blob([result.markup], { type: 'image/svg+xml' }), `${base}.svg`)
     setStatus(t.started(`${base}.svg`))
+    history.remember(value)
+  }
+
+  // An earlier or scanned text goes back into the text field.
+  function openText(item) {
+    setMode('text')
+    setText(item)
   }
 
   return (
     <div className="qr">
       <div className="qr__layout">
         <div className="qr__controls">
-          <label className="field">
-            <span>{t.input}</span>
-            <textarea
-              className="input qr__text"
-              rows={3}
-              value={text}
-              placeholder={t.placeholder}
-              onChange={(e) => setText(e.target.value)}
-              spellCheck={false}
-            />
-            <small>{t.chars(value.length)}</small>
-          </label>
+          <ModeTabs mode={mode} onChange={setMode} t={t} />
 
-          <div className="qr__examples">
-            <span className="qr__examples-label">{t.examples}</span>
-            {t.exampleItems.map((ex) => (
-              <button
-                key={ex.label}
-                type="button"
-                className="chip"
-                aria-pressed={value === ex.value}
-                onClick={() => setText(ex.value)}
-              >
-                {ex.label}
-              </button>
-            ))}
-          </div>
+          {mode === 'text' && (
+            <>
+              <label className="field">
+                <span>{t.input}</span>
+                <textarea
+                  className="input qr__text"
+                  rows={3}
+                  value={text}
+                  placeholder={t.placeholder}
+                  onChange={(e) => setText(e.target.value)}
+                  spellCheck={false}
+                />
+                <small>{t.chars(value.length)}</small>
+              </label>
+
+              <div className="qr__examples">
+                <span className="qr__examples-label">{t.examples}</span>
+                {t.exampleItems.map((ex) => (
+                  <button
+                    key={ex.label}
+                    type="button"
+                    className="chip"
+                    aria-pressed={value === ex.value}
+                    onClick={() => setText(ex.value)}
+                  >
+                    {ex.label}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+          {mode === 'wifi' && <WifiForm wifi={wifi} onChange={setWifi} />}
+          {mode === 'contact' && <ContactForm contact={contact} onChange={setContact} />}
 
           <ColorPicker colors={swatches} value={color} onChange={setColor} t={t} />
           {lowContrast && (
@@ -213,14 +231,14 @@ function QrGenerator() {
 
           <fieldset className="qr__group">
             <legend>{t.level}</legend>
-            <div className="qr__levels">
+            <div className="qr__chips">
               {Object.keys(LEVELS).map((key) => (
                 <button
                   key={key}
                   type="button"
                   className="chip"
                   aria-pressed={effectiveLevel === key}
-                  disabled={badgeOn && key !== 'H'}
+                  disabled={Boolean(badge) && key !== 'H'}
                   onClick={() => setLevel(key)}
                 >
                   {key} · {t.levels[key]}
@@ -230,32 +248,13 @@ function QrGenerator() {
             <small className="qr__hint">{t.levelHint(LEVELS[effectiveLevel])}</small>
           </fieldset>
 
-          <div className="qr__badge">
-            <label className="qr__check">
-              <input type="checkbox" checked={badgeOn} onChange={(e) => setBadgeOn(e.target.checked)} />
-              {t.badge}
-            </label>
-            {badgeOn && (
-              <>
-                <label className="field">
-                  <span>{t.badgeText}</span>
-                  <input
-                    className="input qr__badge-input"
-                    value={badgeText}
-                    maxLength={3}
-                    onChange={(e) => setBadgeText(e.target.value)}
-                  />
-                </label>
-                <small className="qr__hint">{t.badgeNote}</small>
-              </>
-            )}
-          </div>
+          <LogoPicker logo={logo} onChange={setLogo} ownText={ownText} onOwnTextChange={setOwnText} t={t} />
         </div>
 
         <section className="qr__preview" aria-label={t.preview}>
           <div className="qr__stage">
             {!value ? (
-              <p className="qr__empty">{t.empty}</p>
+              <p className="qr__empty">{t.empty[mode]}</p>
             ) : result?.error ? (
               <p className="qr__error" role="alert">
                 {t[result.error]}
@@ -264,7 +263,7 @@ function QrGenerator() {
               <img
                 className="qr__image"
                 src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(result.markup)}`}
-                alt={t.alt(shorten(value))}
+                alt={t.alt[mode](altLabel)}
               />
             ) : null}
           </div>
@@ -283,6 +282,11 @@ function QrGenerator() {
             {status}
           </p>
         </section>
+      </div>
+
+      <div className="qr__extras">
+        <History items={history.items} onPick={openText} onClear={history.clear} />
+        <Scanner onResult={openText} />
       </div>
     </div>
   )

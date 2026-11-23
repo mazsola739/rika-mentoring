@@ -25,7 +25,7 @@ Introduction paragraphs…
 ## Beginner level {level=1}         ← level sections: level=1, 2, 3
 ### Before you start                 ← steps, numbered automatically from 0
 Text with `code`, **bold**, [a link](https://…), [[glossary term]] or [[shown text|glossary term]],
-and keys like ++Ctrl++ + ++C++.
+and keys like ++Ctrl++ + ++C++. Bold may hold the other marks (**The `ignore` flag.**); nothing else nests.
 
 - list items (an indented line continues the item)
 
@@ -80,3 +80,15 @@ plus the lesson's own files on top, as a git repository with one "starting point
 - `{{N}}`, `{{TITLE_EN}}`, `{{TITLE_HU}}`, `{{GUIDE_URL}}`, `{{SOLUTION_URL}}`, `{{SITE_URL}}` and `{{FOLDER}}` are filled in
   text files. The site address comes from `starters/site.json`.
 - The starter is the state of step 0 of the guide: everything the learner needs to begin, nothing they are meant to write.
+- The starter is a plain project: it never imports from this site (`@shared/…`). Anything it needs from the site is
+  copied in as a small, readable file:
+  - **Lessons with an HTTP API** (the Solution uses `shared/mock-api/msw.js`): the starter runs the same API in the
+    browser with Mock Service Worker. Add `msw` to its `package.json` (same version as the site), copy
+    `public/mockServiceWorker.js`, put the lesson's handlers and data in `src/mocks/` (from `apps/<slug>/mocks/`, with
+    the helpers they use copied next to them), and start the worker in `src/main.jsx` before rendering. The guide
+    explains in a few sentences that this "pretend server" answers `fetch('/api/…')` like a real one, and the learner
+    writes the fetch code.
+  - **Lessons with the older localStorage back end** (`createMockApi` / `createChannel` from `shared/mock-api/index.js`):
+    copy it as `src/fakeApi.js` (English comments) and say in the guide what it pretends to be.
+  - **Lessons with an npm library** (for example `qrcode`, `leaflet`): add it to the starter's `package.json` with the
+    site's version.

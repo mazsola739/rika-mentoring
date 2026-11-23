@@ -47,6 +47,13 @@ function fail(state, error, expression) {
   return { ...INITIAL, history: state.history, display: '0', error, expression }
 }
 
+// A new entry at the front of the history: a new array, the old one stays as it was.
+// The newest entry has the biggest id, so the next one is always a new number.
+function addEntry(history, expression, result) {
+  const id = (history[0]?.id ?? 0) + 1
+  return [{ id, expression, result }, ...history].slice(0, 20)
+}
+
 export function press(state, action) {
   // After an error only digits, C and history recall do something.
   if (state.error && !['digit', 'decimal', 'clear', 'recall'].includes(action.type)) return state
@@ -85,13 +92,17 @@ export function press(state, action) {
     case 'operator': {
       const current = valueOf(base)
       let stored = base.stored
+      let history = base.history
 
       if (base.operator && !base.waiting) {
-        // A chain like 2 + 3 × … : finish the previous step first (left to right).
+        // A chain like 2 + 3 × … : finish the previous step first (left to right),
+        // and put that step on the history too.
         const result = compute(base.stored, base.operator, current)
-        if (result === null) return fail(base, 'divZero', `${toText(base.stored)} ÷ 0`)
-        if (!Number.isFinite(result)) return fail(base, 'overflow', '')
+        const expression = `${toText(base.stored)} ${base.operator} ${toText(current)}`
+        if (result === null) return fail(base, 'divZero', expression)
+        if (!Number.isFinite(result)) return fail(base, 'overflow', expression)
         stored = result
+        history = addEntry(history, expression, toText(result))
       } else if (!base.operator) {
         stored = current
       }
@@ -105,6 +116,7 @@ export function press(state, action) {
         overwrite: true,
         waiting: true,
         expression: `${toText(stored)} ${action.value}`,
+        history,
       }
     }
 
@@ -125,7 +137,7 @@ export function press(state, action) {
         overwrite: true,
         waiting: false,
         expression: `${expression} =`,
-        history: [{ id: crypto.randomUUID(), expression, result: text }, ...base.history].slice(0, 20),
+        history: addEntry(base.history, expression, text),
       }
     }
 

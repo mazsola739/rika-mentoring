@@ -80,19 +80,6 @@ export default function Carousel({ images, paused, onOpen, t }) {
           <strong>{image.caption}</strong> <span>{t.counter(current + 1, count)}</span>
         </p>
       </div>
-
-      <div className="ig-dots" role="group" aria-label={t.chooseSlide}>
-        {images.map((img, i) => (
-          <button
-            key={img.id}
-            type="button"
-            className="ig-dot"
-            aria-label={t.slide(i + 1, img.caption)}
-            aria-current={i === current ? 'true' : undefined}
-            onClick={() => go(i)}
-          />
-        ))}
-      </div>
     </section>
   )
 }

@@ -3,8 +3,9 @@ import AppFrame from '@shared/ui/AppFrame.jsx'
 import { useLang, useText } from '@shared/i18n.js'
 import { DIFFICULTIES, flipCard, formatTime, hideFlipped, isBetter, newGame } from './game.js'
 import { useBestScores } from './useBestScores.js'
+import { useLocalStorage } from './useLocalStorage.js'
 import { useNow } from './useNow.js'
-import { faceByKey } from './faces.js'
+import { THEMES, faceOf, themeByKey } from './faces.js'
 import Card from './Card.jsx'
 import WinDialog from './WinDialog.jsx'
 import './app.css'
@@ -12,16 +13,22 @@ import './app.css'
 const TEXT = {
   en: {
     intro:
-      'Flip two cards at a time and find every matching pair. Move between cards with Tab or the arrow keys, flip with Enter or Space.',
+      'Flip two cards at a time and find every matching pair, on your own or taking turns with a friend. Move between cards with Tab or the arrow keys, flip with Enter or Space.',
     difficulty: 'Difficulty',
     levels: { 6: 'Easy', 8: 'Medium', 12: 'Hard' },
     pairsOf: (n) => `${n} pairs`,
+    players: 'Players',
+    solo: 'Solo',
+    duo: 'Two players',
+    theme: 'Theme',
     moves: 'Moves',
     time: 'Time',
     found: 'Pairs',
     best: 'Best',
     none: '–',
     bestShort: (moves, time) => `${moves} moves · ${time}`,
+    player: (n) => `Player ${n}`,
+    nextUp: (name) => `Next up: ${name}`,
     restart: 'New game',
     board: 'Cards',
     cardDown: (i) => `Card ${i}, face down`,
@@ -30,7 +37,11 @@ const TEXT = {
     match: (name, found, total) => `Match: ${name}. ${found} of ${total} pairs found.`,
     miss: (moves) => `No match on move ${moves}. The cards turn back.`,
     wonTitle: 'You found them all!',
+    wins: (name) => `${name} wins!`,
+    draw: 'A draw!',
     wonBody: (moves, time) => `All pairs found in ${moves} moves and ${time}.`,
+    duoBody: (moves, time) => `All pairs found in ${moves} moves and ${time}.`,
+    duoScore: (a, b) => `Player 1 found ${a} ${a === 1 ? 'pair' : 'pairs'}, Player 2 found ${b}.`,
     newBest: 'New best result on this level.',
     bestWas: (text) => `Your best on this level: ${text}.`,
     again: 'Play again',
@@ -38,16 +49,22 @@ const TEXT = {
   },
   hu: {
     intro:
-      'Fordíts fel egyszerre két kártyát, és keresd meg az összes párt. A kártyák között a Tab vagy a nyílbillentyűk visznek, az Enter vagy a Szóköz fordít.',
+      'Fordíts fel egyszerre két kártyát, és keresd meg az összes párt, egyedül vagy egy baráttal felváltva. A kártyák között a Tab vagy a nyílbillentyűk visznek, az Enter vagy a Szóköz fordít.',
     difficulty: 'Nehézség',
     levels: { 6: 'Könnyű', 8: 'Közepes', 12: 'Nehéz' },
     pairsOf: (n) => `${n} pár`,
+    players: 'Játékosok',
+    solo: 'Egyedül',
+    duo: 'Ketten',
+    theme: 'Téma',
     moves: 'Lépések',
     time: 'Idő',
     found: 'Párok',
     best: 'Legjobb',
     none: '–',
     bestShort: (moves, time) => `${moves} lépés · ${time}`,
+    player: (n) => `${n}. játékos`,
+    nextUp: (name) => `Következik: ${name}`,
     restart: 'Új játék',
     board: 'Kártyák',
     cardDown: (i) => `${i}. kártya, lefordítva`,
@@ -56,7 +73,11 @@ const TEXT = {
     match: (name, found, total) => `Pár: ${name}. ${total} párból ${found} megvan.`,
     miss: (moves) => `A(z) ${moves}. lépés nem talált. A kártyák visszafordulnak.`,
     wonTitle: 'Mindet megtaláltad!',
+    wins: (name) => `${name} nyert!`,
+    draw: 'Döntetlen!',
     wonBody: (moves, time) => `Minden párt megtaláltál ${moves} lépésből, ${time} alatt.`,
+    duoBody: (moves, time) => `Minden párt megtaláltatok ${moves} lépésből, ${time} alatt.`,
+    duoScore: (a, b) => `Az 1. játékos ${a}, a 2. játékos ${b} párt talált.`,
     newBest: 'Új egyéni csúcs ezen a szinten.',
     bestWas: (text) => `A legjobb eredményed ezen a szinten: ${text}.`,
     again: 'Új játék',
@@ -74,13 +95,22 @@ function Clock({ startedAt, finishedAt }) {
   return <>{formatTime(Math.max(0, ms))}</>
 }
 
-function Board({ pairs, best, onRecord, onRestart, t, lang }) {
-  const [game, setGame] = useState(() => newGame(pairs))
-  const [result, setResult] = useState(null) // { moves, time, newBest } once the game is won
+// The win dialog's title: in two-player mode it names the winner (or says it is a draw).
+function winTitle(t, result) {
+  if (!result?.scores) return t.wonTitle
+  const [a, b] = result.scores
+  if (a === b) return t.draw
+  return t.wins(t.player(a > b ? 1 : 2))
+}
+
+function Board({ pairs, theme, players, best, onRecord, onRestart, t, lang }) {
+  const [game, setGame] = useState(() => newGame(pairs, theme.faces.map((face) => face.key)))
+  const [result, setResult] = useState(null) // { moves, time, newBest } or { moves, time, scores } once the game is won
   const [dialogOpen, setDialogOpen] = useState(false)
   const gridRef = useRef(null)
 
   const mismatch = game.flipped.length === 2
+  const duo = players === 2
 
   // setTimeout: a wrong pair stays visible for a moment, then turns back.
   // The cleanup cancels the timer if a third card is clicked first or the board unmounts.
@@ -91,19 +121,25 @@ function Board({ pairs, best, onRecord, onRestart, t, lang }) {
   }, [mismatch])
 
   // Side effects (saving the best score, opening the dialog) live in the event handler, not in an effect.
+  // Two-player games share their moves, so they are not saved as best results.
   const handleFlip = (index) => {
     const next = flipCard(game, index, Date.now())
     if (next === game) return
     setGame(next)
     if (next.finishedAt) {
       const outcome = { moves: next.moves, time: next.finishedAt - next.startedAt }
-      setResult({ ...outcome, newBest: isBetter(outcome, best) })
-      onRecord(pairs, outcome)
+      if (duo) {
+        setResult({ ...outcome, scores: next.scores })
+      } else {
+        setResult({ ...outcome, newBest: isBetter(outcome, best) })
+        onRecord(pairs, outcome)
+      }
       setDialogOpen(true)
     }
   }
 
   // Arrow keys move the focus around the grid; the column count is read from the CSS grid itself.
+  // preventDefault comes first, so an arrow key never scrolls the page, not even at the edge of the grid.
   const handleKeyDown = (e) => {
     const buttons = [...gridRef.current.querySelectorAll('.mg-card')]
     const current = buttons.indexOf(document.activeElement)
@@ -113,12 +149,13 @@ function Board({ pairs, best, onRecord, onRestart, t, lang }) {
     let target = step === undefined ? null : current + step
     if (e.key === 'Home') target = 0
     if (e.key === 'End') target = buttons.length - 1
-    if (target == null || target < 0 || target >= buttons.length) return
+    if (target == null) return
     e.preventDefault()
+    if (target < 0 || target >= buttons.length) return
     buttons[target].focus()
   }
 
-  const nameOf = (key) => faceByKey(key).name[lang]
+  const nameOf = (key) => faceOf(theme, key).name[lang]
   const found = game.cards.filter((c) => c.matched).length / 2
   const bestText = best ? t.bestShort(best.moves, formatTime(best.time)) : t.none
 
@@ -128,7 +165,7 @@ function Board({ pairs, best, onRecord, onRestart, t, lang }) {
 
   return (
     <>
-      <dl className="mg-stats">
+      <dl className={`mg-stats${duo ? ' mg-stats--duo' : ''}`}>
         <div>
           <dt>{t.moves}</dt>
           <dd>{game.moves}</dd>
@@ -145,11 +182,26 @@ function Board({ pairs, best, onRecord, onRestart, t, lang }) {
             {found} / {pairs}
           </dd>
         </div>
-        <div className="mg-stats__best">
-          <dt>{t.best}</dt>
-          <dd>{bestText}</dd>
-        </div>
+        {duo ? (
+          game.scores.map((score, i) => (
+            <div key={i} className={`mg-stats__player${i === game.turn && !game.finishedAt ? ' is-turn' : ''}`}>
+              <dt>{t.player(i + 1)}</dt>
+              <dd>{score}</dd>
+            </div>
+          ))
+        ) : (
+          <div className="mg-stats__best">
+            <dt>{t.best}</dt>
+            <dd>{bestText}</dd>
+          </div>
+        )}
       </dl>
+
+      {duo && !game.finishedAt && (
+        <p className="mg-turn" aria-live="polite">
+          {t.nextUp(t.player(game.turn + 1))}
+        </p>
+      )}
 
       <div
         ref={gridRef}
@@ -166,7 +218,7 @@ function Board({ pairs, best, onRecord, onRestart, t, lang }) {
             <Card
               key={card.id}
               index={i}
-              face={faceByKey(card.key)}
+              face={faceOf(theme, card.key)}
               faceUp={faceUp}
               matched={card.matched}
               label={label}
@@ -180,13 +232,19 @@ function Board({ pairs, best, onRecord, onRestart, t, lang }) {
         {announcement}
       </p>
 
-      <WinDialog open={dialogOpen} title={t.wonTitle} onClose={() => setDialogOpen(false)}>
+      <WinDialog open={dialogOpen} title={winTitle(t, result)} onClose={() => setDialogOpen(false)}>
         {result && (
           <>
-            <p className="mg-dialog__score">{t.wonBody(result.moves, formatTime(result.time))}</p>
-            <p className={`mg-dialog__best${result.newBest ? ' is-new' : ''}`}>
-              {result.newBest ? t.newBest : t.bestWas(bestText)}
+            <p className="mg-dialog__score">
+              {(result.scores ? t.duoBody : t.wonBody)(result.moves, formatTime(result.time))}
             </p>
+            {result.scores ? (
+              <p className="mg-dialog__note">{t.duoScore(result.scores[0], result.scores[1])}</p>
+            ) : (
+              <p className={`mg-dialog__note${result.newBest ? ' is-new' : ''}`}>
+                {result.newBest ? t.newBest : t.bestWas(bestText)}
+              </p>
+            )}
           </>
         )}
         <div className="mg-dialog__actions">
@@ -206,15 +264,20 @@ function MemoryGame() {
   const t = useText(TEXT)
   const lang = useLang()
   const [pairs, setPairs] = useState(8)
+  const [players, setPlayers] = useState(1)
   const [round, setRound] = useState(0)
+  const [themeKey, setThemeKey] = useLocalStorage('rika:memory-game:theme', THEMES[0].key)
   const { bests, record } = useBestScores()
 
+  const theme = themeByKey(themeKey)
+
   return (
-    <div className="mg">
+    // The theme's colour reaches every card back through a CSS variable.
+    <div className="mg" style={{ '--card-color': theme.back }}>
       <p className="mg__intro">{t.intro}</p>
 
       <div className="mg__toolbar">
-        <div className="mg__levels" role="group" aria-label={t.difficulty}>
+        <div className="mg__chips" role="group" aria-label={t.difficulty}>
           {DIFFICULTIES.map((n) => (
             <button key={n} type="button" className="chip" aria-pressed={n === pairs} onClick={() => setPairs(n)}>
               {t.levels[n]} <span className="mg__pairs">{t.pairsOf(n)}</span>
@@ -226,10 +289,33 @@ function MemoryGame() {
         </button>
       </div>
 
-      {/* A new key throws away the whole board state: a fresh deck for every round and difficulty. */}
+      <div className="mg__toolbar">
+        <div className="mg__chips" role="group" aria-label={t.players}>
+          <button type="button" className="chip" aria-pressed={players === 1} onClick={() => setPlayers(1)}>
+            {t.solo}
+          </button>
+          <button type="button" className="chip" aria-pressed={players === 2} onClick={() => setPlayers(2)}>
+            {t.duo}
+          </button>
+        </div>
+        <label className="mg__theme">
+          <span>{t.theme}</span>
+          <select className="input" value={theme.key} onChange={(e) => setThemeKey(e.target.value)}>
+            {THEMES.map((item) => (
+              <option key={item.key} value={item.key}>
+                {item.name[lang]}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      {/* A new key throws away the whole board state: a fresh deck for every round, difficulty, theme and player count. */}
       <Board
-        key={`${pairs}-${round}`}
+        key={`${pairs}-${theme.key}-${players}-${round}`}
         pairs={pairs}
+        theme={theme}
+        players={players}
         best={bests[pairs]}
         onRecord={record}
         onRestart={() => setRound((r) => r + 1)}

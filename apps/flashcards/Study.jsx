@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { label, shuffled } from './deck.js'
+import { label } from './deck.js'
+import { getEntry, isDue } from './leitner.js'
 
 // Shortcuts work on the page itself and inside this app, but never while typing in a field
 // and never on controls of the surrounding page (e.g. the language switch).
@@ -9,10 +10,16 @@ const ownsShortcut = (el) =>
 // One card with two faces. The flip is pure CSS: rotateY(180deg) + backface-visibility.
 function FlipCard({ card, flipped, onFlip, lang, t }) {
   return (
-    <button type="button" className={`fc-card${flipped ? ' is-flipped' : ''}`} onClick={onFlip}>
+    <button
+      type="button"
+      className={`fc-card${card.image ? ' has-image' : ''}${flipped ? ' is-flipped' : ''}`}
+      onClick={onFlip}
+    >
       <span className="fc-card__inner">
         <span className="fc-card__face fc-card__front" aria-hidden={flipped}>
           <span className="fc-card__tag">{t.question}</span>
+          {/* An empty alt when the card has no description: then the question text says it all. */}
+          {card.image && <img className="fc-card__image" src={card.image} alt={card.imageAlt || ''} />}
           <span className="fc-card__text">{label(card.q, lang)}</span>
           <span className="fc-card__hint">{t.tapToFlip}</span>
         </span>
@@ -48,23 +55,19 @@ function ProgressBar({ known, total, t }) {
   )
 }
 
-export default function Study({ deck, marks, onMark, onResetProgress, onEditCards, lang, t }) {
-  const [order, setOrder] = useState(null) // null = the deck's own order
+export default function Study({ deck, progress, round, onAnswer, onNextRound, onShuffle, onResetProgress, onEditCards, lang, t }) {
   const [index, setIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
-  const [onlyLearning, setOnlyLearning] = useState(false)
-  const [finished, setFinished] = useState(false)
 
   // Everything below is derived from props and state on each render, nothing is stored twice.
-  const byId = new Map(deck.cards.map((c) => [c.id, c]))
-  const ids = order
-    ? [...order.filter((id) => byId.has(id)), ...deck.cards.map((c) => c.id).filter((id) => !order.includes(id))]
-    : deck.cards.map((c) => c.id)
-  const queue = ids.map((id) => byId.get(id)).filter((c) => !onlyLearning || marks[c.id] !== 'known')
+  // Only the cards due in this round come up, in the deck's own (possibly shuffled) order.
+  const queue = deck.cards.filter((c) => isDue(getEntry(progress, c.id), round))
   const position = Math.min(index, Math.max(queue.length - 1, 0))
   const current = queue[position]
-  const known = deck.cards.filter((c) => marks[c.id] === 'known').length
-  const learning = deck.cards.length - known
+  // A card counts as known once it has moved on from box 1.
+  const known = deck.cards.filter((c) => getEntry(progress, c.id).box > 1).length
+  const dueNext = deck.cards.filter((c) => isDue(getEntry(progress, c.id), round + 1)).length
+  const started = deck.cards.some((c) => progress[c.id])
 
   const goTo = (i) => {
     setIndex(i)
@@ -73,34 +76,31 @@ export default function Study({ deck, marks, onMark, onResetProgress, onEditCard
   const next = () => position < queue.length - 1 && goTo(position + 1)
   const prev = () => position > 0 && goTo(position - 1)
 
-  const restart = (learningOnly) => {
-    setOnlyLearning(learningOnly)
-    setFinished(false)
-    goTo(0)
+  const answer = (knew) => {
+    onAnswer(current.id, knew)
+    // The answered card leaves the round and the next one slides into its place.
+    // After the last card of the queue we step back by one.
+    goTo(Math.max(Math.min(position, queue.length - 2), 0))
   }
 
   const shuffle = () => {
-    setOrder(shuffled(deck.cards.map((c) => c.id)))
-    restart(onlyLearning)
+    onShuffle()
+    goTo(0)
   }
 
-  const mark = (value) => {
-    onMark(current.id, value)
-    const isLast = position === queue.length - 1
-    if (isLast) {
-      setFinished(true)
-      setFlipped(false)
-    } else if (onlyLearning && value === 'known') {
-      // The card leaves the "still learning" queue, so the next one slides into this position.
-      setFlipped(false)
-    } else {
-      goTo(position + 1)
-    }
+  const nextRound = () => {
+    onNextRound()
+    goTo(0)
+  }
+
+  const reset = () => {
+    onResetProgress()
+    goTo(0)
   }
 
   // Keyboard shortcuts. Space always flips (we cancel its default button "click" and page scroll),
   // except while typing in a text field. The cleanup removes the listener on every re-run.
-  const active = Boolean(current) && !finished
+  const active = Boolean(current)
   useEffect(() => {
     if (!active) return
     const onKeyDown = (e) => {
@@ -143,40 +143,27 @@ export default function Study({ deck, marks, onMark, onResetProgress, onEditCard
 
   const toolbar = (
     <div className="fc-toolbar">
-      <button
-        type="button"
-        className="chip"
-        aria-pressed={onlyLearning}
-        onClick={() => restart(!onlyLearning)}
-        disabled={!onlyLearning && learning === 0}
-      >
-        {t.onlyLearning(learning)}
-      </button>
       <button type="button" className="chip" onClick={shuffle}>
         {t.shuffle}
       </button>
-      <button type="button" className="chip" onClick={onResetProgress} disabled={Object.keys(marks).length === 0}>
+      <button type="button" className="chip" onClick={reset} disabled={!started}>
         {t.resetProgress}
       </button>
     </div>
   )
 
-  if (finished || queue.length === 0) {
-    const allKnown = learning === 0
+  // The cards of this round have run out: a summary, and the next round on a click.
+  if (!current) {
     return (
       <div className="fc-study">
         <ProgressBar known={known} total={deck.cards.length} t={t} />
         <div className="fc-summary" role="status">
-          <h3>{allKnown ? t.allKnown : t.roundDone}</h3>
-          <p>{t.summary(known, learning)}</p>
+          <h3>{t.roundDone}</h3>
+          <p>{known === deck.cards.length ? t.allKnown : t.roundText}</p>
+          <p>{t.dueNext(dueNext)}</p>
           <div className="fc-summary__actions">
-            {!allKnown && (
-              <button type="button" className="btn" onClick={() => restart(true)}>
-                {t.practiceLearning(learning)}
-              </button>
-            )}
-            <button type="button" className={allKnown ? 'btn' : 'btn btn--ghost'} onClick={() => restart(false)}>
-              {t.studyAll}
+            <button type="button" className="btn" onClick={nextRound}>
+              {t.nextRound}
             </button>
           </div>
         </div>
@@ -185,7 +172,7 @@ export default function Study({ deck, marks, onMark, onResetProgress, onEditCard
     )
   }
 
-  const status = marks[current.id]
+  const box = getEntry(progress, current.id).box
 
   return (
     <div className="fc-study">
@@ -193,10 +180,8 @@ export default function Study({ deck, marks, onMark, onResetProgress, onEditCard
 
       <div className="fc-stage">
         <p className="fc-counter">
-          <span>{t.cardOf(position + 1, queue.length)}</span>
-          {status && (
-            <span className={`fc-badge fc-badge--${status}`}>{status === 'known' ? t.markedKnown : t.markedLearning}</span>
-          )}
+          <span>{t.roundCard(round, position + 1, queue.length)}</span>
+          <span className={`fc-badge fc-badge--box${box}`}>{t.box(box)}</span>
         </p>
         <FlipCard card={current} flipped={flipped} onFlip={() => setFlipped((f) => !f)} lang={lang} t={t} />
         <p className="visually-hidden" aria-live="polite">
@@ -209,10 +194,10 @@ export default function Study({ deck, marks, onMark, onResetProgress, onEditCard
           ←
         </button>
         <div className="fc-marks">
-          <button type="button" className="btn btn--ghost fc-mark fc-mark--learning" onClick={() => mark('learning')}>
+          <button type="button" className="btn btn--ghost fc-mark" onClick={() => answer(false)}>
             {t.dontKnow}
           </button>
-          <button type="button" className="btn fc-mark" onClick={() => mark('known')}>
+          <button type="button" className="btn fc-mark" onClick={() => answer(true)}>
             {t.know}
           </button>
         </div>

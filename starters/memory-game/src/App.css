@@ -1,0 +1,221 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses (game, board, win, stats, toolbar, chips, button…).
+   The cards have their own file: src/components/Card.css. */
+
+* {
+  box-sizing: border-box;
+}
+
+/* The white panel in the middle of the page */
+.game {
+  display: grid;
+  gap: 20px;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(16 24 40 / 0.08);
+}
+
+.game h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+/* Buttons and the theme menu use the page's font */
+button,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+select:focus-visible {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+/* .button: an outlined button; .button--primary: a filled one */
+.button {
+  padding: 5px 16px;
+  border: 2px solid #083f58;
+  border-radius: 999px;
+  background: transparent;
+  color: #083f58;
+  font-weight: 700;
+}
+
+.button:hover {
+  background: #e8f1f4;
+}
+
+.button--primary {
+  padding: 8px 18px;
+  border: 2px solid #01c5ac;
+  border-radius: 999px;
+  background: #01c5ac;
+  color: #062b2b;
+  font-weight: 700;
+}
+
+.button--primary:hover {
+  border-color: #3fd8c3;
+  background: #3fd8c3;
+}
+
+/* The grid of cards. --columns says how many cards stand side by side (4 if nobody sets it). */
+.board {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 4), minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: calc(var(--columns, 4) * 104px);
+  margin: 0 auto;
+}
+
+/* The "you won" banner */
+.win {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: #083f58;
+  color: #fff;
+}
+
+.win h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.win p {
+  margin: 4px 0 0;
+}
+
+.win__record {
+  color: #feb800;
+  font-weight: 700;
+}
+
+/* Moves, time, pairs found, best result: a row of small boxes */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.stats div {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #eef1f5;
+}
+
+.stats dt {
+  color: #5a6478;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stats dd {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* In two-player mode: the box of the player whose turn it is */
+.stats .is-turn {
+  background: #01c5ac;
+  color: #062b2b;
+}
+
+.stats .is-turn dt {
+  color: inherit;
+}
+
+/* The line that says whose turn it is */
+.turn {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Settings above the game: difficulty, players, theme, New game */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+}
+
+/* A group of switch-like buttons; the pressed one is filled */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  padding: 6px 14px;
+  border: 1px solid #c5ccd8;
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 600;
+}
+
+.chip:hover {
+  border-color: #083f58;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: #083f58;
+  background: #083f58;
+  color: #fff;
+}
+
+/* A label with a drop-down menu in it */
+.select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.select select {
+  padding: 6px 10px;
+  border: 1px solid #c5ccd8;
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* Phones: a little less space around everything */
+@media (max-width: 480px) {
+  body {
+    padding: 16px;
+  }
+
+  .game {
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .game h1 {
+    font-size: 24px;
+  }
+
+  .board {
+    gap: 6px;
+  }
+}

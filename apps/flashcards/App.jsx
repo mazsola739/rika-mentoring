@@ -2,9 +2,13 @@ import { useState } from 'react'
 import AppFrame from '@shared/ui/AppFrame.jsx'
 import { useLang, useText } from '@shared/i18n.js'
 import { useLocalStorage } from './useLocalStorage.js'
-import { SEED_CARDS, SEED_DECKS, label } from './deck.js'
+import { SEED_DECKS, label, seedCardsOf, shuffled, withSampleDecks } from './deck.js'
+import { getEntry, nextEntry } from './leitner.js'
+import { clearSharedDeck, readSharedDeck } from './share.js'
 import Study from './Study.jsx'
 import Editor from './Editor.jsx'
+import DeckTools from './DeckTools.jsx'
+import SharedDeck from './SharedDeck.jsx'
 import './app.css'
 
 const TEXT = {
@@ -22,22 +26,21 @@ const TEXT = {
     tapToFlip: 'Click or press Space to flip',
     progress: 'Progress',
     knownOf: (k, n) => `${k} of ${n} known`,
-    cardOf: (i, n) => `Card ${i} / ${n}`,
+    roundCard: (r, i, n) => `Round ${r} · card ${i} of ${n}`,
+    box: (b) => `Box ${b}`,
     prev: 'Previous card',
     next: 'Next card',
     know: 'I know it',
     dontKnow: 'Not yet',
-    markedKnown: 'Known',
-    markedLearning: 'Learning',
     keys: 'Space: flip · ← →: previous / next',
     shuffle: 'Shuffle',
-    onlyLearning: (n) => `Only cards I'm learning (${n})`,
     resetProgress: 'Reset progress',
     roundDone: 'Round complete',
-    allKnown: 'You know every card!',
-    summary: (k, l) => `${k} known, ${l} still to learn.`,
-    practiceLearning: (n) => `Practice the ${n} I don't know`,
-    studyAll: 'Study all cards again',
+    roundText: 'No more cards in this round. The ones you missed come back in the next round, the ones you knew only later.',
+    allKnown: 'You know every card in this deck! They still come back now and then, so you keep them.',
+    dueNext: (n) =>
+      n === 0 ? 'Nothing is due in the next round yet.' : `${n} ${n === 1 ? 'card comes' : 'cards come'} up in the next round.`,
+    nextRound: 'Next round',
     emptyDeck: 'This deck is empty',
     emptyDeckText: 'Add a few questions and answers, then come back to study.',
     addCards: 'Add cards',
@@ -45,11 +48,32 @@ const TEXT = {
     editCard: 'Edit card',
     addCard: 'Add card',
     saveCard: 'Save changes',
+    picture: 'Picture for the question',
+    optional: '(optional)',
+    pictureAlt: 'Description of the picture',
+    pictureAltHint: '(read out by screen readers)',
+    previewAlt: 'Picture of the card',
+    removePicture: 'Remove picture',
+    imageError: 'This file could not be read as a picture.',
     cardsInDeck: (n) => `${n} ${n === 1 ? 'card' : 'cards'} in this deck`,
     noCards: 'No cards yet. Use the form above to write your first one.',
     restore: 'Restore sample cards',
     edit: 'Edit',
     delete: 'Delete',
+    saveShare: 'Save and share',
+    toolsHint: 'The file keeps the pictures; the link leaves them out, so it stays short.',
+    download: 'Download deck',
+    load: 'Load deck',
+    copyLink: 'Copy link',
+    cardCount: (n) => `${n} ${n === 1 ? 'card' : 'cards'}`,
+    loaded: (name, n) => `Loaded: ${name} (${n} ${n === 1 ? 'card' : 'cards'})`,
+    notDeck: 'This file is not a deck. Choose a JSON file that this app saved.',
+    copied: 'The link is on the clipboard: send it to whoever you want to share the deck with.',
+    copyFailed: 'Could not copy the link to the clipboard.',
+    sharedDeck: 'Shared deck',
+    sharedIntro: 'Someone shared a deck with you:',
+    accept: 'Add it',
+    dismiss: 'No thanks',
   },
   hu: {
     decks: 'Paklik',
@@ -64,23 +88,21 @@ const TEXT = {
     answer: 'Válasz',
     tapToFlip: 'Kattints vagy nyomd meg a szóközt a megfordításhoz',
     progress: 'Haladás',
-    knownOf: (k, n) => `${k} / ${n} kártya megtanulva`,
-    cardOf: (i, n) => `${i}. kártya / ${n}`,
+    knownOf: (k, n) => `${k} / ${n} kártyát tudsz`,
+    roundCard: (r, i, n) => `${r}. kör · ${i}. kártya / ${n}`,
+    box: (b) => `${b}. doboz`,
     prev: 'Előző kártya',
     next: 'Következő kártya',
     know: 'Tudom',
     dontKnow: 'Még nem',
-    markedKnown: 'Tudom',
-    markedLearning: 'Tanulom',
-    keys: 'Szóköz: fordítás · ← →: előző / következő',
+    keys: 'Szóköz: megfordítás · ← →: előző / következő',
     shuffle: 'Keverés',
-    onlyLearning: (n) => `Csak amit még tanulok (${n})`,
     resetProgress: 'Haladás törlése',
     roundDone: 'Kör vége',
-    allKnown: 'Minden kártyát tudsz!',
-    summary: (k, l) => `${k} megtanulva, ${l} még tanulandó.`,
-    practiceLearning: (n) => `Gyakorlás: ${n} még nem tudott kártya`,
-    studyAll: 'Újra az összes kártya',
+    roundText: 'Ebben a körben nincs több kártya. Amit nem tudtál, a következő körben visszajön, amit tudtál, csak később.',
+    allKnown: 'Ebben a pakliban minden kártyát tudsz! Néha azért visszajönnek, hogy meg is maradjanak.',
+    dueNext: (n) => (n === 0 ? 'A következő körben még nem jön kártya.' : `A következő körben ${n} kártya jön.`),
+    nextRound: 'Következő kör',
     emptyDeck: 'Ez a pakli üres',
     emptyDeckText: 'Írj bele néhány kérdést és választ, aztán gyere vissza tanulni.',
     addCards: 'Kártyák hozzáadása',
@@ -88,11 +110,32 @@ const TEXT = {
     editCard: 'Kártya szerkesztése',
     addCard: 'Kártya hozzáadása',
     saveCard: 'Mentés',
+    picture: 'Kép a kérdéshez',
+    optional: '(nem kötelező)',
+    pictureAlt: 'A kép leírása',
+    pictureAltHint: '(a képernyőolvasók felolvassák)',
+    previewAlt: 'A kártya képe',
+    removePicture: 'Kép eltávolítása',
+    imageError: 'Ezt a fájlt nem sikerült képként beolvasni.',
     cardsInDeck: (n) => `${n} kártya van a pakliban`,
     noCards: 'Még nincs kártya. A fenti űrlappal megírhatod az elsőt.',
     restore: 'Mintakártyák visszaállítása',
     edit: 'Szerkesztés',
     delete: 'Törlés',
+    saveShare: 'Mentés és megosztás',
+    toolsHint: 'A fájlban a képek is megmaradnak, a linkből kimaradnak, hogy rövid maradjon.',
+    download: 'Pakli letöltése',
+    load: 'Pakli betöltése',
+    copyLink: 'Link másolása',
+    cardCount: (n) => `${n} kártya`,
+    loaded: (name, n) => `Betöltve: ${name} (${n} kártya)`,
+    notDeck: 'Ez a fájl nem egy pakli. Olyan JSON-fájlt válassz, amit ez az app mentett.',
+    copied: 'A link a vágólapon: küldd el annak, akivel megosztanád a paklit.',
+    copyFailed: 'Nem sikerült a vágólapra másolni a linket.',
+    sharedDeck: 'Megosztott pakli',
+    sharedIntro: 'Valaki megosztott veled egy paklit:',
+    accept: 'Hozzáadom',
+    dismiss: 'Nem kérem',
   },
 }
 
@@ -150,17 +193,23 @@ function DeckBar({ decks, activeId, onSelect, onCreate, t, lang }) {
   )
 }
 
+// Removes the Leitner entries of the given cards (a deleted deck or card, or a progress reset).
+const withoutCards = (progress, ids) => Object.fromEntries(Object.entries(progress).filter(([id]) => !ids.includes(id)))
+
 function Flashcards() {
   const lang = useLang()
   const t = useText(TEXT)
-  const [decks, setDecks] = useLocalStorage('rika:flashcards:decks', SEED_DECKS)
-  const [progress, setProgress] = useLocalStorage('rika:flashcards:progress', {})
+  const [decks, setDecks] = useLocalStorage('rika:flashcards:decks', SEED_DECKS, withSampleDecks)
   const [activeId, setActiveId] = useLocalStorage('rika:flashcards:active', SEED_DECKS[0].id)
+  // Leitner progress per card id ({ box, due }) and the round counter shared by every deck, like a calendar.
+  const [progress, setProgress] = useLocalStorage('rika:flashcards:leitner', {})
+  const [round, setRound] = useLocalStorage('rika:flashcards:round', 1)
+  // A deck that arrived in the link is only offered, not saved: it lives in plain state until accepted.
+  const [shared, setShared] = useState(readSharedDeck)
   const [view, setView] = useState('study')
   const [confirming, setConfirming] = useState(false)
 
-  const deck = decks.find((d) => d.id === activeId) ?? decks[0] ?? SEED_DECKS[0]
-  const marks = progress[deck.id] ?? {}
+  const deck = decks.find((d) => d.id === activeId) ?? decks[0]
 
   // Immutable updates: map() returns a new array, the spread a new object, so React sees the change.
   const updateDeck = (id, change) => setDecks((list) => list.map((d) => (d.id === id ? { ...d, ...change(d) } : d)))
@@ -170,41 +219,56 @@ function Flashcards() {
     setConfirming(false)
   }
 
+  // A ready-made deck (new, from a file or from a link) joins the list and is chosen.
+  const addDeck = (newDeck) => {
+    setDecks((list) => [...list, newDeck])
+    selectDeck(newDeck.id)
+  }
+
   const createDeck = (name) => {
-    const id = crypto.randomUUID()
-    setDecks((list) => [...list, { id, name, cards: [] }])
-    setActiveId(id)
+    addDeck({ id: crypto.randomUUID(), name, cards: [] })
     setView('edit')
   }
 
   const deleteDeck = () => {
     setDecks((list) => list.filter((d) => d.id !== deck.id))
-    setProgress(({ [deck.id]: _removed, ...rest }) => rest)
-    setActiveId(SEED_DECKS[0].id)
-    setConfirming(false)
+    setProgress((p) => withoutCards(p, deck.cards.map((c) => c.id)))
+    selectDeck(SEED_DECKS[0].id)
   }
 
-  const setMark = (cardId, value) => setProgress((p) => ({ ...p, [deck.id]: { ...p[deck.id], [cardId]: value } }))
-
-  const resetProgress = () => setProgress(({ [deck.id]: _removed, ...rest }) => rest)
+  const answerCard = (cardId, knew) => setProgress((p) => ({ ...p, [cardId]: nextEntry(getEntry(p, cardId), round, knew) }))
+  const nextRound = () => setRound((r) => r + 1)
+  // The shuffled order is the deck's own order from now on, so it survives a reload.
+  const shuffleDeck = () => updateDeck(deck.id, (d) => ({ cards: shuffled(d.cards) }))
+  const resetProgress = () => setProgress((p) => withoutCards(p, deck.cards.map((c) => c.id)))
 
   const addCard = (values) => updateDeck(deck.id, (d) => ({ cards: [...d.cards, { id: crypto.randomUUID(), ...values }] }))
   const updateCard = (cardId, values) =>
     updateDeck(deck.id, (d) => ({ cards: d.cards.map((c) => (c.id === cardId ? { ...c, ...values } : c)) }))
   const deleteCard = (cardId) => {
     updateDeck(deck.id, (d) => ({ cards: d.cards.filter((c) => c.id !== cardId) }))
-    setProgress((p) => {
-      const { [cardId]: _removed, ...rest } = p[deck.id] ?? {}
-      return { ...p, [deck.id]: rest }
-    })
+    setProgress((p) => withoutCards(p, [cardId]))
   }
   const restoreSample = () =>
-    updateDeck(deck.id, (d) => ({
-      cards: [...SEED_CARDS, ...d.cards.filter((c) => !SEED_CARDS.some((s) => s.id === c.id))],
-    }))
+    updateDeck(deck.id, (d) => {
+      const seed = seedCardsOf(d.id)
+      return { cards: [...seed, ...d.cards.filter((c) => !seed.some((s) => s.id === c.id))] }
+    })
+
+  const closeShared = () => {
+    setShared(null)
+    clearSharedDeck()
+  }
+  const acceptShared = () => {
+    addDeck(shared)
+    setView('study')
+    closeShared()
+  }
 
   return (
     <div className="fc">
+      {shared && <SharedDeck deck={shared} onAccept={acceptShared} onDismiss={closeShared} t={t} />}
+
       <DeckBar decks={decks} activeId={deck.id} onSelect={selectDeck} onCreate={createDeck} t={t} lang={lang} />
 
       <div className="fc-head">
@@ -218,13 +282,16 @@ function Flashcards() {
         </div>
       </div>
 
-      {/* key: a new deck gets a fresh study session (index, order, flip state). */}
+      {/* key: a new deck gets a fresh study session (index, flip state). */}
       {view === 'study' ? (
         <Study
           key={deck.id}
           deck={deck}
-          marks={marks}
-          onMark={setMark}
+          progress={progress}
+          round={round}
+          onAnswer={answerCard}
+          onNextRound={nextRound}
+          onShuffle={shuffleDeck}
           onResetProgress={resetProgress}
           onEditCards={() => setView('edit')}
           lang={lang}
@@ -234,7 +301,7 @@ function Flashcards() {
         <Editor
           key={deck.id}
           deck={deck}
-          marks={marks}
+          boxOf={(cardId) => progress[cardId]?.box}
           onAdd={addCard}
           onUpdate={updateCard}
           onDelete={deleteCard}
@@ -243,6 +310,8 @@ function Flashcards() {
           t={t}
         />
       )}
+
+      <DeckTools deck={deck} onImport={addDeck} lang={lang} t={t} />
 
       {!deck.builtIn && view === 'edit' && (
         <div className="fc-danger">

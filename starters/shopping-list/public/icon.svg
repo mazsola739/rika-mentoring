@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- The app's icon: a shopping basket on a green tile -->
+  <rect width="512" height="512" rx="112" fill="#017b6b" />
+  <path d="M176 208 232 112M336 208 280 112" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="32" />
+  <path d="M88 200h336a16 16 0 0 1 15.7 19.1l-33.2 166a32 32 0 0 1-31.4 25.9H137a32 32 0 0 1-31.4-25.9l-33.2-166A16 16 0 0 1 88 200Z" fill="#fff" />
+  <path d="M184 264v88M256 264v88M328 264v88" fill="none" stroke="#017b6b" stroke-linecap="round" stroke-width="28" />
+  <circle cx="392" cy="136" r="40" fill="#feb800" />
+</svg>

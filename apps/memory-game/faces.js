@@ -1,24 +1,88 @@
 import { PEACOCK_PALETTE } from '@shared/ui/palette.js'
 
-// The site's peacock palette has 11 colors; one lighter gold makes 12 different flat colors.
-const color = (key) => PEACOCK_PALETTE.find((c) => c.key === key).hex
+function color(key) {
+  return PEACOCK_PALETTE.find((c) => c.key === key).hex
+}
 
-// One emoji per pair, each pair on its own flat color. Hard uses all 12.
-export const FACES = [
-  { key: 'peacock', emoji: '🦚', color: color('deepTeal'), name: { en: 'Peacock', hu: 'Páva' } },
-  { key: 'wave', emoji: '🌊', color: color('gold'), name: { en: 'Wave', hu: 'Hullám' } },
-  { key: 'lemon', emoji: '🍋', color: color('peacockBlue'), name: { en: 'Lemon', hu: 'Citrom' } },
-  { key: 'watermelon', emoji: '🍉', color: color('surface'), name: { en: 'Watermelon', hu: 'Görögdinnye' } },
-  { key: 'blossom', emoji: '🌸', color: color('peacockGreen'), name: { en: 'Blossom', hu: 'Virág' } },
-  { key: 'star', emoji: '⭐', color: color('violet'), name: { en: 'Star', hu: 'Csillag' } },
-  { key: 'moon', emoji: '🌙', color: color('night'), name: { en: 'Moon', hu: 'Hold' } },
-  { key: 'clover', emoji: '🍀', color: color('orange'), name: { en: 'Clover', hu: 'Lóhere' } },
-  { key: 'balloon', emoji: '🎈', color: color('turquoise'), name: { en: 'Balloon', hu: 'Léggömb' } },
-  { key: 'music', emoji: '🎵', color: color('sky'), name: { en: 'Music', hu: 'Hangjegy' } },
-  { key: 'key', emoji: '🔑', color: color('magenta'), name: { en: 'Key', hu: 'Kulcs' } },
-  { key: 'puzzle', emoji: '🧩', color: '#FFD866', name: { en: 'Puzzle piece', hu: 'Kirakódarab' } },
+// Every pair gets its own flat colour: the site's 11 peacock colours and one lighter gold make 12.
+const PAIR_COLORS = [
+  color('deepTeal'),
+  color('gold'),
+  color('peacockBlue'),
+  color('surface'),
+  color('peacockGreen'),
+  color('violet'),
+  color('night'),
+  color('orange'),
+  color('turquoise'),
+  color('sky'),
+  color('magenta'),
+  '#FFD866',
 ]
 
-export const FACE_KEYS = FACES.map((face) => face.key)
+// A theme is a set of 12 faces (the hard level uses all of them) and a colour for the backs of the cards.
+// Every face is [key, emoji, English name, Hungarian name]. A face never takes the colour of the card backs
+// (a face-up card would look face down), it gets a light grey instead.
+function makeTheme(key, name, back, list) {
+  const faces = list.map(([faceKey, emoji, en, hu], i) => ({
+    key: faceKey,
+    emoji,
+    color: PAIR_COLORS[i] === back ? '#E4E9F0' : PAIR_COLORS[i],
+    name: { en, hu },
+  }))
+  return { key, name, back, faces }
+}
 
-export const faceByKey = (key) => FACES.find((face) => face.key === key) ?? FACES[0]
+export const THEMES = [
+  makeTheme('animals', { en: 'Animals', hu: 'Állatok' }, color('peacockGreen'), [
+    ['dog', '🐶', 'Dog', 'Kutya'],
+    ['cat', '🐱', 'Cat', 'Macska'],
+    ['fox', '🦊', 'Fox', 'Róka'],
+    ['panda', '🐼', 'Panda', 'Panda'],
+    ['frog', '🐸', 'Frog', 'Béka'],
+    ['lion', '🦁', 'Lion', 'Oroszlán'],
+    ['monkey', '🐵', 'Monkey', 'Majom'],
+    ['rabbit', '🐰', 'Rabbit', 'Nyúl'],
+    ['koala', '🐨', 'Koala', 'Koala'],
+    ['tiger', '🐯', 'Tiger', 'Tigris'],
+    ['pig', '🐷', 'Pig', 'Malac'],
+    ['octopus', '🐙', 'Octopus', 'Polip'],
+  ]),
+  makeTheme('treats', { en: 'Treats', hu: 'Finomságok' }, color('violet'), [
+    ['apple', '🍎', 'Apple', 'Alma'],
+    ['banana', '🍌', 'Banana', 'Banán'],
+    ['grapes', '🍇', 'Grapes', 'Szőlő'],
+    ['strawberry', '🍓', 'Strawberry', 'Eper'],
+    ['watermelon', '🍉', 'Watermelon', 'Görögdinnye'],
+    ['cherries', '🍒', 'Cherries', 'Cseresznye'],
+    ['kiwi', '🥝', 'Kiwi', 'Kivi'],
+    ['pineapple', '🍍', 'Pineapple', 'Ananász'],
+    ['carrot', '🥕', 'Carrot', 'Sárgarépa'],
+    ['corn', '🌽', 'Corn', 'Kukorica'],
+    ['doughnut', '🍩', 'Doughnut', 'Fánk'],
+    ['cookie', '🍪', 'Cookie', 'Keksz'],
+  ]),
+  makeTheme('space', { en: 'Space', hu: 'Világűr' }, color('peacockBlue'), [
+    ['rocket', '🚀', 'Rocket', 'Rakéta'],
+    ['moon', '🌙', 'Moon', 'Hold'],
+    ['star', '⭐', 'Star', 'Csillag'],
+    ['planet', '🪐', 'Ringed planet', 'Gyűrűs bolygó'],
+    ['earth', '🌍', 'Earth', 'Föld'],
+    ['alien', '👽', 'Alien', 'Űrlény'],
+    ['saucer', '🛸', 'Flying saucer', 'Repülő csészealj'],
+    ['sun', '🌞', 'Sun', 'Nap'],
+    ['telescope', '🔭', 'Telescope', 'Távcső'],
+    ['shooting-star', '🌠', 'Shooting star', 'Hullócsillag'],
+    ['milky-way', '🌌', 'Milky Way', 'Tejút'],
+    ['comet', '☄️', 'Comet', 'Üstökös'],
+  ]),
+]
+
+// A saved theme key that no longer exists falls back to the first theme.
+export function themeByKey(key) {
+  return THEMES.find((theme) => theme.key === key) ?? THEMES[0]
+}
+
+export function faceOf(theme, key) {
+  return theme.faces.find((face) => face.key === key) ?? theme.faces[0]
+}

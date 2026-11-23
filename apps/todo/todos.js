@@ -27,17 +27,9 @@ export function dueInfo(due, lang) {
   return { state, date }
 }
 
+// The sample tasks a new account starts with.
 export function seedTodos() {
-  const now = Date.now()
-  const todo = (i, text, extra) => ({
-    id: `seed-${i}`,
-    text,
-    done: false,
-    priority: 'normal',
-    due: '',
-    createdAt: now - i * 60_000,
-    ...extra,
-  })
+  const todo = (i, text, extra) => ({ id: `seed-${i}`, text, done: false, priority: 'normal', due: '', ...extra })
   return [
     todo(1, { en: 'Build the to-do app', hu: 'Építsd meg a teendőlista appot' }, { priority: 'high', due: addDays(1) }),
     todo(2, { en: 'Add filters: all, active, done', hu: 'Szűrők: összes, aktív, kész' }),
@@ -46,16 +38,9 @@ export function seedTodos() {
   ]
 }
 
-const byNewest = (a, b) => b.createdAt - a.createdAt
-
+// Sorted views. "manual" (the user's own order, changed by dragging or the arrows) has no compare function.
+// Array sort is stable, so tasks that compare equal keep their manual order.
 export const SORTS = {
-  newest: byNewest,
-  due: (a, b) => (a.due || '9999').localeCompare(b.due || '9999') || byNewest(a, b),
-  priority: (a, b) => PRIORITY_LEVEL[b.priority] - PRIORITY_LEVEL[a.priority] || byNewest(a, b),
-}
-
-export const FILTERS = {
-  all: () => true,
-  active: (todo) => !todo.done,
-  done: (todo) => todo.done,
+  due: (a, b) => (a.due || '9999').localeCompare(b.due || '9999'),
+  priority: (a, b) => PRIORITY_LEVEL[b.priority] - PRIORITY_LEVEL[a.priority],
 }

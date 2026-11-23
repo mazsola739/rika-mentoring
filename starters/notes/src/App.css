@@ -1,0 +1,485 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses (notes, note-list, editor, chip, dot, markdown, sync). */
+
+* {
+  box-sizing: border-box;
+}
+
+/* The white card around the whole app */
+.notes {
+  display: grid;
+  gap: 16px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(16 24 40 / 0.08);
+}
+
+/* The top row: title, search field and the "new note" button */
+.notes__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.notes__title {
+  margin: 0 auto 0 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.notes__search {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 9px 16px;
+  border: 1px solid #c5ccd8;
+  border-radius: 999px;
+  font: inherit;
+}
+
+/* Buttons: filled by default, an outline with .button--ghost, red with .button--danger */
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.button {
+  padding: 9px 18px;
+  border: 2px solid #017b6b;
+  border-radius: 999px;
+  background: #017b6b;
+  color: #fff;
+  font-weight: 700;
+}
+
+.button:hover {
+  border-color: #01695b;
+  background: #01695b;
+}
+
+.button--ghost {
+  background: transparent;
+  color: #01695b;
+}
+
+.button--ghost:hover {
+  background: #e6f4f1;
+}
+
+.button--danger {
+  border-color: #c62a4f;
+  background: #c62a4f;
+  color: #fff;
+}
+
+.button--danger:hover {
+  border-color: #a51f40;
+  background: #a51f40;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+/* Category and tag filters: rows of round "chips" (aria-pressed="true" marks the chosen one) */
+.notes__filters {
+  display: grid;
+  gap: 8px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid #c5ccd8;
+  border-radius: 999px;
+  background: #fff;
+  color: inherit;
+  font-size: 14px;
+}
+
+.chip:hover {
+  background: #f4f6f9;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: #083f58;
+  background: #083f58;
+  color: #fff;
+}
+
+.chip__count {
+  color: #5a6478;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chip[aria-pressed='true'] .chip__count {
+  color: #bcd7e0;
+}
+
+.chip--tag {
+  color: #01695b;
+}
+
+/* The coloured dot of a category: dot--personal, dot--work, dot--ideas, dot--learning */
+.dot {
+  display: inline-block;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #9aa3b2;
+}
+
+.dot--personal {
+  background: #017b6b;
+}
+
+.dot--work {
+  background: #0197d8;
+}
+
+.dot--ideas {
+  background: #fd7701;
+}
+
+.dot--learning {
+  background: #9a03b7;
+}
+
+/* Two panes: the list of notes and the open note (side by side from 760 px) */
+.notes__panes {
+  display: grid;
+  align-items: start;
+  gap: 18px;
+}
+
+.notes__side,
+.notes__main {
+  min-width: 0;
+}
+
+.notes__hint {
+  margin: 0;
+  padding: 40px 20px;
+  border: 2px dashed #dde3ea;
+  border-radius: 14px;
+  color: #5a6478;
+  text-align: center;
+}
+
+/* The list of notes */
+.note-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.note-list__item {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: #f4f6f9;
+  color: inherit;
+  text-align: left;
+}
+
+.note-list__item:hover {
+  border-color: #c5ccd8;
+}
+
+.note-list__item[aria-current='true'] {
+  border-color: #017b6b;
+  background: #e6f4f1;
+}
+
+.note-list__title,
+.note-list__excerpt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-list__title {
+  font-weight: 700;
+}
+
+.note-list__excerpt {
+  color: #5a6478;
+  font-size: 14px;
+}
+
+.note-list__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #5a6478;
+  font-size: 13px;
+}
+
+.note-list__empty {
+  margin: 0;
+  padding: 16px;
+  color: #5a6478;
+  text-align: center;
+}
+
+/* The open note */
+.editor {
+  display: grid;
+  gap: 12px;
+}
+
+.editor__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.editor__bar .button {
+  padding: 6px 14px;
+}
+
+.editor__category {
+  padding: 6px 10px;
+  border: 1px solid #c5ccd8;
+  border-radius: 10px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+.editor__tabs {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.editor__title {
+  width: 100%;
+  margin: 0;
+  padding: 4px 0;
+  border: 0;
+  border-bottom: 2px solid #eef1f5;
+  color: inherit;
+  font: inherit;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.editor__text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.editor__body {
+  width: 100%;
+  min-height: 280px;
+  padding: 12px 14px;
+  border: 1px solid #dde3ea;
+  border-radius: 12px;
+  color: inherit;
+  font: inherit;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.editor__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  color: #5a6478;
+  font-size: 14px;
+}
+
+.editor__foot > :last-child {
+  margin-left: auto;
+}
+
+.editor__foot .button {
+  padding: 6px 14px;
+}
+
+.editor__confirm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: #1c2333;
+  font-weight: 600;
+}
+
+/* The Markdown preview */
+.markdown {
+  min-height: 280px;
+  padding: 12px 16px;
+  border: 1px solid #dde3ea;
+  border-radius: 12px;
+  background: #fbfcfd;
+  overflow-wrap: anywhere;
+}
+
+.markdown > :first-child {
+  margin-top: 0;
+}
+
+.markdown h2 {
+  margin: 16px 0 8px;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.markdown h3 {
+  margin: 14px 0 6px;
+  font-size: 18px;
+}
+
+.markdown p,
+.markdown ul {
+  margin: 0 0 10px;
+}
+
+.markdown ul {
+  padding-left: 22px;
+}
+
+.markdown code {
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: #eef1f5;
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.markdown__empty {
+  color: #5a6478;
+}
+
+/* The sync status at the bottom: sync--idle, sync--syncing, sync--error, sync--offline */
+.sync {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #f4f6f9;
+  font-size: 14px;
+}
+
+.sync__dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #017b6b;
+}
+
+.sync--syncing .sync__dot {
+  background: #0197d8;
+  animation: sync-pulse 0.8s ease-in-out infinite alternate;
+}
+
+.sync--error .sync__dot {
+  background: #c62a4f;
+}
+
+.sync--offline .sync__dot {
+  background: #9aa3b2;
+}
+
+.sync__text {
+  flex: 1 1 200px;
+  margin: 0;
+}
+
+.sync__pending {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #fff1d1;
+  color: #6b4400;
+  font-weight: 700;
+}
+
+.sync .button {
+  padding: 6px 14px;
+}
+
+@keyframes sync-pulse {
+  to {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sync--syncing .sync__dot {
+    animation: none;
+  }
+}
+
+/* Wide screens: the list and the open note side by side, no "back" button needed */
+@media (min-width: 760px) {
+  .notes__panes {
+    grid-template-columns: 280px 1fr;
+  }
+
+  .editor__back {
+    display: none;
+  }
+}
+
+/* Narrow screens: either the list or the open note, like an app on a phone */
+@media (max-width: 759px) {
+  .notes--editing .notes__side,
+  .notes--editing .notes__filters,
+  .notes--editing .notes__search {
+    display: none;
+  }
+}
+
+/* Phones: a little less space around everything */
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+  }
+
+  .notes {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .notes__title {
+    font-size: 24px;
+  }
+}

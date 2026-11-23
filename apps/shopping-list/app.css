@@ -236,3 +236,32 @@
     grid-column: 2;
   }
 }
+
+/* Suggestions: earlier items that are not on the list now, one click adds them back */
+.sl-suggest {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: -4px;
+}
+
+.sl-suggest__title {
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sl-suggest__btn {
+  gap: 4px;
+  min-height: 36px;
+  padding: 6px 14px;
+  border: 1px dashed var(--solid-text);
+  color: var(--solid-text);
+  overflow-wrap: anywhere;
+}
+
+.sl-suggest__btn:hover {
+  border-style: solid;
+  background: var(--paper-2);
+}

@@ -76,3 +76,17 @@ export function readableInk(hex) {
 
 /** WCAG rating of a contrast ratio for normal-size text (null = below AA). */
 export const rating = (ratio) => (ratio >= 7 ? 'AAA' : ratio >= 4.5 ? 'AA' : null)
+
+/** The palette as the end of an address: ['#3FA2C7', '#F0C808', …] → '#3FA2C7-F0C808-…'. */
+export function paletteToHash(hexes) {
+  return '#' + hexes.map((hex) => hex.slice(1)).join('-')
+}
+
+/** Five color codes from the end of an address, or null if it does not hold five valid codes. */
+export function paletteFromHash(hash) {
+  const hexes = hash
+    .slice(1)
+    .split('-')
+    .map((part) => '#' + part.toUpperCase())
+  return hexes.length === 5 && hexes.every((hex) => /^#[0-9A-F]{6}$/.test(hex)) ? hexes : null
+}

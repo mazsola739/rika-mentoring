@@ -1,138 +1,71 @@
 import { useState } from 'react'
 import AppFrame from '@shared/ui/AppFrame.jsx'
 import { useLang, useText } from '@shared/i18n.js'
-import { HINTS, TEMPLATES, fieldsOf, fill } from './templates.js'
+import { PEACOCK } from '@shared/ui/palette.js'
+import { TEXT } from './text.js'
+import { START_TEMPLATE, TEMPLATES, templateProblem } from './templates.js'
+import { sharedTemplate } from './share.js'
+import ChipPicker from './ChipPicker.jsx'
+import StoryEditor from './StoryEditor.jsx'
+import MadLib from './MadLib.jsx'
 import './app.css'
 
-const TEXT = {
-  hu: {
-    choose: 'Válassz történetet',
-    random: 'Véletlen',
-    intro: 'Töltsd ki a mezőket anélkül, hogy tudnád, hová kerülnek. A végén összeáll belőlük a történet.',
-    progress: (done, total) => `${done} / ${total} mező kitöltve`,
-    tell: 'Mutasd a történetet',
-    edit: 'Szavak módosítása',
-    again: 'Új történet',
-  },
-  en: {
-    choose: 'Choose a story',
-    random: 'Random',
-    intro: 'Fill in the fields without knowing where they will go. At the end, they come together into a story.',
-    progress: (done, total) => `${done} / ${total} fields filled`,
-    tell: 'Reveal the story',
-    edit: 'Edit words',
-    again: 'New story',
-  },
-}
-
-const capitalize = (s) => s.charAt(0).toLocaleUpperCase() + s.slice(1)
-
-function MadLib({ template, hints, t }) {
-  const fields = fieldsOf(template.text)
-  const [values, setValues] = useState({})
-  const [revealed, setRevealed] = useState(false)
-
-  const filled = fields.filter((f) => values[f]?.trim()).length
-  const complete = filled === fields.length
-
-  if (revealed) {
-    return (
-      <article className="ml__story">
-        <h3>{template.title}</h3>
-        <p>
-          {fill(template.text, values).map((part, i) =>
-            part.field ? (
-              <mark key={i} title={capitalize(part.field)}>
-                {part.value.trim()}
-              </mark>
-            ) : (
-              <span key={i}>{part.text}</span>
-            ),
-          )}
-        </p>
-        <div className="ml__actions">
-          <button type="button" className="btn" onClick={() => setRevealed(false)}>
-            {t.edit}
-          </button>
-          <button
-            type="button"
-            className="btn btn--ghost"
-            onClick={() => {
-              setValues({})
-              setRevealed(false)
-            }}
-          >
-            {t.again}
-          </button>
-        </div>
-      </article>
-    )
-  }
-
-  return (
-    <form
-      className="ml__form"
-      onSubmit={(e) => {
-        e.preventDefault()
-        if (complete) setRevealed(true)
-      }}
-    >
-      <p className="ml__intro">{t.intro}</p>
-      <div className="ml__fields">
-        {fields.map((field) => (
-          <label key={field} className="field">
-            <span>{capitalize(field)}</span>
-            <input
-              className="input"
-              value={values[field] ?? ''}
-              placeholder={hints[field]}
-              onChange={(e) => setValues({ ...values, [field]: e.target.value })}
-            />
-          </label>
-        ))}
-      </div>
-      <div className="ml__actions">
-        <button type="submit" className="btn" disabled={!complete}>
-          {t.tell}
-        </button>
-        <span className="ml__progress" aria-live="polite">
-          {t.progress(filled, fields.length)}
-        </span>
-      </div>
-    </form>
-  )
-}
+// The two players' colours come from the site palette: turquoise for player 1, gold for player 2.
+const PLAYER_COLORS = { '--ml-p1': PEACOCK.tealLight, '--ml-p2': PEACOCK.gold }
 
 function MadLibs() {
   const lang = useLang()
   const t = useText(TEXT)
-  const [index, setIndex] = useState(0)
-  const templates = TEMPLATES[lang]
-  const template = templates[index]
+  // A shared link (#story=…) opens on its template. Lazy initial state: the address is read only once.
+  const [storyId, setStoryId] = useState(() => (sharedTemplate() !== null ? 'custom' : TEMPLATES.en[0].id))
+  // null means "the starting template, in the current language" until the player writes their own.
+  const [customText, setCustomText] = useState(() => sharedTemplate())
+  const [players, setPlayers] = useState(1)
 
-  const pickRandom = () => {
-    const others = templates.map((_, i) => i).filter((i) => i !== index)
-    setIndex(others[Math.floor(Math.random() * others.length)])
+  // The player's own story has the same shape as the ready-made ones, so the picker and MadLib treat it alike.
+  const templates = TEMPLATES[lang]
+  const customStory = { id: 'custom', title: t.custom, text: customText ?? START_TEMPLATE[lang] }
+  const stories = [...templates, customStory]
+  const story = stories.find((item) => item.id === storyId) ?? templates[0]
+  const playable = templateProblem(story.text) === ''
+
+  function pickRandom() {
+    // Only the ready-made stories, and always a different one.
+    const others = templates.filter((item) => item.id !== storyId)
+    setStoryId(others[Math.floor(Math.random() * others.length)].id)
   }
 
   return (
-    <div className="ml">
-      <div className="ml__picker">
-        <span className="ml__picker-label">{t.choose}</span>
-        <div className="ml__chips">
-          {templates.map((tpl, i) => (
-            <button key={tpl.id} type="button" className="chip" aria-pressed={i === index} onClick={() => setIndex(i)}>
-              {tpl.title}
-            </button>
-          ))}
+    <div className="ml" style={PLAYER_COLORS}>
+      <ChipPicker
+        label={t.choose}
+        options={stories.map((item) => ({ value: item.id, label: item.title }))}
+        selected={storyId}
+        onSelect={setStoryId}
+        extra={
           <button type="button" className="chip ml__random" onClick={pickRandom}>
             {t.random}
           </button>
-        </div>
-      </div>
+        }
+      />
+      <ChipPicker
+        label={t.players}
+        options={[1, 2].map((count) => ({ value: count, label: t.playerCounts[count] }))}
+        selected={players}
+        onSelect={setPlayers}
+      />
 
-      {/* A key miatt sablon- vagy nyelvváltáskor tiszta lappal indul az űrlap. */}
-      <MadLib key={`${lang}-${template.id}`} template={template} hints={HINTS[lang]} t={t} />
+      {/* With two players the template stays hidden: nobody peeks, and nobody edits it mid-game. */}
+      {story.id === 'custom' &&
+        (players === 1 ? (
+          <StoryEditor text={customStory.text} onChange={setCustomText} />
+        ) : (
+          <p className="ml__note">{t.hiddenEditor}</p>
+        ))}
+
+      {/* A new language, story or number of players means a new key: a fresh MadLib with empty words.
+          Editing your own template keeps the key, so the words already typed stay. */}
+      {playable && <MadLib key={`${lang}-${story.id}-${players}`} story={story} players={players} />}
     </div>
   )
 }

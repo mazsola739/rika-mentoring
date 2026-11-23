@@ -1,0 +1,322 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses (madlibs, fields, field, story, picker, chip, editor, turn…). */
+
+/* The white card in the middle of the page */
+.madlibs {
+  display: grid;
+  gap: 22px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(16 24 40 / 0.08);
+}
+
+.madlibs h1 {
+  margin: 0;
+  color: #7a0291;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+/* A short line of help */
+.hint {
+  margin: 0;
+  color: #5a6478;
+}
+
+/* The form with the words */
+.word-form {
+  display: grid;
+  gap: 18px;
+}
+
+/* The fields sit side by side when there is room, one under the other on a phone */
+.fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px 16px;
+}
+
+/* One field with its label: <label className="field"><span className="field__label">…</span><input /></label> */
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field__label {
+  display: block;
+  font-weight: 700;
+}
+
+/* Field names that come from a template are lowercase ("animal"): the label still starts with a capital. */
+.field__label::first-letter {
+  text-transform: uppercase;
+}
+
+.field input,
+.field textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #c5ccd8;
+  border-radius: 10px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+.field textarea {
+  min-height: 130px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #8a93a5;
+}
+
+/* A row of buttons (and the progress text next to them) */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+/* Buttons: an outline by default, filled with .button--primary */
+button {
+  padding: 9px 18px;
+  border: 2px solid #9a03b7;
+  border-radius: 999px;
+  background: #fff;
+  color: #7a0291;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #f8ebfb;
+}
+
+.button--primary {
+  background: #9a03b7;
+  color: #fff;
+}
+
+.button--primary:hover {
+  border-color: #7a0291;
+  background: #7a0291;
+}
+
+/* A disabled button looks grey and cannot be clicked */
+button:disabled,
+button:disabled:hover {
+  border-color: #d3d9e2;
+  background: #eef1f5;
+  color: #6f7889;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+.progress {
+  color: #5a6478;
+  font-size: 14px;
+}
+
+/* The story */
+.story {
+  display: grid;
+  gap: 14px;
+  padding: 22px 24px;
+  border: 1px solid #ece4d8;
+  border-left: 6px solid #9a03b7;
+  border-radius: 16px;
+  background: #fffaf3;
+}
+
+.story h2 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.story__text {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.75;
+}
+
+/* The player's words inside the story */
+.story mark {
+  padding: 0.1em 0.4em;
+  border-radius: 6px;
+  background: #f3d9f8;
+  color: #5c0170;
+  font-weight: 700;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Choosing a story (or the number of players): a row of chips, the chosen one has aria-pressed="true" */
+.picker {
+  display: grid;
+  gap: 10px;
+}
+
+.picker__label {
+  color: #5a6478;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 7px 14px;
+  border: 1px solid #c5ccd8;
+  color: #1c2333;
+  font-weight: 600;
+}
+
+.chip:hover {
+  border-color: #9a03b7;
+  background: #fff;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: #9a03b7;
+  background: #9a03b7;
+  color: #fff;
+}
+
+.chip--random {
+  border-style: dashed;
+}
+
+/* Writing your own story template */
+.editor {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 16px;
+  background: #f4f6f9;
+}
+
+.editor__fields {
+  margin: 0;
+  color: #5a6478;
+  font-size: 15px;
+}
+
+.editor__problem {
+  margin: 0;
+  color: #b4234a;
+  font-weight: 600;
+}
+
+/* Two-player mode: one field at a time, in the colour of the player whose turn it is */
+.turn {
+  display: grid;
+  gap: 14px;
+  padding: 22px 24px;
+  border: 2px solid #c5ccd8;
+  border-radius: 16px;
+}
+
+.turn__player {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.turn.player-1 {
+  border-color: #01c5ac;
+  background: #e8faf7;
+}
+
+.turn.player-1 .turn__player {
+  color: #016b5d;
+}
+
+.turn.player-2 {
+  border-color: #feb800;
+  background: #fff7de;
+}
+
+.turn.player-2 .turn__player {
+  color: #7a5200;
+}
+
+.story mark.player-1 {
+  background: #bdf1e9;
+  color: #03463d;
+}
+
+.story mark.player-2 {
+  background: #ffe4a3;
+  color: #563a00;
+}
+
+/* Who wrote which word: two small colour samples under the story */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 0;
+  color: #5a6478;
+  font-size: 14px;
+}
+
+.legend span::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  border-radius: 3px;
+  vertical-align: -1px;
+}
+
+.legend .player-1::before {
+  background: #01c5ac;
+}
+
+.legend .player-2::before {
+  background: #feb800;
+}
+
+/* Phones: a little less space around everything */
+@media (max-width: 480px) {
+  body {
+    padding: 16px;
+  }
+
+  .madlibs {
+    padding: 20px;
+  }
+
+  .story,
+  .turn {
+    padding: 18px;
+  }
+
+  .story__text {
+    font-size: 17px;
+  }
+}

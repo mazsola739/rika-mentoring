@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import AppFrame, { useLesson } from '@shared/ui/AppFrame.jsx'
 import { useLang, useText } from '@shared/i18n.js'
 import { useLocalStorage } from './useLocalStorage.js'
-import { CATEGORIES, CATEGORY_KEYS, UNITS, groupByCategory, label, normalize, seedItems } from './items.js'
+import { CATEGORIES, CATEGORY_KEYS, UNITS, groupByCategory, label, seedItems } from './items.js'
+import { cleanHistory, remember, sameName, seedHistory, suggest } from './history.js'
 import './app.css'
 
 const TEXT = {
@@ -24,6 +25,8 @@ const TEXT = {
     less: (name) => `Less ${name}`,
     more: (name) => `More ${name}`,
     remove: (name) => `Remove ${name}`,
+    boughtBefore: 'Bought before:',
+    addAgain: (name) => `Add ${name} again`,
   },
   hu: {
     item: 'Tétel',
@@ -43,6 +46,8 @@ const TEXT = {
     less: (name) => `Kevesebb: ${name}`,
     more: (name) => `Több: ${name}`,
     remove: (name) => `${name} törlése`,
+    boughtBefore: 'Korábban vetted:',
+    addAgain: (name) => `${name} újra a listára`,
   },
 }
 
@@ -120,6 +125,33 @@ function AddItemForm({ onAdd, suggestions, t, lang }) {
   )
 }
 
+// Earlier items that are not on the list now, as one-click buttons. Nothing to suggest: nothing is drawn.
+function Suggestions({ entries, onPick, t, lang }) {
+  if (entries.length === 0) return null
+
+  return (
+    <div className="sl-suggest" role="group" aria-labelledby="sl-suggest-title">
+      <span id="sl-suggest-title" className="sl-suggest__title">
+        {t.boughtBefore}
+      </span>
+      {entries.map((entry) => {
+        const name = label(entry.name, lang)
+        return (
+          <button
+            key={name}
+            type="button"
+            className="chip sl-suggest__btn"
+            onClick={() => onPick(entry)}
+            aria-label={t.addAgain(name)}
+          >
+            <span aria-hidden="true">+</span> {name}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
 function ItemRow({ item, onToggle, onQty, onRemove, t, lang, format }) {
   const name = label(item.name, lang)
   const unit = UNITS[item.unit] ?? UNITS.pcs
@@ -157,7 +189,7 @@ function ShoppingList() {
   const t = useText(TEXT)
   const { palette } = useLesson()
   const [items, setItems] = useLocalStorage('rika:shopping-list:items', seedItems)
-  const [history, setHistory] = useLocalStorage('rika:shopping-list:history', [])
+  const [savedHistory, setHistory] = useLocalStorage('rika:shopping-list:history', seedHistory)
   const [message, setMessage] = useState('')
 
   useEffect(() => {
@@ -171,20 +203,26 @@ function ShoppingList() {
   const done = items.filter((i) => i.done)
   const groups = groupByCategory(active, lang)
   const dotColors = palette.colors.filter((c) => !isVeryLight(c))
-  const suggestions = [...new Set([...history, ...items.map((i) => label(i.name, lang))])]
+  // Derived values: the history in today's shape, the one-click suggestions and the names the name field offers.
+  const history = cleanHistory(savedHistory)
+  const suggestions = suggest(history, items, 8)
+  const pastNames = [...new Set([...history, ...items].map((entry) => label(entry.name, lang)))]
 
+  // values.name is what the user typed, or a suggestion's name (bilingual for the seed entries).
   const add = (values) => {
-    const key = normalize(values.name)
-    const twin = items.find((i) => !i.done && i.unit === values.unit && normalize(label(i.name, lang)) === key)
+    const twin = items.find((i) => !i.done && i.unit === values.unit && sameName(i.name, values.name))
     if (twin) {
       setItems((list) => list.map((i) => (i.id === twin.id ? { ...i, qty: round(i.qty + values.qty) } : i)))
       setMessage(t.merged(label(twin.name, lang)))
     } else {
       setItems((list) => [...list, { id: crypto.randomUUID(), done: false, addedAt: Date.now(), ...values }])
-      setMessage(t.added(values.name))
+      setMessage(t.added(label(values.name, lang)))
     }
-    setHistory((h) => [values.name, ...h.filter((n) => normalize(n) !== key)].slice(0, 30))
+    setHistory((saved) => remember(cleanHistory(saved), values))
   }
+
+  // A suggestion comes back the way it was bought last time: same amount, unit and category.
+  const pickSuggestion = (entry) => add({ name: entry.name, qty: entry.qty, unit: entry.unit, category: entry.category })
 
   const toggle = (id) => setItems((list) => list.map((i) => (i.id === id ? { ...i, done: !i.done } : i)))
   const changeQty = (id, delta) =>
@@ -197,7 +235,8 @@ function ShoppingList() {
 
   return (
     <div className="sl">
-      <AddItemForm onAdd={add} suggestions={suggestions} t={t} lang={lang} />
+      <AddItemForm onAdd={add} suggestions={pastNames} t={t} lang={lang} />
+      <Suggestions entries={suggestions} onPick={pickSuggestion} t={t} lang={lang} />
       <p className="sl-message" role="status" aria-live="polite">
         {message}
       </p>

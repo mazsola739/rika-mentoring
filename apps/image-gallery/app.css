@@ -36,6 +36,9 @@
 
 .ig-stage__open {
   display: grid;
+  /* minmax(0, 1fr): the one cell is exactly the button's size, so max-height: 100% on the image has a height to use. */
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   width: 100%;
   height: 100%;
@@ -154,45 +157,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.ig-dots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
-}
-
-/* A 24px hit area around a small visible dot. */
-.ig-dot {
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-}
-
-.ig-dot::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--line);
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.ig-dot:hover::before {
-  background: var(--ink-soft);
-}
-
-.ig-dot[aria-current='true']::before {
-  background: var(--solid);
-  transform: scale(1.35);
-}
-
 /* ── Upload ─────────────────────────────────────────── */
 .ig-drop {
   display: grid;
@@ -285,7 +249,65 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.3s ease;
+}
+
+/* A thumbnail that is still loading is invisible, then fades in (the button's background fills the space). */
+.ig-thumb img.is-loading {
+  opacity: 0;
+}
+
+/* The picture being dragged stays faded at its old place. */
+.ig-grid__item.is-dragging {
+  opacity: 0.35;
+}
+
+/* Move earlier / later: shown on hover and keyboard focus, always on touch screens. */
+.ig-moves {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.ig-grid__item:hover .ig-moves,
+.ig-grid__item:focus-within .ig-moves {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .ig-moves {
+    opacity: 1;
+  }
+}
+
+.ig-move {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0 0 2px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  font: 700 20px/1 var(--font-body);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.ig-move:hover:not([aria-disabled='true']) {
+  background: var(--paper-2);
+}
+
+.ig-move[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .ig-thumb:hover img {
@@ -323,6 +345,15 @@
 
 .ig-remove:hover {
   background: var(--paper-2);
+}
+
+/* The sentinel of the infinite scroll: when it gets near the screen, the next pictures come. */
+.ig-more {
+  margin: -6px 0 0;
+  padding: 16px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  text-align: center;
 }
 
 .ig-keys {
@@ -467,4 +498,22 @@ body:has(.ig-lightbox[open]) {
   height: 16px;
   border-radius: 50%;
   box-shadow: inset 0 0 0 1px rgb(15 27 45 / 0.14);
+}
+
+/* Less motion for people who asked their system for it */
+@media (prefers-reduced-motion: reduce) {
+  .ig-stage__img,
+  .ig-lightbox__figure img,
+  .ig-lightbox[open] {
+    animation: none;
+  }
+
+  .ig-thumb img,
+  .ig-moves {
+    transition: none;
+  }
+
+  .ig-thumb:hover img {
+    transform: none;
+  }
 }

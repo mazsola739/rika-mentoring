@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+<rect x="0" y="0" width="600" height="800" fill="#FEB800"/><circle cx="450" cy="160" r="60" fill="#01C5AC"/><path d="M-150 300 Q-75 255 0 300 T150 300 T300 300 T450 300 T600 300 T750 300 T900 300 V800 H-150 Z" fill="#013E8E"/><path d="M-75 460 Q0 405 75 460 T225 460 T375 460 T525 460 T675 460 T825 460 T975 460 V800 H-75 Z" fill="#0197D8"/><path d="M-150 620 Q-75 575 0 620 T150 620 T300 620 T450 620 T600 620 T750 620 T900 620 V800 H-150 Z" fill="#083F58"/>
+</svg>

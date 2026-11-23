@@ -2,13 +2,23 @@ import { useCallback, useEffect, useState } from 'react'
 import AppFrame, { useLesson } from '@shared/ui/AppFrame.jsx'
 import { useText } from '@shared/i18n.js'
 import { useLocalStorage } from './useLocalStorage.js'
-import { HARMONY_KEYS, contrast, generatePalette, rating, readableInk } from './color.js'
+import {
+  HARMONY_KEYS,
+  contrast,
+  generatePalette,
+  paletteFromHash,
+  paletteToHash,
+  rating,
+  readableInk,
+} from './color.js'
 import './app.css'
 
 const TEXT = {
   en: {
     generate: 'New palette',
-    spaceHint: 'or press Space',
+    spaceBefore: 'or press',
+    spaceKey: 'Space',
+    spaceAfter: '',
     harmony: 'Harmony',
     harmonies: { random: 'Random', analogous: 'Analogous', complementary: 'Complementary', monochrome: 'Monochrome' },
     lock: (hex) => `Lock ${hex}`,
@@ -18,10 +28,13 @@ const TEXT = {
     copiedMsg: (text) => `Copied: ${text}`,
     copyFailed: 'Copying is not allowed in this browser.',
     locked: 'Locked',
+    low: 'Low',
     contrastTitle: (ratio) => `Contrast of the label: ${ratio}:1`,
     save: 'Save to favorites',
     saved: 'Saved',
     copyCss: 'Copy as CSS variables',
+    copyLink: 'Copy link',
+    link: 'link',
     favorites: 'Favorites',
     noFavorites: 'No saved palettes yet. Find one you like and press “Save to favorites”.',
     load: (hexes) => `Use palette ${hexes}`,
@@ -30,7 +43,9 @@ const TEXT = {
   },
   hu: {
     generate: 'Új paletta',
-    spaceHint: 'vagy nyomd meg a szóközt',
+    spaceBefore: 'vagy nyomd le a',
+    spaceKey: 'Szóköz',
+    spaceAfter: 'billentyűt',
     harmony: 'Harmónia',
     harmonies: { random: 'Véletlen', analogous: 'Analóg', complementary: 'Komplementer', monochrome: 'Monokróm' },
     lock: (hex) => `${hex} zárolása`,
@@ -40,10 +55,13 @@ const TEXT = {
     copiedMsg: (text) => `Vágólapra másolva: ${text}`,
     copyFailed: 'Ebben a böngészőben nem engedélyezett a másolás.',
     locked: 'Zárolva',
+    low: 'Gyenge',
     contrastTitle: (ratio) => `A felirat kontrasztja: ${ratio}:1`,
     save: 'Mentés a kedvencekhez',
     saved: 'Elmentve',
     copyCss: 'Másolás CSS-változóként',
+    copyLink: 'Link másolása',
+    link: 'link',
     favorites: 'Kedvencek',
     noFavorites: 'Még nincs mentett paletta. Ha találsz egy tetszőt, nyomd meg a „Mentés a kedvencekhez” gombot.',
     load: (hexes) => `${hexes} paletta betöltése`,
@@ -68,7 +86,8 @@ function LockIcon({ locked }) {
 
 function Swatch({ color, copied, onCopy, onToggleLock, t }) {
   const ink = readableInk(color.hex)
-  const ratio = contrast(color.hex, ink)
+  // Cut to one decimal (not rounded), so the number shown and the rating always agree: 4.47 is "4.4", not "4.5".
+  const ratio = Math.floor(contrast(color.hex, ink) * 10) / 10
   const level = rating(ratio)
   return (
     <li className={`cp-swatch${color.locked ? ' is-locked' : ''}`} style={{ background: color.hex, color: ink }}>
@@ -87,8 +106,7 @@ function Swatch({ color, copied, onCopy, onToggleLock, t }) {
           {copied ? t.copied : color.hex}
         </button>
         <span className="cp-swatch__meta" title={t.contrastTitle(ratio.toFixed(1))}>
-          {level && `${level} · `}
-          {ratio.toFixed(1)}:1
+          {level ?? t.low} · {ratio.toFixed(1)}:1
         </span>
       </div>
     </li>
@@ -103,16 +121,36 @@ function ColorPalette() {
   )
   const [favorites, setFavorites] = useLocalStorage('rika:color-palette:favorites', [])
   const [mode, setMode] = useLocalStorage('rika:color-palette:mode', 'random')
-  const [copied, setCopied] = useState(null) // index of the swatch, or 'css'
+  const [copied, setCopied] = useState(null) // index of the swatch, 'css' or 'link'
   const [message, setMessage] = useState('')
+  // A palette shared in the address, read once on the first render, before any effect rewrites the address.
+  const [shared] = useState(() => paletteFromHash(window.location.hash))
 
   const harmony = HARMONY_KEYS.includes(mode) ? mode : 'random'
   const hexes = colors.map((c) => c.hex)
   const isSaved = favorites.some((f) => f.colors.join() === hexes.join())
+  const hash = paletteToHash(hexes)
+
+  // A shared link wins over the palette saved in this browser.
+  useEffect(() => {
+    if (shared) setColors(shared.map((hex) => ({ hex, locked: false })))
+  }, [shared, setColors])
+
+  // The address always shows the current palette, so it can be shared at any time. Only the part
+  // after # changes, so ?view=solution stays, and replaceState adds no new history entries.
+  useEffect(() => {
+    history.replaceState(null, '', hash)
+  }, [hash])
 
   // useCallback keeps the same function between renders, so the keyboard effect
   // below only re-subscribes when the harmony mode changes.
   const generate = useCallback(() => setColors((current) => generatePalette(current, harmony)), [harmony, setColors])
+
+  // A new harmony gives a new palette at once. key, not harmony: the state still holds the old value here.
+  function changeHarmony(key) {
+    setMode(key)
+    setColors((current) => generatePalette(current, key))
+  }
 
   // Arrays in state are never changed in place: map() builds a new array with one new object.
   const toggleLock = (index) => setColors((current) => current.map((c, i) => (i === index ? { ...c, locked: !c.locked } : c)))
@@ -141,11 +179,12 @@ function ColorPalette() {
     return () => clearTimeout(timer)
   }, [copied])
 
-  const copy = async (text, id) => {
+  // The label is what the message shows; without one, it is the copied text itself.
+  async function copy(text, id, label = text) {
     try {
       await navigator.clipboard.writeText(text)
       setCopied(id)
-      setMessage(t.copiedMsg(text.length > 9 ? 'CSS' : text))
+      setMessage(t.copiedMsg(label))
     } catch {
       setMessage(t.copyFailed)
     }
@@ -166,13 +205,14 @@ function ColorPalette() {
             {t.generate}
           </button>
           <span className="cp-hint">
-            <kbd>Space</kbd> {t.spaceHint}
+            {t.spaceBefore} <kbd>{t.spaceKey}</kbd>
+            {t.spaceAfter && ` ${t.spaceAfter}`}
           </span>
         </div>
         <div className="cp-harmony" role="group" aria-label={t.harmony}>
           <span className="cp-label">{t.harmony}</span>
           {HARMONY_KEYS.map((key) => (
-            <button key={key} type="button" className="chip" aria-pressed={harmony === key} onClick={() => setMode(key)}>
+            <button key={key} type="button" className="chip" aria-pressed={harmony === key} onClick={() => changeHarmony(key)}>
               {t.harmonies[key]}
             </button>
           ))}
@@ -197,13 +237,17 @@ function ColorPalette() {
         <button type="button" className="btn btn--ghost" onClick={save} disabled={isSaved}>
           {isSaved ? `✓ ${t.saved}` : t.save}
         </button>
-        <button type="button" className="btn btn--ghost" onClick={() => copy(cssVariables, 'css')}>
+        <button type="button" className="btn btn--ghost" onClick={() => copy(cssVariables, 'css', 'CSS')}>
           {copied === 'css' ? t.copied : t.copyCss}
+        </button>
+        <button type="button" className="btn btn--ghost" onClick={() => copy(window.location.href, 'link', t.link)}>
+          {copied === 'link' ? t.copied : t.copyLink}
         </button>
         <p className="visually-hidden" role="status" aria-live="polite">
           {message}
         </p>
       </div>
+      <pre className="cp-export">{cssVariables}</pre>
 
       <section className="cp-favs" aria-labelledby="cp-favs-title">
         <h3 id="cp-favs-title">
