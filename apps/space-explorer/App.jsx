@@ -4,14 +4,24 @@ import { useLang, useText } from '@shared/i18n.js'
 import { FIRST_DAY, apodToday, clampDay, formatDay, isIsoDay, randomDay, shiftDay } from './dates.js'
 import { apodErrorKind, useApod } from './useApod.js'
 import { useLocalStorage } from './useLocalStorage.js'
-import ApodMedia, { isPlaceholder } from './ApodMedia.jsx'
+import ApodMedia from './ApodMedia.jsx'
 import './app.css'
 
-const FAVORITES_KEY = 'rika:space-explorer:favorites'
+const FAVORITES_KEY = 'rika:space-explorer:favorite-days'
+
+// Earlier versions of this lesson cached answers from NASA's servers under these keys; they are not needed any more.
+for (const oldKey of ['rika:space-explorer:cache', 'rika:space-explorer:favorites']) {
+  try {
+    localStorage.removeItem(oldKey)
+  } catch {
+    // storage blocked: nothing to clean up
+  }
+}
 
 const TEXT = {
   en: {
-    intro: 'Every day NASA publishes a new picture of our universe, with a short explanation written by an astronomer.',
+    intro:
+      'Every day of the archive has its own picture of our universe with a short explanation, served by the lesson’s own space API.',
     date: 'Date',
     prev: 'Previous day',
     next: 'Next day',
@@ -19,10 +29,10 @@ const TEXT = {
     random: 'Random day',
     loading: 'Loading the picture…',
     fromCache: 'Loaded from your browser cache, no request needed.',
-    fromNasa: (left) =>
+    fromApi: (left) =>
       left == null
-        ? 'Fetched from the NASA API.'
-        : `Fetched from the NASA API · ${left} requests left this hour with the demo key.`,
+        ? 'Fetched from the space API.'
+        : `Fetched from the space API · ${left} requests left this hour with the demo key.`,
     credit: 'Credit',
     save: 'Save to favorites',
     unsave: 'Remove from favorites',
@@ -30,26 +40,30 @@ const TEXT = {
     favoritesEmpty: 'Save a picture with the star and it will be waiting for you here.',
     removeFavorite: (title) => `Remove “${title}” from favorites`,
     errors: {
-      rate: 'NASA’s demo key allows only a few requests per hour from one network, and that limit has been reached. Please try again later. Days you have already opened and your favorites still load from the cache.',
+      rate: 'The demo key allows only 30 requests per hour, and they have all been used. Try again later, or reload the page: this is only a practice limit. Days you have already opened and your favorites still load from the cache.',
+      key: 'The API did not accept the key (403 Forbidden). Check VITE_APOD_KEY in your .env file, or remove it to use DEMO_KEY.',
       notFound: 'There is no picture for this date.',
-      server: 'The NASA API is not responding right now.',
-      timeout: 'NASA’s server took too long to answer.',
+      server: 'The space API is not responding right now.',
+      timeout: 'The space API took too long to answer.',
       offline: 'You seem to be offline. Days you have already opened still work.',
     },
     todayMissing: 'Today’s picture may not be published yet.',
     yesterday: 'Show yesterday’s picture',
     retry: 'Try again',
-    placeholder: 'For this day the NASA API sent its logo instead of the actual picture.',
-    openOriginal: 'Open on apod.nasa.gov',
     openFull: 'Open in full resolution',
-    videoElsewhere: 'This day features a video that is hosted outside YouTube.',
-    watchVideo: 'Watch the video',
+    close: 'Close',
+    animation: 'Video · animation',
+    play: 'Play',
+    pause: 'Pause',
+    mediaError: 'This picture could not be loaded. Try again later.',
+    videoUnsupported: 'This day features a video in a format this page cannot play.',
     otherMedia: 'This day features interactive content that cannot be shown here.',
-    englishOnly: null,
-    source: 'Data: NASA Astronomy Picture of the Day (APOD) API.',
+    source:
+      'Data and pictures: the lesson’s own APOD-style API (/api/apod), running in your browser. Every picture is drawn in code.',
   },
   hu: {
-    intro: 'A NASA minden nap közzétesz egy új képet a világegyetemről, egy csillagász rövid magyarázatával.',
+    intro:
+      'Az archívum minden napjához tartozik egy kép a világegyetemről, rövid magyarázattal – ezeket a lecke saját űr-API-ja szolgálja ki.',
     date: 'Dátum',
     prev: 'Előző nap',
     next: 'Következő nap',
@@ -57,10 +71,8 @@ const TEXT = {
     random: 'Véletlen nap',
     loading: 'A kép betöltése…',
     fromCache: 'A böngésző gyorsítótárából, kérés nélkül.',
-    fromNasa: (left) =>
-      left == null
-        ? 'A NASA API-ból töltve.'
-        : `A NASA API-ból töltve · a demókulccsal ebben az órában még ${left} kérés maradt.`,
+    fromApi: (left) =>
+      left == null ? 'Az űr-API-ból töltve.' : `Az űr-API-ból töltve · a demókulccsal ebben az órában még ${left} kérés maradt.`,
     credit: 'Készítette',
     save: 'Mentés a kedvencek közé',
     unsave: 'Törlés a kedvencek közül',
@@ -68,23 +80,26 @@ const TEXT = {
     favoritesEmpty: 'A csillaggal elmentett képek itt várnak rád.',
     removeFavorite: (title) => `„${title}” törlése a kedvencek közül`,
     errors: {
-      rate: 'A NASA demókulcsa óránként csak néhány kérést enged egy hálózatról, és ez a keret most elfogyott. Próbáld újra később! A már megnyitott napok és a kedvenceid a gyorsítótárból továbbra is betöltődnek.',
+      rate: 'A demókulcs óránként csak 30 kérést enged, és ezek most elfogytak. Próbáld újra később, vagy töltsd újra az oldalt: ez csak egy gyakorló korlát. A már megnyitott napok és a kedvenceid a gyorsítótárból továbbra is betöltődnek.',
+      key: 'Az API nem fogadta el a kulcsot (403 Forbidden). Ellenőrizd a VITE_APOD_KEY értékét a .env fájlban, vagy töröld, és a DEMO_KEY lesz használva.',
       notFound: 'Erre a napra nincs kép.',
-      server: 'A NASA API most nem válaszol.',
-      timeout: 'A NASA szervere túl lassan válaszolt.',
+      server: 'Az űr-API most nem válaszol.',
+      timeout: 'Az űr-API túl lassan válaszolt.',
       offline: 'Úgy tűnik, nincs internetkapcsolat. A már megnyitott napok így is működnek.',
     },
     todayMissing: 'Lehet, hogy a mai kép még nem jelent meg.',
     yesterday: 'A tegnapi kép',
     retry: 'Újrapróbálás',
-    placeholder: 'Erre a napra a NASA API a logóját küldte a valódi kép helyett.',
-    openOriginal: 'Megnyitás az apod.nasa.gov oldalon',
     openFull: 'Megnyitás teljes felbontásban',
-    videoElsewhere: 'Ezen a napon olyan videó szerepel, amely nem a YouTube-on érhető el.',
-    watchVideo: 'A videó megnyitása',
+    close: 'Bezárás',
+    animation: 'Videó · animáció',
+    play: 'Lejátszás',
+    pause: 'Szünet',
+    mediaError: 'Ezt a képet nem sikerült betölteni. Próbáld újra később!',
+    videoUnsupported: 'Ezen a napon olyan formátumú videó szerepel, amelyet ez az oldal nem tud lejátszani.',
     otherMedia: 'Ezen a napon interaktív tartalom szerepel, amelyet itt nem lehet megjeleníteni.',
-    englishOnly: 'A NASA leírásai angol nyelvűek.',
-    source: 'Adatok: NASA Astronomy Picture of the Day (APOD) API.',
+    source:
+      'Adatok és képek: a lecke saját, APOD-mintájú API-ja (/api/apod), amely a böngésződben fut. Minden kép kóddal rajzolt.',
   },
 }
 
@@ -187,11 +202,8 @@ function ApodCard({ apod, fromCache, remaining, isFavorite, onToggleFavorite, lo
           {isFavorite ? t.unsave : t.save}
         </button>
       </div>
-      {t.englishOnly && <p className="sx-card__lang">{t.englishOnly}</p>}
-      <p className="sx-card__text" lang="en">
-        {apod.explanation?.trim()}
-      </p>
-      <p className="sx-card__meta">{fromCache ? t.fromCache : t.fromNasa(remaining)}</p>
+      <p className="sx-card__text">{apod.explanation?.trim()}</p>
+      <p className="sx-card__meta">{fromCache ? t.fromCache : t.fromApi(remaining)}</p>
     </article>
   )
 }
@@ -220,7 +232,9 @@ function Favorites({ favorites, current, onOpen, onRemove, locale, t }) {
                     </svg>
                   </span>
                 )}
-                <span className="sx-favs__date">{formatDay(fav.date, locale, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                <span className="sx-favs__date">
+                  {formatDay(fav.date, locale, { year: 'numeric', month: 'short', day: 'numeric' })}
+                </span>
                 <span className="sx-favs__title">{fav.title}</span>
               </button>
               <button
@@ -248,7 +262,7 @@ function SpaceExplorer() {
   const [date, setDate] = useState(today)
   const [stored, setFavorites] = useLocalStorage(FAVORITES_KEY, [])
   const favorites = Array.isArray(stored) ? stored : [] // never trust what is in storage
-  const apod = useApod(date)
+  const apod = useApod(date, lang)
 
   const go = (next) => setDate(clampDay(next, FIRST_DAY, today))
 
@@ -262,7 +276,7 @@ function SpaceExplorer() {
       return
     }
     // Only what the list needs is saved; the full answer is already in the cache.
-    const thumb = isPlaceholder(data) ? null : data.media_type === 'image' ? data.url : (data.thumbnail_url ?? null)
+    const thumb = data.media_type === 'image' ? data.url : (data.thumbnail_url ?? null)
     setFavorites([{ date: data.date, title: data.title, thumb }, ...favorites].slice(0, 30))
   }
 

@@ -56,8 +56,8 @@
     "hu": { "build": "Pénznemváltó friss árfolyamokkal", "learn": "fetch, töltés- és hibaállapot, useFetch hook" }
   },
   "space-explorer": {
-    "en": { "build": "NASA's picture of the day, browsable by date", "learn": "APIs with a key, dates, images or videos, caching" },
-    "hu": { "build": "A NASA napi képe, dátum szerint lapozva", "learn": "API kulccsal, dátumok, kép vagy videó, cache" }
+    "en": { "build": "A space picture of the day, browsable by date", "learn": "APIs with a key, dates, images or videos, caching" },
+    "hu": { "build": "A nap űrképe, dátum szerint lapozva", "learn": "API kulccsal, dátumok, kép vagy videó, cache" }
   },
   "typing-test": {
     "en": { "build": "A typing test with live speed and accuracy", "learn": "useRef, timers, computing on every keystroke" },

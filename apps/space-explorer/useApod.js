@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
-// The key comes from an environment variable (VITE_NASA_KEY in a .env file) when there is one.
-// DEMO_KEY works without registering, but NASA allows only a few requests per hour with it,
-// which is exactly why every answer is cached below.
-const API_KEY = import.meta.env.VITE_NASA_KEY || 'DEMO_KEY'
-const API = 'https://api.nasa.gov/planetary/apod'
-const CACHE_KEY = 'rika:space-explorer:cache'
+// The API address and key come from environment variables (VITE_APOD_API and VITE_APOD_KEY in a .env file)
+// when there are any. The defaults are the lesson's own picture API (mocks/handlers.js, it runs in the browser)
+// and its DEMO_KEY, which allows only a few requests per hour: exactly why every answer is cached below.
+// Remember that every VITE_ variable ends up in the browser bundle, so only public keys belong there.
+const API = import.meta.env.VITE_APOD_API ?? '/api/apod'
+const API_KEY = import.meta.env.VITE_APOD_KEY || 'DEMO_KEY'
+const CACHE_KEY = 'rika:space-explorer:apod-cache'
 const MAX_CACHED_DAYS = 40
 
 export class ApodError extends Error {
@@ -26,29 +27,30 @@ function readCache() {
 
 // A picture never changes once it is published, so a cached day is valid forever.
 // Only the newest entries are kept, so the cache cannot grow without limit.
-function saveToCache(date, entry) {
+function saveToCache(cacheKey, entry) {
   const cache = readCache()
-  delete cache[date]
-  cache[date] = entry
-  const dates = Object.keys(cache)
-  dates.slice(0, Math.max(0, dates.length - MAX_CACHED_DAYS)).forEach((old) => delete cache[old])
+  delete cache[cacheKey]
+  cache[cacheKey] = entry
+  const keys = Object.keys(cache)
+  keys.slice(0, Math.max(0, keys.length - MAX_CACHED_DAYS)).forEach((old) => delete cache[old])
   try {
     localStorage.setItem(CACHE_KEY, JSON.stringify(cache))
   } catch {
-    // storage full or blocked: we simply ask NASA again next time
+    // storage full or blocked: we simply ask the API again next time
   }
 }
 
 /**
- * The Astronomy Picture of the Day for one date: { status, data, error, fromCache, remaining, retry }.
- * A cached date is answered instantly without a request; otherwise we fetch, and the effect's
+ * The picture of the day for one date and language: { status, data, error, fromCache, remaining, retry }.
+ * A cached day is answered instantly without a request; otherwise we fetch, and the effect's
  * cleanup aborts the request when the date changes before the answer arrives.
  */
-export function useApod(date) {
-  const cached = useMemo(() => readCache()[date] ?? null, [date])
+export function useApod(date, lang) {
+  const cacheKey = `${lang}:${date}`
+  const cached = useMemo(() => readCache()[cacheKey] ?? null, [cacheKey])
   const [attempt, setAttempt] = useState(0)
   const [result, setResult] = useState({ key: null })
-  const key = `${attempt}:${date}`
+  const key = `${attempt}:${cacheKey}`
 
   useEffect(() => {
     if (cached) return undefined
@@ -59,16 +61,18 @@ export function useApod(date) {
       controller.abort()
     }, 20000)
 
-    fetch(`${API}?api_key=${API_KEY}&date=${date}&thumbs=true`, { signal: controller.signal })
+    // URLSearchParams builds the query string and escapes every value for us.
+    const query = new URLSearchParams({ api_key: API_KEY, date, thumbs: 'true', lang })
+    fetch(`${API}?${query}`, { signal: controller.signal })
       .then(async (res) => {
         const body = await res.json().catch(() => null)
-        if (!res.ok) throw new ApodError(res.status, body?.msg ?? body?.error?.message)
-        // NASA tells us how many requests are left for this key (the header is exposed via CORS).
+        if (!res.ok) throw new ApodError(res.status, body?.message ?? body?.msg)
+        // The API tells us how many requests are left for this key in a response header.
         const remaining = res.headers.get('X-RateLimit-Remaining')
         return { data: body, remaining: remaining === null ? null : Number(remaining) }
       })
       .then(({ data, remaining }) => {
-        saveToCache(date, data)
+        saveToCache(cacheKey, data)
         setResult({ key, data, remaining })
       })
       .catch((error) => {
@@ -81,7 +85,7 @@ export function useApod(date) {
       clearTimeout(timer)
       controller.abort()
     }
-  }, [date, key, cached])
+  }, [date, lang, cacheKey, key, cached])
 
   const retry = useCallback(() => setAttempt((n) => n + 1), [])
 
@@ -95,7 +99,8 @@ export function useApod(date) {
 export function apodErrorKind(error) {
   if (typeof navigator !== 'undefined' && navigator.onLine === false) return 'offline'
   if (error?.message === 'timeout') return 'timeout'
+  if (error?.status === 403) return 'key' // missing or wrong api_key
   if (error?.status === 429) return 'rate'
   if (error?.status === 400 || error?.status === 404) return 'notFound'
-  return 'server' // 5xx, or fetch() could not reach the host at all
+  return 'server' // 5xx, or fetch() could not reach the API at all
 }

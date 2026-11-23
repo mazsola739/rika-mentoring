@@ -1,78 +1,88 @@
-import { useState } from 'react'
-import { apodPageUrl } from './dates.js'
+import { useEffect, useRef, useState } from 'react'
 
-// Turns any YouTube link (watch, youtu.be, embed, shorts) into a privacy-friendly embed URL, or null.
-export function youTubeEmbed(url) {
-  try {
-    const u = new URL(url)
-    const host = u.hostname.replace(/^(www|m)\./, '')
-    let id = null
-    if (host === 'youtu.be') id = u.pathname.slice(1)
-    else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
-      if (u.pathname === '/watch') id = u.searchParams.get('v')
-      else id = u.pathname.match(/^\/(?:embed|shorts)\/([\w-]+)/)?.[1] ?? null
-    }
-    return id && /^[\w-]{6,}$/.test(id) ? `https://www.youtube-nocookie.com/embed/${id}?rel=0` : null
-  } catch {
-    return null
-  }
+// This API's videos are short animations in SVG format, which an <img> plays by itself.
+// Other formats (an .mp4, a link to a video site) would need a <video> element or an embed.
+const isSvgAnimation = (url) => /\.svg(?:[?#]|$)/i.test(url ?? '')
+
+const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
+
+// The full-size picture in a modal <dialog>: Esc, the close button or a click outside closes it.
+function FullSizeDialog({ src, title, onClose, t }) {
+  const ref = useRef(null)
+
+  // Removing the element on unmount closes it too, so the effect needs no cleanup.
+  useEffect(() => {
+    if (ref.current && !ref.current.open) ref.current.showModal()
+  }, [])
+
+  return (
+    <dialog
+      ref={ref}
+      className="sx-zoom"
+      aria-label={title}
+      onClose={onClose}
+      onClick={(e) => e.target === e.currentTarget && e.currentTarget.close()}
+    >
+      <img src={src} alt={title} />
+      <button type="button" className="btn sx-zoom__close" onClick={() => ref.current?.close()}>
+        {t.close}
+      </button>
+    </dialog>
+  )
 }
 
-// The API sometimes answers with NASA's logo instead of the real picture.
-export const isPlaceholder = (apod) => /nasa-logo/i.test(apod.url ?? '')
+function ImageView({ apod, onBroken, t }) {
+  const [zoomed, setZoomed] = useState(false)
+  return (
+    <figure className="sx-media">
+      <img src={apod.url} alt={apod.title} onError={onBroken} />
+      <figcaption>
+        <button type="button" className="sx-media__link" onClick={() => setZoomed(true)}>
+          {t.openFull}
+        </button>
+      </figcaption>
+      {zoomed && <FullSizeDialog src={apod.hdurl || apod.url} title={apod.title} onClose={() => setZoomed(false)} t={t} />}
+    </figure>
+  )
+}
 
-// Rendering by media type: image, YouTube video, or a link for everything else.
+function AnimationView({ apod, onBroken, t }) {
+  // People who asked their system for less motion get the still frame first.
+  const [playing, setPlaying] = useState(() => !prefersReducedMotion())
+  // A paused animation shows the still thumbnail instead (the API sends one when asked with thumbs=true).
+  const still = apod.thumbnail_url
+  return (
+    <figure className="sx-media sx-media--video">
+      <img src={playing || !still ? apod.url : still} alt={apod.title} onError={onBroken} />
+      <figcaption>
+        <span className="sx-media__badge">{t.animation}</span>
+        {still && (
+          <button type="button" className="sx-media__link" aria-pressed={!playing} onClick={() => setPlaying((p) => !p)}>
+            {playing ? t.pause : t.play}
+          </button>
+        )}
+      </figcaption>
+    </figure>
+  )
+}
+
+// Rendering by media type: an image, an animation the page can play, or a note for everything else.
 export default function ApodMedia({ apod, t }) {
   const [broken, setBroken] = useState(false)
-  const page = apodPageUrl(apod.date)
+  const onBroken = () => setBroken(true)
 
-  if (isPlaceholder(apod)) {
-    return (
-      <div className="sx-media sx-media--note">
-        <p>{t.placeholder}</p>
-        <a className="btn" href={page} target="_blank" rel="noreferrer">
-          {t.openOriginal}
-        </a>
-      </div>
-    )
+  if (!broken && apod.media_type === 'image') return <ImageView apod={apod} onBroken={onBroken} t={t} />
+  if (!broken && apod.media_type === 'video' && isSvgAnimation(apod.url)) {
+    return <AnimationView apod={apod} onBroken={onBroken} t={t} />
   }
 
-  if (apod.media_type === 'image' && !broken) {
-    return (
-      <figure className="sx-media">
-        <img src={apod.url} alt={apod.title} onError={() => setBroken(true)} />
-        <figcaption>
-          <a href={apod.hdurl || apod.url} target="_blank" rel="noreferrer">
-            {t.openFull}
-          </a>
-        </figcaption>
-      </figure>
-    )
-  }
-
-  const embed = apod.media_type === 'video' ? youTubeEmbed(apod.url) : null
-  if (embed) {
-    return (
-      <figure className="sx-media sx-media--video">
-        <iframe
-          src={embed}
-          title={apod.title}
-          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-          referrerPolicy="strict-origin-when-cross-origin"
-          loading="lazy"
-        />
-      </figure>
-    )
-  }
-
-  // Other videos (Vimeo, NASA's own player…), interactive pages or a failed image: link to the original.
+  let note = t.otherMedia
+  if (broken) note = t.mediaError
+  else if (apod.media_type === 'video') note = t.videoUnsupported
   return (
     <div className="sx-media sx-media--note">
-      {apod.thumbnail_url && <img className="sx-media__thumb" src={apod.thumbnail_url} alt="" />}
-      <p>{apod.media_type === 'video' ? t.videoElsewhere : t.otherMedia}</p>
-      <a className="btn" href={apod.media_type === 'video' && apod.url ? apod.url : page} target="_blank" rel="noreferrer">
-        {apod.media_type === 'video' ? t.watchVideo : t.openOriginal}
-      </a>
+      {apod.thumbnail_url && !broken && <img className="sx-media__thumb" src={apod.thumbnail_url} alt="" />}
+      <p>{note}</p>
     </div>
   )
 }

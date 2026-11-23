@@ -21,8 +21,8 @@ function DetailSkeleton() {
 }
 
 // Second request, started only once we know the character: all of its episodes in one call.
-function EpisodeList({ episodeUrls, t }) {
-  const { status, data, error, retry } = useFetch(episodesUrl(episodeUrls))
+function EpisodeList({ episodeUrls, lang, t }) {
+  const { status, data, error, retry } = useFetch(episodesUrl(episodeUrls, lang))
   const [showAll, setShowAll] = useState(false)
   const episodes = asList(data)
   const visible = showAll ? episodes : episodes.slice(0, FIRST_EPISODES)
@@ -57,9 +57,7 @@ function EpisodeList({ episodeUrls, t }) {
             {visible.map((episode) => (
               <li key={episode.id}>
                 <code>{episode.episode}</code>
-                <span className="fw-episodes__name" lang="en">
-                  {episode.name}
-                </span>
+                <span className="fw-episodes__name">{episode.name}</span>
                 <small>{episode.air_date}</small>
               </li>
             ))}
@@ -76,13 +74,17 @@ function EpisodeList({ episodeUrls, t }) {
 }
 
 // The page for #/character/:id. The id comes from the URL, so a reload or a shared link opens the same character.
-export default function CharacterDetail({ id, backHref, t }) {
-  const { status, data, error, retry } = useFetch(characterUrl(id))
+export default function CharacterDetail({ id, backHref, lang, t }) {
+  const { status, data, error, retry } = useFetch(characterUrl(id, lang))
   const headingRef = useRef(null)
+  const focused = useRef(false)
 
   // Move focus to the new page's title, so keyboard and screen reader users start reading there.
+  // Only once per character: a reload in another language should not pull the focus away.
   useEffect(() => {
-    if (data) headingRef.current?.focus({ preventScroll: true })
+    if (!data || focused.current) return
+    focused.current = true
+    headingRef.current?.focus({ preventScroll: true })
   }, [data])
 
   const facts = data
@@ -158,7 +160,7 @@ export default function CharacterDetail({ id, backHref, t }) {
             </div>
           </article>
           {t.dataNote && <p className="fw-note">{t.dataNote}</p>}
-          <EpisodeList key={data.id} episodeUrls={data.episode} t={t} />
+          <EpisodeList key={data.id} episodeUrls={data.episode} lang={lang} t={t} />
         </>
       )}
     </div>

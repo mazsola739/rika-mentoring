@@ -3,9 +3,10 @@ import { useText } from '@shared/i18n.js'
 import VideoPlayer from './VideoPlayer.jsx'
 import { TEXT } from './text.js'
 import './app.css'
+import VIDEO_SRC from './media/rika-sample.mp4'
 
-// CC0 sample clip from the MDN interactive examples.
-const VIDEO_SRC = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+// The sample clip is served with the site (Vite copies it into the build and gives it a hashed name).
+// It is a placeholder until the site's own video arrives: replace media/rika-sample.mp4 to change it.
 
 function VideoLesson() {
   const t = useText(TEXT)
@@ -31,12 +32,7 @@ function VideoLesson() {
         <p className="vp-note">{t.hint}</p>
       </section>
 
-      <p className="vp-credit">
-        {t.credit}{' '}
-        <a href={VIDEO_SRC} target="_blank" rel="noreferrer">
-          {t.source}
-        </a>
-      </p>
+      <p className="vp-credit">{t.credit}</p>
     </div>
   )
 }

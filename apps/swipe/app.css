@@ -140,7 +140,8 @@
   display: grid;
   gap: 6px;
   padding: 70px 18px 18px;
-  background: linear-gradient(to top, rgb(1 22 26 / 0.94) 0%, rgb(1 22 26 / 0.72) 55%, rgb(1 22 26 / 0) 100%);
+  /* Nearly solid behind the text, so lettering on the poster itself does not show through */
+  background: linear-gradient(to top, rgb(1 22 26 / 0.97) 0%, rgb(1 22 26 / 0.93) 62%, rgb(1 22 26 / 0) 100%);
   color: #fff;
 }
 
@@ -473,11 +474,6 @@
   margin: 0;
   color: var(--ink-soft);
   font-size: 13px;
-}
-
-.sw-credit a {
-  color: var(--solid-text);
-  font-weight: 600;
 }
 
 @container (min-width: 640px) {

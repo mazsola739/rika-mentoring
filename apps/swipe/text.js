@@ -5,8 +5,8 @@ export const TEXT = {
     undo: 'Undo',
     likeStamp: 'Like',
     nopeStamp: 'Nope',
-    loading: 'Loading shows from TVmaze…',
-    offline: 'TVmaze can’t be reached right now, so you are swiping an offline list.',
+    loading: 'Loading shows…',
+    offline: 'The TV API can’t be reached right now, so you are swiping an offline list.',
     retry: 'Try again',
     genre: 'Genre',
     allGenres: 'All genres',
@@ -27,7 +27,7 @@ export const TEXT = {
     likedMsg: (name) => `Liked ${name}.`,
     nopedMsg: (name) => `Skipped ${name}.`,
     undoneMsg: (name) => `${name} is back on top.`,
-    credit: 'Show data and posters:',
+    credit: 'The shows and posters are made up for this lesson and come from its own API, running in your browser.',
   },
   hu: {
     like: 'Tetszik',
@@ -35,8 +35,8 @@ export const TEXT = {
     undo: 'Visszavonás',
     likeStamp: 'Tetszik',
     nopeStamp: 'Nem',
-    loading: 'Sorozatok betöltése a TVmaze-ről…',
-    offline: 'A TVmaze most nem érhető el, ezért egy offline listát lapozol.',
+    loading: 'Sorozatok betöltése…',
+    offline: 'A sorozat-API most nem érhető el, ezért egy offline listát lapozol.',
     retry: 'Újrapróbálás',
     genre: 'Műfaj',
     allGenres: 'Minden műfaj',
@@ -57,11 +57,11 @@ export const TEXT = {
     likedMsg: (name) => `${name} tetszik.`,
     nopedMsg: (name) => `${name} kihagyva.`,
     undoneMsg: (name) => `${name} visszakerült a pakli tetejére.`,
-    credit: 'Sorozatadatok és plakátok:',
+    credit: 'A sorozatok és plakátok kitaláltak; a lecke saját API-ja szolgálja ki őket, itt, a böngésződben.',
   },
 }
 
-// TVmaze genre names are English; these are the Hungarian labels.
+// The API's genre names are English; these are the Hungarian labels.
 const GENRES_HU = {
   Action: 'Akció',
   Adventure: 'Kaland',
@@ -69,6 +69,7 @@ const GENRES_HU = {
   Children: 'Gyerek',
   Comedy: 'Vígjáték',
   Crime: 'Krimi',
+  DIY: 'Barkács',
   Drama: 'Dráma',
   Espionage: 'Kém',
   Family: 'Családi',

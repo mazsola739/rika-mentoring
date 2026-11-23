@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react'
 import { useDebounce } from '../useDebounce.js'
 import { useFetch } from '../useFetch.js'
 import { replaceRoute, searchHref } from '../useHashRoute.js'
-import { searchUrl, toShow } from '../tvmaze.js'
+import { searchUrl, toShow } from '../tvApi.js'
 import { SUGGESTIONS } from '../text.js'
 import ShowCard, { CardSkeletons } from './ShowCard.jsx'
 import { EmptyState, ErrorState } from './StateMessage.jsx'
@@ -31,13 +31,7 @@ function Results({ shows, isFavorite, onToggleFavorite, t }) {
       )}
       <ul className="ms-grid">
         {visible.map((show) => (
-          <ShowCard
-            key={show.id}
-            show={show}
-            isFavorite={isFavorite(show.id)}
-            onToggleFavorite={onToggleFavorite}
-            t={t}
-          />
+          <ShowCard key={show.id} show={show} isFavorite={isFavorite(show.id)} onToggleFavorite={onToggleFavorite} t={t} />
         ))}
       </ul>
     </>

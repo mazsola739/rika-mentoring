@@ -1,16 +1,17 @@
-import { GENRES_HU } from './tvmaze.js'
+import { GENRES_HU } from './tvApi.js'
 
 export const TEXT = {
   en: {
     nav: { label: 'Movie search pages', search: 'Search', favorites: 'Favorites' },
-    intro: 'Find TV series by title. The data comes from the free TVmaze API, which covers TV series rather than films.',
+    intro:
+      'Find TV series by title. The data comes from this lesson’s own TV API, which runs right in your browser and holds made-up series rather than films.',
     searchLabel: 'Search TV series',
-    placeholder: 'e.g. Dark, The Office, Sherlock…',
+    placeholder: 'e.g. Lighthouse, Bakery, Orbit…',
     clear: 'Clear search',
     tryThese: 'Try one of these:',
     tooShort: 'Type at least two letters to start searching.',
     waiting: 'Searching once you stop typing…',
-    loading: 'Searching TVmaze…',
+    loading: 'Searching…',
     found: (n, q) => `${n} series found for “${q}”`,
     none: (q) => `No TV series found for “${q}”.`,
     noneTip: 'Check the spelling, try the original title, or search for just one word.',
@@ -25,7 +26,7 @@ export const TEXT = {
     back: 'Back to the results',
     backToSearch: 'Back to search',
     detailLoading: 'Loading the series…',
-    notFound: 'This series does not exist on TVmaze.',
+    notFound: 'This series is not in the catalogue.',
     facts: {
       status: 'Status',
       channel: 'Channel',
@@ -40,30 +41,31 @@ export const TEXT = {
     unsave: 'Remove from favorites',
     cast: 'Cast',
     as: (character) => `as ${character}`,
-    noSummary: 'TVmaze has no description for this series yet.',
+    noSummary: 'There is no description for this series yet.',
     englishOnly: null,
-    openTvmaze: 'View on TVmaze',
     errors: {
       offline: 'You seem to be offline.',
-      rate: 'TVmaze is receiving too many requests from you. Wait a few seconds and try again.',
-      timeout: 'TVmaze took too long to answer.',
-      server: 'TVmaze is not responding right now.',
+      rate: 'The TV API is receiving too many requests from you. Wait a few seconds and try again.',
+      timeout: 'The TV API took too long to answer.',
+      server: 'The TV API is not responding right now.',
       other: 'Something went wrong while loading the data.',
     },
     retry: 'Try again',
-    credit: 'TV series data: TVmaze.com (CC BY-SA).',
+    credit:
+      'The series, posters and cast are made up for this lesson and served by its own API (Mock Service Worker in your browser).',
     genre: (g) => g,
   },
   hu: {
     nav: { label: 'A filmkereső oldalai', search: 'Keresés', favorites: 'Kedvencek' },
-    intro: 'Keress tévésorozatokat cím alapján. Az adatok az ingyenes TVmaze API-ból jönnek, amely sorozatokat tartalmaz, filmeket nem.',
+    intro:
+      'Keress tévésorozatokat cím alapján. Az adatok a lecke saját sorozat-API-jából jönnek, amely itt, a böngésződben fut, és kitalált sorozatokat tartalmaz, filmeket nem.',
     searchLabel: 'Sorozat keresése',
-    placeholder: 'pl. Dark, The Office, Sherlock…',
+    placeholder: 'pl. Lighthouse, Bakery, Orbit…',
     clear: 'Keresés törlése',
     tryThese: 'Próbáld ki ezeket:',
     tooShort: 'Írj be legalább két betűt a kereséshez.',
     waiting: 'A keresés akkor indul, amikor abbahagyod a gépelést…',
-    loading: 'Keresés a TVmaze-en…',
+    loading: 'Keresés…',
     found: (n, q) => `${n} sorozat a következőre: „${q}”`,
     none: (q) => `Nincs találat a következőre: „${q}”.`,
     noneTip: 'Ellenőrizd a helyesírást, próbáld az eredeti címmel, vagy keress egyetlen szóra.',
@@ -78,7 +80,7 @@ export const TEXT = {
     back: 'Vissza a találatokhoz',
     backToSearch: 'Vissza a kereséshez',
     detailLoading: 'A sorozat betöltése…',
-    notFound: 'Ez a sorozat nem létezik a TVmaze-en.',
+    notFound: 'Ez a sorozat nem szerepel a katalógusban.',
     facts: {
       status: 'Állapot',
       channel: 'Csatorna',
@@ -93,20 +95,21 @@ export const TEXT = {
     unsave: 'Törlés a kedvencek közül',
     cast: 'Szereplők',
     as: (character) => `szerep: ${character}`,
-    noSummary: 'A TVmaze-en még nincs leírás ehhez a sorozathoz.',
-    englishOnly: 'A TVmaze leírásai angol nyelvűek.',
-    openTvmaze: 'Megnyitás a TVmaze-en',
+    noSummary: 'Ehhez a sorozathoz még nincs leírás.',
+    englishOnly: 'A sorozat-API leírásai angol nyelvűek.',
     errors: {
       offline: 'Úgy tűnik, nincs internetkapcsolat.',
-      rate: 'A TVmaze túl sok kérést kapott tőled. Várj néhány másodpercet, és próbáld újra.',
-      timeout: 'A TVmaze túl lassan válaszolt.',
-      server: 'A TVmaze most nem válaszol.',
+      rate: 'A sorozat-API túl sok kérést kapott tőled. Várj néhány másodpercet, és próbáld újra.',
+      timeout: 'A sorozat-API túl lassan válaszolt.',
+      server: 'A sorozat-API most nem válaszol.',
       other: 'Hiba történt az adatok betöltése közben.',
     },
     retry: 'Újrapróbálás',
-    credit: 'A sorozatok adatai: TVmaze.com (CC BY-SA).',
+    credit:
+      'A sorozatok, plakátok és szereplők kitaláltak; a lecke saját API-ja szolgálja ki őket (Mock Service Worker a böngésződben).',
     genre: (g) => GENRES_HU[g] ?? g,
   },
 }
 
-export const SUGGESTIONS = ['Dark', 'The Office', 'Sherlock', 'Doctor Who', 'Severance', 'Friends']
+// Words that find something in the lesson's catalogue (titles and descriptions).
+export const SUGGESTIONS = ['Lighthouse', 'Detective', 'Orbit', 'Bakery', 'Moon', 'Ghost']

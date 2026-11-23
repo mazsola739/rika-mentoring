@@ -113,11 +113,11 @@
   },
   "space-explorer": {
     "title": "Space Explorer",
-    "short": "NASA's Astronomy Picture of the Day",
+    "short": "An astronomy picture of the day",
     "learn": "APIs with a key, date handling, rendering by media type (image / video), caching",
     "beginner": "today's picture with its title and explanation",
     "intermediate": "a date picker for the archive, favorites, handling video days",
-    "advanced": "more NASA data (e.g. Mars photos) with filters, infinite scroll, a gallery with a large view"
+    "advanced": "more data from the API (date ranges, random pictures) with filters, infinite scroll, a gallery with a large view"
   },
   "typing-test": {
     "title": "Typing Speed Test",
@@ -164,7 +164,7 @@
     "short": "Book search and reading list",
     "learn": "searching an API, moving items between lists, the `useFetch` hook, transforming API data",
     "beginner": "your own book list (title, author) with a reading status",
-    "intermediate": "book search via an API (Open Library / Google Books), shelves: reading / read / want to read",
+    "intermediate": "book search via an API (the lesson's own book API), shelves: reading / read / want to read",
     "advanced": "ratings and notes, a reading goal and statistics, login and cloud saving"
   },
   "multi-step-form": {
@@ -196,7 +196,7 @@
     "short": "Meme maker",
     "learn": "drawing on canvas, image upload, templates from an API, downloading images",
     "beginner": "pick an image and add top and bottom text",
-    "intermediate": "popular templates from an API, upload your own image, font, size, color, download",
+    "intermediate": "meme templates from an API, upload your own image, font, size, color, download",
     "advanced": "drag and rotate text boxes, stickers, a meme gallery and sharing"
   },
   "blog": {

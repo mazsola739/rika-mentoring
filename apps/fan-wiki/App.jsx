@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import AppFrame from '@shared/ui/AppFrame.jsx'
-import { useText } from '@shared/i18n.js'
+import { useLang, useText } from '@shared/i18n.js'
 import { TEXT } from './text.js'
 import { characterIdFrom, listHref, useHashRoute } from './useHashRoute.js'
 import CharacterList, { filtersFrom } from './components/CharacterList.jsx'
@@ -9,6 +9,7 @@ import './app.css'
 
 function FanWiki() {
   const t = useText(TEXT)
+  const lang = useLang()
   const { path, params } = useHashRoute()
   const characterId = characterIdFrom(path)
   const rootRef = useRef(null)
@@ -32,15 +33,11 @@ function FanWiki() {
   return (
     <div className="fw" ref={rootRef}>
       {characterId ? (
-        <CharacterDetail key={characterId} id={characterId} backHref={lastList} t={t} />
+        <CharacterDetail key={characterId} id={characterId} backHref={lastList} lang={lang} t={t} />
       ) : (
-        <CharacterList params={params} t={t} />
+        <CharacterList params={params} lang={lang} t={t} />
       )}
-      <p className="fw-credit">
-        <a href="https://rickandmortyapi.com/" target="_blank" rel="noreferrer">
-          {t.credit}
-        </a>
-      </p>
+      <p className="fw-credit">{t.credit}</p>
     </div>
   )
 }

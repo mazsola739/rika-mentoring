@@ -199,12 +199,13 @@
   background: var(--ink-soft);
 }
 
-.fw-status--alive .fw-status__dot {
+.fw-status--bright .fw-status__dot {
   background: #2e9d5b;
 }
 
-.fw-status--dead .fw-status__dot {
-  background: var(--solid-light);
+/* Faded: a washed-out grey dot, like the characters the Grey Drizzle touched. */
+.fw-status--faded .fw-status__dot {
+  background: #b9c0ca;
 }
 
 .fw-status--unknown .fw-status__dot {
@@ -468,11 +469,8 @@
   margin: 0;
   padding-top: 14px;
   border-top: 1px solid var(--line);
-  font-size: 13px;
-}
-
-.fw-credit a {
   color: var(--ink-soft);
+  font-size: 13px;
 }
 
 @container (max-width: 520px) {

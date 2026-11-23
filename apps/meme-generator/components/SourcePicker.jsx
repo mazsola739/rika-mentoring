@@ -2,12 +2,14 @@ import { useRef, useState } from 'react'
 import { errorKind, useFetch } from '../useFetch.js'
 import { BACKGROUNDS } from '../backgrounds.js'
 
-const MEMES_API = 'https://api.imgflip.com/get_memes'
-const TABS = ['popular', 'colors', 'upload']
+// The address comes from an environment variable (VITE_MEMES_API in a .env file) when there is one.
+// The default is the lesson's own template API (mocks/handlers.js), which runs in the browser.
+const MEMES_API = import.meta.env.VITE_MEMES_API ?? '/api/memes'
+const TABS = ['templates', 'colors', 'upload']
 
 function TemplateGrid({ request, selected, onSelect, t }) {
   const { status, data, error, retry } = request
-  // imgflip answers 200 with { success: false } when something is wrong on their side.
+  // The API answers 200 with { success: false } when something is wrong on its side (imgflip-style).
   const failed = status === 'error' || (status === 'success' && !data?.success)
   const memes = status === 'success' && data?.success ? data.data.memes.slice(0, 30) : []
 
@@ -124,9 +126,10 @@ function UploadBox({ fileName, isSelected, onReuse, onFile, t }) {
 }
 
 export default function SourcePicker({ selected, onSelect, fileName, onFile, lang, t }) {
-  const [tab, setTab] = useState('popular')
+  const [tab, setTab] = useState('templates')
   // Fetched here (not inside the grid), so switching tabs does not repeat the request.
-  const templates = useFetch(MEMES_API)
+  // The template names come in the page's language, so a language switch is a new request.
+  const templates = useFetch(`${MEMES_API}?${new URLSearchParams({ lang })}`)
 
   return (
     <section className="mg-sources" aria-labelledby="mg-sources-title">
@@ -140,7 +143,7 @@ export default function SourcePicker({ selected, onSelect, fileName, onFile, lan
           </button>
         ))}
       </div>
-      {tab === 'popular' && <TemplateGrid request={templates} selected={selected} onSelect={onSelect} t={t} />}
+      {tab === 'templates' && <TemplateGrid request={templates} selected={selected} onSelect={onSelect} t={t} />}
       {tab === 'colors' && <ColorGrid selected={selected} onSelect={onSelect} lang={lang} />}
       {tab === 'upload' && (
         <UploadBox
@@ -151,7 +154,7 @@ export default function SourcePicker({ selected, onSelect, fileName, onFile, lan
           t={t}
         />
       )}
-      {tab === 'popular' && <p className="mg-muted">{t.imgflipCredit}</p>}
+      {tab === 'templates' && <p className="mg-muted">{t.templatesCredit}</p>}
     </section>
   )
 }

@@ -34,8 +34,7 @@ export const TEXT = {
       ['F', 'full screen'],
     ],
     hint: 'Shortcuts work when the player or the page is focused, not while you type in a field.',
-    credit: 'Video: “Flower” from the MDN Web Docs interactive examples, released under CC0 (public domain).',
-    source: 'Source',
+    credit: 'Video: a Rika Mentoring sample clip, served with the site.',
   },
   hu: {
     player: 'Videólejátszó',
@@ -72,7 +71,6 @@ export const TEXT = {
       ['F', 'teljes képernyő'],
     ],
     hint: 'A parancsok akkor működnek, ha a lejátszón vagy az oldalon van a fókusz, mezőbe gépelés közben nem.',
-    credit: 'Videó: „Flower” az MDN Web Docs interaktív példái közül, CC0 (közkincs) licenccel.',
-    source: 'Forrás',
+    credit: 'Videó: Rika Mentoring mintaklip, az oldallal együtt töltődik be.',
   },
 }

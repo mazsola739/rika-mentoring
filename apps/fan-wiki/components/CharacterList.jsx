@@ -33,13 +33,13 @@ function Pagination({ page, pages, onPage, t }) {
   )
 }
 
-export default function CharacterList({ params, t }) {
+export default function CharacterList({ params, lang, t }) {
   const filters = filtersFrom(params)
   const listRef = useRef(null)
 
   // The name waits until typing pauses; status, gender and page apply at once.
   const name = useDebounce(filters.name.trim(), 400)
-  const { status, data, error, retry } = useFetch(charactersUrl({ ...filters, name }))
+  const { status, data, error, retry } = useFetch(charactersUrl({ ...filters, name, lang }))
 
   // Any filter change starts again from page 1; a page change keeps the filters.
   const update = (patch) => replaceRoute(listHref({ ...filters, page: 1, ...patch }))
@@ -101,12 +101,7 @@ export default function CharacterList({ params, t }) {
               <CharacterCard key={character.id} character={character} t={t} />
             ))}
           </ul>
-          <Pagination
-            page={filters.page}
-            pages={data.info?.pages ?? 1}
-            onPage={(page) => update({ ...filters, page })}
-            t={t}
-          />
+          <Pagination page={filters.page} pages={data.info?.pages ?? 1} onPage={(page) => update({ ...filters, page })} t={t} />
         </>
       )}
     </div>

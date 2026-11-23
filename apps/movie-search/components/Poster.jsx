@@ -19,7 +19,7 @@ function colorsFor(seed = '') {
   return COLORS[hash % COLORS.length]
 }
 
-// A poster, or a flat colour tile with a TV icon when TVmaze has no image (or it fails to load).
+// A poster, or a flat colour tile with a TV icon when the API has no image (or it fails to load).
 // `seed` (the show's name) picks the tile colour.
 export default function Poster({ src, label, seed = label, className = '' }) {
   const [broken, setBroken] = useState(false)

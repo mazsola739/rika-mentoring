@@ -1,9 +1,11 @@
-export const API = 'https://api.tvmaze.com'
+// The lesson's own TV API (it runs in the browser, see mocks/handlers.js). The address can come from an
+// environment variable (VITE_TV_API in a .env file), so the same code could talk to a real server later.
+export const API = import.meta.env.VITE_TV_API ?? '/api/tv'
 
 export const searchUrl = (query) => `${API}/search/shows?q=${encodeURIComponent(query)}`
 export const showUrl = (id) => `${API}/shows/${id}?embed[]=cast&embed[]=seasons`
 
-// TVmaze summaries are HTML (<p>, <b>…). DOMParser turns them into plain text without running anything,
+// The API sends summaries as HTML (<p>, <b>…). DOMParser turns them into plain text without running anything,
 // so we never need dangerouslySetInnerHTML.
 export function stripHtml(html) {
   if (!html) return ''
@@ -27,7 +29,6 @@ export function toShow(raw) {
     runtime: raw.averageRuntime ?? raw.runtime ?? null,
     channel: raw.network?.name ?? raw.webChannel?.name ?? null,
     summary: stripHtml(raw.summary),
-    url: raw.url,
   }
 }
 

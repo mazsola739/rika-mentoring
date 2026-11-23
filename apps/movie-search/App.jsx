@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import AppFrame from '@shared/ui/AppFrame.jsx'
 import { useText } from '@shared/i18n.js'
 import { TEXT } from './text.js'
-import { toFavorite } from './tvmaze.js'
+import { toFavorite } from './tvApi.js'
 import { searchHref, showIdFrom, useHashRoute } from './useHashRoute.js'
 import { useLocalStorage } from './useLocalStorage.js'
 import SearchPage from './components/SearchPage.jsx'
@@ -11,7 +11,8 @@ import ShowCard from './components/ShowCard.jsx'
 import { EmptyState } from './components/StateMessage.jsx'
 import './app.css'
 
-const FAVORITES_KEY = 'rika:movie-search:favorites'
+// v2: favorites saved for an earlier catalogue are not reused (other ids, other shows).
+const FAVORITES_KEY = 'rika:movie-search:favorites:v2'
 
 function FavoritesPage({ favorites, onToggleFavorite, searchLink, t }) {
   if (favorites.length === 0) {
@@ -96,20 +97,10 @@ function MovieSearch() {
         <FavoritesPage favorites={favorites} onToggleFavorite={toggleFavorite} searchLink={searchLink} t={t} />
       )}
       {page === 'search' && (
-        <SearchPage
-          query={query}
-          favorites={favorites}
-          isFavorite={isFavorite}
-          onToggleFavorite={toggleFavorite}
-          t={t}
-        />
+        <SearchPage query={query} favorites={favorites} isFavorite={isFavorite} onToggleFavorite={toggleFavorite} t={t} />
       )}
 
-      <p className="ms-credit">
-        <a href="https://www.tvmaze.com/" target="_blank" rel="noreferrer">
-          {t.credit}
-        </a>
-      </p>
+      <p className="ms-credit">{t.credit}</p>
     </div>
   )
 }

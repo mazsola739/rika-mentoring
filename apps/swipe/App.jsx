@@ -11,9 +11,12 @@ import './app.css'
 
 const FLY_OUT_MS = 280
 
+// Ids look like "show-12". Lists saved for an earlier catalogue (other ids) are not reused.
 const isDecisionList = (value) =>
   Array.isArray(value) &&
-  value.every((d) => (d?.choice === 'like' || d?.choice === 'nope') && typeof d.show?.id === 'string' && typeof d.show?.name === 'string')
+  value.every(
+    (d) => (d?.choice === 'like' || d?.choice === 'nope') && /^show-\d+$/.test(d.show?.id) && typeof d.show?.name === 'string',
+  )
 
 const newSeed = () => Math.floor(Math.random() * 2 ** 31)
 
@@ -41,7 +44,7 @@ function topGenres(shows, limit = 10) {
     .map(([genre]) => genre)
 }
 
-function Swipe() {
+const Swipe = () => {
   const lang = useLang()
   const t = useText(TEXT)
   const { status, shows, retry } = useShows()
@@ -281,10 +284,18 @@ function Swipe() {
                   <div>
                     <strong>{show.name}</strong>
                     <span>
-                      {[show.year, ...(show.genres ?? []).slice(0, 2).map((g) => genreLabel(g, lang))].filter(Boolean).join(' · ')}
+                      {[show.year, ...(show.genres ?? []).slice(0, 2).map((g) => genreLabel(g, lang))]
+                        .filter(Boolean)
+                        .join(' · ')}
                     </span>
                   </div>
-                  <button type="button" className="sw-remove" aria-label={t.removeLike(show.name)} title={t.removeLike(show.name)} onClick={() => unlike(show.id)}>
+                  <button
+                    type="button"
+                    className="sw-remove"
+                    aria-label={t.removeLike(show.name)}
+                    title={t.removeLike(show.name)}
+                    onClick={() => unlike(show.id)}
+                  >
                     <span aria-hidden="true">✕</span>
                   </button>
                 </li>
@@ -301,13 +312,7 @@ function Swipe() {
         </section>
       </div>
 
-      <p className="sw-credit">
-        {t.credit}{' '}
-        <a href="https://www.tvmaze.com/" target="_blank" rel="noreferrer">
-          TVmaze
-        </a>{' '}
-        (CC BY-SA)
-      </p>
+      <p className="sw-credit">{t.credit}</p>
 
       <p className="visually-hidden" aria-live="polite">
         {message}
@@ -316,10 +321,12 @@ function Swipe() {
   )
 }
 
-export default function App() {
+const App = () => {
   return (
     <AppFrame slug="swipe">
       <Swipe />
     </AppFrame>
   )
 }
+
+export default App

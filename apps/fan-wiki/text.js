@@ -1,13 +1,14 @@
 export const TEXT = {
   en: {
-    intro: 'A fan wiki of every character from Rick and Morty, built on the free Rick and Morty API.',
+    intro:
+      'A fan wiki for The Huebloom Isles, a made-up cartoon about floating islands that run on colour, where the Grey Drizzle fades whatever it touches. Every character comes from the lesson’s own REST API.',
     search: 'Search by name',
-    placeholder: 'e.g. Rick, Morty, Birdperson…',
+    placeholder: 'e.g. Juno, Nimbus, Steepwell…',
     clear: 'Clear search',
     statusLabel: 'Status',
     genderLabel: 'Gender',
     any: 'Any',
-    status: { alive: 'Alive', dead: 'Dead', unknown: 'Unknown' },
+    status: { bright: 'Bright', faded: 'Faded', unknown: 'Unknown' },
     gender: { female: 'Female', male: 'Male', genderless: 'Genderless', unknown: 'Unknown' },
     resetFilters: 'Clear filters',
     loading: 'Loading characters…',
@@ -36,23 +37,24 @@ export const TEXT = {
     dataNote: null,
     errors: {
       offline: 'You seem to be offline.',
-      rate: 'The Rick and Morty API is receiving too many requests. Wait a moment and try again.',
-      timeout: 'The Rick and Morty API took too long to answer.',
-      server: 'The Rick and Morty API is not responding right now.',
+      rate: 'The wiki API is getting too many requests. Wait a moment and try again.',
+      timeout: 'The wiki API took too long to answer.',
+      server: 'The wiki API is not responding right now.',
       other: 'Something went wrong while loading the data.',
     },
     retry: 'Try again',
-    credit: 'Data: The Rick and Morty API (rickandmortyapi.com).',
+    credit: 'Data: the lesson’s own wiki API. Every character, place and episode is made up, and the pictures are drawn in code.',
   },
   hu: {
-    intro: 'Rajongói wiki a Rick és Morty összes szereplőjéről, az ingyenes Rick and Morty API alapján.',
+    intro:
+      'Rajongói wiki a Színvirág-szigetekhez: ez egy kitalált rajzfilm a színekből élő, lebegő szigetekről, ahol a Szürke Szitálás kifakít mindent, amihez hozzáér. Minden szereplő a lecke saját REST API-jából érkezik.',
     search: 'Keresés név szerint',
-    placeholder: 'pl. Rick, Morty, Birdperson…',
+    placeholder: 'pl. Juno, Nimbus, Steepwell…',
     clear: 'Keresés törlése',
     statusLabel: 'Állapot',
     genderLabel: 'Nem',
     any: 'Bármelyik',
-    status: { alive: 'Él', dead: 'Halott', unknown: 'Ismeretlen' },
+    status: { bright: 'Ragyogó', faded: 'Kifakult', unknown: 'Ismeretlen' },
     gender: { female: 'Nő', male: 'Férfi', genderless: 'Nemtelen', unknown: 'Ismeretlen' },
     resetFilters: 'Szűrők törlése',
     loading: 'Szereplők betöltése…',
@@ -78,18 +80,18 @@ export const TEXT = {
     showAll: (n) => `Mind a ${n} epizód`,
     showLess: 'Kevesebb',
     episodesError: 'Nem sikerült betölteni az epizódlistát.',
-    dataNote: 'A szereplők adatai (faj, helyszínek, epizódcímek) angol nyelvűek.',
+    dataNote: 'A szereplők nevét nem fordítottuk le, az eredeti angol nevükön szerepelnek.',
     errors: {
       offline: 'Úgy tűnik, nincs internetkapcsolat.',
-      rate: 'A Rick and Morty API túl sok kérést kap. Várj egy kicsit, és próbáld újra.',
-      timeout: 'A Rick and Morty API túl lassan válaszolt.',
-      server: 'A Rick and Morty API most nem válaszol.',
+      rate: 'A wiki API-ja túl sok kérést kap. Várj egy kicsit, és próbáld újra.',
+      timeout: 'A wiki API-ja túl lassan válaszolt.',
+      server: 'A wiki API-ja most nem válaszol.',
       other: 'Hiba történt az adatok betöltése közben.',
     },
     retry: 'Újrapróbálás',
-    credit: 'Adatok: The Rick and Morty API (rickandmortyapi.com).',
+    credit: 'Adatok: a lecke saját wiki-API-ja. Minden szereplő, helyszín és epizód kitalált, a képeket kód rajzolja.',
   },
 }
 
-// The API's values ("Alive", "Female") → our lowercase keys for the translations above.
+// The API's values ("Bright", "Female") → our lowercase keys for the translations above.
 export const keyOf = (value) => String(value ?? 'unknown').toLowerCase()

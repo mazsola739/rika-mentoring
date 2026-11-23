@@ -1,8 +1,8 @@
 // The API address comes from an environment variable when there is one (VITE_RATES_API in a .env file),
-// otherwise the public default is used. API keys are configured the same way; just remember that every
+// otherwise the default is used. API keys are configured the same way; just remember that every
 // VITE_ variable ends up in the browser bundle, so only public keys belong there.
-// Frankfurter needs no key. (api.frankfurter.app now redirects here without CORS headers, so we call .dev directly.)
-export const API = import.meta.env.VITE_RATES_API ?? 'https://api.frankfurter.dev/v1'
+// The default is the lesson's own rates API (mocks/handlers.js), which runs in the browser.
+export const API = import.meta.env.VITE_RATES_API ?? '/api/rates'
 
 // Fixed reference rates (1 EUR = …) for when the API cannot be reached. This is the "beginner" version
 // of the converter: same maths, just a hard-coded table. The UI always marks these as not live.

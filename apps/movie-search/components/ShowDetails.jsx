@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useFetch } from '../useFetch.js'
-import { showUrl, toShow } from '../tvmaze.js'
+import { showUrl, toShow } from '../tvApi.js'
 import Poster from './Poster.jsx'
 import { EmptyState, ErrorState } from './StateMessage.jsx'
 
@@ -83,12 +83,7 @@ export default function ShowDetails({ id, backHref, isFavorite, onToggleFavorite
                   ))}
                 </ul>
               )}
-              <button
-                type="button"
-                className="ms-save"
-                data-on={isFavorite}
-                onClick={() => onToggleFavorite(show)}
-              >
+              <button type="button" className="ms-save" data-on={isFavorite} onClick={() => onToggleFavorite(show)}>
                 <span aria-hidden="true">{isFavorite ? '★' : '☆'}</span> {isFavorite ? t.unsave : t.save}
               </button>
               <dl className="ms-facts">
@@ -107,9 +102,6 @@ export default function ShowDetails({ id, backHref, isFavorite, onToggleFavorite
             <p className="ms-summary" lang={show.summary ? 'en' : undefined}>
               {show.summary || t.noSummary}
             </p>
-            <a className="ms-external" href={show.url} target="_blank" rel="noreferrer">
-              {t.openTvmaze} <span aria-hidden="true">↗</span>
-            </a>
           </section>
 
           {cast.length > 0 && (

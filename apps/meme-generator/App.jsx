@@ -12,7 +12,7 @@ const TEXT = {
   en: {
     defaults: { top: 'When the code', bottom: 'works on the first try' },
     pickImage: 'Choose a picture',
-    tabs: { popular: 'Popular memes', colors: 'Solid colors', upload: 'Your image' },
+    tabs: { templates: 'Meme templates', colors: 'Solid colors', upload: 'Your image' },
     topText: 'Top text',
     bottomText: 'Bottom text',
     font: 'Font',
@@ -32,9 +32,9 @@ const TEXT = {
     preview: (top, bottom) => `Meme preview. Top: ${top || 'empty'}. Bottom: ${bottom || 'empty'}.`,
     errors: {
       offline: 'You seem to be offline.',
-      rate: 'imgflip is receiving too many requests right now.',
-      timeout: 'imgflip took too long to answer.',
-      server: 'The imgflip API is not responding right now.',
+      rate: 'The template API is receiving too many requests right now.',
+      timeout: 'The template API took too long to answer.',
+      server: 'The template API is not responding right now.',
       other: 'The meme templates could not be loaded.',
     },
     templatesFallback: 'Solid color backgrounds and your own images still work.',
@@ -45,12 +45,13 @@ const TEXT = {
     reuse: (name) => `Use ${name} again`,
     uploadPrivacy: 'Your image stays in your browser and is never uploaded anywhere.',
     notImage: 'That file is not an image. Pick a JPG, PNG, GIF or WebP file.',
-    imgflipCredit: 'Templates: the 30 most popular memes from the imgflip API.',
+    templatesCredit:
+      'Templates: original drawings made for this lesson, served by its own meme API (/api/memes) running in your browser.',
   },
   hu: {
     defaults: { top: 'Amikor a kód', bottom: 'elsőre lefut' },
     pickImage: 'Válassz képet',
-    tabs: { popular: 'Népszerű mémek', colors: 'Egyszínű hátterek', upload: 'Saját kép' },
+    tabs: { templates: 'Mémsablonok', colors: 'Egyszínű hátterek', upload: 'Saját kép' },
     topText: 'Felső szöveg',
     bottomText: 'Alsó szöveg',
     font: 'Betűtípus',
@@ -70,9 +71,9 @@ const TEXT = {
     preview: (top, bottom) => `Mém előnézet. Felül: ${top || 'üres'}. Alul: ${bottom || 'üres'}.`,
     errors: {
       offline: 'Úgy tűnik, nincs internetkapcsolat.',
-      rate: 'Az imgflip most túl sok kérést kap.',
-      timeout: 'Az imgflip túl lassan válaszolt.',
-      server: 'Az imgflip API most nem válaszol.',
+      rate: 'A sablon-API most túl sok kérést kap.',
+      timeout: 'A sablon-API túl lassan válaszolt.',
+      server: 'A sablon-API most nem válaszol.',
       other: 'Nem sikerült betölteni a mémsablonokat.',
     },
     templatesFallback: 'Az egyszínű hátterek és a saját képek így is működnek.',
@@ -83,7 +84,8 @@ const TEXT = {
     reuse: (name) => `${name} használata újra`,
     uploadPrivacy: 'A képed a böngésződben marad, sehova nem töltjük fel.',
     notImage: 'Ez a fájl nem kép. Válassz JPG, PNG, GIF vagy WebP fájlt.',
-    imgflipCredit: 'Sablonok: a 30 legnépszerűbb mém az imgflip API-ból.',
+    templatesCredit:
+      'Sablonok: a leckéhez készült saját rajzok, amelyeket a lecke saját mém-API-ja (/api/memes) szolgál ki a böngésződben.',
   },
 }
 
@@ -211,12 +213,7 @@ function MemeGenerator() {
             t={t}
           />
           <div className="mg-export">
-            <button
-              type="button"
-              className="btn mg-download"
-              disabled={image.status !== 'ready' || tainted}
-              onClick={download}
-            >
+            <button type="button" className="btn mg-download" disabled={image.status !== 'ready' || tainted} onClick={download}>
               <span aria-hidden="true">↓</span> {t.download}
             </button>
             <div aria-live="polite">
@@ -234,14 +231,7 @@ function MemeGenerator() {
         </p>
       )}
 
-      <SourcePicker
-        selected={source.id}
-        onSelect={setSource}
-        fileName={file?.name}
-        onFile={pickFile}
-        lang={lang}
-        t={t}
-      />
+      <SourcePicker selected={source.id} onSelect={setSource} fileName={file?.name} onFile={pickFile} lang={lang} t={t} />
     </div>
   )
 }

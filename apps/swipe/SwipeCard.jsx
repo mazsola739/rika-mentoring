@@ -10,7 +10,7 @@ const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
 
 // One card of the stack. Only the top card listens to the pointer.
 // `leaving` ('like' | 'nope') makes the card fly out; the parent commits the decision afterwards.
-export default function SwipeCard({ show, depth, layer, leaving, locked, onSwipe }) {
+const SwipeCard = ({ show, depth, layer, leaving, locked, onSwipe }) => {
   const lang = useLang()
   const t = useText(TEXT)
   const [offset, setOffset] = useState(null) // { x, y } while the pointer is down
@@ -118,3 +118,5 @@ export default function SwipeCard({ show, depth, layer, leaving, locked, onSwipe
     </article>
   )
 }
+
+export default SwipeCard

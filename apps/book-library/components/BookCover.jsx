@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PEACOCK } from '@shared/ui/palette.js'
-import { coverUrl } from '../openLibrary.js'
+import { coverUrl } from '../bookApi.js'
 
 // Placeholder colours from the peacock palette: [background, text].
 const COLORS = [
@@ -20,10 +20,11 @@ function colorsFor(title = '') {
   return COLORS[hash % COLORS.length]
 }
 
-// A cover from Open Library, or a flat colour tile with a book icon and the title when there is none.
-export default function BookCover({ coverId, title, className = '' }) {
+// A cover image from the book API, or a flat colour tile with a book icon and the title when there is none
+// (or when the image cannot be loaded).
+export default function BookCover({ coverId, title, size = 'M', className = '' }) {
   const [broken, setBroken] = useState(false)
-  const src = coverUrl(coverId)
+  const src = coverUrl(coverId, size)
 
   if (!src || broken) {
     const [background, color] = colorsFor(title)

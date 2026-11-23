@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import { FALLBACK_SHOWS } from './fallbackShows.js'
 
-const API_URL = 'https://api.tvmaze.com/shows?page=1'
+// The lesson's own TV API (it runs in the browser, see mocks/handlers.js); VITE_TV_API in a .env file can point elsewhere.
+const API = import.meta.env.VITE_TV_API ?? '/api/tv'
+const API_URL = `${API}/shows?page=1`
 const LIMIT = 30
 
-// TVmaze summaries are HTML (<p>, <b>…). DOMParser turns them into plain text without running anything.
+// The API sends summaries as HTML (<p>, <b>…). DOMParser turns them into plain text without running anything.
 function toPlainText(html) {
   if (!html) return ''
   return new DOMParser().parseFromString(html, 'text/html').body.textContent.trim()
@@ -13,7 +15,7 @@ function toPlainText(html) {
 // Keep only what the cards need, in our own shape.
 function toShow(raw) {
   return {
-    id: `tvmaze-${raw.id}`,
+    id: `show-${raw.id}`,
     name: raw.name,
     year: raw.premiered ? raw.premiered.slice(0, 4) : '',
     genres: Array.isArray(raw.genres) ? raw.genres : [],
@@ -26,7 +28,7 @@ function toShow(raw) {
 
 // Loads the shows once (and again on retry). The AbortController cancels the request
 // if the component unmounts – StrictMode does exactly that once in development.
-export function useShows() {
+export const useShows = () => {
   const [state, setState] = useState({ status: 'loading', shows: [], error: null })
   const [attempt, setAttempt] = useState(0)
 

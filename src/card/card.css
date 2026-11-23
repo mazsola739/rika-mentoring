@@ -1,3 +1,6 @@
+/* Montserrat for the card titles, served with the site. */
+@import '@fontsource/montserrat/700.css';
+
 /* ── Lesson card: business card with traced paper waves ──────────────
    Every size is relative to the card width (cqw), so the card looks the same at any size.
    Every colour comes from one accent (--c), so any lesson colour works. */

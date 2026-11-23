@@ -88,11 +88,11 @@ Mind React-appok. A lista nehézség szerint halad, a legkönnyebbel kezdődik. 
     - **Közép:** élő árfolyamok API-ból a `useFetch` hookkal, csere gomb, hibakezelés
     - **Haladó:** árfolyamgrafikon az elmúlt 30 napról, kedvenc pénznempárok, gyorsítótárazás, offline az utolsó ismert árfolyam
 
-15. **Space Explorer** – A NASA napi csillagászati képe
+15. **Space Explorer** – A nap csillagászati képe
     - **Mit tanulunk:** API kulccsal, dátumkezelés, médiatípus szerinti megjelenítés (kép / videó), gyorsítótárazás
     - **Kezdő:** a napi kép címmel és magyarázattal
     - **Közép:** dátumválasztó az archívumhoz, kedvencek, videós napok kezelése
-    - **Haladó:** további NASA-adatok (pl. Mars-fotók) szűréssel, végtelen görgetés, galéria nagy nézettel
+    - **Haladó:** további adatok az API-ból (időszakok, véletlen képek) szűréssel, végtelen görgetés, galéria nagy nézettel
 
 16. **Typing Speed Test** – Gépelési sebességmérő
     - **Mit tanulunk:** `useRef`, időmérés és az időzítő leállítása, számolás minden leütésnél, felesleges újrarenderelések elkerülése
@@ -127,7 +127,7 @@ Mind React-appok. A lista nehézség szerint halad, a legkönnyebbel kezdődik. 
 21. **Book Library** – Könyvkereső és olvasólista
     - **Mit tanulunk:** keresés API-ban, tételek mozgatása listák között, `useFetch` hook, API-adatok átalakítása
     - **Kezdő:** saját könyvlista (cím, szerző), olvasási státusz
-    - **Közép:** könyvkeresés API-ból (Open Library / Google Books), polcok: olvasom / elolvastam / szeretném elolvasni
+    - **Közép:** könyvkeresés API-ból (a lecke saját könyv-API-ja), polcok: olvasom / elolvastam / szeretném elolvasni
     - **Haladó:** értékelés és jegyzetek, olvasási cél és statisztika, bejelentkezés és felhős mentés
 
 22. **Multi-Step Form** – Többlépéses űrlap
@@ -151,7 +151,7 @@ Mind React-appok. A lista nehézség szerint halad, a legkönnyebbel kezdődik. 
 25. **Meme Generator** – Mémkészítő
     - **Mit tanulunk:** rajzolás canvasra, képfeltöltés, sablonok API-ból, kép letöltése
     - **Kezdő:** kép választása, felső és alsó szöveg rá
-    - **Közép:** népszerű sablonok API-ból, saját kép feltöltése, betűtípus, méret, szín, letöltés
+    - **Közép:** mémsablonok API-ból, saját kép feltöltése, betűtípus, méret, szín, letöltés
     - **Haladó:** szövegdobozok húzása és forgatása, matricák, mémgaléria és megosztás
 
 26. **Blog Platform** – Blog

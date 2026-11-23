@@ -1,9 +1,10 @@
 // All dates are plain 'YYYY-MM-DD' strings: easy to compare, store and put into a URL.
 // Calculations run in UTC so a time zone or daylight-saving switch can never shift a day.
 
-export const FIRST_DAY = '1995-06-16' // the first Astronomy Picture of the Day
+export const FIRST_DAY = '1995-06-16' // the first day in the archive
 
-// APOD is published in US Eastern time, so "today" is today in New York, not in the visitor's time zone.
+// The API starts a new day at midnight US Eastern time (like NASA's APOD, which it imitates),
+// so "today" is today in New York, not in the visitor's time zone.
 export function apodToday() {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date())
 }
@@ -33,9 +34,4 @@ export function randomDay(min, max) {
 
 export function formatDay(iso, locale, options = { year: 'numeric', month: 'long', day: 'numeric' }) {
   return new Intl.DateTimeFormat(locale, { ...options, timeZone: 'UTC' }).format(toDate(iso))
-}
-
-// The original page on apod.nasa.gov, e.g. https://apod.nasa.gov/apod/ap241231.html
-export function apodPageUrl(iso) {
-  return `https://apod.nasa.gov/apod/ap${iso.slice(2).replaceAll('-', '')}.html`
 }

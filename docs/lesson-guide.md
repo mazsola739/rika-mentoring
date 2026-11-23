@@ -43,6 +43,15 @@ export default function App() {
 }
 ```
 
+### Component style by level
+
+The lessons teach from the very basics, and the code style grows with the learner:
+
+- **Beginner and Beginner+ (lessons 1–26):** function declarations, as above: `function ShoppingList() { … }`, `export default function App() { … }`.
+- **Intermediate and Advanced (lessons 27–50):** arrow function components: `const ShoppingList = () => { … }`, then `export default App` at the end. The first Intermediate lesson's guide explains the switch.
+- **Class components** are shown only once, in lesson 1's guide, as the older way to write the same component next to the function version ("you will meet this in older code"). No lesson app is written with classes. (Error boundaries are the one place React still needs a class; if a lesson needs one, keep it tiny and say why.)
+- Custom hooks follow the same rule as the components of their lesson.
+
 `AppFrame` renders the whole page: header (lesson title + the lesson's pattern), the "What you'll learn" panel, previous/next links and the language switch. Your app renders inside a white panel that is roughly 600–820 px wide on desktop and full width on phones.
 
 `useLesson()` returns `{ n, slug, tier, lang, text: { title, short, learn, beginner, intermediate, advanced }, palette: { key, name: { en, hu }, colors: [...], solid, dark, light, ink, accent, text } }`.
@@ -101,8 +110,28 @@ channel.send({ ... }) // real time between browser tabs (BroadcastChannel)
 ```
 
 - Always show loading, error (with retry) and empty states.
-- Only use public APIs that work without keys (NASA uses `DEMO_KEY`). Plan a graceful fallback when the API is down or rate-limited.
-- When an app needs sample pictures, draw simple ones yourself (flat peacock-color shapes as inline SVG, emoji, initials). No other external images except those returned by public APIs.
+- **No external services.** The whole mentoring runs on this site: no third-party APIs, images, videos, fonts or CDNs.
+- Lessons that teach `fetch()` call the site's own HTTP API, served in the browser by Mock Service Worker. Write handlers in `apps/<slug>/mocks/handlers.js` and start them in `main.jsx` before rendering (see `apps/currency-converter`):
+
+```js
+// main.jsx
+import { startMockApi } from '@shared/mock-api/msw.js'
+import { handlers } from './mocks/handlers.js'
+await startMockApi(handlers)
+
+// mocks/handlers.js
+import { http, HttpResponse } from 'msw'
+import { networkDelay, errorResponse, svgResponse } from '@shared/mock-api/msw.js'
+export const handlers = [
+  http.get('/api/things', async () => {
+    await networkDelay()
+    return HttpResponse.json([...])
+  }),
+]
+```
+
+- The app code calls `/api/...` like a real REST back end (an env var such as `VITE_THINGS_API` may override the base URL as a teaching point). Mimic real behaviour: paging, 400/404 errors, an API key with 403 where the lesson teaches keys, a gentle 429 rate limit so error states can be shown.
+- Pictures: the site owner brings real media (see `docs/media-needed.md`). Until then draw them in code as SVG and serve them from the mock API with `svgResponse` (`<img>` requests are answered by MSW too), or as inline SVG / data URLs.
 
 ## Scope and code quality
 

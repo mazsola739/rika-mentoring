@@ -30,7 +30,7 @@ function initialsOf(name) {
 
 // A stand-in for a poster: flat colour with the show's initials.
 // The name is always written on the card too, so this picture is decorative.
-export default function ShowArt({ name, className = '' }) {
+const ShowArt = ({ name, className = '' }) => {
   const [bg, ink] = pairFor(name)
   return (
     <div className={`sw-art ${className}`} style={{ background: bg, color: ink }} aria-hidden="true">
@@ -38,3 +38,5 @@ export default function ShowArt({ name, className = '' }) {
     </div>
   )
 }
+
+export default ShowArt

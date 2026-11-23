@@ -1,6 +1,6 @@
 import { useMemo, useSyncExternalStore } from 'react'
 
-// A tiny router on the part after # (e.g. #/character/1 or #/?name=rick&page=2). React Router does the
+// A tiny router on the part after # (e.g. #/character/1 or #/?name=juno&page=2). React Router does the
 // same job with more features; this version shows the idea without a library and works on GitHub Pages.
 // The URL is an "external store": useSyncExternalStore re-renders us whenever it changes.
 const listeners = new Set()
@@ -39,7 +39,7 @@ export function characterIdFrom(path) {
   return id ? Number(id) : null
 }
 
-// The list's filters live in the URL (#/?name=rick&status=alive&page=2), so they survive a reload
+// The list's filters live in the URL (#/?name=juno&status=bright&page=2), so they survive a reload
 // and the trip to a character page and back. Empty values are left out to keep the URL short.
 export function listHref(filters) {
   const params = new URLSearchParams()
