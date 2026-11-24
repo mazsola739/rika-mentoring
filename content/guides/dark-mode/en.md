@@ -18,8 +18,24 @@ explain it again.
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `stargazer` folder in your
-editor. Then, in the terminal:
+You start the same way as in lesson 1, and its step 0 explains every command in detail. In short: open a terminal in
+your work folder, where the `rika-mentoring` repository from lesson 1 is, bring in the new lessons, then copy this
+lesson's `exercise` folder out of the repository as `stargazer`:
+
+```shell
+cd rika-mentoring
+git pull        # brings the new lessons
+cd ..           # back to your work folder
+cp -r rika-mentoring/lessons/02-dark-mode/exercise stargazer
+```
+
+No repository yet? Run `git clone https://github.com/mazsola739/rika-mentoring.git` instead of the first three lines.
+No git? On the [repository's GitHub page](https://github.com/mazsola739/rika-mentoring) choose **Code → Download ZIP**,
+and copy the `lessons/02-dark-mode/exercise` folder out of it into your work folder as `stargazer`. The `cp -r` command
+works in PowerShell, on a Mac and on Linux; a file manager works too: copy the folder and rename the copy.
+
+Open the `stargazer` folder in your editor (in VS Code: **File** → **Open Folder**), open a terminal in it
+(**Terminal** → **New Terminal**), and start the project:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -32,18 +48,28 @@ Open the address the terminal prints (usually `http://localhost:5173`). You see 
 purple tip box and a short list. There is no switch yet: that is your job.
 :::
 
-This time the starter is not empty: the page is ready, only the dark mode is missing. Look around in `src`. Everything
-here is familiar from lesson 1:
+Leave the server running. In a second terminal (the **+** button of the terminal panel), make your copy a git
+repository with one commit, the starting point:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+If git asks who you are, step 0 of lesson 1 shows how to give it your name and e-mail.
+
+This time the exercise is not empty: the page is ready, only the dark mode is missing. Look around in `src`.
+Everything here is familiar from lesson 1:
 
 - `src/App.jsx` puts the page together from two components.
 - `src/components/Header.jsx` is the top bar. The comment in it marks where the switch will go.
 - `src/components/Article.jsx` is the article itself.
 - `src/index.css` holds all the styles. Every colour is written out by hand, for example `#3346a8` for the blue.
 
-:::concept The starter is a git repository
-As in lesson 1, the folder already has a first commit. `git restore .` throws away every change since your last commit
-(new files stay: delete those by hand). When a step works, commit it: `git add .`, then
-`git commit -m "CSS variables"`.
+:::concept Your copy is a git repository
+As in lesson 1: `git restore .` throws away every change since your last commit (new files stay: delete those by hand).
+When a step works, commit it: `git add .`, then `git commit -m "CSS variables"`.
 :::
 
 ### Colours in one place: CSS variables
@@ -275,8 +301,8 @@ brackets you only hand the function over, to be called later.
 ### A real switch component
 
 The button works, but it looks like a plain button, and it is above the header. Let's make a small switch with a
-sliding knob, and put it in the header, where the starter's comment marks its place. It gets its own component, in a
-new file, `src/components/ThemeToggle.jsx`:
+sliding knob, and put it in the header, where the comment in `Header.jsx` marks its place. It gets its own component,
+in a new file, `src/components/ThemeToggle.jsx`:
 
 ```jsx file=src/components/ThemeToggle.jsx
 import './ThemeToggle.css'
@@ -990,7 +1016,7 @@ function App() {
 export default App
 ```
 
-`App` is back to how it was in the starter: it does not need to know anything about themes.
+`App` is back to how it was in the exercise at the start: it does not need to know anything about themes.
 
 :::check Check
 The page works exactly as at the end of the intermediate level, but `Header` and `App` have no theme props any more.

@@ -23,10 +23,22 @@ módon használunk, azt itt újra elmagyarázzuk.
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), és csomagold ki. Windowson a kibontás egy `flashcards` mappát
-készíthet, benne egy újabb `flashcards` mappával: a belsőt nyisd meg a szerkesztőben, azt, amelyikben a `package.json`
-van. Ha megcsináltad az előző leckéket, a Node.js és a VS Code már megvan; ha nem, az 1. lecke 0. lépése megmutatja,
-hogyan telepítsd őket. Aztán a szerkesztő termináljában:
+A lecke kiinduló projektje a tananyag GitHubon lévő repójában van, a `lessons/06-flashcards/exercise` mappában (az
+útmutató fölötti „Feladat a GitHubon” gomb megnyitja). Ha megcsináltad az előző leckéket, a Node.js, a Git és a VS Code
+már megvan; ha nem, az 1. lecke 0. lépése megmutatja, hogyan telepítsd őket, és azt is részletesen elmagyarázza,
+hogyan jutsz hozzá a feladathoz. Röviden: egy terminálban, abban a mappában, ahol a projektjeidet tartod:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git        # csak az első alkalommal
+cp -r rika-mentoring/lessons/06-flashcards/exercise flashcards    # a saját másolatod a kiinduló projektről
+```
+
+Ha egy korábbi leckéből már megvan a repó, a `git clone` sort hagyd ki, és másolás előtt hozd le az új leckéket:
+`cd rika-mentoring`, `git pull`, `cd ..` (vissza a munkamappádba). Klónozás helyett a
+[repó oldalán](https://github.com/mazsola739/rika-mentoring) a **Code → Download ZIP** is működik; hogy a letöltött
+ZIP-ből hogyan másold ki a mappát, azt az 1. lecke mutatja meg. A másolatodban, a `flashcards` mappában dolgozol: a repó
+érintetlen marad, így a `git pull` továbbra is működik. Nyisd meg a másolatodat a szerkesztőben, aztán a szerkesztő
+termináljában:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -38,7 +50,19 @@ Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`)
 panelt látsz, a tetején a „Flashcards” címmel. Más még nincs rajta.
 :::
 
-Az alapban három fájl fontos ehhez a leckéhez:
+A szervert hagyd futni, és egy második terminálban (a terminálpanel **+** gombjával) csinálj a másolatodból git-repót
+egyetlen committal, a kezdőállapottal:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Ettől kezdve a `git restore .` minden fájlt visszaállít az utolsó commitod állapotára, és érdemes minden működő lépés
+után commitolni.
+
+A kiinduló projektben három fájl fontos ehhez a leckéhez:
 
 - `src/App.jsx`: maga az oldal. Egyelőre csak a címet mutatja, innen indulunk.
 - `src/App.css`: a teljes lecke stílusai, készen, az útmutató ezeket az osztályneveket (`card`, `study`, `decks`, …)
@@ -48,12 +72,9 @@ Az alapban három fájl fontos ehhez a leckéhez:
   építés közben ismételsz is), a `SPACE_CARDS` egy kis űrkvíz. Mindkettő egy [[tömb]], és minden eleme egy
   [[objektum]] három mezővel: `id` (egyedi azonosító, ami sosem jelenik meg), `question` (kérdés) és `answer` (válasz).
 
-Az alap mindkét nyelven ugyanaz, ezért a mintakártyák és a fájlokban lévő megjegyzések angolul vannak, és a cím is
-„Flashcards”. Ha szeretnéd, fordítsd le őket nyugodtan magyarra: a lépések ugyanúgy működnek. A kódot, amit te írsz,
-magyar feliratokkal és megjegyzésekkel mutatjuk.
-
-Ahogy az eddigi leckékben, a mappa most is egy git-repó egyetlen committal, a kezdőállapottal: a `git restore .` minden
-fájlt visszaállít, és érdemes minden működő lépés után commitolni.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a mintakártyák és a fájlokban lévő megjegyzések angolul vannak, és a
+cím is „Flashcards”. Ha szeretnéd, fordítsd le őket nyugodtan magyarra: a lépések ugyanúgy működnek. A kódot, amit te
+írsz, magyar feliratokkal és megjegyzésekkel mutatjuk.
 
 :::concept Gyors ismétlés
 A [[komponens]] egy függvény, ami [[JSX]]-et ad vissza, vagyis HTML-szerű leírást arról, mi jelenjen meg. Kívülről a
@@ -418,10 +439,10 @@ A ++Home++ ugorjon az első kártyára, az ++End++ az utolsóra. Két új sor ke
 
 ### Paklik
 
-Az alapban két pakli van, de egyszerre csak az egyiket látjuk. Legyen egy pakliválasztó: a paklik nevére kattintva
-lehessen váltani. Ehhez szétszedjük az `App`-ot. Ami a lapozásról szól (az index, a billentyűk, a számláló, a kártya és
-a gombok), az egy új komponensbe, a `Study`-ba (tanulás) költözik. Az `App` dolga pedig az lesz, hogy tudja, melyik
-pakli van kiválasztva.
+A kiinduló projektben két pakli van, de egyszerre csak az egyiket látjuk. Legyen egy pakliválasztó: a paklik nevére
+kattintva lehessen váltani. Ehhez szétszedjük az `App`-ot. Ami a lapozásról szól (az index, a billentyűk, a számláló,
+a kártya és a gombok), az egy új komponensbe, a `Study`-ba (tanulás) költözik. Az `App` dolga pedig az lesz, hogy
+tudja, melyik pakli van kiválasztva.
 
 Hozd létre az `src/components/Study.jsx` fájlt. A java ismerős: ez az eddigi `App` lapozós része, csak a kártyákat most
 propként kapja.

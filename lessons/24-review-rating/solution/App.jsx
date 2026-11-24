@@ -2,7 +2,9 @@ import AppFrame from '@shared/ui/AppFrame.jsx'
 import { useLang, useText } from '@shared/i18n.js'
 import { PRODUCTS } from './products.js'
 import { useReviews } from './useReviews.js'
+import { useAccount } from './useAccount.js'
 import { productIdFrom, useHashRoute } from './useHashRoute.js'
+import LoginBar from './LoginBar.jsx'
 import ProductList from './ProductList.jsx'
 import ProductPage from './ProductPage.jsx'
 import { TEXT } from './text.js'
@@ -26,17 +28,35 @@ function ReviewApp() {
   const lang = useLang()
   const { path, navigated } = useHashRoute()
   const data = useReviews()
+  const account = useAccount()
   const fmt = makeFormatters(lang)
 
   const productId = productIdFrom(path)
   const product = PRODUCTS.find((p) => p.id === productId)
+
+  // A reset forgets the accounts too, so it also logs you out.
+  function resetDemo() {
+    data.resetDemo()
+    account.logOut()
+  }
 
   let page
   if (path === '/' || path === '') {
     page = <ProductList data={data} fmt={fmt} lang={lang} t={t} focusOnMount={navigated} />
   } else if (product) {
     // key: a different product gets a fresh page (sort, filter and form start over).
-    page = <ProductPage key={product.id} product={product} data={data} fmt={fmt} lang={lang} t={t} focusOnMount={navigated} />
+    page = (
+      <ProductPage
+        key={product.id}
+        product={product}
+        data={data}
+        user={account.user}
+        fmt={fmt}
+        lang={lang}
+        t={t}
+        focusOnMount={navigated}
+      />
+    )
   } else {
     page = (
       <div className="rr-empty">
@@ -50,6 +70,8 @@ function ReviewApp() {
 
   return (
     <div className="rr">
+      <LoginBar account={account} t={t} />
+
       {data.status === 'loading' && (
         <p className="rr-status" role="status">
           <span className="rr-spinner" aria-hidden="true" /> {t.loading}
@@ -70,7 +92,7 @@ function ReviewApp() {
 
       <footer className="rr-foot">
         <p>{t.note}</p>
-        <button type="button" className="rr-link" onClick={data.resetDemo}>
+        <button type="button" className="rr-link" onClick={resetDemo}>
           {t.reset}
         </button>
       </footer>

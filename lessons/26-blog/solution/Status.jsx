@@ -1,3 +1,5 @@
+import { usePageMeta } from './usePageMeta.js'
+
 // Small building blocks for the loading / error / not-found states every page needs.
 
 export function Loading({ label, lines = 3 }) {
@@ -26,9 +28,13 @@ export function ErrorState({ title, message, onRetry, retryLabel }) {
   )
 }
 
-export function NotFound({ text, backLabel }) {
+// For an address with no page, or a post that does not exist. The title also goes on the browser tab.
+export function NotFound({ title, text, backLabel }) {
+  usePageMeta(title, text)
+
   return (
     <div className="bl-empty">
+      <h3 className="bl-empty__title">{title}</h3>
       <p>{text}</p>
       <a className="btn btn--ghost" href="#/">
         <span aria-hidden="true">←</span> {backLabel}

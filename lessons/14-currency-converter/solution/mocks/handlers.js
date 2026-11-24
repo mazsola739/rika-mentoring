@@ -82,7 +82,7 @@ function table(day, from = BASE, codes = [BASE, ...Object.keys(FALLBACK_RATES.ra
 const known = (code) => code === BASE || code in FALLBACK_RATES.rates
 
 // ── Trouble, like a real network ────────────────────────────────────────────
-// The same practice switch as in the starter's handlers.js:
+// The same practice switch as in the exercise's src/mocks/handlers.js:
 //   'normal'   answers in about half a second
 //   'slow'     takes 3 seconds for every answer
 //   'flaky'    about every second answer is an error (503 Service Unavailable)

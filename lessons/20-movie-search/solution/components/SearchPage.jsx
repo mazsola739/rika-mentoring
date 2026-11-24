@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useRef } from 'react'
 import { useDebounce } from '../useDebounce.js'
 import { useFetch } from '../useFetch.js'
 import { replaceRoute, searchHref } from '../useHashRoute.js'
@@ -15,16 +15,20 @@ function decadeOf(year) {
   return Math.floor(Number(year) / 10) * 10
 }
 
-// Keyed by the search term in the parent, so both filters start fresh for every new search.
-// `query` goes on to the cards, whose links carry it to the series page.
-function Results({ shows, query, isFavorite, onToggleFavorite, t }) {
-  const [genre, setGenre] = useState(null)
-  const [decade, setDecade] = useState('') // '' = any time; a <select> always gives back text
+// The two filters live in the address next to the search (#/?q=the&genre=Mystery&decade=2010), so a reload
+// or a shared link keeps them. Typing a new search writes an address without them: every search starts fresh.
+// `query` and the filters go on to the cards, whose links carry them to the series page and back.
+function Results({ shows, query, filters, onFiltersChange, isFavorite, onToggleFavorite, t }) {
   const genres = useMemo(() => [...new Set(shows.flatMap((s) => s.genres))].sort(), [shows])
   const decades = useMemo(
     () => [...new Set(shows.filter((s) => s.year).map((s) => decadeOf(s.year)))].sort((a, b) => b - a),
     [shows],
   )
+  // A value that does not fit these results (an old or hand-edited link) is simply ignored.
+  const genre = genres.includes(filters.genre) ? filters.genre : null
+  const decade = decades.includes(Number(filters.decade)) ? filters.decade : '' // '' = any time; <select> gives text
+  const setGenre = (value) => onFiltersChange({ genre: value ?? '', decade })
+  const setDecade = (value) => onFiltersChange({ genre: genre ?? '', decade: value })
   // A series without a premiere year has no decade, so it only shows while the decade filter is "Any time".
   const visible = shows.filter(
     (s) => (!genre || s.genres.includes(genre)) && (decade === '' || (s.year && decadeOf(s.year) === Number(decade))),
@@ -70,6 +74,7 @@ function Results({ shows, query, isFavorite, onToggleFavorite, t }) {
               key={show.id}
               show={show}
               query={query}
+              filters={{ genre: genre ?? '', decade }}
               isFavorite={isFavorite(show.id)}
               onToggleFavorite={onToggleFavorite}
               t={t}
@@ -81,7 +86,7 @@ function Results({ shows, query, isFavorite, onToggleFavorite, t }) {
   )
 }
 
-export default function SearchPage({ query, favorites, isFavorite, onToggleFavorite, t }) {
+export default function SearchPage({ query, filters, favorites, isFavorite, onToggleFavorite, t }) {
   const inputRef = useRef(null)
   // The input writes straight into the URL; only the request waits until typing pauses.
   const term = useDebounce(query.trim(), 450)
@@ -97,7 +102,9 @@ export default function SearchPage({ query, favorites, isFavorite, onToggleFavor
   else if (status === 'loading') message = t.loading
   else if (status === 'success') message = shows.length ? t.found(shows.length, term) : t.none(term)
 
+  // A new search is written without filters; a filter change keeps the search.
   const setQuery = (value) => replaceRoute(searchHref(value))
+  const setFilters = (next) => replaceRoute(searchHref(query, next))
 
   return (
     <div className="ms-search">
@@ -177,9 +184,10 @@ export default function SearchPage({ query, favorites, isFavorite, onToggleFavor
         </EmptyState>
       ) : status === 'success' ? (
         <Results
-          key={term}
           shows={shows}
           query={term}
+          filters={filters}
+          onFiltersChange={setFilters}
           isFavorite={isFavorite}
           onToggleFavorite={onToggleFavorite}
           t={t}

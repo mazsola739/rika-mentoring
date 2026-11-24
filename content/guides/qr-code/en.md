@@ -23,8 +23,29 @@ way, it is explained again.
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `qr-code-generator` folder in
-your editor. Then type these two commands in the editor's terminal:
+This lesson's exercise, a ready starting project, is in the course repository on GitHub, in the
+`lessons/05-qr-code/exercise` folder (the "Exercise on GitHub" button above takes you there). Step 0 of lesson 1
+explains in detail how to get it and set it up, and how to install Node.js, VS Code and Git if you do not have them
+yet; here are just the commands.
+
+Open a terminal in your work folder, where you keep your projects. The first time, clone the repository there:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git
+```
+
+If you already have it from an earlier lesson, run `git pull` in its `rika-mentoring` folder instead
+(`cd rika-mentoring`, `git pull`, `cd ..`): it brings the new lessons. Instead of `git clone`, the **Code** → **Download ZIP** button on the
+[repository's GitHub page](https://github.com/mazsola739/rika-mentoring) works too.
+
+Copy the `lessons/05-qr-code/exercise` folder out of the repository into your work folder (outside the repository), and
+name the copy `qr-code-generator`. In the terminal of your work folder this is one command (a file manager works too):
+
+```shell
+cp -r rika-mentoring/lessons/05-qr-code/exercise qr-code-generator
+```
+
+Open your copy in your editor, and type these two commands in the editor's terminal:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite, qrcode)
@@ -36,16 +57,25 @@ Open the address the terminal prints (usually `http://localhost:5173`). You see 
 page, with the title "QR Code Generator". Nothing else yet.
 :::
 
-The starter has three files that matter for this lesson:
+Leave the server running, open a second terminal (the **+** button in the terminal panel), and make your copy a git
+repository with one commit, the starting point:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+From now on `git restore .` takes every file back to your last commit, and it is worth committing after every step
+that works.
+
+The exercise has three files that matter for this lesson:
 
 - `package.json`: the project's data sheet. We take a closer look at it in step 1, because for the first time it lists
   a package that belongs neither to React nor to Vite.
 - `src/App.jsx`: the page. For now it only shows the title; this is where we start.
 - `src/App.css`: the styles of the whole lesson, ready. This lesson is about React, not CSS, so you do not write
   styles: you only use the class names (`qr__layout`, `field`, `chip`, …) that the steps give you.
-
-Like in the earlier lessons, the folder is a git repository with one commit, the starting point: `git restore .` takes
-every file back, and it is worth committing after every step that works.
 
 :::concept Have your phone ready too
 The best way to check a QR code is to scan it. Most phones' camera apps recognise a code on their own and offer to

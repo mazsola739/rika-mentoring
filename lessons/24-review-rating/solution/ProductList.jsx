@@ -11,7 +11,7 @@ const PRODUCT_SORTS = {
   price: (a, b) => a.price - b.price,
 }
 
-const MIN_RATINGS = [0, 4, 3]
+const MIN_RATINGS = [0, 4, 4.5]
 
 export default function ProductList({ data, fmt, lang, t, focusOnMount }) {
   const [sort, setSort] = useState('rating')
@@ -22,7 +22,9 @@ export default function ProductList({ data, fmt, lang, t, focusOnMount }) {
   const loading = data.status === 'loading'
 
   // Derived list: stats per product, then filter, then sort. Recomputed on every render, no extra state.
-  const items = PRODUCTS.map((p) => ({ ...p, stats: summarize(data.reviews.filter((r) => r.productId === p.id)) }))
+  // Hidden (moderated) reviews do not count towards the averages.
+  const publicReviews = data.reviews.filter((r) => !r.hidden)
+  const items = PRODUCTS.map((p) => ({ ...p, stats: summarize(publicReviews.filter((r) => r.productId === p.id)) }))
     .filter((p) => p.stats.average >= minRating)
     .sort(PRODUCT_SORTS[sort])
 

@@ -41,16 +41,17 @@ function apiError(message, status) {
 export function createMockApi(name, { seed = {}, latency = [250, 700], failRate = 0 } = {}) {
   const key = `fake-api:${name}`
 
-  const load = () => {
+  // Reads the saved database; if nothing could be read, it keeps what it was given.
+  const load = (fallback) => {
     try {
       const saved = localStorage.getItem(key)
-      return saved ? JSON.parse(saved) : copy(seed)
+      return saved ? JSON.parse(saved) : fallback
     } catch {
-      return copy(seed)
+      return fallback
     }
   }
 
-  let db = load()
+  let db = load(copy(seed))
 
   const save = () => {
     try {
@@ -67,6 +68,7 @@ export function createMockApi(name, { seed = {}, latency = [250, 700], failRate 
     const [min, max] = latency
     await wait(min + Math.random() * (max - min))
     if (Math.random() < failRate) throw apiError('The server is not responding. Please try again.', 503)
+    db = load(db) // another tab may have saved since: work on the newest saved data
     return copy(work())
   }
 

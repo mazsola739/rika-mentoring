@@ -20,9 +20,26 @@ mondatban felidézzük őket, minden újat pedig lépésről lépésre elmagyar�
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `mad-libs` mappát a
-szerkesztőben. Ha megcsináltad az előző leckéket, a Node.js és a VS Code már megvan; ha nem, az 1. lecke 0. lépése
-megmutatja, hogyan telepítsd őket. Aztán írd be ezt a két parancsot a szerkesztő termináljába:
+A lecke feladata, vagyis a kiinduló projekt, a kurzus repójának `lessons/04-mad-libs/exercise` mappája (a fenti
+„Feladat a GitHubon” gomb oda visz). Ugyanúgy jutsz hozzá, mint az előző leckékben; az 1. lecke 0. lépése minden
+részletét elmagyarázza, ezért itt csak a parancsok jönnek. Ha megcsináltad az előző leckéket, a Node.js, a VS Code és
+a Git már megvan; ha nem, az 1. lecke 0. lépése megmutatja, hogyan telepítsd őket.
+
+Nyiss egy terminált a munkamappádban (abban, amelyikben a `rika-mentoring` mappa van, vagy lesz), hozd le a repót, és
+másold ki belőle a feladatot `mad-libs` néven:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git    # csak először
+cp -r rika-mentoring/lessons/04-mad-libs/exercise mad-libs    # a saját másolatod
+```
+
+Ha egy korábbi leckéből már megvan a repó, a `git clone` helyett a `rika-mentoring` mappában futtasd a `git pull`
+parancsot (`cd rika-mentoring`, `git pull`, `cd ..`): ez lehozza az új leckéket. Git nélkül a
+[GitHub-oldalon](https://github.com/mazsola739/rika-mentoring) a **Code → Download ZIP** is megteszi. Csak a
+másolatodban dolgozol, a repó változatlan marad.
+
+Nyisd meg a `mad-libs` mappát a szerkesztőben (VS Code-ban: **File** → **Open Folder**), és írd be ezt a két parancsot
+a szerkesztő termináljába:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -30,22 +47,31 @@ npm run dev     # elindítja a fejlesztői szervert
 ```
 
 :::check Ellenőrizd
-Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`). Az oldal közepén egy fehér kártyát látsz,
-rajta lila betűkkel a „Mad Libs” címet. Más még nincs rajta: a játékot te írod meg.
+Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`). Az oldal tetején, középen egy fehér
+kártyát látsz, rajta lila betűkkel a „Mad Libs” címet. Más még nincs rajta: a játékot te írod meg.
 :::
 
-Az alapban két fájl fontos ehhez a leckéhez:
+Végül legyen a másolatodból git-repó egyetlen committal, a kiindulóponttal. A szervert hagyd futni, és nyiss egy
+második terminált (a terminálpanel **+** gombjával); ez is a `mad-libs` mappában indul:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Ettől kezdve a `git restore .` minden fájlt visszaállít az utolsó commit állapotára, és érdemes minden működő lépés
+után commitolni (`git add .`, majd `git commit -m "Három mező"`).
+
+A kiinduló projektben két fájl fontos ehhez a leckéhez:
 
 - `src/App.jsx`: maga az oldal. Egyelőre csak a címet mutatja, innen indulunk.
 - `src/App.css`: a teljes lecke stílusai, készen. Ez a lecke a Reactről szól, nem a CSS-ről, ezért most sem kell
   stílust írnod: csak a lépésekben megadott osztályneveket (`fields`, `field`, `story`, `chip`, …) használod. Azért
   nézz bele!
 
-Az alap mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések angolul vannak. A kódot, amit te írsz be, magyar
-feliratokkal, történetekkel és megjegyzésekkel mutatjuk.
-
-Ahogy eddig, a mappa most is egy git-repó egyetlen committal, a kezdőállapottal: a `git restore .` minden fájlt
-visszaállít, és érdemes minden működő lépés után commitolni (`git add .`, majd `git commit -m "Három mező"`).
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések angolul vannak. A kódot, amit te írsz
+be, magyar feliratokkal, történetekkel és megjegyzésekkel mutatjuk.
 
 :::concept Gyors ismétlés
 A [[komponens]] egy függvény, ami [[JSX]]-et ad vissza: HTML-szerű leírást arról, mi jelenjen meg a képernyőn.

@@ -3,7 +3,7 @@ import AppFrame from '@shared/ui/AppFrame.jsx'
 import { useText } from '@shared/i18n.js'
 import { TEXT } from './text.js'
 import { toFavorite } from './tvApi.js'
-import { searchHref, showIdFrom, useHashRoute } from './useHashRoute.js'
+import { filtersFrom, searchHref, showIdFrom, useHashRoute } from './useHashRoute.js'
 import { useLocalStorage } from './useLocalStorage.js'
 import SearchPage from './components/SearchPage.jsx'
 import ShowDetails from './components/ShowDetails.jsx'
@@ -48,11 +48,14 @@ function MovieSearch() {
   const showId = showIdFrom(path)
   const page = showId ? 'show' : path === '/favorites' ? 'favorites' : 'search'
   const query = params.get('q') ?? ''
+  const filters = filtersFrom(params)
+  // This address's search and filters, as a link to the search page (#/?q=the&genre=Mystery).
+  const searchHere = searchHref(query, filters)
 
-  // Remember the last search, so "back to the results" can rebuild it from the URL.
+  // Remember the last search page, so "back to the results" can rebuild it from the URL.
   // (Updating state during render is fine when it only follows a changed value.)
-  const [lastQuery, setLastQuery] = useState(query)
-  if (page === 'search' && query !== lastQuery) setLastQuery(query)
+  const [lastSearch, setLastSearch] = useState(searchHere)
+  if (page === 'search' && searchHere !== lastSearch) setLastSearch(searchHere)
 
   // On a page change, bring the top of the app back into view.
   const firstRender = useRef(true)
@@ -71,7 +74,7 @@ function MovieSearch() {
 
   // A series page opened from a search carries it in its address (#/show/32?q=moon), so the way back
   // survives a reload or a shared link; otherwise we fall back to the last search seen in this visit.
-  const searchLink = searchHref(page === 'show' ? (params.get('q') ?? lastQuery) : lastQuery)
+  const searchLink = page === 'show' && params.has('q') ? searchHere : lastSearch
 
   return (
     <div className="ms" ref={rootRef}>
@@ -99,7 +102,14 @@ function MovieSearch() {
         <FavoritesPage favorites={favorites} onToggleFavorite={toggleFavorite} searchLink={searchLink} t={t} />
       )}
       {page === 'search' && (
-        <SearchPage query={query} favorites={favorites} isFavorite={isFavorite} onToggleFavorite={toggleFavorite} t={t} />
+        <SearchPage
+          query={query}
+          filters={filters}
+          favorites={favorites}
+          isFavorite={isFavorite}
+          onToggleFavorite={toggleFavorite}
+          t={t}
+        />
       )}
 
       <p className="ms-credit">{t.credit}</p>

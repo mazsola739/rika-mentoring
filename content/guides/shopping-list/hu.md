@@ -19,8 +19,22 @@ módosítása és törlése az állapotban, a `useEffect` és a saját `useLocal
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `shopping-list` mappát a
-szerkesztőben. Aztán a terminálban:
+Ennek a leckének a kiinduló projektje a kurzus GitHub-repójában a `lessons/10-shopping-list/exercise` mappa (fent:
+„Feladat a GitHubon”). Ugyanúgy szerzed meg, mint a korábbi leckékben; az 1. lecke minden lépést részletesen
+elmagyaráz. A terminálban, a munkamappádban (abban, amelyikben a `rika-mentoring` mappa van):
+
+```shell
+cd rika-mentoring
+git pull        # lehozza a repóba az új leckéket
+cd ..
+cp -r rika-mentoring/lessons/10-shopping-list/exercise shopping-list
+```
+
+Ha még nincs meg a repó, az első három sor helyett ezt futtasd:
+`git clone https://github.com/mazsola739/rika-mentoring.git` (git nélkül: a GitHub-oldalon **Code** →
+**Download ZIP**). A mappát a fájlkezelőben is átmásolhatod; az a lényeg, hogy a másolatod neve `shopping-list`
+legyen, és a `rika-mentoring` mappán kívülre kerüljön: így a `git pull` továbbra is működik. Nyisd meg a másolatodat
+a szerkesztőben, aztán írd be ezt a két parancsot a szerkesztő termináljába:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -32,7 +46,7 @@ Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`)
 „Shopping List” címmel. Más még nincs rajta: a listát te építed.
 :::
 
-Az alapban ezek a fájlok fontosak ehhez a leckéhez:
+A kiinduló projektben ezek a fájlok fontosak ehhez a leckéhez:
 
 - `src/App.jsx`: maga az oldal, egyelőre csak a címmel. Innen indulunk.
 - `src/App.css`: a teljes lecke stílusai, készen. Ez a lecke a Reactről szól, nem a CSS-ről, ezért most nem kell
@@ -41,12 +55,21 @@ Az alapban ezek a fájlok fontosak ehhez a leckéhez:
 - `public/icon.svg`, `public/icon-192.png` és `public/icon-512.png`: az app ikonja. Csak a haladó szint legvégén lesz
   rá szükség, amikor telepíthető appot csinálunk a listából.
 
-Az alap mindkét nyelven ugyanaz, ezért a cím és a fájlokban lévő megjegyzések angolul vannak. Ha szeretnéd, írd át a
-címet nyugodtan „Bevásárlólista”-ra: a lépések ugyanúgy működnek. A kódot, amit te írsz be, magyar feliratokkal és
-megjegyzésekkel mutatjuk.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a cím és a fájlokban lévő megjegyzések angolul vannak. Ha
+szeretnéd, írd át a címet nyugodtan „Bevásárlólista”-ra: a lépések ugyanúgy működnek. A kódot, amit te írsz be,
+magyar feliratokkal és megjegyzésekkel mutatjuk.
 
-A mappa most is egy git-repó egyetlen committal, a kezdőállapottal: a `git restore .` minden fájlt visszaállít, és
-érdemes minden működő lépés után commitolni.
+Végül csinálj a másolatodból git-repót egyetlen committal, a kezdőállapottal. A szervert hagyd futni, és nyiss egy
+második terminált (a terminálpanel **+** gombja; ez is a `shopping-list` mappában nyílik meg):
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Ettől kezdve a `git restore .` minden fájlt visszaállít az utolsó commitod állapotára, és érdemes minden működő lépés
+után commitolni.
 
 :::concept Gyors ismétlés a korábbi leckékből
 Egy listát úgy jelenítesz meg Reactben, hogy a tömb [[map]] függvényével minden elemből JSX-et készítesz. Minden sor
@@ -1463,7 +1486,7 @@ JSON-fájl. Hozd létre a `public/manifest.webmanifest` fájlt:
 - A `"display": "standalone"` saját ablakot kér, címsor és gombok nélkül, mint egy igazi appnál.
 - A `background_color` az indulás pillanatában látszik, a `theme_color` pedig a böngésző sávjait színezi (például a
   telefon felső sávját).
-- Az ikonok az alappal érkeztek a `public` mappába; a böngészők ezt a két méretet várják.
+- Az ikonok a kiinduló projekttel érkeztek a `public` mappába; a böngészők ezt a két méretet várják.
 
 Végül az `index.html` (a projekt gyökerében, nem az `src`-ben) mondja meg, hol a manifest. Cseréld le a tartalmát
 erre:
@@ -1486,7 +1509,7 @@ erre:
 </html>
 ```
 
-Az alap üres ikonja (`href="data:,"`) helyére a kosaras `icon.svg` került (ez látszik a böngésző fülén), a
+A kiinduló projekt üres ikonja (`href="data:,"`) helyére a kosaras `icon.svg` került (ez látszik a böngésző fülén), a
 `lang="hu"` pedig megmondja a böngészőnek és a képernyőolvasóknak, hogy az oldal magyar. A `theme-color` ugyanaz a
 szín, mint a manifestben: a böngésző már telepítés előtt is ezzel színezheti a sávjait. A `<title>` a böngészőfülön és
 a telepített app ablakán látszó cím.

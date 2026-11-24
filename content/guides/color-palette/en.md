@@ -21,8 +21,22 @@ use something from earlier, a sentence or two reminds you of it; everything new 
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `color-palette` folder in your
-editor. Then type these two commands in the editor's terminal:
+This lesson's exercise, a ready starting project, is the `lessons/07-color-palette/exercise` folder of the course
+repository on GitHub (the "Exercise on GitHub" button above opens it). Step 0 of lesson 1 explains in detail how to get
+it; here are the commands in short. In a terminal, in your work folder:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git    # the first time only
+cp -r rika-mentoring/lessons/07-color-palette/exercise color-palette    # your own copy
+```
+
+If you already have the repository from an earlier lesson, skip `git clone`: run `git pull` in the `rika-mentoring`
+folder instead (`cd rika-mentoring`, `git pull`, `cd ..`), and it brings the new lessons; then copy as above. (No git?
+On the repository's GitHub page, choose **Code → Download ZIP**; lesson 1 shows this too.) You can also copy the folder
+with your file manager: what matters is that your copy is called `color-palette` and sits outside the repository, so the
+original stays untouched.
+
+Open your copy, the `color-palette` folder, in your editor, and type these two commands in the editor's terminal:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -34,15 +48,24 @@ Open the address the terminal prints (usually `http://localhost:5173`). You see 
 the top, titled "Color Palette". Nothing else is on it yet: building the palette is your job.
 :::
 
-The starter has two files that matter for this lesson:
+Leave the server running, and in a second terminal (the **+** button in the terminal panel) make your copy a git
+repository with one commit, the starting point:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+As in the earlier lessons, `git restore .` now takes every file back to your last commit, and it is worth committing
+after every step that works.
+
+The exercise has two files that matter for this lesson:
 
 - `src/App.jsx`: the page. For now it only shows the title; this is where we start.
 - `src/App.css`: the styles of the whole lesson, ready. This lesson is about React and colors, not CSS, so this time
   you do not write styles: you only use the class names (`swatch`, `toolbar`, `favorites`, …) that the steps give you.
   Have a look inside anyway!
-
-As in the earlier lessons, the folder is a git repository with one commit, the starting point: `git restore .` takes
-every file back, and it is worth committing after every step that works.
 
 :::concept A quick recap
 A [[component]] is a function that returns [[JSX]]. It gets data through its [[props]] and remembers things with

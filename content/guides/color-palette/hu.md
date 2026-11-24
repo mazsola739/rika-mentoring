@@ -22,8 +22,23 @@ elmagyarázunk.
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `color-palette` mappát a
-szerkesztőben. Aztán írd be ezt a két parancsot a szerkesztő termináljába:
+A lecke feladata, egy kész kiinduló projekt, a kurzus GitHub-repójának `lessons/07-color-palette/exercise` mappája (a
+fenti „Feladat a GitHubon” gomb ezt nyitja meg). Hogy hogyan jutsz hozzá, azt az 1. lecke 0. lépése részletesen
+elmagyarázza; itt röviden a parancsok. A terminálban, a munkamappádban:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git    # csak az első alkalommal
+cp -r rika-mentoring/lessons/07-color-palette/exercise color-palette    # a saját másolatod
+```
+
+Ha egy korábbi leckéből már megvan a repó, a `git clone` helyett a `rika-mentoring` mappában futtasd a `git pull`
+parancsot (`cd rika-mentoring`, `git pull`, `cd ..`): ez lehozza az új leckéket, utána jöhet a másolás. (Nincs gited? A
+repó GitHub-oldalán válaszd a **Code → Download ZIP** lehetőséget; az 1. lecke ezt is megmutatja.) A mappát a
+fájlkezelővel is átmásolhatod: a lényeg, hogy a másolat neve `color-palette` legyen, és a repón kívülre kerüljön, így az
+eredeti érintetlen marad.
+
+Nyisd meg a szerkesztőben a másolatodat, a `color-palette` mappát, és írd be ezt a két parancsot a szerkesztő
+termináljába:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -35,18 +50,28 @@ Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`)
 fehér kártyát „Color Palette” címmel. Más még nincs rajta: a palettát te építed.
 :::
 
-Az alapban két fájl fontos ehhez a leckéhez:
+A szervert hagyd futni, és egy második terminálban (a terminálpanel **+** gombjával) tedd git-repóvá a másolatodat
+egyetlen committal, a kezdőállapottal:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Ahogy a korábbi leckékben, a `git restore .` mostantól minden fájlt visszaállít az utolsó commitod állapotára, és
+érdemes minden működő lépés után commitolni.
+
+A kiinduló projektben két fájl fontos ehhez a leckéhez:
 
 - `src/App.jsx`: maga az oldal. Egyelőre csak a címet mutatja, innen indulunk.
 - `src/App.css`: a teljes lecke stílusai, készen. Ez a lecke a Reactről és a színekről szól, nem a CSS-ről, ezért most
   nem kell stílust írnod: csak a lépésekben megadott osztályneveket (`swatch`, `toolbar`, `favorites`, …) használod.
   Azért nézz bele!
 
-Az alap mindkét nyelven ugyanaz, ezért a „Color Palette” cím és a fájlokban lévő megjegyzések angolul vannak. Ha
-szeretnéd, írd át őket nyugodtan magyarra. A kódot, amit te írsz be, magyar feliratokkal és megjegyzésekkel mutatjuk.
-
-A mappa most is egy git-repó egyetlen committal, a kezdőállapottal: a `git restore .` minden fájlt visszaállít, és
-érdemes minden működő lépés után commitolni.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a „Color Palette” cím és a fájlokban lévő megjegyzések angolul
+vannak. Ha szeretnéd, írd át őket nyugodtan magyarra. A kódot, amit te írsz be, magyar feliratokkal és megjegyzésekkel
+mutatjuk.
 
 :::concept Gyors ismétlés
 Egy [[komponens]] egy függvény, ami [[JSX]]-et ad vissza. Adatot a [[props]]-ain keresztül kap, emlékezni a

@@ -21,8 +21,24 @@ használunk, azt újra elmagyarázzuk.
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `pocket-gallery` mappát a
-szerkesztőben. Aztán írd be ezt a két parancsot a szerkesztő termináljába:
+A lecke kiinduló projektje a kurzus GitHub-repójában van, a `lessons/12-image-gallery/exercise` mappában (a fenti
+„Feladat a GitHubon” gomb megnyitja). Hogy hogyan jutsz hozzá, és hogyan dolgozol benne, azt az 1. lecke 0. lépése
+részletesen elmagyarázza; itt röviden csak a parancsok jönnek. Egy terminálban, a munkamappádban, ahol a projektjeidet
+tartod:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git  # csak az első alkalommal
+cp -r rika-mentoring/lessons/12-image-gallery/exercise pocket-gallery
+```
+
+Ha egy korábbi leckéből már megvan a repó, ne klónozd le újra: az első sor helyett futtasd le benne a `git pull`
+parancsot (`cd rika-mentoring`, `git pull`, `cd ..`), ez lehozza az új leckéket, és utána jöhet a másolás. Mindig a
+másolatodban dolgozol, sosem a repóban: a repó érintetlen marad, így a `git pull` később is működik. Ha nincs gited, a
+[repó GitHub-oldalán](https://github.com/mazsola739/rika-mentoring) válaszd a **Code → Download ZIP** lehetőséget, és
+másold ki belőle a `lessons/12-image-gallery/exercise` mappát a munkamappádba, `pocket-gallery` néven.
+
+Nyisd meg a szerkesztőben a másolatodat, a `pocket-gallery` mappát, és írd be ezt a két parancsot a szerkesztő
+termináljába:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -35,7 +51,19 @@ betűkkel a „Pocket Gallery” címet, alatta egy szürke sort: „36 small ar
 azokat te teszed ki.
 :::
 
-Az alapban négy dolog fontos ehhez a leckéhez:
+A szervert hagyd futni, nyiss egy második terminált (a terminálpanel **+** gombjával), és csinálj a másolatodból
+git-repót egyetlen committal, a kezdőállapottal:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Ha a git azt feleli, hogy „Please tell me who you are”, az 1. lecke 0. lépésében megtalálod a két `git config`
+parancsot, amely ezt megoldja.
+
+A kiinduló projektben négy dolog fontos ehhez a leckéhez:
 
 - `src/App.jsx`: maga az oldal. Egyelőre csak a címet mutatja, innen indulunk.
 - `src/App.css`: a teljes lecke stílusai, készen. Ez a lecke a Reactről szól, nem a CSS-ről, ezért nem kell stílust
@@ -71,14 +99,13 @@ mindent, ami benne van, változatlanul kiszolgál a webhely gyökeréből. A `pu
 tengerbe bukik.
 :::
 
-Az alap mindkét nyelven ugyanaz, ezért az oldal alcíme („36 small artworks, drawn in code.”), a képek címei és
-leírásai, valamint a fájlokban lévő megjegyzések angolul vannak. Ha szeretnéd, fordítsd le őket nyugodtan magyarra: a lépések ugyanúgy működnek. A kódot, amit te írsz be, magyar
-feliratokkal és megjegyzésekkel mutatjuk.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért az oldal alcíme („36 small artworks, drawn in code.”), a képek
+címei és leírásai, valamint a fájlokban lévő megjegyzések angolul vannak. Ha szeretnéd, fordítsd le őket nyugodtan
+magyarra: a lépések ugyanúgy működnek. A kódot, amit te írsz be, magyar feliratokkal és megjegyzésekkel mutatjuk.
 
-:::concept Az alap egy git-repó
-Ahogy az előző leckékben, a mappában már van egy első commit. A `git restore .` eldob minden változtatást az utolsó
-commit óta (az új fájlok megmaradnak, azokat kézzel töröld). Ha egy lépés működik, commitold: `git add .`, majd
-`git commit -m "Képek rácsban"`.
+:::concept A másolatod egy git-repó
+Ahogy az előző leckékben: a `git restore .` eldob minden változtatást az utolsó commitod óta (az új fájlok
+megmaradnak, azokat kézzel töröld). Ha egy lépés működik, commitold: `git add .`, majd `git commit -m "Képek rácsban"`.
 :::
 
 ### Képek rácsban

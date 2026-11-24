@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { StarRating } from './StarRating.jsx'
 
-const EMPTY = { author: '', rating: 0, heading: '', body: '' }
+const EMPTY = { rating: 0, heading: '', body: '' }
 const BODY_MAX = 600
 
 function validate(v) {
   const e = {}
-  if (v.author.trim().length < 2) e.author = 'author'
   if (!v.rating) e.rating = 'rating'
   if (v.heading.trim().length < 3) e.heading = 'heading'
   if (v.body.trim().length < 20) e.body = 'body'
@@ -14,12 +13,12 @@ function validate(v) {
   return e
 }
 
-export default function ReviewForm({ productId, onSubmit, t }) {
+// The name comes from the logged-in account, so the form only asks for the stars, a title and the text.
+export default function ReviewForm({ productId, user, onSubmit, t }) {
   const [values, setValues] = useState(EMPTY)
   const [touched, setTouched] = useState({})
   const [status, setStatus] = useState('idle') // 'idle' | 'sending' | 'error'
   const [error, setError] = useState('')
-  const [thanks, setThanks] = useState('')
 
   const errors = validate(values)
   const show = (field) => (touched[field] && errors[field] ? t.errors[errors[field]] : undefined)
@@ -28,8 +27,7 @@ export default function ReviewForm({ productId, onSubmit, t }) {
 
   const submit = async (e) => {
     e.preventDefault()
-    setTouched({ author: true, rating: true, heading: true, body: true })
-    setThanks('')
+    setTouched({ rating: true, heading: true, body: true })
     const first = Object.keys(errors)[0]
     if (first) {
       // Jump to the first problem (radio groups: the first star).
@@ -40,14 +38,13 @@ export default function ReviewForm({ productId, onSubmit, t }) {
     try {
       await onSubmit({
         productId,
-        author: values.author.trim(),
+        userId: user.id,
+        author: user.name,
         rating: values.rating,
         title: values.heading.trim(),
         body: values.body.trim(),
       })
-      setThanks(t.form.thanks(values.author.trim()))
-      setValues(EMPTY)
-      setTouched({})
+      // On success the page shows the 'already rated' note in the form's place.
       setStatus('idle')
     } catch (err) {
       setError(err.message)
@@ -84,44 +81,24 @@ export default function ReviewForm({ productId, onSubmit, t }) {
           </small>
         )}
 
-        <div className="rr-form__row">
-          <label className="field">
-            <span>{t.form.author}</span>
-            <input
-              className="input"
-              name="author"
-              autoComplete="name"
-              value={values.author}
-              onChange={(e) => set('author', e.target.value)}
-              onBlur={blur('author')}
-              aria-invalid={Boolean(show('author'))}
-              aria-describedby={describe('author')}
-            />
-            {show('author') && (
-              <small id="rr-err-author" className="rr-error">
-                {show('author')}
-              </small>
-            )}
-          </label>
-          <label className="field">
-            <span>{t.form.heading}</span>
-            <input
-              className="input"
-              name="heading"
-              value={values.heading}
-              maxLength={80}
-              onChange={(e) => set('heading', e.target.value)}
-              onBlur={blur('heading')}
-              aria-invalid={Boolean(show('heading'))}
-              aria-describedby={describe('heading')}
-            />
-            {show('heading') && (
-              <small id="rr-err-heading" className="rr-error">
-                {show('heading')}
-              </small>
-            )}
-          </label>
-        </div>
+        <label className="field">
+          <span>{t.form.heading}</span>
+          <input
+            className="input"
+            name="heading"
+            value={values.heading}
+            maxLength={80}
+            onChange={(e) => set('heading', e.target.value)}
+            onBlur={blur('heading')}
+            aria-invalid={Boolean(show('heading'))}
+            aria-describedby={describe('heading')}
+          />
+          {show('heading') && (
+            <small id="rr-err-heading" className="rr-error">
+              {show('heading')}
+            </small>
+          )}
+        </label>
 
         <label className="field">
           <span>{t.form.body}</span>
@@ -156,9 +133,7 @@ export default function ReviewForm({ productId, onSubmit, t }) {
             {sending && <span className="rr-spinner" aria-hidden="true" />}
             {sending ? t.form.sending : t.form.submit}
           </button>
-          <p className="rr-form__thanks" role="status">
-            {thanks}
-          </p>
+          <p className="rr-form__as">{t.form.postingAs(user.name)}</p>
         </div>
       </fieldset>
     </form>

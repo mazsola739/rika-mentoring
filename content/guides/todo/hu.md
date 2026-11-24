@@ -22,8 +22,17 @@ mondatban újra elmagyarázzuk; minden újat lépésről lépésre.
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `todo-list` mappát a
-szerkesztőben. Aztán írd be ezt a két parancsot a szerkesztő termináljába:
+A lecke kiinduló projektje a kurzus repójában van, a `lessons/09-todo/exercise` mappában (a fenti „Feladat a
+GitHubon” gomb ezt a mappát nyitja meg a GitHubon). Az 1. lecke részletesen elmagyarázza, hogyan jutsz hozzá; itt
+csak röviden:
+
+1. Hozd le az új leckéket. Ha egy korábbi leckéből már megvan a repó, futtasd le a mappájában a `git pull` parancsot
+   (`cd rika-mentoring`, `git pull`, `cd ..`).
+   Ha még nincs meg, klónozd le egyszer: `git clone https://github.com/mazsola739/rika-mentoring.git` (git nélkül: a
+   GitHub-oldalon **Code → Download ZIP**).
+2. Másold ki a `lessons/09-todo/exercise` mappát a repóból a saját munkamappádba, és nevezd el a másolatot így:
+   `todo-list`. A másolatodban dolgozol: a repó érintetlen marad, így a `git pull` továbbra is működik.
+3. Nyisd meg a `todo-list` mappát a szerkesztőben, és írd be ezt a két parancsot a szerkesztő termináljába:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -35,7 +44,19 @@ Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`)
 fehér kártyával, rajta sötétkék betűkkel a „To-Do List” cím. Más még nincs rajta: a lista a te dolgod.
 :::
 
-Az alapban három fájl fontos ehhez a leckéhez:
+Végül csinálj a másolatodból git-repót egyetlen committal, a kezdőállapottal. Az első terminált az `npm run dev`
+foglalja, ezért nyiss egy másodikat a szerkesztőben, a `todo-list` mappában:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Mostantól a `git restore .` minden fájlt visszaállít az utolsó commitod állapotára, és érdemes minden működő lépés
+után commitolni.
+
+A kiinduló projektben három fájl fontos ehhez a leckéhez:
 
 - `src/App.jsx`: maga az oldal. Egyelőre csak a címet mutatja, innen indulunk.
 - `src/App.css`: a teljes lecke stílusai, készen. Ez a lecke a Reactről szól, nem a CSS-ről, ezért most nem kell
@@ -43,10 +64,9 @@ Az alapban három fájl fontos ehhez a leckéhez:
   bele!
 - `src/fakeServer.js`: egy kitalált szerver. Csak a legvégén, a haladó szinten lesz rá szükség.
 
-Az alap mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések és a „To-Do List” cím angolul vannak. Ha
-szeretnéd, írd át őket nyugodtan magyarra: a lépések ugyanúgy működnek. A kódot, amit te írsz be, magyar feliratokkal
-és megjegyzésekkel mutatjuk. Ahogy az előző leckékben, a mappa most is egy git-repó egyetlen committal, a
-kezdőállapottal: a `git restore .` minden fájlt visszaállít, és érdemes minden működő lépés után commitolni.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések és a „To-Do List” cím angolul vannak.
+Ha szeretnéd, írd át őket nyugodtan magyarra: a lépések ugyanúgy működnek. A kódot, amit te írsz be, magyar
+feliratokkal és megjegyzésekkel mutatjuk.
 
 :::concept Gyors ismétlés
 A [[komponens]] egy függvény, ami [[JSX]]-et ad vissza: HTML-szerű leírást arról, mi jelenjen meg a képernyőn.
@@ -1835,9 +1855,9 @@ Most a teendőid ebben az egy böngészőben élnek. Egy igazi teendőlista egy 
 [[adatbázisban|adatbázis]]: így a telefonodról és a gépedről is ugyanazt a listát látod, és mindenki csak a sajátját.
 Ehhez először tudni kell, ki vagy: kell egy [[bejelentkezés]].
 
-Igazi szervert ebben a kurzusban nem használunk: az alappal érkezett `src/fakeServer.js` csak eljátssza a szerver
-szerepét. Az adatbázisa egy kulcs a localStorage-ben, de úgy viselkedik, mint egy szerver: minden válaszra várni kell
-egy kicsit, és néha nem is jön válasz. Három függvényt ad:
+Igazi szervert ebben a kurzusban nem használunk: a kiinduló projekttel érkezett `src/fakeServer.js` csak eljátssza a
+szerver szerepét. Az adatbázisa egy kulcs a localStorage-ben, de úgy viselkedik, mint egy szerver: minden válaszra
+várni kell egy kicsit, és néha nem is jön válasz. Három függvényt ad:
 
 - `logIn(name, password)`: belépés. Az első belépés egy új névvel létrehozza a fiókot, a jelszóval együtt. Rossz
   jelszónál hibát dob, aminek a `status` mezője `401`.

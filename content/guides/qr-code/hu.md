@@ -22,8 +22,29 @@ Generator” (vezérelt mezők, `Promise` és `await`, `useEffect` takarító f�
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `qr-code-generator` mappát a
-szerkesztőben. Aztán írd be ezt a két parancsot a szerkesztő termináljába:
+A lecke feladata, egy kész kiinduló projekt, a tananyag GitHubon lévő repójában van, a `lessons/05-qr-code/exercise`
+mappában (a fenti „Feladat a GitHubon” gomb oda visz). Az 1. lecke 0. lépése részletesen elmagyarázza, hogyan szerzed
+meg és állítod be, és azt is, hogyan telepítsd a Node.js-t, a VS Code-ot és a Gitet, ha még nincsenek meg. Itt csak a
+parancsok következnek.
+
+Nyiss egy terminált a munkamappádban, ahol a projektjeidet tartod. Ha még nincs meg a repó, klónozd le ide:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git
+```
+
+Ha egy korábbi leckéből már megvan, akkor ehelyett a `rika-mentoring` mappában futtasd le a `git pull` parancsot
+(`cd rika-mentoring`, `git pull`, `cd ..`): ez lehozza az új leckéket. A `git clone` helyett a [repó GitHub-oldalán](https://github.com/mazsola739/rika-mentoring) a
+**Code** → **Download ZIP** gomb is megfelel.
+
+Másold ki a `lessons/05-qr-code/exercise` mappát a repóból a munkamappádba (a repón kívülre), és nevezd el a másolatot
+így: `qr-code-generator`. A munkamappád termináljában ez egyetlen parancs (fájlkezelővel is megy):
+
+```shell
+cp -r rika-mentoring/lessons/05-qr-code/exercise qr-code-generator
+```
+
+Nyisd meg a másolatodat a szerkesztőben, és írd be ezt a két parancsot a szerkesztő termináljába:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite, qrcode)
@@ -35,7 +56,19 @@ Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`)
 „QR Code Generator” címmel. Más még nincs rajta.
 :::
 
-Az alapban három fájl fontos ehhez a leckéhez:
+A szervert hagyd futni, nyiss egy második terminált (a terminálpanel **+** gombjával), és tedd a másolatodat
+git-repóvá egyetlen committal, a kezdőállapottal:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Mostantól a `git restore .` minden fájlt visszaállít az utolsó commitod állapotára, és érdemes minden működő lépés után
+commitolni.
+
+A kiinduló projektben három fájl fontos ehhez a leckéhez:
 
 - `package.json`: a projekt adatlapja. Az 1. lépésben közelebbről is megnézzük, mert most először van benne egy olyan
   csomag, ami nem a Reacthez és nem a Vite-hoz tartozik.
@@ -43,11 +76,8 @@ Az alapban három fájl fontos ehhez a leckéhez:
 - `src/App.css`: a teljes lecke stílusai, készen. Ez a lecke a Reactről szól, nem a CSS-ről, ezért nem kell stílust
   írnod: csak a lépésekben megadott osztályneveket (`qr__layout`, `field`, `chip`, …) használod.
 
-Az alap mindkét nyelven ugyanaz, ezért a „QR Code Generator” cím és a fájlokban lévő megjegyzések angolul vannak. Ha
-szeretnéd, írd át őket nyugodtan magyarra: a lépések ugyanúgy működnek.
-
-A mappa most is egy git-repó egyetlen committal, a kezdőállapottal: a `git restore .` minden fájlt visszaállít, és
-érdemes minden működő lépés után commitolni.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a „QR Code Generator” cím és a fájlokban lévő megjegyzések angolul
+vannak. Ha szeretnéd, írd át őket nyugodtan magyarra: a lépések ugyanúgy működnek.
 
 :::concept Készítsd elő a telefonodat is
 A QR-kódot úgy ellenőrizheted a legjobban, ha beolvasod. A legtöbb telefon kameraalkalmazása magától felismeri a

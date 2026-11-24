@@ -75,16 +75,21 @@ export const PRODUCTS = [
   },
 ]
 
+// `helpful` is how many (made-up) accounts found the review helpful: helpfulBy keeps their ids,
+// so an account can vote once and take its vote back.
 const review = (id, productId, author, rating, date, helpful, title, body) => ({
   id,
   productId,
   author,
   rating,
   createdAt: `${date}T10:00:00.000Z`,
-  helpful,
+  helpfulBy: Array.from({ length: helpful }, (_, i) => `sample-${i + 1}`),
   title,
   body,
 })
+
+// The accounts the fake server starts with. Anyone who logs in with another name gets a new 'customer' account.
+export const SEED_USERS = [{ id: 'moderator', name: 'Moderator', role: 'moderator' }]
 
 // Seed for the mock API. Reviews you write yourself are stored as plain strings.
 export const SEED_REVIEWS = [

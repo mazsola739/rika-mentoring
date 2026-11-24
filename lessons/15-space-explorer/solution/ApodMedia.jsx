@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
 // This API's videos are short animations in SVG format, which an <img> plays by itself.
-// Other formats (an .mp4, a link to a video site) would need a <video> element or an embed.
+// A real video file (.mp4, .webm) gets the browser's <video> element; anything else (a link to a
+// video site's player, for example) cannot be played here.
 const isSvgAnimation = (url) => /\.svg(?:[?#]|$)/i.test(url ?? '')
+const isVideoFile = (url) => /\.(?:mp4|webm)(?:[?#]|$)/i.test(url ?? '')
 
 const prefersReducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
 
@@ -66,7 +68,19 @@ function AnimationView({ apod, onBroken, t }) {
   )
 }
 
-// Rendering by media type: an image, an animation the page can play, or a note for everything else.
+// A real video file: the browser's own player, with the still picture as its poster until it starts.
+function VideoFileView({ apod, onBroken, t }) {
+  return (
+    <figure className="sx-media sx-media--video">
+      <video src={apod.url} poster={apod.thumbnail_url} controls preload="metadata" aria-label={apod.title} onError={onBroken} />
+      <figcaption>
+        <span className="sx-media__badge">{t.video}</span>
+      </figcaption>
+    </figure>
+  )
+}
+
+// Rendering by media type: an image, a video the page can play, or a note for everything else.
 export default function ApodMedia({ apod, t }) {
   const [broken, setBroken] = useState(false)
   const onBroken = () => setBroken(true)
@@ -74,6 +88,9 @@ export default function ApodMedia({ apod, t }) {
   if (!broken && apod.media_type === 'image') return <ImageView apod={apod} onBroken={onBroken} t={t} />
   if (!broken && apod.media_type === 'video' && isSvgAnimation(apod.url)) {
     return <AnimationView apod={apod} onBroken={onBroken} t={t} />
+  }
+  if (!broken && apod.media_type === 'video' && isVideoFile(apod.url)) {
+    return <VideoFileView apod={apod} onBroken={onBroken} t={t} />
   }
 
   let note = t.otherMedia

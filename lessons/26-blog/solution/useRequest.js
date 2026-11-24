@@ -24,5 +24,9 @@ export function useRequest(request, key) {
     setAttempt((a) => a + 1)
   }
 
-  return { ...state, retry }
+  // Replaces the data without asking the server again: for when we already know the new data
+  // (a comment the server has just saved, for example).
+  const setData = (data) => setState({ status: 'ready', data, error: null })
+
+  return { ...state, retry, setData }
 }

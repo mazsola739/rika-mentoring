@@ -26,13 +26,61 @@ Három programra lesz szükséged, mindhárom ingyenes:
 
 A parancsokat egy [[terminálban|terminál]] adod ki: ez egy ablak, ahol kattintás helyett szöveggel beszélsz a géppel. A
 Node.js-sel együtt érkezik az [[npm]] is: ez tölti le azokat a [[csomagokat|csomag]] (kész kódokat, például a Reactot),
-amelyeket a projekt használ. A fejlesztői szervert a [[Vite]] futtatja: erre az eszközre épül az alap.
+amelyeket a projekt használ. A fejlesztői szervert a [[Vite]] futtatja: erre az eszközre épül a kiinduló projekt.
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), és csomagold ki. Windowson a kibontás egy `portfolio` mappát
-készít, és abban van a `me-myself-and-react` mappa. Ezt nyisd meg a szerkesztőben (VS Code-ban: **File** →
-**Open Folder**), ne a külső mappát, mert a parancsoknak ott kell futniuk, ahol a `package.json` van. Aztán nyiss egy
-terminált (VS Code-ban: **Terminal** menü → **New Terminal**), és írd be egyenként ezt a két parancsot; mindegyik után
-nyomd meg az ++Enter++ billentyűt:
+**A kurzus a GitHubon.** A [[GitHub]] egy weboldal, ahol a programozók a projektjeiket tárolják és megosztják. Egy
+ottani projekt neve [[repó]] (az angol repository rövidítése): olyan mappa, amelynek az előzményeit a [[Git]] megőrzi,
+így a fájlok minden elmentett állapota visszakereshető. Az egész kurzus egyetlen repó, a `rika-mentoring`. Minden lecke
+egy mappa benne (ez itt a `lessons/01-portfolio`), és mindegyikben két projekt van: az `exercise` (feladat) a kiinduló
+projekt, erre építesz, a `solution` (megoldás) pedig a kész app, amelyet a Megoldás fülön ki is próbálhatsz. Az oldal
+tetején a **Feladat a GitHubon** gomb ennek a leckének az `exercise` mappáját mutatja meg a GitHubon.
+
+Hozz létre egy saját mappát a kurzushoz, például `react-course` néven a Dokumentumok mappádban. Nyisd meg a
+szerkesztőben (VS Code-ban: **File** → **Open Folder**), aztán nyiss egy terminált (VS Code-ban: **Terminal** menü →
+**New Terminal**): ez a megnyitott mappában indul. Írd be ezt a parancsot, és nyomd meg az ++Enter++ billentyűt:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git
+```
+
+A [[klónozás]] egy repó lemásolása a gépedre, a teljes előzményeivel együtt: a `react-course` mappában megjelenik egy
+`rika-mentoring` mappa. Ez kapcsolatban marad a GitHubbal, így később egyetlen parancs lehozza az új leckéket: a
+`git pull`, ebben a mappában kiadva (a `cd rika-mentoring` belép a mappába, utána jöhet a `git pull`, végül a `cd ..` visszalép). Ha egy korábbi
+leckéből már megvan a repó, nem kell újra klónoznod: elég benne egy `git pull`. Ha a terminál nem ismeri fel a `git`
+parancsot, zárd be a VS Code-ot, és nyisd meg újra (lásd lent a Gyakori hiba dobozt).
+
+Ha inkább kattintanál: a [repó oldalán](https://github.com/mazsola739/rika-mentoring) válaszd a **Code** →
+**Download ZIP** lehetőséget, és a letöltött fájlt csomagold ki a munkamappádba. A kicsomagolt mappa neve
+`rika-mentoring-main` (a Windows néha még egy ugyanilyen nevű mappába is beleteszi). Ebben ugyanúgy megtalálod a
+`lessons` mappát: a feladatot fájlkezelővel másold ki belőle, ahogy lent olvasod, csak ahol a szöveg `rika-mentoring`
+mappát említ, ott a `rika-mentoring-main` mappát nyisd meg. A ZIP viszont egyszeri másolat: nem frissül, az új
+leckékhez újra le kell töltened. Ehhez a leckéhez úgyis kell a Git, ezért a klónozás a kényelmesebb.
+
+**A feladat kimásolása.** A repóban sosem dolgozol. A lecke `exercise` mappáját másold ki belőle a munkamappádba, és a
+másolatnak add a `me-myself-and-react` nevet: így a repó változatlan marad (a `git pull` továbbra is működik), a munkád
+pedig a saját projekted lesz. Fájlkezelővel: nyisd meg a `rika-mentoring` → `lessons` → `01-portfolio` mappát, jelöld ki
+az `exercise` mappát, és másold ki (++Ctrl++ + ++C++, Macen ++Cmd++ + ++C++), lépj vissza a `react-course` mappába,
+illeszd be (++Ctrl++ + ++V++, Macen ++Cmd++ + ++V++), aztán nevezd át a másolatot (Windowson ++F2++, Macen ++Enter++).
+Vagy írd be ezt a terminálba, amely még mindig a `react-course` mappában van:
+
+```shell
+cp -r rika-mentoring/lessons/01-portfolio/exercise me-myself-and-react
+```
+
+A `cp -r` egy mappát másol le mindenestül egy új mappába, amelynek a nevét a végén adod meg. A VS Code windowsos
+terminálja (a PowerShell) is érti. A munkamappádban most két mappa van: a `rika-mentoring` a repó a GitHubról, ezt hagyd
+úgy, ahogy van, a `me-myself-and-react` pedig a feladat másolata, ebben dolgozol.
+
+```text
+react-course/
+  rika-mentoring/
+  me-myself-and-react/
+```
+
+**Indítás.** Nyisd meg a másolatodat a szerkesztőben (**File** → **Open Folder** → `me-myself-and-react`), ne a
+munkamappát, és ne is a repóban lévő `exercise` mappát, mert a parancsoknak ott kell futniuk, ahol a `package.json` van,
+a munkád pedig a másolatodba kerül. Aztán nyiss újra egy terminált (**Terminal** → **New Terminal**), és írd be
+egyenként ezt a két parancsot; mindegyik után nyomd meg az ++Enter++ billentyűt:
 
 ```shell
 npm install
@@ -48,21 +96,62 @@ látsz. Amíg dolgozol, hagyd futni a szervert ebben a terminálban. Leállítan
 :::
 
 :::mistake Gyakori hiba
-Ha az `npm install` azt írja, hogy nem találja a `package.json`-t, rossz mappában van a terminál: kicsomagoláskor
-gyakran keletkezik egy külső mappa is. Magát a `me-myself-and-react` mappát nyisd meg a szerkesztőben (amelyikben a
-`package.json` van), aztán nyiss egy új terminált.
+Ha az `npm install` azt írja, hogy nem találja a `package.json`-t, rossz mappában van a terminál, például a
+`react-course` mappában. Magát a `me-myself-and-react` mappát nyisd meg a szerkesztőben (amelyikben a `package.json`
+van), aztán nyiss egy új terminált. Ha a terminál a `git` vagy az `npm` parancsot egyáltalán nem ismeri fel, zárd be a
+VS Code-ot, és nyisd meg újra: a terminál csak azokat a programokat találja meg, amelyeket az indulása előtt
+telepítettél.
 :::
 
-:::concept Az alap egy git-repó
-A letöltött mappa egy [[git-repó|repó]]: olyan mappa, amelynek az előzményeit a [[Git]] megőrzi. Már van benne egy
-[[commit]], vagyis egy elmentett pillanatkép az összes fájlról: ez a kezdőállapot. A szervert hagyd futni, a git
-parancsokhoz pedig nyiss egy második terminált (a terminálpanel **+** gombjával).
+**A kiindulópont mentése.** A másolatod egyelőre egy sima mappa: a repó, amelyből származik, a `rika-mentoring`
+mappában maradt. Legyen belőle saját repó, hogy a Git el tudja menteni, hol tartasz. A szervert hagyd futni, a
+Git-parancsokhoz pedig nyiss egy második terminált (a terminálpanel **+** gombjával); ez is a `me-myself-and-react`
+mappában nyílik meg. Előbb, egyszer s mindenkorra, add meg a gépeden a saját nevedet és e-mail-címedet: ezeket a Git
+minden mentésbe (commitba, lásd lent) beírja. A példában Példa Petra adatai állnak. Ha később a GitHubra is feltöltöd a
+projektet, ez a cím a commitokban nyilvános lesz.
 
-- Az első commit előtt egyszer add meg a saját nevedet és e-mail-címedet (a példában Példa Petra adatai állnak):
-  `git config --global user.name "Példa Petra"` és `git config --global user.email "petra@example.com"`. Ha később a
-  GitHubra is feltöltöd a projektet, ez a cím a commitokban nyilvános lesz.
-- Ha egy lépés elkészült és működik, commitold: `git add .`, majd `git commit -m "Hero kész"`.
-- A `git log` kilistázza a commitokat; a listából a ++Q++ billentyűvel lépsz ki.
+```shell
+git config --global user.name "Példa Petra"
+git config --global user.email "petra@example.com"
+```
+
+Aztán a másolatodban:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+A `git init -b main` git-repóvá teszi a mappát: mostantól a Git megőrzi az előzményeit, egy rejtett `.git` mappában. A
+`-b main` azt mondja meg, hogy az [[ág]] (angolul branch), vagyis az elmentett állapotok sora `main` nevű legyen: a
+haladó szinten a GitHub ezt a nevet várja. A `git add .` a mappa összes fájlját kijelöli mentésre (a pont jelentése: „ez
+a mappa”), a `git commit -m "Starting point"` pedig elmenti őket egy [[commitba|commit]], vagyis egy pillanatképbe az
+összes fájlról, egy rövid üzenettel, amely megmondja, mi ez. A „Starting point” jelentése kiindulópont; a saját
+commitjaid üzenetét nyugodtan írd magyarul. A `node_modules` mappát (ebben vannak a letöltött csomagok) a Git kihagyja:
+a `.gitignore` fájl sorolja fel, mit hagyjon figyelmen kívül, a csomagokat pedig az `npm install` bármikor újra letölti.
+
+:::check Ellenőrizd
+Windowson a `git add .` minden fájlnál kiírhat egy figyelmeztetést („LF will be replaced by CRLF”), most és a későbbi
+commitoknál is. Ez ártalmatlan: a Git csak jelzi, hogy a sorvégeket (a minden sor végén álló láthatatlan jelet)
+windowsos módon fogja írni. Folytasd a `git commit` paranccsal. Utána a `git log` kilistázza a commitokat: most egyet
+látsz, a „Starting point” üzenetűt, a neveddel és a dátummal. Ha a lista nem fér ki az ablakba, a Git oldalanként
+mutatja, és a ++Q++ billentyűvel lépsz ki belőle.
+:::
+
+:::mistake Gyakori hiba
+Ha a `git commit` azt válaszolja, hogy „Author identity unknown” („Please tell me who you are”), a Git még nem ismeri a
+nevedet: futtasd le a két `git config` sort, aztán újra a `git commit` parancsot. Ha a `git init` nem ismeri a `-b`
+kapcsolót, a Gited a 2.28-as verziónál régebbi: telepítsd a legújabbat a git-scm.com oldalról.
+:::
+
+:::concept A másolatodból git-repó lesz
+A `me-myself-and-react` mappa mostantól saját repó, semmi köze a `rika-mentoring` repóhoz: amit itt commitolsz, az a te
+projektedben marad, és a haladó szinten ezt a repót teszed fel a GitHubra. Munka közben:
+
+- Ha egy lépés elkészült és működik, commitold: `git add .`, majd `git commit -m "Hero kész"`. Minden szint végén az
+  útmutató is szól.
+- A `git log` kilistázza a commitjaidat.
 - Ha valami nagyon elromlik, a `git restore .` visszaállítja a fájlokat az utolsó commit állapotára. Az új fájlokat nem
   törli.
 :::
@@ -86,10 +175,10 @@ A `return` utáni, HTML-nek látszó rész a [[JSX]]. Valójában JavaScript: a 
 `export default` azt jelenti, hogy ezt a függvényt más fájlok is betölthetik. Az `src/main.jsx` éppen ezt teszi: betölti
 az `App`-ot, és kirajzolja az `index.html` üres `<div id="root">` dobozába.
 
-Az alap fájljaiban (`main.jsx`, `index.css`, `vite.config.js`) angol megjegyzéseket találsz. A megjegyzés a kódban álló,
-embereknek szóló magyarázat (a `//` után vagy a `/*` és `*/` között), a gép nem foglalkozik vele. Azért angolok, mert a
-magyar és az angol útmutató ugyanazt az alapot használja. A saját kódodba nyugodtan írj magyar szövegeket és
-megjegyzéseket.
+A kiinduló projekt fájljaiban (`main.jsx`, `index.css`, `vite.config.js`) angol megjegyzéseket találsz. A megjegyzés a
+kódban álló, embereknek szóló magyarázat (a `//` után vagy a `/*` és `*/` között), a gép nem foglalkozik vele. Azért
+angolok, mert a magyar és az angol útmutató ugyanazt a kiinduló projektet használja. A saját kódodba nyugodtan írj magyar
+szövegeket és megjegyzéseket.
 
 :::try Próbáld ki
 Írd át a szöveget egy saját köszönésre, és mentsd el a fájlt. A böngésző magától frissül: ez a Vite
@@ -831,10 +920,14 @@ export default defineConfig({
 ```
 
 Kell hozzá egy ingyenes GitHub-fiók ([github.com](https://github.com)). Bejelentkezés után hozz létre egy új,
-**nyilvános** (Public), **üres** repót (README nélkül, különben az első feltöltés elakad; ingyenes fiókkal a GitHub
-Pages csak nyilvános repóval működik). Az üres repó oldalán a GitHub mutat egy „…or push an existing repository from the
-command line” részt: az ott álló parancsokat másold be a második terminálba. Ezek a `git remote add origin` után a repód
-címével összekötik a projektet a repóval, a `git push -u origin main` pedig feltölti.
+**nyilvános** (Public), **üres** repót, például `me-myself-and-react` néven, mint a mappád (README nélkül, különben a
+GitHub visszautasítja az első feltöltést; ingyenes fiókkal a GitHub Pages csak nyilvános repóval működik). Ez a saját
+repód: ide kerül a másolatod, nem a `rika-mentoring` repóba, az változatlan marad. Az üres repó oldalán a GitHub mutat
+egy „…or push an existing repository from the command line” részt: az ott álló parancsokat másold be a második
+terminálba (abba, amelyik a `me-myself-and-react` mappában van). A `git remote add origin` és utána a repód címe
+összeköti a projektedet ezzel a repóval, a `git branch -M main` gondoskodik róla, hogy az ág neve `main` legyen (a
+`git init -b main` óta már az), a `git push -u origin main` pedig feltölti oda a commitjaidat (a `-u` miatt a Git
+megjegyzi ezt a célt, így később elég egy sima `git push`).
 
 Az első push bejelentkezést kér. Windowson ehhez megnyílik egy böngészőablak. Macen a terminál felhasználónevet és
 jelszót kér: a fiókod jelszavát a GitHub itt nem fogadja el, helyette egy tokent illessz be (**Settings** →

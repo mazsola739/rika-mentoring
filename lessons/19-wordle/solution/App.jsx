@@ -1,9 +1,19 @@
 import { useEffect, useState } from 'react'
 import AppFrame from '@shared/ui/AppFrame.jsx'
 import { useLang, useText } from '@shared/i18n.js'
-import { isValidWord } from './words.js'
 import { MAX_TRIES, WORD_LENGTH, emojiGrid, evaluate, letterStates, statusOf } from './logic.js'
-import { addResult, loadGame, loadStats, saveGame, saveStats, startNewPracticeGame, visibleStreak } from './storage.js'
+import {
+  addResult,
+  loadGame,
+  loadStats,
+  loadWordList,
+  saveGame,
+  saveStats,
+  saveWordList,
+  startNewPracticeGame,
+  visibleStreak,
+} from './storage.js'
+import { WORD_LISTS, WORD_LIST_NAMES } from './wordLists.js'
 import { useGlobalKeys } from './useGlobalKeys.js'
 import Board from './Board.jsx'
 import Keyboard from './Keyboard.jsx'
@@ -12,9 +22,11 @@ import './app.css'
 const TEXT = {
   en: {
     intro: 'Guess the hidden five-letter word in six tries. After every guess the tiles show how close you were.',
-    listNote: 'The word list is English in both languages and holds about 580 common words.',
+    listNote:
+      'Two word lists: English (179 secret words, about 2,250 accepted guesses) and Hungarian (181 secret words, about 470 accepted guesses, accented letters included).',
     modes: { daily: 'Daily word', practice: 'Practice' },
     modeLabel: 'Game mode',
+    listLabel: 'Word list',
     dailyOf: (date) => `Daily word for ${date}`,
     practiceInfo: 'Practice: a random word, as many rounds as you like.',
     legend: { correct: 'Right letter, right spot', present: 'In the word, wrong spot', absent: 'Not in the word' },
@@ -44,13 +56,15 @@ const TEXT = {
     newWord: 'New word',
     tomorrow: 'A new daily word arrives tomorrow.',
     toPractice: 'Play practice',
-    shareTitle: (date) => (date ? `Rika Wordle ${date}` : 'Rika Wordle · practice'),
+    shareTitle: (date) => (date ? `Rika Word Guess ${date}` : 'Rika Word Guess · practice'),
   },
   hu: {
     intro: 'Találd ki a rejtett ötbetűs szót hat tippből. Minden tipp után a mezők megmutatják, mennyire jártál közel.',
-    listNote: 'A szólista mindkét nyelven angol, és nagyjából 580 gyakori szót tartalmaz.',
+    listNote:
+      'Két szólista közül választhatsz: angol (179 titkos szó, nagyjából 2250 elfogadott tipp) és magyar (181 titkos szó, nagyjából 470 elfogadott tipp, ékezetes betűkkel).',
     modes: { daily: 'Napi szó', practice: 'Gyakorlás' },
     modeLabel: 'Játékmód',
+    listLabel: 'Szólista',
     dailyOf: (date) => `A napi szó: ${date}`,
     practiceInfo: 'Gyakorlás: véletlen szó, annyi körrel, amennyit csak szeretnél.',
     legend: { correct: 'Jó betű, jó helyen', present: 'Benne van, de máshol', absent: 'Nincs a szóban' },
@@ -80,7 +94,7 @@ const TEXT = {
     newWord: 'Új szó',
     tomorrow: 'Holnap új napi szó érkezik.',
     toPractice: 'Gyakorlás',
-    shareTitle: (date) => (date ? `Rika Wordle ${date}` : 'Rika Wordle · gyakorlás'),
+    shareTitle: (date) => (date ? `Rika Szókitaláló ${date}` : 'Rika Szókitaláló · gyakorlás'),
   },
 }
 
@@ -127,8 +141,9 @@ function Stats({ stats, mode, highlight, t }) {
   )
 }
 
-function Game({ mode, stats, lang, onResult, onNewWord, onPractice, t }) {
-  const [game, setGame] = useState(() => loadGame(mode)) // { answer, guesses, date? }
+function Game({ mode, words, stats, lang, onResult, onNewWord, onPractice, t }) {
+  const list = WORD_LISTS[words] // the chosen word list: its words, letters and keyboard rows
+  const [game, setGame] = useState(() => loadGame(mode, words)) // { answer, guesses, date? }
   const [current, setCurrent] = useState('')
   const [revealRow, setRevealRow] = useState(null) // the row that is flipping right now
   const [shake, setShake] = useState(0)
@@ -143,8 +158,8 @@ function Game({ mode, stats, lang, onResult, onNewWord, onPractice, t }) {
 
   // Every change of the game is saved, so a reload continues where you left off.
   useEffect(() => {
-    saveGame(mode, game)
-  }, [mode, game])
+    saveGame(mode, words, game)
+  }, [mode, words, game])
 
   // The keyboard colours and the result wait until the flip animation of the new row is over.
   useEffect(() => {
@@ -174,7 +189,7 @@ function Game({ mode, stats, lang, onResult, onNewWord, onPractice, t }) {
 
   const submit = () => {
     if (current.length < WORD_LENGTH) return reject(t.notEnough)
-    if (!isValidWord(current)) return reject(t.notInList)
+    if (!list.valid.has(current)) return reject(t.notInList)
 
     const nextGuesses = [...guesses, current]
     const states = evaluate(current, answer)
@@ -192,7 +207,7 @@ function Game({ mode, stats, lang, onResult, onNewWord, onPractice, t }) {
     if (!playing || revealing) return
     if (key === 'ENTER') submit()
     else if (key === 'BACK') setCurrent((c) => c.slice(0, -1))
-    else setCurrent((c) => (c.length < WORD_LENGTH ? c + key : c))
+    else if (list.letters.includes(key)) setCurrent((c) => (c.length < WORD_LENGTH ? c + key : c))
   }
   useGlobalKeys(handleKey)
 
@@ -258,7 +273,7 @@ function Game({ mode, stats, lang, onResult, onNewWord, onPractice, t }) {
           {mode === 'daily' && <p className="wd-result__note">{t.tomorrow}</p>}
         </section>
       ) : (
-        <Keyboard lang={lang} states={letterStates(settledGuesses, answer)} onKey={handleKey} t={t} />
+        <Keyboard rows={list.keyboard} states={letterStates(settledGuesses, answer)} onKey={handleKey} t={t} />
       )}
 
       {playing && (
@@ -271,23 +286,32 @@ function Game({ mode, stats, lang, onResult, onNewWord, onPractice, t }) {
   )
 }
 
-function Wordle() {
+function WordGame() {
   const t = useText(TEXT)
   const lang = useLang()
   const [mode, setMode] = useState('daily')
+  // The word list: the saved choice, or the page's language on a first visit.
+  const [words, setWords] = useState(() => loadWordList() ?? (lang === 'hu' ? 'hu' : 'en'))
   const [round, setRound] = useState(0)
-  const [stats, setStats] = useState(loadStats)
+  // Every word list keeps its own statistics: { en: { daily, practice }, hu: { daily, practice } }.
+  const [stats, setStats] = useState(() => ({ en: loadStats('en'), hu: loadStats('hu') }))
 
   useEffect(() => {
-    saveStats(stats)
+    saveStats('en', stats.en)
+    saveStats('hu', stats.hu)
   }, [stats])
 
+  const chooseWords = (next) => {
+    setWords(next)
+    saveWordList(next)
+  }
+
   const recordResult = (gameMode, result) => {
-    setStats((s) => ({ ...s, [gameMode]: addResult(s[gameMode], result) }))
+    setStats((s) => ({ ...s, [words]: { ...s[words], [gameMode]: addResult(s[words][gameMode], result) } }))
   }
 
   const newWord = (previous) => {
-    startNewPracticeGame(previous)
+    startNewPracticeGame(previous, words)
     setRound((r) => r + 1)
   }
 
@@ -295,12 +319,32 @@ function Wordle() {
     <div className="wd">
       <div className="wd__head">
         <p className="wd__intro">{t.intro}</p>
-        <div className="wd__modes" role="group" aria-label={t.modeLabel}>
-          {['daily', 'practice'].map((m) => (
-            <button key={m} type="button" className="chip" aria-pressed={m === mode} onClick={() => setMode(m)}>
-              {t.modes[m]}
-            </button>
-          ))}
+        <div className="wd__switches">
+          <div className="wd__modes" role="group" aria-label={t.modeLabel}>
+            {['daily', 'practice'].map((m) => (
+              <button key={m} type="button" className="chip" aria-pressed={m === mode} onClick={() => setMode(m)}>
+                {t.modes[m]}
+              </button>
+            ))}
+          </div>
+          {/* The language of the words, not of the page: the page has its own language switch. */}
+          <div className="wd__modes" role="group" aria-labelledby="wd-list-label">
+            <span id="wd-list-label" className="wd__label">
+              {t.listLabel}
+            </span>
+            {Object.keys(WORD_LISTS).map((w) => (
+              <button
+                key={w}
+                type="button"
+                className="chip"
+                lang={w}
+                aria-pressed={w === words}
+                onClick={() => chooseWords(w)}
+              >
+                {WORD_LIST_NAMES[w]}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -313,11 +357,12 @@ function Wordle() {
         ))}
       </ul>
 
-      {/* Mode change or "New word" remounts the game with its own saved state. */}
+      {/* A new word list, mode or "New word" remounts the game with its own saved state. */}
       <Game
-        key={`${mode}-${round}`}
+        key={`${words}-${mode}-${round}`}
         mode={mode}
-        stats={stats[mode]}
+        words={words}
+        stats={stats[words][mode]}
         lang={lang}
         onResult={recordResult}
         onNewWord={newWord}
@@ -333,7 +378,7 @@ function Wordle() {
 export default function App() {
   return (
     <AppFrame slug="wordle">
-      <Wordle />
+      <WordGame />
     </AppFrame>
   )
 }

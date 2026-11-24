@@ -54,7 +54,8 @@ const TEXT = {
     result: 'Átváltott összeg',
     invalid: 'Adj meg egy összeget (0 vagy több).',
     loadingRates: 'A legfrissebb árfolyamok betöltése…',
-    live: (date) => `Aktuális referencia-árfolyamok az árfolyam-API-ból, frissítve: ${date}.`,
+    // The Hungarian date already ends with a full stop ("2026. nov. 24."), so no second one after it.
+    live: (date) => `Aktuális referencia-árfolyamok az árfolyam-API-ból, frissítve: ${date}`,
     cached: (date) => `Az utolsó ismert árfolyamokat látod (${date}).`,
     fixed: (date) => `Fix mintaárfolyamokat látod (${date}), ezek nem élő adatok.`,
     badge: { live: 'Aktuális árfolyam', loading: 'Frissítés…', cached: 'Utolsó ismert árfolyam', fixed: 'Fix árfolyam' },

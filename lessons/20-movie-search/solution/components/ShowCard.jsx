@@ -17,11 +17,11 @@ export function FavoriteToggle({ show, isFavorite, onToggle, t }) {
 }
 
 // One result: the whole card is a link to #/show/:id, the star sits on top as its own button.
-// `query` (optional) is the search the card was found with: the link carries it to the series page.
-export default function ShowCard({ show, query, isFavorite, onToggleFavorite, t }) {
+// `query` and `filters` (optional) are the search the card was found with: the link carries them to the series page.
+export default function ShowCard({ show, query, filters, isFavorite, onToggleFavorite, t }) {
   return (
     <li className="ms-card">
-      <a className="ms-card__link" href={showHref(show.id, query)}>
+      <a className="ms-card__link" href={showHref(show.id, query, filters)}>
         <Poster src={show.image} label={t.noPoster} seed={show.name} />
         <span className="ms-card__body">
           <strong className="ms-card__title">{show.name}</strong>

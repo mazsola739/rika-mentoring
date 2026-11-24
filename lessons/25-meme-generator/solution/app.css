@@ -61,6 +61,27 @@
   opacity: 0.35;
 }
 
+/* The captions and stickers can be dragged. touch-action: none keeps a finger on the canvas from scrolling the page. */
+.mg-canvas--draggable {
+  cursor: grab;
+  touch-action: none;
+}
+
+.mg-canvas--draggable:active {
+  cursor: grabbing;
+}
+
+.mg-canvas:focus-visible {
+  outline: 3px solid var(--solid);
+  outline-offset: 3px;
+}
+
+.mg-preview {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
 .mg-stage__overlay {
   position: absolute;
   inset: auto 16px 16px;
@@ -183,6 +204,119 @@
 
 .mg-download {
   width: 100%;
+}
+
+.mg-export__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Each button gets a whole row when the column is narrow, so the labels stay on one line. */
+.mg-export__row .btn {
+  flex: 1 1 190px;
+}
+
+/* ── Selected item and stickers ───────────────────────── */
+.mg-items,
+.mg-stickers {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  margin: 0;
+  padding: 16px 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+/* Floated, the legend becomes an ordinary row of the card instead of sitting on the fieldset's border. */
+.mg-legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mg-items__chips,
+.mg-stickers__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mg-items input[type='range'] {
+  width: 100%;
+}
+
+.mg-items__delete {
+  justify-self: start;
+}
+
+.mg-sticker {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.mg-sticker:hover {
+  border-color: var(--solid);
+}
+
+/* ── Gallery ──────────────────────────────────────────── */
+.mg-gallery {
+  display: grid;
+  gap: 12px;
+}
+
+.mg-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mg-gallery__item {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+}
+
+.mg-gallery__item img {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  background: var(--paper-2);
+}
+
+.mg-gallery__item time {
+  font-size: 13px;
+}
+
+.mg-gallery__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mg-gallery__actions .btn {
+  flex: 1 1 auto;
+  min-height: 36px;
+  padding: 6px 10px;
+  font-size: 13px;
 }
 
 /* ── Picture sources ──────────────────────────────────── */

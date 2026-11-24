@@ -19,8 +19,21 @@ whenever something is used in a new way, we explain it again.
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `shopping-list` folder in your
-editor. Then, in the terminal:
+The starting project of this lesson is the `lessons/10-shopping-list/exercise` folder of the course repository on
+GitHub (above: "Exercise on GitHub"). You get it the same way as in the earlier lessons; lesson 1 explains every step
+in detail. In the terminal, in your work folder (the one that holds the `rika-mentoring` folder):
+
+```shell
+cd rika-mentoring
+git pull        # brings the new lessons into the repository
+cd ..
+cp -r rika-mentoring/lessons/10-shopping-list/exercise shopping-list
+```
+
+If you do not have the repository yet, run `git clone https://github.com/mazsola739/rika-mentoring.git` instead of the
+first three lines (without git: **Code** → **Download ZIP** on the GitHub page). You can also copy the folder in your
+file manager; what matters is that your copy is called `shopping-list` and sits outside the `rika-mentoring` folder, so
+`git pull` keeps working. Open your copy in the editor, then type these two commands in the editor's terminal:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -32,7 +45,7 @@ Open the address the terminal prints (usually `http://localhost:5173`). You see 
 with the title "Shopping List". Nothing else yet: the list is yours to build.
 :::
 
-These files of the starter matter for this lesson:
+These files of the exercise matter for this lesson:
 
 - `src/App.jsx`: the page itself, for now only with the title. This is where we start.
 - `src/App.css`: the styles of the whole lesson, ready. This lesson is about React, not CSS, so you do not write styles
@@ -41,8 +54,17 @@ These files of the starter matter for this lesson:
 - `public/icon.svg`, `public/icon-192.png` and `public/icon-512.png`: the app's icon. You need it only at the very end
   of the advanced level, when the list becomes an installable app.
 
-Like in the earlier lessons, the folder is a git repository with one commit, the starting point: `git restore .` takes
-every file back, and it is worth committing after every step that works.
+Last, make your copy a git repository with one commit, the starting point. Leave the server running and open a second
+terminal (the **+** button in the terminal panel; it opens in `shopping-list` too):
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+From now on `git restore .` takes every file back to your last commit, and it is worth committing after every step that
+works.
 
 :::concept A quick recap from earlier lessons
 In React you show a list by turning every element of an array into JSX with the array's [[map]] function. Every row
@@ -1452,7 +1474,7 @@ Create the `public/manifest.webmanifest` file:
 - `"display": "standalone"` asks for a window of its own, without an address bar and buttons, like a real app.
 - `background_color` shows for a moment while the app starts, and `theme_color` colours the browser's bars (for
   example the top bar of a phone).
-- The icons came with the starter, in the `public` folder; browsers expect these two sizes.
+- The icons came with the exercise, in the `public` folder; browsers expect these two sizes.
 
 Finally `index.html` (in the project's root folder, not in `src`) says where the manifest is. Replace its content with
 this:
@@ -1475,8 +1497,8 @@ this:
 </html>
 ```
 
-The starter's empty icon (`href="data:,"`) is replaced by the basket `icon.svg` (that is what shows on the browser
-tab); `lang="en"`, already there in the starter, tells browsers and screen readers that the page is in English.
+The exercise's empty icon (`href="data:,"`) is replaced by the basket `icon.svg` (that is what shows on the browser
+tab); `lang="en"`, already there in the exercise, tells browsers and screen readers that the page is in English.
 `theme-color` is the same colour as in the manifest: the browser can colour its bars with it even before the app is
 installed. `<title>` is the name you see on the browser tab and on the window of the installed app.
 

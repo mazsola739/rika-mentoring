@@ -18,8 +18,25 @@ elmagyarázzuk.
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `stargazer` mappát a
-szerkesztőben. Aztán a terminálban:
+Ugyanúgy indulsz, mint az 1. leckében, és annak a 0. lépése minden parancsot részletesen elmagyaráz. Röviden: nyiss egy
+terminált a munkamappádban, ahol az 1. leckéből a `rika-mentoring` repó van, hozd le az új leckéket, aztán másold ki a
+repóból ennek a leckének az `exercise` mappáját `stargazer` néven:
+
+```shell
+cd rika-mentoring
+git pull        # lehozza az új leckéket
+cd ..           # vissza a munkamappádba
+cp -r rika-mentoring/lessons/02-dark-mode/exercise stargazer
+```
+
+Ha még nincs meg a repó, az első három sor helyett ezt futtasd:
+`git clone https://github.com/mazsola739/rika-mentoring.git`. Ha nincs gited, a
+[repó GitHub-oldalán](https://github.com/mazsola739/rika-mentoring) válaszd a **Code → Download ZIP** lehetőséget, és
+másold ki belőle a `lessons/02-dark-mode/exercise` mappát a munkamappádba, `stargazer` néven. A `cp -r` parancs
+PowerShellben, Macen és Linuxon is működik; fájlkezelővel is megy: másold át a mappát, és nevezd át a másolatot.
+
+Nyisd meg a `stargazer` mappát a szerkesztőben (VS Code-ban: **File** → **Open Folder**), nyiss benne egy terminált
+(**Terminal** → **New Terminal**), és indítsd el a projektet:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -32,21 +49,31 @@ fent kékkel a „Stargazer” nevet, alatta egy fehér kártyán a „Stargazin
 tippdobozzal és egy rövid listával. Kapcsoló még nincs: az lesz a te dolgod.
 :::
 
-Az alap most nem üres: az oldal kész, csak a sötét mód hiányzik belőle. Nézz körül az `src` mappában, mindent ismersz
-az 1. leckéből:
+A szervert hagyd futni. Egy második terminálban (a terminálpanel **+** gombjával) csinálj a másolatodból git-repót
+egyetlen committal, a kezdőállapottal:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Ha a git azt kérdezi, ki vagy, az 1. lecke 0. lépése megmutatja, hogyan add meg a nevedet és az e-mail-címedet.
+
+A kiinduló projekt ezúttal nem üres: az oldal kész, csak a sötét mód hiányzik belőle. Nézz körül az `src` mappában,
+mindent ismersz az 1. leckéből:
 
 - Az `src/App.jsx` két komponensből rakja össze az oldalt.
 - Az `src/components/Header.jsx` a felső sáv. A benne lévő megjegyzés jelöli, hová kerül majd a kapcsoló.
 - Az `src/components/Article.jsx` maga a cikk.
 - Az `src/index.css`-ben van az összes stílus. Minden szín kézzel van kiírva, a kék például `#3346a8`.
 
-Az alap mindkét nyelven ugyanaz, ezért a mintacikk angol. Ha szeretnéd, fordítsd le nyugodtan magyarra: a lépések
-ugyanúgy működnek. A kódot, amit te írsz be, magyar feliratokkal és megjegyzésekkel mutatjuk.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a mintacikk angol. Ha szeretnéd, fordítsd le nyugodtan magyarra: a
+lépések ugyanúgy működnek. A kódot, amit te írsz be, magyar feliratokkal és megjegyzésekkel mutatjuk.
 
-:::concept Az alap egy git-repó
-Ahogy az 1. leckében, a mappában már van egy első commit. A `git restore .` eldob minden változtatást az utolsó commit
-óta (az új fájlok megmaradnak, azokat kézzel töröld). Ha egy lépés működik, commitold: `git add .`, majd
-`git commit -m "CSS-változók"`.
+:::concept A másolatod egy git-repó
+Ahogy az 1. leckében: a `git restore .` eldob minden változtatást az utolsó commit óta (az új fájlok megmaradnak, azokat
+kézzel töröld). Ha egy lépés működik, commitold: `git add .`, majd `git commit -m "CSS-változók"`.
 :::
 
 ### A színek egy helyen: CSS-változók
@@ -283,8 +310,8 @@ hibával megáll. Zárójel nélkül csak átadod a függvényt, hogy majd kés�
 ### Egy igazi kapcsolókomponens
 
 A gomb működik, de sima gombnak néz ki, és a fejléc fölött áll. Csináljunk belőle egy kis kapcsolót, amiben egy kör
-csúszik ide-oda, és tegyük a fejlécbe, oda, ahová az alap megjegyzése mutat. Saját komponenst kap, egy új fájlban, az
-`src/components/ThemeToggle.jsx`-ben:
+csúszik ide-oda, és tegyük a fejlécbe, oda, ahová a `Header.jsx` megjegyzése mutat. Saját komponenst kap, egy új
+fájlban, az `src/components/ThemeToggle.jsx`-ben:
 
 ```jsx file=src/components/ThemeToggle.jsx
 import './ThemeToggle.css'
@@ -1004,7 +1031,7 @@ function App() {
 export default App
 ```
 
-Az `App` ugyanolyan lett, amilyen az alapban volt: semmit sem kell tudnia a témákról.
+Az `App` ugyanolyan lett, amilyen a kiinduló projektben volt: semmit sem kell tudnia a témákról.
 
 :::check Ellenőrizd
 Az oldal pontosan úgy működik, mint a középszint végén, csak a `Header`-nek és az `App`-nak már nincsenek témás

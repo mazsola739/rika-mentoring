@@ -21,8 +21,21 @@ is recapped in a sentence or two; everything new is explained here, step by step
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `notes-app` folder in your
-editor. Then, in the terminal:
+The exercise of this lesson is the `lessons/11-notes/exercise` folder of the course repository on GitHub (the
+"Exercise on GitHub" button above opens it). You get it the same way as in the earlier lessons; lesson 1 explains every
+step in detail. In the terminal, in your work folder (the one that holds the `rika-mentoring` folder):
+
+```shell
+cd rika-mentoring
+git pull        # brings the new lessons into the repository
+cd ..
+cp -r rika-mentoring/lessons/11-notes/exercise notes-app
+```
+
+If you do not have the repository yet, run `git clone https://github.com/mazsola739/rika-mentoring.git` instead of the
+first three lines (without git: **Code → Download ZIP** on the GitHub page). You can also copy the folder in your file
+manager; what matters is that your copy is called `notes-app` and sits outside the `rika-mentoring` folder, so
+`git pull` keeps working. Open your copy in the editor, then type these two commands in the editor's terminal:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -34,16 +47,25 @@ Open the address the terminal prints (usually `http://localhost:5173`). You see 
 with the title "Notes".
 :::
 
-The starter has four files that matter for this lesson:
+Last, make your copy a git repository with one commit, the starting point. Leave the server running and open a second
+terminal (the **+** button in the terminal panel; it opens in `notes-app` too):
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+From now on `git restore .` takes every file back to your last commit (new files stay: delete those by hand), and it
+is worth committing after every step that works.
+
+The exercise has four files that matter for this lesson:
 
 - `src/App.jsx`: the page. For now it only shows the title; this is where we start.
 - `src/App.css`: the styles of the whole lesson, ready. This lesson is about React, so you do not write CSS this time:
   you only use the class names (`notes`, `note-list`, `editor`, …) that the steps give you.
 - `src/sampleNotes.js`: four sample notes, so the app is not empty the very first time it starts.
 - `src/fakeApi.js`: a pretend server that runs in the browser. You need it only in the advanced level.
-
-As in the earlier lessons, the folder is a git repository with one commit: `git restore .` takes every file back (new
-files you delete by hand), and it is worth committing after every step that works.
 
 :::concept A quick recap
 A [[component]] is a function that returns [[JSX]]; it gets data from outside through its [[props]] and remembers
@@ -1913,7 +1935,7 @@ Show each note's tags in the list too: in `NoteList`, after the third `<span>`, 
 
 Your notes now live in the browser's storage: if you want to see them on your phone too, you need a server that all
 your devices can reach. A real server runs on another computer, but this course uses no outside services, so the
-starter came with a pretend one: `src/fakeApi.js`. It behaves like a real one: every request takes a little while,
+exercise came with a pretend one: `src/fakeApi.js`. It behaves like a real one: every request takes a little while,
 and when there is no internet, it cannot be reached. Its "database" is a localStorage key (`notes-app:server`), so
 every tab of the browser reaches the same server, just as two separate devices would. It knows two requests:
 

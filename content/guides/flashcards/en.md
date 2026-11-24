@@ -23,10 +23,21 @@ shuffle. Whatever we use in a new way is explained again here.
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter") and unzip it. On Windows, unzipping may create a
-`flashcards` folder with another `flashcards` folder inside: open the inner one in your editor, the one that holds
-`package.json`. If you did the earlier lessons, you already have Node.js and VS Code; if not, step 0 of lesson 1 shows
-how to install them. Then, in the editor's terminal:
+This lesson's exercise is the `lessons/06-flashcards/exercise` folder of the course repository on GitHub (the
+"Exercise on GitHub" button above the guide opens it). If you did the earlier lessons, you already have Node.js, Git and
+VS Code; if not, step 0 of lesson 1 shows how to install them, and it also explains in detail how to get the exercise.
+In short: in a terminal, in the folder where you keep your projects:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git        # only the first time
+cp -r rika-mentoring/lessons/06-flashcards/exercise flashcards    # your own copy of the exercise
+```
+
+If you already have the repository from an earlier lesson, skip the `git clone` line, and before you copy, bring in
+the new lessons: `cd rika-mentoring`, `git pull`, `cd ..` (back to your work folder). Instead of cloning, you can also
+choose **Code → Download ZIP** on the [repository page](https://github.com/mazsola739/rika-mentoring); lesson 1 shows
+how to copy the folder out of the downloaded ZIP. You work in your copy, the `flashcards` folder: the repository stays
+untouched, so `git pull` keeps working. Open your copy in your editor, then, in the editor's terminal:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -38,7 +49,19 @@ Open the address the terminal prints (usually `http://localhost:5173`). In the m
 white panel with the title "Flashcards" at the top. Nothing else yet.
 :::
 
-The starter has three files that matter for this lesson:
+Leave the server running, and in a second terminal (the **+** button in the terminal panel) make your copy a git
+repository with one commit, the starting point:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+From now on `git restore .` takes every file back to your last commit, and it is worth committing after every step
+that works.
+
+The exercise has three files that matter for this lesson:
 
 - `src/App.jsx`: the page. For now it only shows the title; this is where we start.
 - `src/App.css`: the styles of the whole lesson, ready; the guide uses its class names (`card`, `study`, `decks`, …).
@@ -47,9 +70,6 @@ The starter has three files that matter for this lesson:
 - `src/cards.js`: two sample decks. `REACT_CARDS` asks you about the React ideas from the earlier lessons (so you revise
   while you build), and `SPACE_CARDS` is a little space quiz. Both are an [[array]], and every item is an [[object]]
   with three fields: `id` (a unique name that is never shown), `question` and `answer`.
-
-Like in the earlier lessons, the folder is a git repository with one commit, the starting point: `git restore .` takes
-every file back, and it is worth committing after every step that works.
 
 :::concept A quick recap
 A [[component]] is a function that returns [[JSX]], the HTML-like description of what should appear. It gets data from
@@ -413,7 +433,7 @@ called `'Home'` and `'End'`. (On a laptop these are often ++Fn++ + ++←++ and +
 
 ### Decks
 
-The starter has two decks, but we only ever see one of them. Let's have a picker: clicking a deck's name switches to
+The exercise has two decks, but we only ever see one of them. Let's have a picker: clicking a deck's name switches to
 it. For this we take `App` apart. Everything about paging (the index, the keys, the counter, the card and the buttons)
 moves into a new component, `Study`. The job of `App` will be to know which deck is chosen.
 

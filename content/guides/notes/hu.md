@@ -20,8 +20,22 @@ felidézzük; minden újat itt, lépésről lépésre elmagyarázunk.
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `notes-app` mappát a
-szerkesztőben. Aztán a terminálban:
+Ennek a leckének a kiinduló projektje a kurzus GitHub-repójában a `lessons/11-notes/exercise` mappa (a fenti „Feladat
+a GitHubon” gomb ezt nyitja meg). Ugyanúgy szerzed meg, mint a korábbi leckékben; az 1. lecke minden lépést
+részletesen elmagyaráz. A terminálban, a munkamappádban (abban, amelyikben a `rika-mentoring` mappa van):
+
+```shell
+cd rika-mentoring
+git pull        # lehozza a repóba az új leckéket
+cd ..
+cp -r rika-mentoring/lessons/11-notes/exercise notes-app
+```
+
+Ha még nincs meg a repó, az első három sor helyett ezt futtasd:
+`git clone https://github.com/mazsola739/rika-mentoring.git` (git nélkül: a GitHub-oldalon **Code → Download ZIP**).
+A mappát a fájlkezelőben is átmásolhatod; az a lényeg, hogy a másolatod neve `notes-app` legyen, és a `rika-mentoring`
+mappán kívülre kerüljön: így a `git pull` továbbra is működik. Nyisd meg a másolatodat a szerkesztőben, aztán írd be
+ezt a két parancsot a szerkesztő termináljába:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -33,7 +47,19 @@ Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`)
 „Notes” címmel.
 :::
 
-Az alapban négy fájl fontos ehhez a leckéhez:
+Végül csinálj a másolatodból git-repót egyetlen committal, a kezdőállapottal. A szervert hagyd futni, és nyiss egy
+második terminált (a terminálpanel **+** gombja; ez is a `notes-app` mappában nyílik meg):
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Mostantól a `git restore .` minden fájlt visszaállít az utolsó commitod állapotára (az új fájlokat kézzel töröld), és
+érdemes minden működő lépés után commitolni.
+
+A kiinduló projektben négy fájl fontos ehhez a leckéhez:
 
 - `src/App.jsx`: maga az oldal. Egyelőre csak a címet mutatja, innen indulunk.
 - `src/App.css`: a teljes lecke stílusai, készen. Ez a lecke a Reactről szól, ezért most nem kell CSS-t írnod: csak a
@@ -41,12 +67,10 @@ Az alapban négy fájl fontos ehhez a leckéhez:
 - `src/sampleNotes.js`: négy mintajegyzet, hogy az app már az első indításkor se legyen üres.
 - `src/fakeApi.js`: egy kitalált szerver, ami a böngészőben fut. Csak a haladó szinten lesz rá szükség.
 
-Az alap mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések, a mintajegyzetek és a „Notes” cím angolul
-vannak. Ha szeretnéd, fordítsd le őket nyugodtan: a lépések ugyanúgy működnek, csak az „Ellenőrizd” dobozokban a
-mintajegyzetek angol címei és címkéi (például „Weekend plans”, `#react`) helyett a saját fordításodat fogod látni. A
-kódot, amit te írsz be, magyar feliratokkal és megjegyzésekkel mutatjuk. Ahogy az eddigi leckékben, a mappa most is
-egy git-repó egyetlen committal: a `git restore .` minden fájlt visszaállít (az új fájlokat kézzel töröld), és érdemes
-minden működő lépés után commitolni.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések, a mintajegyzetek és a „Notes” cím
+angolul vannak. Ha szeretnéd, fordítsd le őket nyugodtan: a lépések ugyanúgy működnek, csak az „Ellenőrizd” dobozokban
+a mintajegyzetek angol címei és címkéi (például „Weekend plans”, `#react`) helyett a saját fordításodat fogod látni. A
+kódot, amit te írsz be, magyar feliratokkal és megjegyzésekkel mutatjuk.
 
 :::concept Gyors ismétlés
 A [[komponens]] egy függvény, ami [[JSX]]-et ad vissza; kívülről a [[props]]-ain át kap adatot, emlékezni pedig a
@@ -1913,10 +1937,10 @@ hibát dob („String.prototype.matchAll called with a non-global RegExp argumen
 ### Szinkron egy szerverrel
 
 A jegyzeteid most a böngésző tárolójában élnek: ha telefonon is látni szeretnéd őket, kell egy szerver, amit minden
-eszközöd elér. Egy igazi szerver más gépen fut, de ebben a kurzusban nem használunk külső szolgáltatást, ezért az
-alappal érkezett egy kitalált: az `src/fakeApi.js`. Úgy viselkedik, mint egy igazi: minden kérés eltart egy darabig,
-és ha nincs internet, nem érhető el. Az „adatbázisa” egy localStorage-kulcs (`notes-app:server`), ezért a böngésző
-minden lapja ugyanazt a szervert éri el, ahogy két külön eszköz is tenné. Két kérést ismer:
+eszközöd elér. Egy igazi szerver más gépen fut, de ebben a kurzusban nem használunk külső szolgáltatást, ezért a
+kiinduló projekttel érkezett egy kitalált: az `src/fakeApi.js`. Úgy viselkedik, mint egy igazi: minden kérés eltart
+egy darabig, és ha nincs internet, nem érhető el. Az „adatbázisa” egy localStorage-kulcs (`notes-app:server`), ezért
+a böngésző minden lapja ugyanazt a szervert éri el, ahogy két külön eszköz is tenné. Két kérést ismer:
 
 - `getNotes()`: az összes jegyzet a szerverről,
 - `saveNotes(notes)`: mostantól ez a lista legyen a szerveren.

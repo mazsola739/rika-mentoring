@@ -1,6 +1,6 @@
 // The clip is a static file of the site (public/media/video-player/), so it has a stable address that
-// the lesson's starter project can use too. It is a placeholder until the site's own video arrives.
-// The page lives at apps/video-player/, so the site root is two folders up.
+// the lesson's exercise can use too. It is a placeholder until the site's own video arrives.
+// The page lives at lessons/18-video-player/solution/, so the site root is three folders up.
 const VIDEO_SRC = '../../../media/video-player/rika-sample.mp4'
 
 // The site has one sample clip for now, so the playlist plays it from different points:

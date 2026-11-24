@@ -1,42 +1,37 @@
-// The on-screen keyboard is generated from these rows. Hungarian keyboards swap Y and Z (QWERTZ).
-const ROWS = {
-  en: ['QWERTYUIOP', 'ASDFGHJKL', '+ZXCVBNM-'],
-  hu: ['QWERTZUIOP', 'ASDFGHJKL', '+YXCVBNM-'],
-}
-
-export default function Keyboard({ lang, states, onKey, t }) {
+// The on-screen keyboard is generated from the rows of the chosen word list (see wordLists.js):
+// letters, plus ENTER and BACK as the two wide keys.
+export default function Keyboard({ rows, states, onKey, t }) {
   return (
     <div className="wd-keyboard" role="group" aria-label={t.keyboard}>
-      {ROWS[lang].map((row) => (
-        <div key={row} className="wd-keyboard__row">
-          {[...row].map((ch) => {
-            if (ch === '+' || ch === '-') {
-              const key = ch === '+' ? 'ENTER' : 'BACK'
+      {rows.map((row) => (
+        <div key={row.join('')} className="wd-keyboard__row">
+          {row.map((key) => {
+            if (key === 'ENTER' || key === 'BACK') {
               return (
                 <button
                   key={key}
                   type="button"
                   className="wd-key wd-key--wide"
-                  aria-label={ch === '+' ? t.enter : t.backspace}
+                  aria-label={key === 'ENTER' ? t.enter : t.backspace}
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => onKey(key)}
                 >
-                  {ch === '+' ? t.enterShort : '⌫'}
+                  {key === 'ENTER' ? t.enterShort : '⌫'}
                 </button>
               )
             }
-            const state = states[ch]
+            const state = states[key]
             return (
               <button
-                key={ch}
+                key={key}
                 type="button"
                 className={`wd-key${state ? ` is-${state}` : ''}`}
-                aria-label={state ? `${ch}, ${t.states[state]}` : ch}
+                aria-label={state ? `${key}, ${t.states[state]}` : key}
                 // Keeps the focus where it was, so a later physical Enter does not "click" this key again.
                 onMouseDown={(e) => e.preventDefault()}
-                onClick={() => onKey(ch)}
+                onClick={() => onKey(key)}
               >
-                {ch}
+                {key}
               </button>
             )
           })}

@@ -17,9 +17,27 @@ Everything else is explained here, step by step.
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `password-generator` folder in
-your editor. If you did lesson 1, you already have Node.js and VS Code; if not, step 0 of lesson 1 shows how to install
-them. Then type these two commands in the editor's terminal:
+If you did lesson 1, you already have Node.js, VS Code and Git; if not, step 0 of lesson 1 shows how to install them,
+and it also explains in detail what this step only sums up.
+
+The exercise is the `lessons/03-password-generator/exercise` folder of the course repository on GitHub (the "Exercise
+on GitHub" button opens it). Open a terminal in your work folder, where you keep your projects. The first time, clone
+the repository, then copy the `exercise` folder out of it, naming the copy `password-generator`:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git
+cp -r rika-mentoring/lessons/03-password-generator/exercise password-generator
+```
+
+If you already have the repository from an earlier lesson, type these three commands instead of the `git clone` line:
+`cd rika-mentoring`, `git pull` (it brings the new lessons) and `cd ..`; then copy. You can also get the repository
+without `git clone`: **Code → Download ZIP** on its GitHub page; unpack it and copy
+`lessons/03-password-generator/exercise` out of it as `password-generator`. A file manager makes the copy just as well,
+and `cp -r` works in VS Code's terminal on Windows too. You never change the repository itself, so `git pull` keeps
+working; your copy is your own project.
+
+Open your `password-generator` folder in the editor (in VS Code: **File** → **Open Folder**), open a terminal in it
+(**Terminal** → **New Terminal**), and type these two commands:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -31,16 +49,25 @@ Open the address the terminal prints (usually `http://localhost:5173`). You see 
 with the title "Password Generator".
 :::
 
-The starter has three files that matter for this lesson:
+Last, make your copy a git repository with one commit, the starting point. Leave the server running, open a second
+terminal (the **+** button in the terminal panel), and type:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+From now on `git restore .` takes every file back to your last commit, and it is worth committing after every step
+that works.
+
+The exercise has three files that matter for this lesson:
 
 - `src/App.jsx`: the page. For now it only shows the title; this is where we start.
 - `src/App.css`: the styles of the whole lesson, ready. This lesson is about React, not CSS, so this time you do not
   write styles: you only use the class names (`generator`, `slider`, `choices`, …) that the steps give you. Have a look
   inside anyway!
 - `src/commonPasswords.js`: a list of very common passwords. We need it only at the very end, in the advanced level.
-
-Like in lesson 1, the folder is a git repository with one commit, the starting point: `git restore .` takes every file
-back, and it is worth committing after every step that works.
 
 :::concept A quick recap from lesson 1
 A [[component]] is a function that returns [[JSX]], the HTML-like description of what should appear on the screen. A
@@ -1070,7 +1097,7 @@ Websites get hacked, and the passwords of millions of users from such [[data bre
 the internet. Attackers try these passwords first, so a password that is on such a list is weak, however long it looks.
 
 The real lists are enormous, and checking against them needs a service on the internet. This course uses no outside
-services, so we practise the idea on a short local list instead: `src/commonPasswords.js`, which came with the starter,
+services, so we practise the idea on a short local list instead: `src/commonPasswords.js`, which came with the exercise,
 holds a few hundred very common passwords, all in lowercase.
 
 To find something in an array, the computer has to go through it item by item. A [[Set]] is a collection that answers

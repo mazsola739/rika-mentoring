@@ -20,9 +20,26 @@ everything new is explained step by step.
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `mad-libs` folder in your
-editor. If you did the earlier lessons, you already have Node.js and VS Code; if not, step 0 of lesson 1 shows how to
-install them. Then type these two commands in the editor's terminal:
+The exercise of this lesson is the `lessons/04-mad-libs/exercise` folder of the course repository (the "Exercise on
+GitHub" button above takes you there). You get it the same way as in the earlier lessons; step 0 of lesson 1 explains
+every part in detail, so here are just the commands. If you did the earlier lessons, you already have Node.js, VS Code
+and Git; if not, step 0 of lesson 1 shows how to install them.
+
+Open a terminal in your work folder (the one that holds the `rika-mentoring` folder, or will hold it), get the
+repository, and copy the exercise out of it under the name `mad-libs`:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git    # first time only
+cp -r rika-mentoring/lessons/04-mad-libs/exercise mad-libs    # your own copy
+```
+
+If you already have the repository from an earlier lesson, skip the `git clone`: run `git pull` in the
+`rika-mentoring` folder instead (`cd rika-mentoring`, `git pull`, `cd ..`), and it brings the new lessons. Without
+git, **Code → Download ZIP** on the [GitHub page](https://github.com/mazsola739/rika-mentoring) works too. You work
+in your copy only: the repository stays as it is.
+
+Open the `mad-libs` folder in your editor (in VS Code: **File** → **Open Folder**), and type these two commands in the
+editor's terminal:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -30,19 +47,28 @@ npm run dev     # starts the development server
 ```
 
 :::check Check
-Open the address the terminal prints (usually `http://localhost:5173`). You see a white card in the middle of the page
-with the title "Mad Libs" in violet. Nothing else is on it yet: the game is yours to write.
+Open the address the terminal prints (usually `http://localhost:5173`). You see a white card at the top of the page,
+centred, with the title "Mad Libs" in violet. Nothing else is on it yet: the game is yours to write.
 :::
 
-The starter has two files that matter for this lesson:
+Last, make your copy a git repository with one commit, the starting point. Leave the server running, and open a
+second terminal (the **+** button of the terminal panel); it starts in the `mad-libs` folder too:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+From now on `git restore .` takes every file back to your last commit, and it is worth committing after every step
+that works (`git add .`, then `git commit -m "Three fields"`).
+
+The exercise has two files that matter for this lesson:
 
 - `src/App.jsx`: the page. For now it only shows the title; this is where we start.
 - `src/App.css`: the styles of the whole lesson, ready. This lesson is about React, not CSS, so again you do not write
   styles: you only use the class names (`fields`, `field`, `story`, `chip`, …) that the steps give you. Have a look
   inside anyway!
-
-Like in the earlier lessons, the folder is a git repository with one commit, the starting point: `git restore .` takes every file
-back, and it is worth committing after every step that works (`git add .`, then `git commit -m "Three fields"`).
 
 :::concept A quick recap
 A [[component]] is a function that returns [[JSX]], the HTML-like description of what should appear on the screen. It

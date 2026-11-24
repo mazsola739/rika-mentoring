@@ -63,6 +63,7 @@
 
 .pn-control--volume input {
   width: 100%;
+  margin: 0; /* the browser's default margin would push the slider 2px past the panel */
 }
 
 .pn-octave-switch {
@@ -91,6 +92,7 @@
   touch-action: none; /* sliding over the keys plays them instead of scrolling */
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none; /* no menu on a long touch */
 }
 
 .pn-octave {
@@ -126,6 +128,21 @@
   transition:
     background-color 0.06s ease,
     box-shadow 0.06s ease;
+}
+
+/* The next note of a melody in the teaching mode. Listed before .is-active, so a held key shows as held. */
+.pn-key--white.is-hint {
+  background: color-mix(in srgb, var(--gold) 30%, #fff);
+  box-shadow:
+    inset 0 0 0 3px var(--gold),
+    inset 0 -6px 0 var(--gold);
+}
+
+.pn-key--black.is-hint {
+  background: color-mix(in srgb, var(--gold) 45%, var(--pn-night));
+  box-shadow:
+    0 3px 0 #000,
+    inset 0 0 0 2px var(--gold);
 }
 
 .pn-key--white.is-active {
@@ -177,8 +194,8 @@
   opacity: 0.6;
 }
 
-/* ── Recorder ─────────────────────────────────────────── */
-.pn-recorder {
+/* ── Panels: recorder, MIDI keyboard, melody teacher ──── */
+.pn-panel {
   display: grid;
   gap: 10px;
   padding: 16px 18px;
@@ -187,13 +204,22 @@
   background: var(--paper-2);
 }
 
-.pn-recorder__buttons {
+.pn-panel__title {
+  margin: 0;
+  font: 700 16px/1.3 var(--font-display);
+}
+
+.pn-panel__field {
+  min-width: 0;
+}
+
+.pn-panel__buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.pn-recorder__status {
+.pn-panel__status {
   margin: 0;
   font-size: 14px;
   color: var(--ink-soft);
@@ -212,6 +238,39 @@
 
 .pn-rec.is-on .pn-rec__dot {
   animation: pn-pulse 1s ease-in-out infinite;
+}
+
+/* The notes of the melody being practised: played ones in the lesson colour, the next one gold. */
+.pn-melody {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pn-melody li {
+  min-width: 36px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.pn-melody li.is-done {
+  border-color: var(--solid);
+  background: var(--solid-light);
+  color: var(--ink);
+}
+
+.pn-melody li.is-next {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--pava-night);
 }
 
 @keyframes pn-pulse {

@@ -464,13 +464,20 @@
   overflow-wrap: anywhere;
 }
 
-.rr-helpful {
-  justify-self: start;
+.rr-review__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Small round buttons under a review: "Helpful" (aria-pressed) and the moderator's Hide / Show again. */
+.rr-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   min-height: 34px;
-  margin-top: 4px;
   padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -480,15 +487,51 @@
   cursor: pointer;
 }
 
-.rr-helpful[aria-pressed='true'] {
+.rr-pill:hover:not(:disabled) {
+  border-color: var(--solid);
+  color: var(--ink);
+}
+
+.rr-pill[aria-pressed='true'] {
   border-color: var(--solid);
   background: color-mix(in srgb, var(--solid-light) 30%, white);
   color: var(--ink);
 }
 
-.rr-helpful:disabled {
+.rr-pill:disabled {
   opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.rr-pill[aria-busy='true'] {
   cursor: progress;
+}
+
+.rr-pill--moderate {
+  color: var(--solid-text);
+}
+
+/* A hidden review: only the moderator sees it, dimmed and with a dashed border. */
+.rr-review--hidden {
+  border-style: dashed;
+  background: var(--paper-2);
+}
+
+.rr-review--hidden .rr-review__head,
+.rr-review--hidden .rr-review__meta,
+.rr-review--hidden .rr-review__body {
+  opacity: 0.6;
+}
+
+.rr-review .rr-review__badge {
+  justify-self: start;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px dashed var(--line);
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 /* ── Form ───────────────────────────────────────────────── */
@@ -512,12 +555,6 @@
   margin: 0;
   padding: 0;
   border: 0;
-}
-
-.rr-form__row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 16px;
 }
 
 .rr-form__textarea {
@@ -548,10 +585,74 @@
   gap: 10px 16px;
 }
 
-.rr-form__thanks {
+.rr-form__as {
   margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+/* What stands in the form's place: log in first, or you have already rated this product. */
+.rr-note {
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--solid);
+  border-radius: 16px;
+  color: var(--ink-soft);
+}
+
+.rr-note strong {
   color: var(--solid-text);
+}
+
+/* ── Login ──────────────────────────────────────────────── */
+.rr-login {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--paper-2);
+}
+
+.rr-login--in {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rr-login__field {
+  flex: 1 1 200px;
+  max-width: 340px;
+  margin: 0;
+}
+
+.rr-login__who {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 0;
+}
+
+.rr-login__role {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--solid);
+  color: var(--solid-ink);
+  font-size: 12px;
   font-weight: 700;
+}
+
+.rr-login__error,
+.rr-login__hint {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.rr-login__hint {
+  color: var(--ink-soft);
+  font-size: 13px;
 }
 
 /* ── States ─────────────────────────────────────────────── */
@@ -647,8 +748,7 @@
 
 @container (max-width: 560px) {
   .rr-product,
-  .rr-summary,
-  .rr-form__row {
+  .rr-summary {
     grid-template-columns: minmax(0, 1fr);
   }
 

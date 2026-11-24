@@ -34,11 +34,32 @@ export function replaceRoute(href) {
   listeners.forEach((callback) => callback())
 }
 
-export const searchHref = (query) => (query ? `#/?q=${encodeURIComponent(query)}` : '#/')
+// The search and its filters as the part after "?": 'q=the&genre=Mystery&decade=2010'. Empty values are left out.
+function searchPart(query, { genre = '', decade = '' } = {}) {
+  const params = new URLSearchParams()
+  if (query) params.set('q', query)
+  if (genre) params.set('genre', genre)
+  if (decade) params.set('decade', decade)
+  return params.toString()
+}
 
-// A series page that remembers the search it was opened from (#/show/32?q=moon),
+// The search page with this search (and these filters) in its address: #/?q=the&genre=Mystery.
+export function searchHref(query, filters) {
+  const part = searchPart(query, filters)
+  return part ? `#/?${part}` : '#/'
+}
+
+// A series page that remembers the search it was opened from (#/show/32?q=moon&genre=Comedy),
 // so its back link still works after a reload or from a shared link.
-export const showHref = (id, query) => (query ? `#/show/${id}?q=${encodeURIComponent(query)}` : `#/show/${id}`)
+export function showHref(id, query, filters) {
+  const part = searchPart(query, filters)
+  return part ? `#/show/${id}?${part}` : `#/show/${id}`
+}
+
+// The filters an address carries next to the search.
+export function filtersFrom(params) {
+  return { genre: params.get('genre') ?? '', decade: params.get('decade') ?? '' }
+}
 
 export function showIdFrom(path) {
   const id = path.match(/^\/show\/(\d+)\/?$/)?.[1]

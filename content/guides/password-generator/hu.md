@@ -18,9 +18,27 @@ lépésről lépésre elmagyarázunk.
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `password-generator` mappát a
-szerkesztőben. Ha megcsináltad az 1. leckét, a Node.js és a VS Code már megvan; ha nem, az 1. lecke 0. lépése
-megmutatja, hogyan telepítsd őket. Aztán írd be ezt a két parancsot a szerkesztő termináljába:
+Ha megcsináltad az 1. leckét, a Node.js, a VS Code és a Git már megvan; ha nem, az 1. lecke 0. lépése megmutatja,
+hogyan telepítsd őket, és részletesen elmagyarázza azt is, ami itt röviden következik.
+
+A feladat a kurzus GitHub-repójában van, a `lessons/03-password-generator/exercise` mappában (a „Feladat a GitHubon”
+gomb megnyitja). Nyiss egy terminált a munkamappádban, ahol a projektjeidet tartod. Az első alkalommal klónozd a repót,
+aztán másold ki belőle az `exercise` mappát, és a másolat neve legyen `password-generator`:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git
+cp -r rika-mentoring/lessons/03-password-generator/exercise password-generator
+```
+
+Ha egy korábbi leckéből már megvan a repó, a `git clone` sor helyett ezt a három parancsot írd be: `cd rika-mentoring`,
+`git pull` (ez hozza le az új leckéket), majd `cd ..`; utána jöhet a másolás. A repót `git clone` nélkül is
+megszerezheted: a GitHub-oldalán válaszd a **Code → Download ZIP** lehetőséget, csomagold ki, és másold ki belőle a
+`lessons/03-password-generator/exercise` mappát `password-generator` néven. Másolni fájlkezelővel is lehet, a `cp -r`
+pedig Windowson, a VS Code termináljában is működik. Magához a repóhoz nem nyúlsz, így a `git pull` később is működik; a
+másolatod a saját projekted.
+
+Nyisd meg a `password-generator` mappát a szerkesztőben (VS Code-ban: **File** → **Open Folder**), nyiss benne egy
+terminált (**Terminal** → **New Terminal**), és írd be ezt a két parancsot:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -32,7 +50,19 @@ Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`)
 „Password Generator” címmel.
 :::
 
-Az alapban három fájl fontos ehhez a leckéhez:
+Végül csinálj a másolatodból git-repót egyetlen committal, a kezdőállapottal. Hagyd futni a szervert, nyiss egy második
+terminált (a terminálpanel **+** gombjával), és írd be:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Ettől kezdve a `git restore .` minden fájlt visszaállít az utolsó commitod állapotára, és érdemes minden működő lépés
+után commitolni.
+
+A kiinduló projektben három fájl fontos ehhez a leckéhez:
 
 - `src/App.jsx`: maga az oldal. Egyelőre csak a címet mutatja, innen indulunk.
 - `src/App.css`: a teljes lecke stílusai, készen. Ez a lecke a Reactről szól, nem a CSS-ről, ezért most nem kell
@@ -40,11 +70,8 @@ Az alapban három fájl fontos ehhez a leckéhez:
   bele!
 - `src/commonPasswords.js`: nagyon gyakori jelszavak listája. Csak a legvégén, a haladó szinten lesz rá szükség.
 
-Az alap mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések és a „Password Generator” cím angolul vannak. Ha
-szeretnéd, írd át őket nyugodtan magyarra: a lépések ugyanúgy működnek.
-
-Ahogy az 1. leckében, a mappa most is egy git-repó egyetlen committal, a kezdőállapottal: a `git restore .` minden
-fájlt visszaállít, és érdemes minden működő lépés után commitolni.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések és a „Password Generator” cím angolul
+vannak. Ha szeretnéd, írd át őket nyugodtan magyarra: a lépések ugyanúgy működnek.
 
 :::concept Gyors ismétlés az 1. leckéből
 A [[komponens]] egy függvény, ami [[JSX]]-et ad vissza, vagyis HTML-szerű leírást arról, mi jelenjen meg a
@@ -1083,7 +1110,7 @@ jelszava kerül nyilvános listákra az interneten. A támadók ezeket próbálj
 ilyen listán, akkor gyenge, akármilyen hosszúnak tűnik is.
 
 Az igazi listák óriásiak, és az ellenőrzéshez egy internetes szolgáltatás kellene. Ebben a kurzusban nem használunk
-külső szolgáltatást, ezért egy rövid, helyi listán gyakoroljuk az ötletet: az alappal érkezett
+külső szolgáltatást, ezért egy rövid, helyi listán gyakoroljuk az ötletet: a kiinduló projekttel érkezett
 `src/commonPasswords.js` néhány száz nagyon gyakori jelszót tartalmaz, csupa kisbetűvel.
 
 Ha egy tömbben keresel valamit, a gépnek elemenként végig kell mennie rajta. A [[Set]] (halmaz) olyan gyűjtemény, ami

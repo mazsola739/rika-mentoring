@@ -20,8 +20,22 @@ new way here is explained again.
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `pocket-gallery` folder in your
-editor. Then type these two commands in the editor's terminal:
+The exercise of this lesson is the `lessons/12-image-gallery/exercise` folder of the course repository on GitHub (the
+"Exercise on GitHub" button above opens it). Step 0 of lesson 1 explains in detail how to get it and work in it; here
+are the commands in short. In a terminal, in your work folder, where you keep your projects:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git  # the first time only
+cp -r rika-mentoring/lessons/12-image-gallery/exercise pocket-gallery
+```
+
+If you already have the repository from an earlier lesson, do not clone it again: instead of the first line, run
+`git pull` in it (`cd rika-mentoring`, `git pull`, `cd ..`), which brings the new lessons, then copy. You work in your
+copy, never in the repository: the repository stays untouched, so `git pull` keeps working. No git? Choose
+**Code → Download ZIP** on the [repository's GitHub page](https://github.com/mazsola739/rika-mentoring), and copy the
+`lessons/12-image-gallery/exercise` folder out of it into your work folder as `pocket-gallery`.
+
+Open your copy, the `pocket-gallery` folder, in your editor, and type these two commands in the editor's terminal:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -34,7 +48,18 @@ Open the address the terminal prints (usually `http://localhost:5173`). You see 
 yet: putting them on the page is your job.
 :::
 
-Four things in the starter matter for this lesson:
+Leave the server running, open a second terminal (the **+** button in the terminal panel), and make your copy a git
+repository with one commit, the starting point:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+If git answers "Please tell me who you are", step 0 of lesson 1 shows the two `git config` commands that fix it.
+
+Four things in the exercise matter for this lesson:
 
 - `src/App.jsx`: the page. For now it only shows the title; this is where we start.
 - `src/App.css`: the styles of the whole lesson, ready. This lesson is about React, not CSS, so you do not write styles:
@@ -70,10 +95,9 @@ Type this in the browser's address bar: `http://localhost:5173/photos/golden-hou
 own: a gold sun sinking into the sea.
 :::
 
-:::concept The starter is a git repository
-Like in the earlier lessons, the folder already has a first commit. `git restore .` throws away every change since the
-last commit (new files stay; delete those by hand). When a step works, commit it: `git add .`, then
-`git commit -m "Pictures in a grid"`.
+:::concept Your copy is a git repository
+Like in the earlier lessons: `git restore .` throws away every change since your last commit (new files stay; delete
+those by hand). When a step works, commit it: `git add .`, then `git commit -m "Pictures in a grid"`.
 :::
 
 ### Pictures in a grid

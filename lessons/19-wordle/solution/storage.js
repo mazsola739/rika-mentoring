@@ -1,5 +1,5 @@
-import { ANSWERS } from './words.js'
 import { MAX_TRIES, dailyAnswer, dateKey, previousDay, randomAnswer } from './logic.js'
+import { WORD_LISTS } from './wordLists.js'
 
 const PREFIX = 'rika:wordle:'
 
@@ -19,42 +19,56 @@ function write(name, value) {
   }
 }
 
-const validGuesses = (list) => Array.isArray(list) && list.every((g) => typeof g === 'string' && g.length === 5)
-
-// Daily: today's word, plus today's guesses if there are any. Practice: the saved word or a new one.
-export function loadGame(mode) {
-  const saved = read(mode)
-  if (mode === 'daily') {
-    const date = dateKey()
-    const guesses = saved?.date === date && validGuesses(saved.guesses) ? saved.guesses : []
-    return { date, answer: dailyAnswer(date), guesses }
-  }
-  if (saved && ANSWERS.includes(saved.answer) && validGuesses(saved.guesses)) {
-    return { answer: saved.answer, guesses: saved.guesses }
-  }
-  return { answer: randomAnswer(), guesses: [] } // pure: the Game's effect saves it
+// ── The chosen word list ('en' or 'hu') ───────────────────
+export function loadWordList() {
+  const saved = read('list')
+  return saved in WORD_LISTS ? saved : null
 }
 
-export function saveGame(mode, game) {
-  if (mode === 'daily') write('daily', { date: game.date, guesses: game.guesses })
-  else write('practice', { answer: game.answer, guesses: game.guesses })
+export function saveWordList(words) {
+  write('list', words)
+}
+
+// A save only counts if every guess is a word of this list, so the two lists never mix.
+const validGuesses = (list, guesses) => Array.isArray(guesses) && guesses.every((g) => list.valid.has(g))
+
+// Every word list has its own daily game, practice game and statistics.
+// Daily: today's word, plus today's guesses if there are any. Practice: the saved word or a new one.
+export function loadGame(mode, words) {
+  const list = WORD_LISTS[words]
+  const saved = read(`${words}:${mode}`)
+  if (mode === 'daily') {
+    const date = dateKey()
+    const guesses = saved?.date === date && validGuesses(list, saved.guesses) ? saved.guesses : []
+    return { date, answer: dailyAnswer(date, list.answers), guesses }
+  }
+  if (saved && list.answers.includes(saved.answer) && validGuesses(list, saved.guesses)) {
+    return { answer: saved.answer, guesses: saved.guesses }
+  }
+  return { answer: randomAnswer(null, list.answers), guesses: [] } // pure: the Game's effect saves it
+}
+
+export function saveGame(mode, words, game) {
+  if (mode === 'daily') write(`${words}:daily`, { date: game.date, guesses: game.guesses })
+  else write(`${words}:practice`, { answer: game.answer, guesses: game.guesses })
 }
 
 // Called from the "New word" button: stores a fresh practice word before the board remounts.
-export function startNewPracticeGame(previous) {
-  saveGame('practice', { answer: randomAnswer(previous), guesses: [] })
+export function startNewPracticeGame(previous, words) {
+  saveGame('practice', words, { answer: randomAnswer(previous, WORD_LISTS[words].answers), guesses: [] })
 }
 
 // ── Statistics ────────────────────────────────────────────
 const EMPTY = { played: 0, wins: 0, streak: 0, maxStreak: 0, dist: Array(MAX_TRIES).fill(0), lastWin: null }
 
-export function loadStats() {
-  const saved = read('stats') ?? {}
+// { daily, practice } for one word list.
+export function loadStats(words) {
+  const saved = read(`${words}:stats`) ?? {}
   return { daily: { ...EMPTY, ...saved.daily }, practice: { ...EMPTY, ...saved.practice } }
 }
 
-export function saveStats(stats) {
-  write('stats', stats)
+export function saveStats(words, stats) {
+  write(`${words}:stats`, stats)
 }
 
 // A daily streak continues only if yesterday's word was also solved; a practice streak counts wins in a row.

@@ -27,13 +27,61 @@ You need three programs, all free:
 
 You give commands in a [[terminal]]: a window where you talk to the computer in text instead of clicks. [[npm]] comes
 with Node.js: it downloads the [[packages|package]] (ready-made code, such as React) that the project uses. The
-development server is run by [[Vite]], the tool the starter is built on.
+development server is run by [[Vite]], the tool the exercise is built on.
 
-Download the lesson's **starter** (above: "Download starter") and unzip it. On Windows, unzipping makes a `portfolio`
-folder with the `me-myself-and-react` folder inside it. Open that inner folder in your editor (in VS Code: **File** →
-**Open Folder**), not the outer one, because the commands have to run where `package.json` is. Then open a terminal
-(in VS Code: the **Terminal** menu → **New Terminal**) and type these two commands one at a time, pressing ++Enter++
-after each:
+**Get the course from GitHub.** [[GitHub]] is a website where programmers keep their projects and share them. A project
+there is a [[repository]] (repo for short): a folder whose history [[git]] keeps, so every saved state of its files can
+be looked up again. The whole course is one repository, `rika-mentoring`. Every lesson is a folder in it (this one is
+`lessons/01-portfolio`), with two projects inside: `exercise`, the starting project you build on, and `solution`, the
+finished app that you can try on the Solution tab. The **Exercise on GitHub** button at the top of this page shows this
+lesson's `exercise` folder on GitHub.
+
+Make a folder of your own for the course, for example `react-course` in your Documents folder. Open it in your editor
+(in VS Code: **File** → **Open Folder**), then open a terminal (in VS Code: the **Terminal** menu → **New Terminal**):
+it starts in the folder you opened. Type this command and press ++Enter++:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git
+```
+
+To [[clone]] a repository is to copy it to your computer with its whole history: a `rika-mentoring` folder appears in
+`react-course`. It stays connected to GitHub, so later one command brings the new lessons: `git pull`, run in that
+folder (`cd rika-mentoring` steps into it, then `git pull`, and `cd ..` steps back out). If you already have the repository from an earlier lesson,
+you do not clone it again: a `git pull` in it is enough. If the terminal does not recognise `git`, close VS Code and
+open it again (more in the Common mistake box below).
+
+If you would rather click: on the [repository's page](https://github.com/mazsola739/rika-mentoring) choose **Code** →
+**Download ZIP**, and unpack the downloaded file into your work folder. The unpacked folder is called
+`rika-mentoring-main` (Windows may put it inside a second folder of the same name). In it you find the same `lessons`
+folder: copy the exercise out of it with the file manager as described below, opening `rika-mentoring-main` where the
+text says `rika-mentoring`. A ZIP is a one-off copy, though: it does not update, so for new lessons you download it
+again. You need git for this lesson anyway, so cloning is the easier way.
+
+**Copy the exercise.** You never work inside the repository itself. Copy the lesson's `exercise` folder out of it into
+your work folder, and name the copy `me-myself-and-react`: the repository stays as it was (so `git pull` keeps
+working), and your work is a project of your own. In the file manager: open `rika-mentoring` → `lessons` →
+`01-portfolio`, select the `exercise` folder and copy it (++Ctrl++ + ++C++, on a Mac ++Cmd++ + ++C++), go back to
+`react-course` and paste it (++Ctrl++ + ++V++, on a Mac ++Cmd++ + ++V++), then rename the copy (on Windows ++F2++, on a
+Mac ++Enter++). Or type this in the terminal, which is still in `react-course`:
+
+```shell
+cp -r rika-mentoring/lessons/01-portfolio/exercise me-myself-and-react
+```
+
+`cp -r` copies a folder with everything in it into a new folder, the one you name at the end. VS Code's terminal on
+Windows (PowerShell) understands it too. Your work folder now holds two folders: `rika-mentoring`, the repository from
+GitHub, which you leave as it is, and `me-myself-and-react`, your copy of the exercise, where you work.
+
+```text
+react-course/
+  rika-mentoring/
+  me-myself-and-react/
+```
+
+**Start it.** Open your copy in the editor (**File** → **Open Folder** → `me-myself-and-react`): not the work folder,
+and not the `exercise` folder inside the repository, because the commands have to run where `package.json` is, and your
+work belongs in your copy. Then open a terminal again (**Terminal** → **New Terminal**) and type these two commands one
+at a time, pressing ++Enter++ after each:
 
 ```shell
 npm install
@@ -49,21 +97,59 @@ Leave the server running in this terminal while you work. ++Ctrl++ + ++C++ stops
 :::
 
 :::mistake Common mistake
-If `npm install` says it cannot find `package.json`, the terminal is in the wrong folder: unzipping often adds an extra
-outer folder. Open the `me-myself-and-react` folder itself in the editor (the one with `package.json` in it), then open
-a new terminal.
+If `npm install` says it cannot find `package.json`, the terminal is in the wrong folder, for example in `react-course`.
+Open the `me-myself-and-react` folder itself in the editor (the one with `package.json` in it), then open a new
+terminal. If the terminal does not recognise `git` or `npm` at all, close VS Code and open it again: a terminal only
+finds the programs that were installed before it started.
 :::
 
-:::concept The starter is a git repository
-The folder you downloaded is a git [[repository]]: a folder whose history [[git]] keeps. It already has one
-[[commit]], a saved snapshot of all the files: the starting point. Leave the server running, and open a second terminal
-for git (the **+** button in the terminal panel).
+**Save the starting point.** Your copy is a plain folder for now: the repository it came from stayed behind in
+`rika-mentoring`. Make it a repository of its own, so that git can save your progress. Leave the server running, and
+open a second terminal for git (the **+** button in the terminal panel); it opens in `me-myself-and-react` too. First,
+once on your computer, tell git your own name and e-mail: it writes them into every save (a commit, explained below).
+The example shows Pat Example's details. If you later put the project on GitHub, this address is public in your commits.
 
-- Before your first commit, tell git your own name and e-mail once (the example shows Pat Example's details):
-  `git config --global user.name "Pat Example"` and `git config --global user.email "pat@example.com"`. If you later
-  put the project on GitHub, this address is public in your commits.
-- When a step works, commit it: `git add .`, then `git commit -m "Hero done"`.
-- `git log` lists the commits; press ++Q++ to leave the list.
+```shell
+git config --global user.name "Pat Example"
+git config --global user.email "pat@example.com"
+```
+
+Then, in your copy:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+`git init -b main` makes the folder a git repository: from now on git keeps its history, in a hidden `.git` folder.
+`-b main` calls its [[branch]] (the line of saved states) `main`: GitHub expects this name at the advanced level.
+`git add .` picks every file of the folder for saving (the dot means "this folder"), and `git commit -m "Starting point"`
+saves them as a [[commit]]: a snapshot of all the files, with a short message that says what it is. Git leaves out
+`node_modules`, the downloaded packages: the `.gitignore` file lists what it ignores, and `npm install` can download
+them again at any time.
+
+:::check Check
+On Windows, `git add .` may print a warning for each file ("LF will be replaced by CRLF"), now and at later commits
+too. It is harmless: git only tells you that it will write the line endings (the invisible mark at the end of every
+line) the Windows way. Go on with `git commit`. Then `git log` lists the commits: now there is one, "Starting point",
+with your name and the date. When the list does not fit in the window, git shows it page by page, and ++Q++ takes you
+back.
+:::
+
+:::mistake Common mistake
+If `git commit` answers "Author identity unknown" ("Please tell me who you are"), git does not know your name yet: run
+the two `git config` lines, then the `git commit` again. If `git init` does not know `-b`, your Git is older than
+version 2.28: install the latest one from git-scm.com.
+:::
+
+:::concept Your copy becomes a git repository
+`me-myself-and-react` is now a repository of its own, with no connection to `rika-mentoring`: what you commit here stays
+in your project, and at the advanced level this is the repository you put on GitHub. As you work:
+
+- When a step works, commit it: `git add .`, then `git commit -m "Hero done"`. At the end of every level the guide
+  reminds you.
+- `git log` lists your commits.
 - If something goes badly wrong, `git restore .` takes the files back to your last commit. New files you created stay.
 :::
 
@@ -85,8 +171,9 @@ The HTML-looking part after `return` is [[JSX]]. It is really JavaScript: React 
 `export default` means that other files can load this function. `src/main.jsx` does exactly that: it loads `App` and
 draws it into the empty `<div id="root">` box of `index.html`.
 
-The starter's files (`main.jsx`, `index.css`, `vite.config.js`) contain comments. A comment is a note for people in the
-code (after `//`, or between `/*` and `*/`), and the computer ignores it. Write your own comments wherever they help you.
+The files of the exercise (`main.jsx`, `index.css`, `vite.config.js`) contain comments. A comment is a note for people
+in the code (after `//`, or between `/*` and `*/`), and the computer ignores it. Write your own comments wherever they
+help you.
 
 :::try Try it
 Change the text to a greeting of your own and save the file. The browser updates by itself: this is Vite's
@@ -787,7 +874,7 @@ you can look at it. Open the address it prints, then ++F12++ → **Lighthouse** 
 fixes:
 
 - every image you add has an `alt` text and is not much bigger than the size it is shown at;
-- `index.html` says the page's language (`<html lang="en">`, the starter already has it) and gets a short description
+- `index.html` says the page's language (`<html lang="en">`, the exercise already has it) and gets a short description
   in `<head>`, under the `<title>`:
   `<meta name="description" content="Pat Example, junior front-end developer: skills, projects and contact." />`.
   While you are there, change the `<title>` to your name;
@@ -816,10 +903,14 @@ export default defineConfig({
 ```
 
 You need a free GitHub account ([github.com](https://github.com)). Once you are signed in, create a new **public**,
-**empty** repository (no README, or the first push gets stuck; with a free account GitHub Pages works only with public
-repositories). On the empty repository's page GitHub shows a "…or push an existing repository from the command line"
-part: copy the commands there into your second terminal. `git remote add origin` with your repository's address connects
-the project to the repository, and `git push -u origin main` pushes it.
+**empty** repository, for example with the name `me-myself-and-react`, like your folder (no README, or GitHub refuses
+the first push; with a free account GitHub Pages works only with public repositories). This is your own repository:
+your copy goes there, not into `rika-mentoring`, which stays as it is. On the empty repository's page GitHub shows a
+"…or push an existing repository from the command line" part: copy the commands there into your second terminal (the
+one in `me-myself-and-react`). `git remote add origin` with your repository's address connects your project to that
+repository, `git branch -M main` makes sure the branch is called `main` (since `git init -b main` it already is), and
+`git push -u origin main` pushes your commits there (`-u` makes git remember this destination, so later a plain
+`git push` is enough).
 
 The first push asks you to sign in. On Windows a browser window opens for it. On a Mac the terminal asks for a username
 and a password: GitHub refuses your account password there, so paste a token instead (**Settings** →

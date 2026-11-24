@@ -1,15 +1,21 @@
 import { useRef, useState } from 'react'
-import { SORTERS, summarize, tx } from './stats.js'
+import { SORTERS, helpfulCount, summarize, tx } from './stats.js'
 import { Stars } from './StarRating.jsx'
 import ProductVisual from './ProductVisual.jsx'
 import RatingSummary from './RatingSummary.jsx'
 import ReviewForm from './ReviewForm.jsx'
 import { useFocusOnMount } from './useHashRoute.js'
 
-function ReviewItem({ review, voted, pending, onHelpful, fmt, lang, t }) {
-  const helpful = review.helpful ?? 0
+function ReviewItem({ review, user, pending, onHelpful, onModerate, fmt, lang, t }) {
+  const helpful = helpfulCount(review)
+  const voted = user !== null && (review.helpfulBy ?? []).includes(user.id)
+  // Voting needs an account, and nobody can vote for their own review.
+  const canVote = user !== null && review.userId !== user.id
+  const isModerator = user !== null && user.role === 'moderator'
+
   return (
-    <li className="rr-review">
+    <li className={review.hidden ? 'rr-review rr-review--hidden' : 'rr-review'}>
+      {review.hidden && <p className="rr-review__badge">{t.hiddenBadge}</p>}
       <div className="rr-review__head">
         <Stars value={review.rating} size={15} label={t.starsLabel(review.rating)} />
         <h5>{tx(review.title, lang)}</h5>
@@ -18,40 +24,90 @@ function ReviewItem({ review, voted, pending, onHelpful, fmt, lang, t }) {
         {review.author} · <time dateTime={review.createdAt}>{fmt.date(review.createdAt)}</time>
       </p>
       <p className="rr-review__body">{tx(review.body, lang)}</p>
-      <button
-        type="button"
-        className="rr-helpful"
-        aria-pressed={voted}
-        aria-label={t.helpfulLabel(helpful)}
-        disabled={pending}
-        onClick={() => onHelpful(review)}
-      >
-        <span aria-hidden="true">👍</span> {t.helpful(helpful)}
-      </button>
+      <div className="rr-review__actions">
+        <button
+          type="button"
+          className="rr-pill"
+          aria-pressed={voted}
+          aria-label={t.helpfulLabel(helpful)}
+          aria-busy={pending}
+          disabled={!canVote || pending}
+          onClick={() => onHelpful(review)}
+        >
+          <span aria-hidden="true">👍</span> {t.helpful(helpful)}
+        </button>
+        {isModerator && (
+          <button
+            type="button"
+            className="rr-pill rr-pill--moderate"
+            aria-busy={pending}
+            disabled={pending}
+            onClick={() => onModerate(review)}
+          >
+            {review.hidden ? t.showAgain : t.hide}
+          </button>
+        )}
+      </div>
     </li>
   )
 }
 
-export default function ProductPage({ product, data, fmt, lang, t, focusOnMount }) {
+export default function ProductPage({ product, data, user, fmt, lang, t, focusOnMount }) {
   const [sort, setSort] = useState('newest')
   const [filter, setFilter] = useState(0) // 0 = every star count
-  const [voteError, setVoteError] = useState('')
+  const [changeError, setChangeError] = useState('')
+  const [justSent, setJustSent] = useState(false)
   const headingRef = useRef(null)
   useFocusOnMount(headingRef, focusOnMount)
 
   const name = tx(product.name, lang)
+  const isModerator = user !== null && user.role === 'moderator'
   const reviews = data.reviews.filter((r) => r.productId === product.id)
-  const stats = summarize(reviews)
+  // Hidden reviews count for nobody's summary, and only the moderator sees them.
+  const publicReviews = reviews.filter((r) => !r.hidden)
+  const shown = isModerator ? reviews : publicReviews
+  const stats = summarize(publicReviews)
   // .filter() returns a new array, so sorting it never mutates the state.
-  const visible = reviews.filter((r) => !filter || r.rating === filter).sort(SORTERS[sort])
+  const visible = shown.filter((r) => !filter || r.rating === filter).sort(SORTERS[sort])
+  // One review per account and product. Hidden ones count too: a hidden review cannot be replaced by a new one.
+  const myReview = user === null ? undefined : reviews.find((r) => r.userId === user.id)
 
   const vote = async (review) => {
-    setVoteError('')
+    setChangeError('')
     try {
-      await data.toggleHelpful(review)
+      await data.toggleHelpful(review, user.id)
     } catch {
-      setVoteError(t.voteFailed)
+      setChangeError(t.changeFailed)
     }
+  }
+
+  const moderate = async (review) => {
+    setChangeError('')
+    try {
+      await data.setHidden(review, !review.hidden)
+    } catch {
+      setChangeError(t.changeFailed)
+    }
+  }
+
+  const sendReview = async (review) => {
+    await data.addReview(review)
+    setJustSent(true)
+  }
+
+  let formArea
+  if (user === null) {
+    formArea = <p className="rr-note">{t.loginToReview}</p>
+  } else if (myReview) {
+    formArea = (
+      <p className="rr-note" role="status">
+        {justSent && <strong>{t.form.thanks(user.name)} </strong>}
+        {t.alreadyRated(myReview.rating)}
+        {myReview.hidden && ` ${t.hiddenOwn}`}
+      </p>
+    )
+  } else {
+    formArea = <ReviewForm productId={product.id} user={user} onSubmit={sendReview} t={t} />
   }
 
   return (
@@ -85,7 +141,7 @@ export default function ProductPage({ product, data, fmt, lang, t, focusOnMount 
             <h4 id="rr-reviews-title">{t.reviewsTitle}</h4>
             <RatingSummary stats={stats} filter={filter} onFilter={setFilter} fmt={fmt} t={t} />
 
-            {stats.count > 0 && (
+            {shown.length > 0 && (
               <div className="rr-toolbar">
                 <label className="rr-select">
                   <span>{t.sortLabel}</span>
@@ -115,15 +171,15 @@ export default function ProductPage({ product, data, fmt, lang, t, focusOnMount 
             )}
 
             <p className="rr-count" aria-live="polite">
-              {stats.count > 0 && t.showing(visible.length, stats.count)}
+              {shown.length > 0 && t.showing(visible.length, shown.length)}
             </p>
-            {voteError && (
+            {changeError && (
               <p className="rr-alert" role="alert">
-                {voteError}
+                {changeError}
               </p>
             )}
 
-            {stats.count === 0 ? (
+            {shown.length === 0 ? (
               <p className="rr-empty">{t.beFirst}</p>
             ) : visible.length === 0 ? (
               <div className="rr-empty">
@@ -138,9 +194,10 @@ export default function ProductPage({ product, data, fmt, lang, t, focusOnMount 
                   <ReviewItem
                     key={review.id}
                     review={review}
-                    voted={data.votes.includes(review.id)}
+                    user={user}
                     pending={data.pending.includes(review.id)}
                     onHelpful={vote}
+                    onModerate={moderate}
                     fmt={fmt}
                     lang={lang}
                     t={t}
@@ -150,7 +207,7 @@ export default function ProductPage({ product, data, fmt, lang, t, focusOnMount 
             )}
           </section>
 
-          <ReviewForm productId={product.id} onSubmit={data.addReview} t={t} />
+          {formArea}
         </>
       )}
     </div>

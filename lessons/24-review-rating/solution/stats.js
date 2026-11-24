@@ -17,7 +17,12 @@ export const SORTERS = {
   newest: (a, b) => b.createdAt.localeCompare(a.createdAt),
   highest: (a, b) => b.rating - a.rating || b.createdAt.localeCompare(a.createdAt),
   lowest: (a, b) => a.rating - b.rating || b.createdAt.localeCompare(a.createdAt),
-  helpful: (a, b) => (b.helpful ?? 0) - (a.helpful ?? 0) || b.createdAt.localeCompare(a.createdAt),
+  helpful: (a, b) => helpfulCount(b) - helpfulCount(a) || b.createdAt.localeCompare(a.createdAt),
+}
+
+// How many accounts found a review helpful.
+export function helpfulCount(review) {
+  return (review.helpfulBy ?? []).length
 }
 
 // Seed text is { en, hu }; text written by users is a plain string.

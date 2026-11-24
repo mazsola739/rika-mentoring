@@ -26,10 +26,23 @@
   font-size: 14px;
 }
 
+.wd__switches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
 .wd__modes {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
+}
+
+.wd__label {
+  font-size: 14px;
+  color: var(--ink-soft);
 }
 
 .wd-legend {

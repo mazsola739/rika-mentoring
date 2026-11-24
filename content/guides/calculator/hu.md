@@ -21,8 +21,24 @@ lépésről lépésre elmagyarázunk.
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `calculator` mappát a
-szerkesztőben. Aztán írd be ezt a két parancsot a szerkesztő termináljába:
+A lecke feladata, vagyis a kiinduló projekt, a tananyag GitHub-repójában van, a `lessons/08-calculator/exercise`
+mappában (a fenti „Feladat a GitHubon” gomb ezt mutatja meg). Hogy hogyan jutsz hozzá, és hogyan dolgozol benne, azt
+az 1. lecke részletesen elmagyarázza; itt röviden csak a parancsok jönnek. Egy terminálban, abban a mappában, ahol a
+projektjeidet tartod:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git      # csak az első alkalommal
+cp -r rika-mentoring/lessons/08-calculator/exercise calculator    # a feladat saját másolata
+```
+
+Ha egy korábbi leckénél már leklónoztad a repót, hagyd ki az első sort, és helyette a `rika-mentoring` mappában
+futtasd a `git pull` parancsot (`cd rika-mentoring`, `git pull`, `cd ..`): ez lehozza az új leckéket. Klónozás helyett a
+[repó oldalán](https://github.com/mazsola739/rika-mentoring) a **Code → Download ZIP** lehetőséget is választhatod;
+ilyenkor abból másold ki a `lessons/08-calculator/exercise` mappát. A másolatod mindkét esetben a `calculator` nevet
+kapja, a repó pedig érintetlen marad.
+
+Nyisd meg a szerkesztőben a másolatodat, a `calculator` mappát, és írd be ezt a két parancsot a szerkesztő
+termináljába:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -30,23 +46,33 @@ npm run dev     # elindítja a fejlesztői szervert
 ```
 
 :::check Ellenőrizd
-Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`). Az oldal közepén egy sötétkék
+Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`). Az oldal felső részén, középen egy sötétkék
 számológéptest áll, a tetején kis „CALCULATOR” felirattal, alatta egy fekete kijelzőn egy nagy 0. Gombok még
 nincsenek: azokat te készíted el.
 :::
 
-Az alapban két fájl fontos ehhez a leckéhez:
+Hagyd futni a szervert, nyiss egy második terminált (a terminálpanel **+** gombjával), és tedd a másolatodat
+git-repóvá egyetlen committal, a kezdőállapottal:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Ettől kezdve a `git restore .` minden fájlt visszaállít az utolsó commitod állapotára, és érdemes minden működő lépés
+után commitolni. (Ha a git azt feleli, hogy „Please tell me who you are”, az 1. lecke 0. lépésében megtalálod a két
+`git config` parancsot, amely ezt megoldja.)
+
+A kiinduló projektben két fájl fontos ehhez a leckéhez:
 
 - `src/App.jsx`: maga az oldal. Egyelőre csak a számológép testét és a kijelzőjét rajzolja ki; innen indulunk.
 - `src/App.css`: a teljes lecke stílusai, készen. Ez a lecke a Reactről szól, nem a CSS-ről, ezért most nem kell
   stílust írnod: csak a lépésekben megadott osztályneveket (`screen`, `keypad`, `key`, `history`, …) használod. Azért
   nézz bele: minden rész előtt egy megjegyzés elmondja, mire való.
 
-Az alap mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések és a „Calculator” felirat angolul vannak. Ha
-szeretnéd, írd át őket nyugodtan magyarra: a lépések ugyanúgy működnek.
-
-A mappa most is egy git-repó egyetlen committal, a kezdőállapottal: a `git restore .` minden fájlt visszaállít, és
-érdemes minden működő lépés után commitolni.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések és a „Calculator” felirat angolul
+vannak. Ha szeretnéd, írd át őket nyugodtan magyarra: a lépések ugyanúgy működnek.
 
 :::concept Gyors ismétlés
 A [[komponens]] egy függvény, ami [[JSX]]-et ad vissza: HTML-szerű leírást arról, mi jelenjen meg a képernyőn.

@@ -1,10 +1,20 @@
-// Notes as MIDI numbers: 60 = C4 (middle C). Two octaves on screen, from C4 up to C6.
-export const FIRST_NOTE = 60
-export const LAST_NOTE = 84
-export const OCTAVES = [
-  { from: 60, to: 71 },
-  { from: 72, to: 84 },
-]
+// Notes as MIDI numbers: 60 = C4 (middle C). Two octaves are on screen, from the C of the chosen octave
+// up to the C two octaves higher: octave 4 shows C4 to C6, octave 6 shows C6 to C8, the top of a real piano.
+export const LOWEST_OCTAVE = 2
+export const HIGHEST_OCTAVE = 6
+export const START_OCTAVE = 4
+
+// The C of an octave: MIDI numbering starts with octave -1, so octave 4 starts at 60.
+export const octaveStart = (octave) => (octave + 1) * 12
+
+// The two octaves on screen, as MIDI ranges; the second one ends with an extra C.
+export function screenOctaves(octave) {
+  const from = octaveStart(octave)
+  return [
+    { from, to: from + 11 },
+    { from: from + 12, to: from + 24 },
+  ]
+}
 
 const NAMES = {
   en: ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'],
@@ -13,13 +23,14 @@ const NAMES = {
 }
 
 export const isBlack = (midi) => [1, 3, 6, 8, 10].includes(midi % 12)
-export const noteName = (midi, lang) => `${NAMES[lang][midi % 12]}${Math.floor(midi / 12) - 1}`
+export const pitchName = (midi, lang) => NAMES[lang][midi % 12] // without the octave: "E"
+export const noteName = (midi, lang) => `${pitchName(midi, lang)}${Math.floor(midi / 12) - 1}` // "E4"
 export const frequency = (midi) => 440 * 2 ** ((midi - 69) / 12)
 
 export const range = (from, to) => Array.from({ length: to - from + 1 }, (_, i) => from + i)
 
 // Physical key positions (KeyboardEvent.code), so the layout works on QWERTY and QWERTZ alike.
-// The value is the distance in semitones from the C at the start of the mapped octave.
+// The value is the distance in semitones from the C at the left end of the keyboard (A plays that C).
 export const KEY_OFFSETS = {
   KeyA: 0,
   KeyW: 1,
@@ -42,7 +53,6 @@ export const KEY_OFFSETS = {
 }
 export const OCTAVE_DOWN = 'KeyZ'
 export const OCTAVE_UP = 'KeyX'
-export const BASES = [60, 72] // the computer keys start at C4 or at C5
 
 // What is printed on a physical key, when the browser cannot tell us (navigator.keyboard is Chromium-only).
 const US_LABELS = { Semicolon: ';', Quote: "'" }

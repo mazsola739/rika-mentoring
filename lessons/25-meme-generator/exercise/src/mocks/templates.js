@@ -229,7 +229,7 @@ const TEMPLATE_LIST = [
   },
   {
     id: 'snail-speed',
-    name: { en: 'Full Speed Snail', hu: 'Teljes gőzzel csiga' },
+    name: { en: 'Full Speed Snail', hu: 'Csiga teljes gőzzel' },
     width: 800,
     height: 600,
     draw: () =>

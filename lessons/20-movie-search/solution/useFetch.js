@@ -1,12 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 
 // An HTTP error that keeps the status code, so the UI can tell "rate limited" (429) from "server down" (5xx).
-export class HttpError extends Error {
-  constructor(status) {
-    super(`HTTP ${status}`)
-    this.name = 'HttpError'
-    this.status = status
-  }
+function httpError(status) {
+  return Object.assign(new Error(`HTTP ${status}`), { name: 'HttpError', status })
 }
 
 /**
@@ -35,7 +31,7 @@ export function useFetch(url, { timeout = 12000 } = {}) {
 
     fetch(url, { signal: controller.signal })
       .then((res) => {
-        if (!res.ok) throw new HttpError(res.status)
+        if (!res.ok) throw httpError(res.status)
         return res.json()
       })
       .then((data) => setResult({ key, data, error: null }))

@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import AppFrame from '@shared/ui/AppFrame.jsx'
 import { useLang, useText } from '@shared/i18n.js'
+import { thumbnailOf } from './api.js'
 import { FIRST_DAY, apodToday, clampDay, formatDay, isIsoDay, randomDay, shiftDay } from './dates.js'
-import { apodErrorKind, useApod } from './useApod.js'
+import { cacheDay, useApod } from './useApod.js'
 import { useLocalStorage } from './useLocalStorage.js'
+import ApodError from './ApodError.jsx'
 import ApodMedia from './ApodMedia.jsx'
+import Gallery from './Gallery.jsx'
 import './app.css'
 
 const FAVORITES_KEY = 'rika:space-explorer:favorite-days'
@@ -22,6 +25,9 @@ const TEXT = {
   en: {
     intro:
       'Every day of the archive has its own picture of our universe with a short explanation, served by the lesson’s own space API.',
+    viewLabel: 'View',
+    dayView: 'Picture of the day',
+    gallery: 'Gallery',
     date: 'Date',
     prev: 'Previous day',
     next: 'Next day',
@@ -41,7 +47,7 @@ const TEXT = {
     removeFavorite: (title) => `Remove “${title}” from favorites`,
     errors: {
       rate: 'The demo key allows only 30 requests per hour, and they have all been used. Try again later, or reload the page: this is only a practice limit. Days you have already opened and your favorites still load from the cache.',
-      key: 'The API did not accept the key (403 Forbidden). Check VITE_APOD_KEY in your .env file, or remove it to use DEMO_KEY.',
+      key: 'The API did not accept the key (403 Forbidden). Check VITE_APOD_KEY in your .env.local file, or remove it to use DEMO_KEY.',
       notFound: 'There is no picture for this date.',
       server: 'The space API is not responding right now.',
       timeout: 'The space API took too long to answer.',
@@ -53,17 +59,30 @@ const TEXT = {
     openFull: 'Open in full resolution',
     close: 'Close',
     animation: 'Video · animation',
+    video: 'Video',
     play: 'Play',
     pause: 'Pause',
     mediaError: 'This picture could not be loaded. Try again later.',
     videoUnsupported: 'This day features a video in a format this page cannot play.',
     otherMedia: 'This day features interactive content that cannot be shown here.',
+    sourceLabel: 'Where should the pictures come from?',
+    modes: { archive: 'Archive', random: 'Random pictures' },
+    filterLabel: 'Filter',
+    filters: { all: 'All', image: 'Images', video: 'Videos' },
+    galleryLoading: 'Pictures are on their way…',
+    galleryMore: 'Scroll on for more pictures!',
+    galleryEnd: 'This was the first day of the archive.',
+    galleryCount: (n) => (n === 1 ? '1 picture in the gallery.' : `${n} pictures in the gallery.`),
+    openAsDay: 'Open as the picture of the day',
     source:
       'Data and pictures: the lesson’s own APOD-style API (/api/apod), running in your browser. Every picture is drawn in code.',
   },
   hu: {
     intro:
       'Az archívum minden napjához tartozik egy kép a világegyetemről, rövid magyarázattal – ezeket a lecke saját űr-API-ja szolgálja ki.',
+    viewLabel: 'Nézet',
+    dayView: 'A nap képe',
+    gallery: 'Galéria',
     date: 'Dátum',
     prev: 'Előző nap',
     next: 'Következő nap',
@@ -81,7 +100,7 @@ const TEXT = {
     removeFavorite: (title) => `„${title}” törlése a kedvencek közül`,
     errors: {
       rate: 'A demókulcs óránként csak 30 kérést enged, és ezek most elfogytak. Próbáld újra később, vagy töltsd újra az oldalt: ez csak egy gyakorló korlát. A már megnyitott napok és a kedvenceid a gyorsítótárból továbbra is betöltődnek.',
-      key: 'Az API nem fogadta el a kulcsot (403 Forbidden). Ellenőrizd a VITE_APOD_KEY értékét a .env fájlban, vagy töröld, és a DEMO_KEY lesz használva.',
+      key: 'Az API nem fogadta el a kulcsot (403 Forbidden). Ellenőrizd a VITE_APOD_KEY értékét a .env.local fájlban, vagy töröld, és a DEMO_KEY lesz használva.',
       notFound: 'Erre a napra nincs kép.',
       server: 'Az űr-API most nem válaszol.',
       timeout: 'Az űr-API túl lassan válaszolt.',
@@ -93,17 +112,41 @@ const TEXT = {
     openFull: 'Megnyitás teljes felbontásban',
     close: 'Bezárás',
     animation: 'Videó · animáció',
+    video: 'Videó',
     play: 'Lejátszás',
     pause: 'Szünet',
     mediaError: 'Ezt a képet nem sikerült betölteni. Próbáld újra később!',
     videoUnsupported: 'Ezen a napon olyan formátumú videó szerepel, amelyet ez az oldal nem tud lejátszani.',
     otherMedia: 'Ezen a napon interaktív tartalom szerepel, amelyet itt nem lehet megjeleníteni.',
+    sourceLabel: 'Honnan jöjjenek a képek?',
+    modes: { archive: 'Archívum', random: 'Véletlen képek' },
+    filterLabel: 'Szűrés',
+    filters: { all: 'Mind', image: 'Képek', video: 'Videók' },
+    galleryLoading: 'Képek érkeznek…',
+    galleryMore: 'Görgess lejjebb a további képekért!',
+    galleryEnd: 'Ez volt az archívum első napja.',
+    galleryCount: (n) => `${n} kép van a galériában.`,
+    openAsDay: 'Megnyitás a nap képeként',
     source:
       'Adatok és képek: a lecke saját, APOD-mintájú API-ja (/api/apod), amely a böngésződben fut. Minden kép kóddal rajzolt.',
   },
 }
 
 function DateNav({ date, today, onChange, t }) {
+  const inputRef = useRef(null)
+
+  // The field is not controlled by React: while a year is typed digit by digit it holds half-finished dates
+  // (0002-…, 0020-…, 0202-…), and writing the open day back after every keystroke would undo the typing.
+  // So React only gives it its first value, and when the buttons change the day, an effect writes it in.
+  useEffect(() => {
+    inputRef.current.value = date
+  }, [date])
+
+  // A typed day counts only when it is complete and inside the archive.
+  const pick = (value) => {
+    if (isIsoDay(value) && value >= FIRST_DAY && value <= today) onChange(value)
+  }
+
   return (
     <div className="sx-nav">
       <button
@@ -118,12 +161,17 @@ function DateNav({ date, today, onChange, t }) {
       <label className="field sx-nav__date">
         <span className="visually-hidden">{t.date}</span>
         <input
+          ref={inputRef}
           className="input"
           type="date"
           min={FIRST_DAY}
           max={today}
-          value={date}
-          onChange={(e) => isIsoDay(e.target.value) && onChange(e.target.value)}
+          defaultValue={date}
+          onChange={(e) => pick(e.target.value)}
+          // Leaving the field with an unfinished or out-of-range date shows the open day again.
+          onBlur={(e) => {
+            e.target.value = date
+          }}
         />
       </label>
       <button
@@ -156,26 +204,6 @@ function ApodSkeleton() {
       <div className="sx-skel sx-skel--line" />
       <div className="sx-skel sx-skel--line" />
       <div className="sx-skel sx-skel--line" style={{ width: '70%' }} />
-    </div>
-  )
-}
-
-function ApodError({ error, isToday, onRetry, onYesterday, t }) {
-  const kind = apodErrorKind(error)
-  return (
-    <div className="sx-error" role="alert">
-      <p>{t.errors[kind]}</p>
-      {isToday && kind !== 'rate' && kind !== 'offline' && <p>{t.todayMissing}</p>}
-      <div className="sx-error__actions">
-        <button type="button" className="btn" onClick={onRetry}>
-          {t.retry}
-        </button>
-        {isToday && (
-          <button type="button" className="btn btn--ghost" onClick={onYesterday}>
-            {t.yesterday}
-          </button>
-        )}
-      </div>
     </div>
   )
 }
@@ -253,12 +281,17 @@ function Favorites({ favorites, current, onOpen, onRemove, locale, t }) {
   )
 }
 
+// The two views of the app: the picture of one day, and the gallery of many days.
+const VIEWS = ['day', 'gallery']
+
 function SpaceExplorer() {
   const lang = useLang()
   const t = useText(TEXT)
   const locale = lang === 'hu' ? 'hu-HU' : 'en-GB'
+  const rootRef = useRef(null)
 
   const [today] = useState(apodToday)
+  const [view, setView] = useState('day')
   const [date, setDate] = useState(today)
   const [stored, setFavorites] = useLocalStorage(FAVORITES_KEY, [])
   const favorites = Array.isArray(stored) ? stored : [] // never trust what is in storage
@@ -276,50 +309,79 @@ function SpaceExplorer() {
       return
     }
     // Only what the list needs is saved; the full answer is already in the cache.
-    const thumb = data.media_type === 'image' ? data.url : (data.thumbnail_url ?? null)
-    setFavorites([{ date: data.date, title: data.title, thumb }, ...favorites].slice(0, 30))
+    setFavorites([{ date: data.date, title: data.title, thumb: thumbnailOf(data) }, ...favorites].slice(0, 30))
+  }
+
+  // "Open as the picture of the day" in the gallery's large view: the gallery already has the whole answer,
+  // so it goes into the cache, and the day view shows it without a new request.
+  const openDay = (picture) => {
+    cacheDay(lang, picture)
+    go(picture.date)
+    setView('day')
+    if (rootRef.current && rootRef.current.getBoundingClientRect().top < 0) rootRef.current.scrollIntoView()
   }
 
   return (
-    <div className="sx">
+    <div className="sx" ref={rootRef}>
       <p className="sx-intro">{t.intro}</p>
 
-      <DateNav date={date} today={today} onChange={go} t={t} />
+      <div className="sx-views" role="group" aria-label={t.viewLabel}>
+        {VIEWS.map((value) => (
+          <button
+            key={value}
+            type="button"
+            className="sx-views__button"
+            aria-pressed={view === value}
+            onClick={() => setView(value)}
+          >
+            {value === 'day' ? t.dayView : t.gallery}
+          </button>
+        ))}
+      </div>
 
-      <p className="visually-hidden" aria-live="polite">
-        {apod.status === 'loading' ? t.loading : data ? data.title : ''}
-      </p>
+      {view === 'day' && (
+        <>
+          <DateNav date={date} today={today} onChange={go} t={t} />
 
-      {apod.status === 'loading' && <ApodSkeleton />}
-      {apod.status === 'error' && (
-        <ApodError
-          error={apod.error}
-          isToday={date === today}
-          onRetry={apod.retry}
-          onYesterday={() => go(shiftDay(today, -1))}
-          t={t}
-        />
+          <p className="visually-hidden" aria-live="polite">
+            {apod.status === 'loading' ? t.loading : data ? data.title : ''}
+          </p>
+
+          {apod.status === 'loading' && <ApodSkeleton />}
+          {apod.status === 'error' && (
+            <ApodError
+              error={apod.error}
+              isToday={date === today}
+              onRetry={apod.retry}
+              onYesterday={() => go(shiftDay(today, -1))}
+              t={t}
+            />
+          )}
+          {data && (
+            <ApodCard
+              apod={data}
+              fromCache={apod.fromCache}
+              remaining={apod.remaining}
+              isFavorite={isFavorite}
+              onToggleFavorite={toggleFavorite}
+              locale={locale}
+              t={t}
+            />
+          )}
+
+          <Favorites
+            favorites={favorites}
+            current={date}
+            onOpen={go}
+            onRemove={(day) => setFavorites(favorites.filter((f) => f.date !== day))}
+            locale={locale}
+            t={t}
+          />
+        </>
       )}
-      {data && (
-        <ApodCard
-          apod={data}
-          fromCache={apod.fromCache}
-          remaining={apod.remaining}
-          isFavorite={isFavorite}
-          onToggleFavorite={toggleFavorite}
-          locale={locale}
-          t={t}
-        />
-      )}
 
-      <Favorites
-        favorites={favorites}
-        current={date}
-        onOpen={go}
-        onRemove={(day) => setFavorites(favorites.filter((f) => f.date !== day))}
-        locale={locale}
-        t={t}
-      />
+      {/* The key starts a fresh gallery (first page, empty list) when the language changes. */}
+      {view === 'gallery' && <Gallery key={lang} today={today} lang={lang} locale={locale} onOpenDay={openDay} t={t} />}
 
       <p className="sx-muted sx-source">{t.source}</p>
     </div>

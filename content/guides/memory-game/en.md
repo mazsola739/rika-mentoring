@@ -19,8 +19,24 @@ in state) and lesson 12 (`setInterval`). Wherever something familiar is used in 
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `memory-game` folder in your
-editor. Then, in the terminal:
+The exercise of this lesson is the `lessons/13-memory-game/exercise` folder of the course repository (the "Exercise on
+GitHub" button above opens it on GitHub). Lesson 1 explains in detail how to get it; here it is in short. Open a
+terminal in your work folder, where the `rika-mentoring` repository from the earlier lessons is, bring in the new
+lessons, then copy this lesson's exercise folder out of the repository as `memory-game`:
+
+```shell
+cd rika-mentoring
+git pull        # brings the new lessons
+cd ..           # back to your work folder
+cp -r rika-mentoring/lessons/13-memory-game/exercise memory-game
+```
+
+No repository yet? Run `git clone https://github.com/mazsola739/rika-mentoring.git` instead of the first three lines.
+No git? On the [repository's GitHub page](https://github.com/mazsola739/rika-mentoring) choose **Code → Download ZIP**,
+and copy the `lessons/13-memory-game/exercise` folder out of it into your work folder as `memory-game`. You work in
+your copy: the repository stays untouched, so `git pull` keeps working.
+
+Open your `memory-game` folder in the editor, and type these two commands in its terminal:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -32,7 +48,19 @@ Open the address the terminal prints (usually `http://localhost:5173`). You see 
 with the title "Memory Game". Nothing else is on it yet: building the game is your job.
 :::
 
-The starter has three files that matter for this lesson:
+Leave the server running. In a second terminal, in the `memory-game` folder, make your copy a git repository with one
+commit, the starting point:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+From now on `git restore .` takes every file back to your last commit, and it is worth committing after every step
+that works.
+
+The exercise has three files that matter for this lesson:
 
 - `src/App.jsx`: the page. For now it only shows the title; this is where we start.
 - `src/App.css`: the styles of the page, ready (the white panel, the grid of cards, the buttons, the "You won!"
@@ -40,9 +68,6 @@ The starter has three files that matter for this lesson:
 - `src/components/Card.css`: the look of one card. You write the `Card` component that uses it in the next step. In
   the intermediate level you replace this file with a version where the cards really flip over: that one will be your
   own CSS.
-
-Like in the earlier lessons, the folder is a git repository with one commit, the starting point: `git restore .` takes
-everything back, and it is worth committing after every step that works.
 
 :::concept A quick recap
 A [[component]] is a function that returns [[JSX]]. It gets [[props]] from outside and remembers things with

@@ -5,6 +5,9 @@ https://mazsola739.github.io/rika-mentoring/lessons/32-snake/solution/?view=guid
 
 ## Start
 
+No repository yet? Clone it with `git clone https://github.com/mazsola739/rika-mentoring.git`, or choose **Code → Download ZIP** on the
+[repository page](https://github.com/mazsola739/rika-mentoring). Step 0 of the guide shows it in detail.
+
 First copy this folder out of the repository into your own work folder and name the copy `snake`: your work
 stays separate, and `git pull` in the repository can still bring new lessons. You need
 [Node.js](https://nodejs.org) (the LTS version) and a code editor, for example VS Code. In your copy:
@@ -31,6 +34,9 @@ A Rika Mentoring 32. leckéjének kiindulópontja. Az útmutató lépésről lé
 https://mazsola739.github.io/rika-mentoring/lessons/32-snake/solution/?view=guide
 
 ## Indítás
+
+Még nincs meg a repó? Klónozd le a `git clone https://github.com/mazsola739/rika-mentoring.git` paranccsal, vagy a [repó oldalán](https://github.com/mazsola739/rika-mentoring)
+válaszd a **Code → Download ZIP** lehetőséget. Az útmutató 0. lépése részletesen megmutatja.
 
 Először másold ki ezt a mappát a repóból a saját munkamappádba, és nevezd el a másolatot így: `snake`. Így a
 munkád külön marad, és a repóban a `git pull` továbbra is le tudja hozni az új leckéket. Kell hozzá a

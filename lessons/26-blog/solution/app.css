@@ -68,6 +68,31 @@
   font-size: 13px;
 }
 
+/* ── Account bar ────────────────────────────────────────── */
+.bl-account {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px 12px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.bl-account:empty {
+  display: none;
+}
+
+.bl-account strong {
+  color: var(--ink);
+}
+
+.bl .bl-account__btn {
+  min-height: 36px;
+  padding: 6px 14px;
+  font-size: 14px;
+}
+
 /* ── List ───────────────────────────────────────────────── */
 .bl-hero {
   display: flex;
@@ -151,8 +176,10 @@
   background: var(--paper-2);
 }
 
+/* A real cover keeps its own colour (the paper-2 above is only for the loading skeleton). */
 .bl-card__cover.bl-art {
   display: grid;
+  background: var(--bl-bg, var(--solid));
 }
 
 .bl-card__body {
@@ -200,6 +227,49 @@
 
 .bl-card--ghost .bl-card__body .bl-skeleton:last-child {
   width: 60%;
+}
+
+/* Search box and the "nothing found" messages under it */
+.bl-tools {
+  display: grid;
+}
+
+.bl-search .input {
+  min-height: 42px;
+}
+
+.bl-status > .bl-empty {
+  margin: 14px 0 0;
+}
+
+/* Tags: small chips. On a card they sit above the stretched link, so they stay clickable. */
+.bl-tags {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bl-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 2px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-2);
+  color: var(--solid-text);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bl-tag:hover {
+  border-color: var(--solid);
 }
 
 /* ── Single post ────────────────────────────────────────── */
@@ -338,6 +408,62 @@
   margin: 1.6em 0;
   border: 0;
   border-top: 1px solid var(--line);
+}
+
+/* ── Comments ───────────────────────────────────────────── */
+.bl-comments {
+  display: grid;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.bl-comments h4 {
+  font-size: 21px;
+}
+
+.bl-comment-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bl-comment {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-2);
+}
+
+.bl-comment__text {
+  margin: 0;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.bl-comment-form__text {
+  resize: vertical;
+}
+
+/* ── Login ──────────────────────────────────────────────── */
+.bl-login {
+  max-width: 460px;
+}
+
+.bl-login .bl-note {
+  margin-top: 6px;
+}
+
+.bl-login__hint {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--paper-2);
+  font-size: 14px;
 }
 
 /* ── Editor ─────────────────────────────────────────────── */
@@ -628,6 +754,11 @@
 
 .bl-empty p {
   margin: 0;
+}
+
+.bl-empty .bl-empty__title {
+  color: var(--ink);
+  font-size: 22px;
 }
 
 @container (max-width: 560px) {

@@ -20,8 +20,25 @@ takarítással), a 6. lecke (kártyafordítás CSS-sel, `useLocalStorage`), a 9.
 
 ### Mielőtt elkezded
 
-Töltsd le a lecke **alapját** (fent: „Alap letöltése”), csomagold ki, és nyisd meg a `memory-game` mappát a
-szerkesztőben. Aztán a terminálban:
+A lecke kiinduló projektje a kurzus repójában van, a `lessons/13-memory-game/exercise` mappában (a fenti „Feladat a
+GitHubon” gomb ezt a mappát nyitja meg a GitHubon). Az 1. lecke részletesen elmagyarázza, hogyan jutsz hozzá; itt
+csak röviden. Nyiss egy terminált a munkamappádban, ahol a korábbi leckékből a `rika-mentoring` repó van, hozd le az új
+leckéket, aztán másold ki a repóból ennek a leckének az `exercise` mappáját `memory-game` néven:
+
+```shell
+cd rika-mentoring
+git pull        # lehozza az új leckéket
+cd ..           # vissza a munkamappádba
+cp -r rika-mentoring/lessons/13-memory-game/exercise memory-game
+```
+
+Ha még nincs meg a repó, az első három sor helyett ezt futtasd:
+`git clone https://github.com/mazsola739/rika-mentoring.git`. Ha nincs gited, a
+[repó GitHub-oldalán](https://github.com/mazsola739/rika-mentoring) válaszd a **Code → Download ZIP** lehetőséget, és
+másold ki belőle a `lessons/13-memory-game/exercise` mappát a munkamappádba, `memory-game` néven. A másolatodban
+dolgozol: a repó érintetlen marad, így a `git pull` továbbra is működik.
+
+Nyisd meg a `memory-game` mappát a szerkesztőben, és írd be ezt a két parancsot a szerkesztő termináljába:
 
 ```shell
 npm install     # egyszer kell: letölti a projekt csomagjait (React, Vite)
@@ -33,7 +50,19 @@ Nyisd meg a terminál által kiírt címet (általában `http://localhost:5173`)
 „Memory Game” címmel. Más még nincs rajta: a játékot te építed fel.
 :::
 
-Az alapban három fájl fontos ehhez a leckéhez:
+A szervert hagyd futni. Egy második terminálban, a `memory-game` mappában csinálj a másolatodból git-repót egyetlen
+committal, a kezdőállapottal:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+Mostantól a `git restore .` minden fájlt visszaállít az utolsó commitod állapotára, és érdemes minden működő lépés
+után commitolni.
+
+A kiinduló projektben három fájl fontos ehhez a leckéhez:
 
 - `src/App.jsx`: maga az oldal. Egyelőre csak a címet mutatja, innen indulunk.
 - `src/App.css`: az oldal stílusai, készen (a fehér panel, a kártyák rácsa, a gombok, a „Nyertél!” sáv…). Ezeket nem
@@ -42,10 +71,9 @@ Az alapban három fájl fontos ehhez a leckéhez:
   középszinten pedig lecseréled ezt a fájlt egy olyan változatra, amelyben a kártyák tényleg megfordulnak: az már a te
   CSS-ed lesz.
 
-Az alap mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések és a „Memory Game” cím angolul vannak. Ha
-szeretnéd, írd át őket nyugodtan magyarra: a lépések ugyanúgy működnek. A kódot, amit te írsz be, magyar feliratokkal
-és megjegyzésekkel mutatjuk. A mappa most is egy git-repó egyetlen committal, a kezdőállapottal: a `git restore .`
-mindent visszaállít, és érdemes minden működő lépés után commitolni.
+A kiinduló projekt mindkét nyelven ugyanaz, ezért a fájlokban lévő megjegyzések és a „Memory Game” cím angolul
+vannak. Ha szeretnéd, írd át őket nyugodtan magyarra: a lépések ugyanúgy működnek. A kódot, amit te írsz be, magyar
+feliratokkal és megjegyzésekkel mutatjuk.
 
 :::concept Gyors ismétlés
 A [[komponens]] egy függvény, ami [[JSX]]-et ad vissza. Kívülről a [[props]]-ain keresztül kap adatot, és a

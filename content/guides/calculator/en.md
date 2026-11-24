@@ -21,8 +21,21 @@ sentence or two; everything new is explained step by step.
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `calculator` folder in your
-editor. Then type these two commands in the editor's terminal:
+The exercise of this lesson is the `lessons/08-calculator/exercise` folder of the course repository on GitHub (the
+"Exercise on GitHub" button above shows it). Lesson 1 explains in detail how to get it and work in it; here are the
+commands in short. In a terminal, in the folder where you keep your projects:
+
+```shell
+git clone https://github.com/mazsola739/rika-mentoring.git      # the first time only
+cp -r rika-mentoring/lessons/08-calculator/exercise calculator    # your own copy of the exercise
+```
+
+If you cloned the repository in an earlier lesson, skip the first line and run `git pull` inside the `rika-mentoring`
+folder instead (`cd rika-mentoring`, `git pull`, `cd ..`): it brings the new lessons. Instead of cloning, you can also choose **Code → Download ZIP** on the
+[repository page](https://github.com/mazsola739/rika-mentoring) and copy the `lessons/08-calculator/exercise` folder
+out of it. Either way, your copy is called `calculator`, and the repository stays untouched.
+
+Open your copy, the `calculator` folder, in your editor, and type these two commands in the editor's terminal:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -30,20 +43,30 @@ npm run dev     # starts the development server
 ```
 
 :::check Check
-Open the address the terminal prints (usually `http://localhost:5173`). In the middle of the page there is a dark blue
-calculator body with a small "CALCULATOR" label at the top, and below it a black screen with a big 0. There are no keys
-yet: you are going to make them.
+Open the address the terminal prints (usually `http://localhost:5173`). Centred in the upper part of the page there is
+a dark blue calculator body with a small "CALCULATOR" label at the top, and below it a black screen with a big 0. There
+are no keys yet: you are going to make them.
 :::
 
-The starter has two files that matter for this lesson:
+Leave the server running, open a second terminal (the **+** button in the terminal panel), and make your copy a git
+repository with one commit, the starting point:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+From now on `git restore .` takes every file back to your last commit, and it is worth committing after every step
+that works. (If git answers "Please tell me who you are", step 0 of lesson 1 shows the two `git config` commands that
+fix it.)
+
+The exercise has two files that matter for this lesson:
 
 - `src/App.jsx`: the page. For now it only draws the calculator body and its screen; this is where we start.
 - `src/App.css`: the styles of the whole lesson, ready. This lesson is about React, not CSS, so this time you do not
   write styles: you only use the class names (`screen`, `keypad`, `key`, `history`, …) that the steps give you. Have a
   look inside anyway: a comment above each part says what it is for.
-
-Like in the earlier lessons, the folder is a git repository with one commit, the starting point: `git restore .` takes
-every file back, and it is worth committing after every step that works.
 
 :::concept A quick recap
 A [[component]] is a function that returns [[JSX]], the HTML-like description of what should appear on the screen. A

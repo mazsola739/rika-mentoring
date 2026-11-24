@@ -2,7 +2,9 @@ import { useRef, useState } from 'react'
 import { api, isBilingual, tx } from './api.js'
 import { COVERS, coverFor } from './covers.js'
 import Cover from './Cover.jsx'
+import { canEdit, parseTags } from './posts.js'
 import { useRequest } from './useRequest.js'
+import { usePageMeta } from './usePageMeta.js'
 import Markdown from './Markdown.jsx'
 import { ErrorState, Loading, NotFound } from './Status.jsx'
 
@@ -16,16 +18,19 @@ function validate(v) {
   return e
 }
 
-function EditorForm({ post, lang, t, onSaved, onCancel }) {
+function EditorForm({ post, author, lang, t, onSaved, onCancel }) {
   // The language being edited is fixed when the editor opens, so switching the UI language
   // mid-edit keeps your text and still saves it into the right version.
   const [editLang] = useState(lang)
   const [values, setValues] = useState(() => ({
     title: post ? tx(post.title, editLang) : '',
-    author: post?.author ?? '',
+    // A new post starts with the logged-in author's name (it can still be changed, for a pen name).
+    author: post ? post.author ?? '' : author.name,
     // Old posts may store a retired cover key; coverFor maps it to one of the current colours.
     cover: coverFor(post?.cover).key,
     body: post ? tx(post.body, editLang) : '',
+    // The tags array becomes one text for the field: ['react', 'routing'] → 'react, routing'.
+    tags: (post?.tags ?? []).join(', '),
   }))
   const [touched, setTouched] = useState({})
   const [tab, setTab] = useState('write')
@@ -33,6 +38,7 @@ function EditorForm({ post, lang, t, onSaved, onCancel }) {
   const [error, setError] = useState('')
   const formRef = useRef(null)
   const e = t.editor
+  usePageMeta(post ? e.editTitle : e.newTitle, t.blogIntro)
 
   const errors = validate(values)
   const show = (field) => (touched[field] && errors[field] ? t.errors[errors[field]] : undefined)
@@ -57,6 +63,9 @@ function EditorForm({ post, lang, t, onSaved, onCancel }) {
       body: merge(post?.body, values.body),
       author: values.author.trim(),
       cover: values.cover,
+      tags: parseTags(values.tags),
+      // A new post remembers who wrote it: only that author may change it later.
+      ...(post ? {} : { authorId: author.id }),
     }
 
     setStatus('saving')
@@ -200,6 +209,22 @@ function EditorForm({ post, lang, t, onSaved, onCancel }) {
           )}
         </div>
 
+        <label className="field">
+          <span>{e.tags}</span>
+          <input
+            className="input"
+            name="tags"
+            value={values.tags}
+            maxLength={120}
+            placeholder="react, markdown"
+            onChange={set('tags')}
+            aria-describedby="bl-tags-help"
+          />
+          <small id="bl-tags-help" className="bl-editor__help">
+            {e.tagsHint}
+          </small>
+        </label>
+
         {status === 'error' && (
           <p className="bl-alert" role="alert">
             <strong>{e.failed}</strong> {error}
@@ -224,13 +249,24 @@ function EditorForm({ post, lang, t, onSaved, onCancel }) {
 // so its initial state can be computed from the post.
 function EditLoader({ id, ...props }) {
   const post = useRequest(() => api.get('posts', id), id)
-  const { t } = props
+  const { t, author } = props
   if (post.status === 'loading') return <Loading label={t.loading} lines={4} />
   if (post.status === 'error') {
     return post.error.status === 404 ? (
-      <NotFound text={t.notFound} backLabel={t.back} />
+      <NotFound title={t.pageNotFoundTitle} text={t.notFound} backLabel={t.back} />
     ) : (
       <ErrorState title={t.loadFailed} message={post.error.message} onRetry={post.retry} retryLabel={t.retry} />
+    )
+  }
+  // Typing #/edit/… by hand is no way round it: only the post's own author gets the form.
+  if (!canEdit(post.data, author)) {
+    return (
+      <div className="bl-empty">
+        <p>{t.onlyAuthor(post.data.author)}</p>
+        <a className="btn btn--ghost" href={`#/post/${id}`}>
+          <span aria-hidden="true">←</span> {t.backToPost}
+        </a>
+      </div>
     )
   }
   return <EditorForm post={post.data} {...props} />

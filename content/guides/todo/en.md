@@ -23,8 +23,16 @@ step.
 
 ### Before you start
 
-Download the lesson's **starter** (above: "Download starter"), unzip it, and open the `todo-list` folder in your
-editor. Then type these two commands in the editor's terminal:
+The exercise of this lesson is in the course's repository, in the `lessons/09-todo/exercise` folder (the "Exercise on
+GitHub" button above opens this folder on GitHub). Lesson 1 explains in detail how to get it; here it is in short:
+
+1. Get the new lessons. If you have the repository from an earlier lesson, run `git pull` in its folder
+   (`cd rika-mentoring`, `git pull`, `cd ..`). If not, clone
+   it once: `git clone https://github.com/mazsola739/rika-mentoring.git` (without git: **Code → Download ZIP** on the
+   GitHub page).
+2. Copy the `lessons/09-todo/exercise` folder out of the repository into your own work folder, and name the copy
+   `todo-list`. You work in your copy: the repository stays untouched, so `git pull` keeps working.
+3. Open `todo-list` in your editor, and type these two commands in the editor's terminal:
 
 ```shell
 npm install     # needed once: downloads the project's packages (React, Vite)
@@ -36,16 +44,25 @@ Open the address the terminal prints (usually `http://localhost:5173`). You see 
 the middle, and on it the title "To-Do List" in dark teal. Nothing else yet: the list is your job.
 :::
 
-The starter has three files that matter for this lesson:
+Finally, make your copy a git repository with one commit, the starting point. `npm run dev` keeps the first terminal
+busy, so open a second one in the editor, in the `todo-list` folder:
+
+```shell
+git init -b main
+git add .
+git commit -m "Starting point"
+```
+
+From now on `git restore .` takes every file back to your last commit, and it is worth committing after every step that
+works.
+
+The exercise has three files that matter for this lesson:
 
 - `src/App.jsx`: the page. For now it only shows the title; this is where we start.
 - `src/App.css`: the styles of the whole lesson, ready. This lesson is about React, not CSS, so this time you do not
   write styles: you only use the class names (`todo-item`, `add-todo`, `filters`, …) that the steps give you. Have a
   look inside anyway!
 - `src/fakeServer.js`: a pretend server. We need it only at the very end, in the advanced level.
-
-As in the earlier lessons, the folder is a git repository with one commit, the starting point: `git restore .` takes
-every file back, and it is worth committing after every step that works.
 
 :::concept A quick recap
 A [[component]] is a function that returns [[JSX]], the HTML-like description of what should appear on the screen. A
@@ -1823,7 +1840,7 @@ Right now your tasks live in this one browser. A real to-do list keeps them on a
 way you see the same list on your phone and on your computer, and everyone sees only their own. For that, the app
 first needs to know who you are: it needs a [[login]].
 
-We do not use real servers in this course: the `src/fakeServer.js` that came with the starter only plays the part.
+We do not use real servers in this course: the `src/fakeServer.js` that came with the exercise only plays the part.
 Its database is one key in localStorage, but it behaves like a server: you have to wait a little for every answer, and
 sometimes no answer comes at all. It offers three functions:
 

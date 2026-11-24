@@ -1,27 +1,11 @@
 import { useEffect, useState } from 'react'
-import { createMockApi } from '@shared/mock-api/index.js'
-import { SEED_REVIEWS } from './products.js'
-
-// Fake REST backend with seed data; about one request in ten fails on purpose.
-const api = createMockApi('review-rating', { seed: { reviews: SEED_REVIEWS }, latency: [400, 900], failRate: 0.1 })
-
-const VOTES_KEY = 'rika:review-rating:helpful'
-
-function readVotes() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(VOTES_KEY))
-    return Array.isArray(saved) ? saved : []
-  } catch {
-    return []
-  }
-}
+import { api } from './api.js'
 
 // All review data lives here, so the list page and the detail page share one source of truth.
 export function useReviews() {
   const [state, setState] = useState({ status: 'loading', reviews: [], error: '' })
   const [attempt, setAttempt] = useState(0)
-  const [votes, setVotes] = useState(readVotes) // ids this browser found helpful
-  const [pending, setPending] = useState([])
+  const [pending, setPending] = useState([]) // ids of reviews whose change is on its way to the server
 
   useEffect(() => {
     let ignore = false // a late answer after unmount (or a newer request) must not overwrite state
@@ -34,14 +18,6 @@ export function useReviews() {
     }
   }, [attempt])
 
-  useEffect(() => {
-    try {
-      localStorage.setItem(VOTES_KEY, JSON.stringify(votes))
-    } catch {
-      // storage blocked: votes are kept for this visit only
-    }
-  }, [votes])
-
   const reload = () => {
     setState((s) => ({ ...s, status: 'loading' }))
     setAttempt((a) => a + 1)
@@ -49,39 +25,41 @@ export function useReviews() {
 
   const resetDemo = () => {
     api.reset()
-    setVotes([])
     reload()
   }
 
   const addReview = async (data) => {
-    const created = await api.create('reviews', { ...data, helpful: 0 })
+    const created = await api.create('reviews', { ...data, helpfulBy: [] })
     setState((s) => ({ ...s, reviews: [...s.reviews, created] }))
     return created
   }
 
-  const patchHelpful = (id, delta) =>
-    setState((s) => ({
-      ...s,
-      reviews: s.reviews.map((r) => (r.id === id ? { ...r, helpful: Math.max(0, (r.helpful ?? 0) + delta) } : r)),
-    }))
+  const replaceReview = (changed) =>
+    setState((s) => ({ ...s, reviews: s.reviews.map((r) => (r.id === changed.id ? changed : r)) }))
 
-  // Optimistic update: the counter changes at once, and rolls back if the request fails.
-  const toggleHelpful = async (review) => {
-    const voted = votes.includes(review.id)
-    const delta = voted ? -1 : 1
+  // Optimistic update: the change shows at once, and is rolled back if the request fails.
+  const changeReview = async (review, changes) => {
     setPending((p) => [...p, review.id])
-    patchHelpful(review.id, delta)
-    setVotes((v) => (voted ? v.filter((id) => id !== review.id) : [...v, review.id]))
+    replaceReview({ ...review, ...changes })
     try {
-      await api.update('reviews', review.id, { helpful: Math.max(0, (review.helpful ?? 0) + delta) })
+      await api.update('reviews', review.id, changes)
     } catch (err) {
-      patchHelpful(review.id, -delta)
-      setVotes((v) => (voted ? [...v, review.id] : v.filter((id) => id !== review.id)))
+      replaceReview(review)
       throw err
     } finally {
       setPending((p) => p.filter((id) => id !== review.id))
     }
   }
 
-  return { ...state, reload, resetDemo, addReview, votes, pending, toggleHelpful }
+  // Votes belong to accounts: helpfulBy holds the ids of the accounts that found the review helpful.
+  const toggleHelpful = (review, userId) => {
+    const votes = review.helpfulBy ?? []
+    const helpfulBy = votes.includes(userId) ? votes.filter((id) => id !== userId) : [...votes, userId]
+    return changeReview(review, { helpfulBy })
+  }
+
+  // Moderation: a hidden review stays on the server, but only the moderator sees it.
+  const setHidden = (review, hidden) => changeReview(review, { hidden })
+
+  return { ...state, reload, resetDemo, addReview, pending, toggleHelpful, setHidden }
 }

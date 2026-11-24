@@ -726,6 +726,7 @@ button.bar:hover:not(:disabled),
 
 .login-bar .form-error {
   flex-basis: 100%;
+  color: #b42318; /* in the header, .shop__header p would make it grey */
 }
 
 /* ── Phones ───────────────────────────────────────────── */

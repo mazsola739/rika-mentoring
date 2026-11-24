@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 
 // Listens to the physical keyboard on the whole window and turns key presses into
-// 'A'…'Z', 'ENTER' and 'BACK'. The listener is attached once; a ref always points to the latest handler.
+// capital letters (accented ones too), 'ENTER' and 'BACK'. The game decides which letters it accepts.
+// The listener is attached once; a ref always points to the latest handler.
 export function useGlobalKeys(onKey) {
   const handlerRef = useRef(onKey)
 
@@ -21,7 +22,7 @@ export function useGlobalKeys(onKey) {
       let key = null
       if (e.key === 'Enter') key = 'ENTER'
       else if (e.key === 'Backspace') key = 'BACK'
-      else if (/^[a-z]$/i.test(e.key)) key = e.key.toUpperCase()
+      else if (/^\p{L}$/u.test(e.key)) key = e.key.toUpperCase() // one letter, for example 'a' or 'ő'
       if (!key) return
 
       e.preventDefault()
