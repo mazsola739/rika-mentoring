@@ -28,7 +28,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # prebuild runs first: the lesson list and every starter ZIP (needs git, which the runner has)
+      # prebuild runs first: it rebuilds the lesson list (shared/lessons.json) and the lesson READMEs
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -30,7 +30,8 @@
         "learn": "Components, responsive layout, routing, deploys"
       }
     },
-    "starter": true
+    "dir": "01-portfolio",
+    "exercise": true
   },
   {
     "n": 2,
@@ -63,7 +64,8 @@
         "learn": "Context API, CSS variables, a custom hook"
       }
     },
-    "starter": true
+    "dir": "02-dark-mode",
+    "exercise": true
   },
   {
     "n": 3,
@@ -96,7 +98,8 @@
         "learn": "Controlled inputs, randomness, Clipboard API"
       }
     },
-    "starter": true
+    "dir": "03-password-generator",
+    "exercise": true
   },
   {
     "n": 4,
@@ -129,7 +132,8 @@
         "learn": "Controlled fields, string templates, conditions"
       }
     },
-    "starter": true
+    "dir": "04-mad-libs",
+    "exercise": true
   },
   {
     "n": 5,
@@ -162,7 +166,8 @@
         "learn": "npm packages, controlled input, file download"
       }
     },
-    "starter": true
+    "dir": "05-qr-code",
+    "exercise": true
   },
   {
     "n": 6,
@@ -195,7 +200,8 @@
         "learn": "3D CSS flip, shuffling, a useLocalStorage hook"
       }
     },
-    "starter": true
+    "dir": "06-flashcards",
+    "exercise": true
   },
   {
     "n": 7,
@@ -228,7 +234,8 @@
         "learn": "Arrays in state, keyboard events, Clipboard API"
       }
     },
-    "starter": true
+    "dir": "07-color-palette",
+    "exercise": true
   },
   {
     "n": 8,
@@ -261,7 +268,8 @@
         "learn": "useState, event handling, components and props"
       }
     },
-    "starter": true
+    "dir": "08-calculator",
+    "exercise": true
   },
   {
     "n": 9,
@@ -294,7 +302,8 @@
         "learn": "Lists with keys, CRUD in state, useEffect"
       }
     },
-    "starter": true
+    "dir": "09-todo",
+    "exercise": true
   },
   {
     "n": 10,
@@ -327,7 +336,8 @@
         "learn": "Grouping and sorting arrays, controlled forms"
       }
     },
-    "starter": true
+    "dir": "10-shopping-list",
+    "exercise": true
   },
   {
     "n": 11,
@@ -360,7 +370,8 @@
         "learn": "CRUD, derived values for search, dates"
       }
     },
-    "starter": true
+    "dir": "11-notes",
+    "exercise": true
   },
   {
     "n": 12,
@@ -393,7 +404,8 @@
         "learn": "setInterval with cleanup, modals, file upload"
       }
     },
-    "starter": true
+    "dir": "12-image-gallery",
+    "exercise": true
   },
   {
     "n": 13,
@@ -426,7 +438,8 @@
         "learn": "Complex state, setTimeout, shuffling, animations"
       }
     },
-    "starter": true
+    "dir": "13-memory-game",
+    "exercise": true
   },
   {
     "n": 14,
@@ -459,7 +472,8 @@
         "learn": "fetch, loading and error states, a useFetch hook"
       }
     },
-    "starter": true
+    "dir": "14-currency-converter",
+    "exercise": true
   },
   {
     "n": 15,
@@ -492,7 +506,8 @@
         "learn": "APIs with a key, dates, images or videos, caching"
       }
     },
-    "starter": true
+    "dir": "15-space-explorer",
+    "exercise": true
   },
   {
     "n": 16,
@@ -525,7 +540,8 @@
         "learn": "useRef, timers, computing on every keystroke"
       }
     },
-    "starter": true
+    "dir": "16-typing-test",
+    "exercise": true
   },
   {
     "n": 17,
@@ -558,7 +574,8 @@
         "learn": "Keyboard events, Web Audio API, UI from arrays"
       }
     },
-    "starter": true
+    "dir": "17-piano",
+    "exercise": true
   },
   {
     "n": 18,
@@ -591,7 +608,8 @@
         "learn": "useRef, the HTML5 video API, accessibility"
       }
     },
-    "starter": true
+    "dir": "18-video-player",
+    "exercise": true
   },
   {
     "n": 19,
@@ -624,7 +642,8 @@
         "learn": "Global key events, a grid in state, game logic"
       }
     },
-    "starter": true
+    "dir": "19-wordle",
+    "exercise": true
   },
   {
     "n": 20,
@@ -657,7 +676,8 @@
         "learn": "React Router, useFetch and useDebounce hooks"
       }
     },
-    "starter": true
+    "dir": "20-movie-search",
+    "exercise": true
   },
   {
     "n": 21,
@@ -690,7 +710,8 @@
         "learn": "Searching an API, moving items between lists"
       }
     },
-    "starter": true
+    "dir": "21-book-library",
+    "exercise": true
   },
   {
     "n": 22,
@@ -723,7 +744,8 @@
         "learn": "State across steps, validation, React Hook Form"
       }
     },
-    "starter": true
+    "dir": "22-multi-step-form",
+    "exercise": true
   },
   {
     "n": 23,
@@ -756,7 +778,8 @@
         "learn": "Dynamic routing, search, filters, pagination"
       }
     },
-    "starter": true
+    "dir": "23-fan-wiki",
+    "exercise": true
   },
   {
     "n": 24,
@@ -789,7 +812,8 @@
         "learn": "Reusable components, derived data, sorting"
       }
     },
-    "starter": true
+    "dir": "24-review-rating",
+    "exercise": true
   },
   {
     "n": 25,
@@ -822,7 +846,8 @@
         "learn": "Drawing on canvas, image upload, downloads"
       }
     },
-    "starter": true
+    "dir": "25-meme-generator",
+    "exercise": true
   },
   {
     "n": 26,
@@ -855,7 +880,8 @@
         "learn": "Routing, CRUD, rendering Markdown"
       }
     },
-    "starter": true
+    "dir": "26-blog",
+    "exercise": true
   },
   {
     "n": 27,
@@ -888,7 +914,8 @@
         "learn": "useReducer, reduce over arrays, Recharts"
       }
     },
-    "starter": true
+    "dir": "27-piggy-bank",
+    "exercise": true
   },
   {
     "n": 28,
@@ -921,7 +948,8 @@
         "learn": "Date calculations, totals, sorting, notifications"
       }
     },
-    "starter": true
+    "dir": "28-subscriptions",
+    "exercise": true
   },
   {
     "n": 29,
@@ -954,7 +982,8 @@
         "learn": "Time-based logic, image upload, notifications"
       }
     },
-    "starter": true
+    "dir": "29-plant-care",
+    "exercise": true
   },
   {
     "n": 30,
@@ -987,7 +1016,8 @@
         "learn": "Dates, calendar grids, charts, aggregating data"
       }
     },
-    "starter": true
+    "dir": "30-mood-tracker",
+    "exercise": true
   },
   {
     "n": 31,
@@ -1020,7 +1050,8 @@
         "learn": "State over time, useReducer, animations, saving"
       }
     },
-    "starter": true
+    "dir": "31-virtual-pet",
+    "exercise": true
   },
   {
     "n": 32,
@@ -1053,7 +1084,8 @@
         "learn": "Game loop, useRef for fresh state, collisions"
       }
     },
-    "starter": true
+    "dir": "32-snake",
+    "exercise": true
   },
   {
     "n": 33,
@@ -1086,7 +1118,8 @@
         "learn": "Several sounds at once, sliders, timer cleanup"
       }
     },
-    "starter": true
+    "dir": "33-lofi-room",
+    "exercise": true
   },
   {
     "n": 34,
@@ -1119,7 +1152,8 @@
         "learn": "Image upload, multi-filter search, a weather API"
       }
     },
-    "starter": true
+    "dir": "34-wardrobe",
+    "exercise": true
   },
   {
     "n": 35,
@@ -1152,7 +1186,8 @@
         "learn": "Canvas API, mouse and touch events, undo stack"
       }
     },
-    "starter": true
+    "dir": "35-drawing",
+    "exercise": true
   },
   {
     "n": 36,
@@ -1185,7 +1220,8 @@
         "learn": "Audio handling, playlist state, visualization"
       }
     },
-    "starter": true
+    "dir": "36-winamp",
+    "exercise": true
   },
   {
     "n": 37,
@@ -1218,7 +1254,8 @@
         "learn": "Drag & drop, CRUD, reminders, statistics"
       }
     },
-    "starter": true
+    "dir": "37-job-tracker",
+    "exercise": true
   },
   {
     "n": 38,
@@ -1251,7 +1288,8 @@
         "learn": "dnd-kit, nested state, useReducer"
       }
     },
-    "starter": true
+    "dir": "38-kanban",
+    "exercise": true
   },
   {
     "n": 39,
@@ -1284,7 +1322,8 @@
         "learn": "getUserMedia, drawing on canvas, filters, timing"
       }
     },
-    "starter": true
+    "dir": "39-photo-booth",
+    "exercise": true
   },
   {
     "n": 40,
@@ -1317,7 +1356,8 @@
         "learn": "Free dragging and resizing, saving positions"
       }
     },
-    "starter": true
+    "dir": "40-mood-board",
+    "exercise": true
   },
   {
     "n": 41,
@@ -1350,7 +1390,8 @@
         "learn": "Pointer gestures, Framer Motion animations"
       }
     },
-    "starter": true
+    "dir": "41-swipe",
+    "exercise": true
   },
   {
     "n": 42,
@@ -1383,7 +1424,8 @@
         "learn": "React Leaflet, your own map, markers, GeoJSON"
       }
     },
-    "starter": true
+    "dir": "42-travel-map",
+    "exercise": true
   },
   {
     "n": 43,
@@ -1416,7 +1458,8 @@
         "learn": "Sorting and paging logic, large data sets"
       }
     },
-    "starter": true
+    "dir": "43-data-table",
+    "exercise": true
   },
   {
     "n": 44,
@@ -1449,7 +1492,8 @@
         "learn": "Global state, routing, cart logic, payments"
       }
     },
-    "starter": true
+    "dir": "44-webshop",
+    "exercise": true
   },
   {
     "n": 45,
@@ -1482,7 +1526,8 @@
         "learn": "Form validation, protected routes, tokens"
       }
     },
-    "starter": true
+    "dir": "45-auth",
+    "exercise": true
   },
   {
     "n": 46,
@@ -1515,7 +1560,8 @@
         "learn": "Recursive comments, instant votes, infinite scroll"
       }
     },
-    "starter": true
+    "dir": "46-feed",
+    "exercise": true
   },
   {
     "n": 47,
@@ -1548,7 +1594,8 @@
         "learn": "date-fns, booking conflicts, forms, time zones"
       }
     },
-    "starter": true
+    "dir": "47-booking",
+    "exercise": true
   },
   {
     "n": 48,
@@ -1581,7 +1628,8 @@
         "learn": "Streaming, rendering Markdown, many conversations"
       }
     },
-    "starter": true
+    "dir": "48-ai-chat",
+    "exercise": true
   },
   {
     "n": 49,
@@ -1614,7 +1662,8 @@
         "learn": "Window management, drag and resize, Context"
       }
     },
-    "starter": true
+    "dir": "49-retro-os",
+    "exercise": true
   },
   {
     "n": 50,
@@ -1647,6 +1696,7 @@
         "learn": "WebSockets, real-time state, users and channels"
       }
     },
-    "starter": true
+    "dir": "50-chat",
+    "exercise": true
   }
 ]

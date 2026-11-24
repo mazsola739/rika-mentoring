@@ -1,0 +1,398 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React and fetch().
+   The class names are the ones the guide uses (converter, field, pair, swap, result, status, chips, chart…). */
+
+* {
+  box-sizing: border-box;
+}
+
+/* The white card in the middle of the page */
+.converter {
+  display: grid;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(16 24 40 / 0.08);
+}
+
+.converter h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+/* A label with its field: <label className="field"><span>Amount</span><input /></label> */
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field > span {
+  color: #3d4759;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  padding: 0 12px;
+  border: 1px solid #c5ccd8;
+  border-radius: 12px;
+  background: #fff;
+  text-overflow: ellipsis;
+}
+
+/* The amount: a bigger field */
+.amount {
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The two currency menus side by side, with the swap button between them */
+.pair {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.pair .field {
+  flex: 1 1 0;
+}
+
+.swap {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid #c5ccd8;
+  border-radius: 50%;
+  background: #fff;
+  color: #013e8e;
+  font-size: 22px;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.swap:hover {
+  background: #eef3fb;
+  transform: rotate(180deg);
+}
+
+/* The result: a dark blue box */
+.result {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  min-height: 132px;
+  padding: 22px 24px;
+  border-radius: 18px;
+  background: #013e8e;
+  color: #fff;
+}
+
+.result p {
+  margin: 0;
+}
+
+.result__from {
+  font-size: 16px;
+  opacity: 0.85;
+}
+
+.result__value {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.result__rate {
+  font-size: 14px;
+  opacity: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
+.result__hint {
+  align-self: center;
+  font-size: 17px;
+}
+
+/* A grey placeholder bar while the rates are loading */
+.result__skeleton {
+  align-self: center;
+  height: 54px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.1));
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+/* The star button that saves the pair (advanced level) */
+.star {
+  justify-self: start;
+  margin-top: 8px;
+  padding: 6px 14px;
+  border: 1px solid rgb(255 255 255 / 0.55);
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.star:hover {
+  background: rgb(255 255 255 / 0.12);
+}
+
+.star[aria-pressed='true'] {
+  border-color: #feb800;
+  background: #feb800;
+  color: #241a00;
+}
+
+/* The line under the result: where the rates come from, loading, errors */
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0;
+  color: #5a6478;
+  font-size: 14px;
+}
+
+.status p {
+  flex: 1 1 260px;
+  margin: 0;
+}
+
+.status--error {
+  padding: 12px 14px;
+  border-left: 4px solid #fd7701;
+  border-radius: 10px;
+  background: #fff4e8;
+  color: #6b3300;
+}
+
+/* A pill-shaped button, for example "Try again" */
+.button {
+  padding: 7px 16px;
+  border: 2px solid #013e8e;
+  border-radius: 999px;
+  background: #fff;
+  color: #013e8e;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.button:hover {
+  background: #eef3fb;
+}
+
+/* A turning circle while something loads */
+.spinner {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #c5ccd8;
+  border-top-color: #013e8e;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Small grey text */
+.muted {
+  margin: 0;
+  color: #5a6478;
+  font-size: 14px;
+}
+
+/* A small title above a part of the page */
+.section-title {
+  margin: 0 0 10px;
+  color: #5a6478;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Saved pairs: a row of pill buttons, the current one filled */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 6px 14px;
+  border: 1px solid #c5ccd8;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.chip:hover {
+  border-color: #013e8e;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: #013e8e;
+  background: #013e8e;
+  color: #fff;
+}
+
+/* The 30-day chart */
+.chart {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid #e3e7ee;
+  border-radius: 16px;
+}
+
+.chart h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.chart__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.chart__stats div {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #f3f5f9;
+}
+
+.chart__stats dt {
+  color: #5a6478;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chart__stats dd {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__svg {
+  display: block;
+  width: 100%;
+  height: 150px;
+  overflow: visible;
+}
+
+.chart__line {
+  fill: none;
+  stroke: #0197d8;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.chart__axis {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #5a6478;
+  font-size: 13px;
+}
+
+.chart__skeleton {
+  height: 150px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #eef1f5, #f8f9fb, #eef1f5);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+/* No moving parts for people who asked their system for less motion */
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .result__skeleton,
+  .chart__skeleton {
+    animation: none;
+  }
+
+  .swap:hover {
+    transform: none;
+  }
+}
+
+/* Phones: a little less space around everything */
+@media (max-width: 480px) {
+  body {
+    padding: 16px;
+  }
+
+  .converter {
+    padding: 20px;
+  }
+
+  .pair {
+    gap: 6px;
+  }
+
+  .result {
+    padding: 18px;
+  }
+
+  .result__value {
+    font-size: 28px;
+  }
+
+  .chart {
+    padding: 14px;
+  }
+}

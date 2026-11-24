@@ -12,5 +12,3 @@ resources/
 # Local design previews (served by the dev server, not part of the site)
 preview/
 
-# Built by scripts/build-starters.mjs before dev and build
-public/starters/

@@ -1,19 +1,19 @@
 # Lesson app guide
 
-Every lesson is a standalone React micro frontend in `apps/<slug>/`. This guide keeps all 50 apps consistent, professional and bilingual.
+Every lesson is a standalone React micro frontend in `lessons/<NN-slug>/solution/`. This guide keeps all 50 apps consistent, professional and bilingual.
 
 ## Folder and boundaries
 
 ```
-apps/<slug>/
-  index.html   ← generated, do not edit
-  main.jsx     ← generated, do not edit
+lessons/<NN-slug>/solution/
+  index.html   ← the page entry, keep it as it is
+  main.jsx     ← renders App (and starts the mock API where there is one)
   App.jsx      ← your app (replace the <ComingSoon /> placeholder)
   app.css      ← your styles
   *.jsx / *.js ← components, hooks, data, helpers
 ```
 
-- Only edit files inside your own `apps/<slug>/` folder. Never edit `shared/`, `src/`, other apps, `package.json` or config files.
+- Only edit files inside your own `lessons/<NN-slug>/solution/` folder. Never edit `shared/`, `src/`, other apps, `package.json` or config files.
 - No new npm packages. Available: `react`, `react-dom`, `qrcode`, `leaflet` (+ `leaflet/dist/leaflet.css`).
 - If you are blocked by something outside your folder, write it in your report instead of changing it.
 
@@ -111,7 +111,7 @@ channel.send({ ... }) // real time between browser tabs (BroadcastChannel)
 
 - Always show loading, error (with retry) and empty states.
 - **No external services.** The whole mentoring runs on this site: no third-party APIs, images, videos, fonts or CDNs.
-- Lessons that teach `fetch()` call the site's own HTTP API, served in the browser by Mock Service Worker. Write handlers in `apps/<slug>/mocks/handlers.js` and start them in `main.jsx` before rendering (see `apps/currency-converter`):
+- Lessons that teach `fetch()` call the site's own HTTP API, served in the browser by Mock Service Worker. Write handlers in `lessons/<NN-slug>/solution/mocks/handlers.js` and start them in `main.jsx` before rendering (see `lessons/14-currency-converter/solution`):
 
 ```js
 // main.jsx
@@ -146,4 +146,4 @@ export const handlers = [
 - Both languages complete; switching language mid-use does not break state.
 - Nothing outside your app folder changed.
 
-Reference implementations: `apps/password-generator` (simple), `apps/mad-libs` (i18n, resetting state with `key`), `apps/dark-mode` (custom hook + Context), `apps/portfolio` (hash routing, mock API form in `components/ContactForm.jsx`).
+Reference implementations: `lessons/03-password-generator/solution` (simple), `lessons/04-mad-libs/solution` (i18n, resetting state with `key`), `lessons/02-dark-mode/solution` (custom hook + Context), `lessons/01-portfolio/solution` (hash routing, mock API form in `components/ContactForm.jsx`).

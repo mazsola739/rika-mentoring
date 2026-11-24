@@ -1,0 +1,12 @@
+/* A calm starting point: a readable font and some space around the page. */
+:root {
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  color: #1c2333;
+  background: #f7f8fa;
+}
+
+body {
+  margin: 0;
+  padding: 32px;
+}

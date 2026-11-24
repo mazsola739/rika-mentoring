@@ -1,0 +1,615 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses (library, panel, book, search, results, shelf-tabs, rating, stats…). */
+
+/* The page: a column of cards in the middle */
+.library {
+  display: grid;
+  gap: 20px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.library h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+/* The green band at the top */
+.library__header {
+  padding: 26px 28px;
+  border-radius: 20px;
+  background: #1b5d4c;
+  color: #fff;
+}
+
+.library__header h1 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.15;
+}
+
+.library__header p {
+  margin: 6px 0 0;
+  color: #cfe7de;
+}
+
+/* A white card: the list, the forms, the search, the statistics */
+.panel {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 22px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 28px rgb(16 24 40 / 0.07);
+}
+
+/* A card's title with something next to it (for example a count) */
+.panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+.muted {
+  margin: 0;
+  color: #5b6578;
+  font-size: 14px;
+}
+
+/* Form fields: the label's text above the field */
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.library input,
+.library select,
+.library textarea {
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid #c5ccd8;
+  border-radius: 10px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  font-weight: 400;
+}
+
+.library textarea {
+  resize: vertical;
+}
+
+/* Buttons: an outline by default, filled with .button--primary, smaller with .button--small */
+.button {
+  padding: 9px 18px;
+  border: 2px solid #258967;
+  border-radius: 999px;
+  background: #fff;
+  color: #1b5d4c;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #e6f3ee;
+}
+
+.button--primary {
+  background: #258967;
+  color: #fff;
+}
+
+.button--primary:hover {
+  border-color: #1b5d4c;
+  background: #1b5d4c;
+}
+
+.button--small {
+  padding: 5px 12px;
+  font-size: 14px;
+}
+
+.button--danger {
+  border-color: #d9b4b0;
+  color: #a12a1f;
+}
+
+.button--danger:hover {
+  border-color: #a12a1f;
+  background: #fdf0ee;
+}
+
+.button:disabled {
+  border-color: #c5ccd8;
+  background: #eef1f5;
+  color: #7a8496;
+  cursor: not-allowed;
+}
+
+.library :focus-visible {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+/* Hidden on screen, but read out by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── The list of books ─────────────────────────────────── */
+.book-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.book {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid #e3e7ee;
+  border-radius: 14px;
+}
+
+.book__body {
+  display: grid;
+  flex: 1;
+  gap: 4px;
+  min-width: 0;
+}
+
+.book__title {
+  font-size: 17px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.book__author {
+  color: #5b6578;
+  font-size: 14px;
+}
+
+.book__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.book__note {
+  margin: 4px 0 0;
+  padding-left: 10px;
+  border-left: 3px solid #87beab;
+  color: #3d4657;
+  font-size: 14px;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+/* The reading status as a small coloured label */
+.badge {
+  justify-self: start;
+  margin-top: 4px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.badge--want {
+  background: #fff3cf;
+  color: #7a5400;
+}
+
+.badge--reading {
+  background: #dcefff;
+  color: #0a4f7a;
+}
+
+.badge--read {
+  background: #dcf1e8;
+  color: #1b5d4c;
+}
+
+/* A small menu inside a book's row */
+.library .book__status {
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+/* Nothing to show: an empty list or an empty shelf */
+.empty {
+  margin: 0;
+  padding: 18px;
+  border: 2px dashed #d6dce6;
+  border-radius: 14px;
+  color: #5b6578;
+  text-align: center;
+}
+
+/* ── Adding a book by hand ──────────────────────────────── */
+.add-book__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.add-book .button {
+  justify-self: start;
+}
+
+/* ── Covers ─────────────────────────────────────────────── */
+.cover {
+  display: block;
+  flex: none;
+  width: 56px;
+  aspect-ratio: 2 / 3;
+  border-radius: 4px 8px 8px 4px;
+  background: #e9eef3;
+  box-shadow: 0 1px 3px rgb(16 24 40 / 0.2);
+  object-fit: cover;
+}
+
+/* No cover: a green tile with the title's first letter */
+.cover--empty {
+  display: grid;
+  place-items: center;
+  background: #258967;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+/* ── Search ─────────────────────────────────────────────── */
+.search__form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 10px;
+}
+
+.search__status {
+  min-height: 1.5em;
+  margin: 0;
+  color: #5b6578;
+  font-size: 14px;
+}
+
+.search__error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fdf0ee;
+  color: #8a2219;
+}
+
+.search__error p {
+  margin: 0;
+}
+
+/* The results: covers in a grid */
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.result {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px;
+  min-width: 0;
+}
+
+.result .cover {
+  width: 100%;
+}
+
+.result .cover--empty {
+  font-size: 48px;
+}
+
+.result__body {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  color: #5b6578;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.result__title {
+  color: #1c2333;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.result__year {
+  color: #7a8496;
+}
+
+.result .button {
+  justify-self: start;
+}
+
+/* Already on a shelf */
+.result__on {
+  justify-self: start;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #dcf1e8;
+  color: #1b5d4c;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ── Shelves ────────────────────────────────────────────── */
+.shelf-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.shelf-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px 7px 16px;
+  border: 1px solid #c5ccd8;
+  border-radius: 999px;
+  background: #fff;
+  color: #1c2333;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.shelf-tab:hover {
+  border-color: #258967;
+}
+
+/* The open shelf */
+.shelf-tab[aria-pressed='true'] {
+  border-color: #258967;
+  background: #258967;
+  color: #fff;
+}
+
+.shelf-tab__count {
+  min-width: 26px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #eef1f5;
+  color: #3d4657;
+  font-size: 13px;
+  text-align: center;
+}
+
+.shelf-tab[aria-pressed='true'] .shelf-tab__count {
+  background: #fff;
+  color: #1b5d4c;
+}
+
+/* "Dune moved to Read." under the tabs */
+.notice {
+  min-height: 1.5em;
+  margin: 0;
+  color: #1b5d4c;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ── Rating and notes ───────────────────────────────────── */
+.rating {
+  display: flex;
+  gap: 2px;
+}
+
+.rating__star {
+  padding: 0 2px;
+  border: 0;
+  background: none;
+  color: #b9c2cf;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.rating__star.is-on {
+  color: #e39a00;
+}
+
+.rating__star:hover {
+  transform: scale(1.15);
+}
+
+.note-form {
+  display: grid;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.note-form__actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ── Reading goal and statistics ───────────────────────── */
+.goal {
+  display: grid;
+  gap: 8px;
+}
+
+.goal__field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.library .goal__field input {
+  width: 84px;
+}
+
+.goal__bar {
+  width: 100%;
+  height: 14px;
+  border: 0;
+  border-radius: 999px;
+  background: #e3e7ee;
+  overflow: hidden;
+  appearance: none;
+}
+
+.goal__bar::-webkit-progress-bar {
+  background: #e3e7ee;
+}
+
+.goal__bar::-webkit-progress-value {
+  border-radius: 999px;
+  background: #258967;
+}
+
+.goal__bar::-moz-progress-bar {
+  border-radius: 999px;
+  background: #258967;
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.stat {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f1f7f4;
+}
+
+.stat dt {
+  color: #5b6578;
+  font-size: 13px;
+}
+
+.stat dd {
+  margin: 2px 0 0;
+  color: #1b5d4c;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+/* ── Account ────────────────────────────────────────────── */
+.account {
+  padding: 14px 22px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 28px rgb(16 24 40 / 0.07);
+}
+
+.account summary {
+  color: #1b5d4c;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.login__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.login .button {
+  justify-self: start;
+}
+
+.login__error {
+  margin: 0;
+  color: #a12a1f;
+  font-weight: 600;
+}
+
+/* Logged in: the name, how saving goes, and the buttons in one row */
+.account--in {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.account__status {
+  flex: 1;
+  color: #5b6578;
+  font-size: 14px;
+}
+
+.account__status--saved {
+  color: #1b5d4c;
+}
+
+.account__status--load-failed,
+.account__status--save-failed,
+.account__status--expired {
+  color: #a12a1f;
+  font-weight: 600;
+}
+
+/* ── Phones ─────────────────────────────────────────────── */
+@media (max-width: 520px) {
+  body {
+    padding: 16px;
+  }
+
+  .library__header,
+  .panel {
+    padding: 18px;
+  }
+
+  .account {
+    padding: 12px 18px;
+  }
+
+  .results {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 16px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rating__star:hover {
+    transform: none;
+  }
+}

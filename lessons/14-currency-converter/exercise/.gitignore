@@ -1,0 +1,7 @@
+node_modules
+dist
+.DS_Store
+*.log
+
+# Your own local settings, for example .env.local: they stay on your computer and are never committed.
+*.local

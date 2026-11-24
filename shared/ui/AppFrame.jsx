@@ -1,5 +1,6 @@
 import { Suspense, createContext, lazy, useContext, useEffect, useState } from 'react'
 import lessons from '../lessons.json'
+import site from '../site.json'
 import { tierByKey } from '../tiers.js'
 import { useLang, useText } from '../i18n.js'
 import { paletteFor, paletteVars } from './palette.js'
@@ -9,6 +10,7 @@ import LangSwitch from './LangSwitch.jsx'
 import PaperWaves from './PaperWaves.jsx'
 import Inline from './Inline.jsx'
 import { hasGuide } from './guide/guides.js'
+import UnderConstruction from './UnderConstruction.jsx'
 
 // The guide viewer loads only when the Guide tab is opened.
 const GuideView = lazy(() => import('./guide/GuideView.jsx'))
@@ -33,7 +35,8 @@ function viewFromUrl(guideExists) {
 
 // The shared lesson page around every app: dark top bar, a dark header with paper-cut waves
 // (like the front of the lesson card), and two tabs: the step-by-step guide and the solution
-// (the app itself with the lesson details). The starter project can be downloaded from the tab bar.
+// (the app itself with the lesson details). The tab bar links to the lesson's exercise folder on GitHub.
+// Lesson pages live at lessons/<NN-slug>/solution/, so the site root is three folders up.
 export default function AppFrame({ slug, children }) {
   const lang = useLang()
   const t = useText(FRAME_TEXT)
@@ -48,7 +51,10 @@ export default function AppFrame({ slug, children }) {
   const palette = paletteFor(lesson.n)
   const value = { ...lesson, text, lang, palette }
   const guideExists = hasGuide(slug)
-  const starterUrl = lesson.starter ? `../../starters/${slug}.zip` : null
+  // The exercise (the starting project) is a folder of the one repository: lessons/<NN-slug>/exercise.
+  const exercise = lesson.exercise
+    ? { path: `lessons/${lesson.dir}/exercise`, url: `${site.repo}/tree/${site.branch}/lessons/${lesson.dir}/exercise` }
+    : null
   const [view, setView] = useState(() => viewFromUrl(guideExists))
 
   // Back and forward move between the tabs too.
@@ -76,16 +82,17 @@ export default function AppFrame({ slug, children }) {
   return (
     <LessonContext.Provider value={value}>
       <div className="lesson-page" style={paletteVars(palette)}>
+        <UnderConstruction lang={lang} />
         <div className="lp-topbar">
           <div className="lp-topbar__inner container">
-            <a className="lp-brand" href="../../">
+            <a className="lp-brand" href="../../../">
               <span className="lp-brand__mark" aria-hidden="true">
                 R
               </span>
               <span className="lp-brand__name">Rika Mentoring</span>
             </a>
             <nav className="lp-crumbs" aria-label="Breadcrumb">
-              <a href="../../#lessons">{t.home}</a>
+              <a href="../../../#lessons">{t.home}</a>
               <span aria-hidden="true">/</span>
               <span aria-current="page">
                 {pad(lesson.n)} · {text.title}
@@ -136,12 +143,13 @@ export default function AppFrame({ slug, children }) {
                 ),
               )}
             </nav>
-            {starterUrl && (
-              <a className="lp-starter" href={starterUrl} download>
+            {exercise && (
+              <a className="lp-starter" href={exercise.url} target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path d="M12 4v11m-5-5 5 5 5-5M5 20h14" />
+                  <path d="M3 7.5A1.5 1.5 0 0 1 4.5 6H9l2 2h8.5A1.5 1.5 0 0 1 21 9.5v8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z" />
                 </svg>
-                {t.starterButton}
+                {t.exerciseButton}
+                <span className="visually-hidden"> ({t.newTab})</span>
               </a>
             )}
           </div>
@@ -153,10 +161,10 @@ export default function AppFrame({ slug, children }) {
               slug={slug}
               lang={lang}
               t={{ ...t, levelNames: t.guideLevels }}
-              starterUrl={starterUrl}
+              exercise={exercise}
               onSolution={() => openView('solution')}
               next={
-                next ? { href: `../${next.slug}/`, label: `${t.next}: ${pad(next.n)} · ${next[lang].title}` } : null
+                next ? { href: `../../${next.dir}/solution/`, label: `${t.next}: ${pad(next.n)} · ${next[lang].title}` } : null
               }
             />
           </Suspense>
@@ -196,7 +204,7 @@ export default function AppFrame({ slug, children }) {
 
         <nav className="lp-nav container" aria-label={`${t.prev} / ${t.next}`}>
           {prev && (
-            <a href={`../${prev.slug}/`}>
+            <a href={`../../${prev.dir}/solution/`}>
               <small>← {t.prev}</small>
               <strong>
                 {pad(prev.n)} · {prev[lang].title}
@@ -204,7 +212,7 @@ export default function AppFrame({ slug, children }) {
             </a>
           )}
           {next && (
-            <a className="lp-nav__next" href={`../${next.slug}/`}>
+            <a className="lp-nav__next" href={`../../${next.dir}/solution/`}>
               <small>{t.next} →</small>
               <strong>
                 {pad(next.n)} · {next[lang].title}

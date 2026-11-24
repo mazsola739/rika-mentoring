@@ -1,0 +1,19 @@
+WEBVTT
+
+00:01.000 --> 00:04.500
+Szia! Ezek a feliratok egy WebVTT-fájlból jönnek.
+
+00:05.000 --> 00:09.500
+Ez a sor 0:05-kor jelenik meg, és 0:09-kor tűnik el.
+
+00:10.000 --> 00:14.500
+Minden feliratnak van kezdő és záró időpontja.
+
+00:15.000 --> 00:19.500
+Ugorj vissza a ← billentyűvel: a sorok is visszajönnek.
+
+00:20.000 --> 00:24.500
+A saját soraidat a public/captions.vtt fájlba írd.
+
+00:25.000 --> 00:29.500
+Ennyi volt. Köszönöm, hogy megnézted!

@@ -1,0 +1,53 @@
+/* The "under construction" strip (shared/ui/UnderConstruction.jsx): construction tape in the palette's gold. */
+.uc {
+  position: relative;
+  z-index: 25;
+  background: var(--night, #070b1a);
+  color: #dfe5f2;
+  font: 500 13.5px/1.45 var(--font-body);
+}
+
+.uc::before {
+  content: '';
+  display: block;
+  height: 6px;
+  background: repeating-linear-gradient(-45deg, #feb800 0 12px, var(--night, #070b1a) 12px 24px);
+}
+
+.uc__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2px 14px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 16px 9px;
+  text-align: center;
+}
+
+.uc__title {
+  color: #feb800;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.uc__link {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: #feb800;
+  text-underline-offset: 3px;
+}
+
+.uc__link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.uc__link:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid #feb800;
+  outline-offset: 3px;
+}

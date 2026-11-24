@@ -1,0 +1,532 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses (explorer, apod, media, date-nav, favorites, gallery…).
+   The colours are CSS variables, defined at the top of index.css. */
+
+/* ── The page ─────────────────────────────────────────── */
+.explorer {
+  display: grid;
+  gap: 24px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.explorer__header h1 {
+  margin: 0;
+  color: var(--gold);
+  font-size: clamp(30px, 7vw, 42px);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.explorer__header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.muted {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.section-title {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Hidden on screen, but read out by screen readers (for example a label for the date field). */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Buttons ──────────────────────────────────────────── */
+.button {
+  min-height: 42px;
+  padding: 8px 18px;
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--night);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.button:hover {
+  filter: brightness(1.08);
+}
+
+/* A lighter button: only an outline. */
+.button--ghost {
+  background: transparent;
+  color: var(--gold);
+}
+
+.button:disabled {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--muted);
+  filter: none;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ── Loading and error messages ───────────────────────── */
+.status {
+  margin: 0;
+  padding: 28px 20px;
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--muted);
+  text-align: center;
+  animation: status-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.status--error {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  border-left: 4px solid var(--magenta);
+  color: var(--text);
+  animation: none;
+}
+
+.status--error p {
+  max-width: 520px;
+  margin: 0;
+}
+
+/* ── The picture of the day ───────────────────────────── */
+.apod {
+  display: grid;
+  gap: 10px;
+  padding: 0 0 22px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.apod > :not(.media) {
+  margin-inline: 22px;
+}
+
+.apod__date {
+  margin: 8px 0 0;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.apod__title {
+  margin: 0;
+  font-size: clamp(22px, 5vw, 30px);
+  line-height: 1.2;
+}
+
+.apod__credit {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.apod__text {
+  margin: 4px 0 0;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* The star button that saves a picture as a favourite. */
+.favorite-button {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 6px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.favorite-button span {
+  color: var(--gold);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.favorite-button[aria-pressed='true'] {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--night);
+}
+
+.favorite-button[aria-pressed='true'] span {
+  color: var(--night);
+}
+
+/* ── Picture, video or a note: the media box ──────────── */
+.media {
+  margin: 0;
+  background: #000;
+}
+
+.media img,
+.media video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+}
+
+/* The bar under a video: a badge on the left, a button on the right. */
+.media__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 14px;
+  background: #000;
+  font-size: 14px;
+}
+
+.media__button {
+  padding: 4px 14px;
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.badge {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--night);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* A day whose content cannot be shown here. */
+.media--note {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 32px 20px;
+  background: var(--surface-2);
+  text-align: center;
+}
+
+.media--note img {
+  max-width: min(100%, 360px);
+  border-radius: 12px;
+}
+
+.media--note p {
+  max-width: 440px;
+  margin: 0;
+}
+
+/* ── Date navigation ──────────────────────────────────── */
+.date-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.date-nav__field {
+  flex: 1 1 150px;
+  display: flex;
+}
+
+.date-nav__field input {
+  width: 100%;
+  min-height: 42px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ── Favourites ───────────────────────────────────────── */
+.favorites__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.favorite {
+  position: relative;
+}
+
+.favorite__open {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  padding: 0 0 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.favorite__open:hover {
+  border-color: var(--gold);
+}
+
+.favorite__open img,
+.favorite__placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  margin-bottom: 6px;
+  object-fit: cover;
+  background: #000;
+}
+
+/* A favourite without a small picture: a dark box with a star. */
+.favorite__placeholder {
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+  font-size: 28px;
+}
+
+.favorite__date {
+  padding-inline: 10px;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.favorite__title {
+  padding-inline: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.favorite__remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(7 11 26 / 0.85);
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* ── View switch: picture of the day or gallery ───────── */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab,
+.chip {
+  min-height: 40px;
+  padding: 6px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab[aria-pressed='true'],
+.chip[aria-pressed='true'] {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--night);
+}
+
+.chip {
+  min-height: 34px;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+/* ── Gallery ──────────────────────────────────────────── */
+.gallery {
+  display: grid;
+  gap: 18px;
+}
+
+.gallery__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 20px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery__item {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  height: 100%;
+  align-content: start;
+  padding: 0 0 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.gallery__item:hover {
+  border-color: var(--gold);
+}
+
+.gallery__item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  margin-bottom: 6px;
+  object-fit: cover;
+  background: #000;
+}
+
+.gallery__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
+.gallery__date {
+  padding-inline: 10px;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gallery__title {
+  padding-inline: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* The sentinel under the grid: when it comes near the screen, the next batch is loaded. */
+.gallery__more {
+  margin: 0;
+  padding: 18px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ── The large view: a modal <dialog> ─────────────────── */
+.picture-dialog {
+  width: min(94vw, 1000px);
+  max-width: none;
+  max-height: 92vh;
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* Closed, a <dialog> is not shown at all. */
+.picture-dialog:not([open]) {
+  display: none;
+}
+
+.picture-dialog::backdrop {
+  background: rgb(2 4 12 / 0.85);
+}
+
+.picture-dialog .media img {
+  max-height: 70vh;
+}
+
+.picture-dialog__body {
+  display: grid;
+  gap: 10px;
+  padding: 18px 22px 22px;
+}
+
+.picture-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* People who asked their system for less motion get no pulsing. */
+@media (prefers-reduced-motion: reduce) {
+  .status {
+    animation: none;
+  }
+}

@@ -234,7 +234,7 @@ export default function LessonCard({ lesson, lang, t, color, copy = false, onFli
               <Fact icon="learn" label={t.learn} text={text.card.learn} />
             </dl>
           </div>
-          <a ref={linkRef} className="lc__open" href={`apps/${lesson.slug}/`} target="_blank" rel="noopener" tabIndex={skip}>
+          <a ref={linkRef} className="lc__open" href={`lessons/${lesson.dir}/solution/`} target="_blank" rel="noopener" tabIndex={skip}>
             {t.open}
             <span className="visually-hidden">
               : {text.title} ({t.newTab})

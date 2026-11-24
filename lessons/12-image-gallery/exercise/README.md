@@ -1,0 +1,69 @@
+# 12 · Image Gallery & Carousel – exercise
+
+The starting point of Rika Mentoring's lesson 12. The guide walks you through it step by step:
+https://mazsola739.github.io/rika-mentoring/lessons/12-image-gallery/solution/?view=guide
+
+## Start
+
+First copy this folder out of the repository into your own work folder and name the copy `pocket-gallery`: your work
+stays separate, and `git pull` in the repository can still bring new lessons. You need
+[Node.js](https://nodejs.org) (the LTS version) and a code editor, for example VS Code. In your copy:
+
+```bash
+npm install     # once: downloads React and Vite
+npm run dev     # starts the development server
+```
+
+Open the address it prints (usually http://localhost:5173). You should see the title "Pocket Gallery"
+and the line "36 small artworks, drawn in code."
+
+## What is in it
+
+- `src/App.jsx` – the page: for now only the title.
+- `src/App.css` – the styles of the whole lesson, ready; the guide uses its class names.
+- `src/photos.js` – the data of the 36 sample pictures (address, title, description, album).
+- `public/photos/` – the pictures themselves, as SVG files drawn in code. Vite serves this folder as it is:
+  `public/photos/golden-hour.svg` is at http://localhost:5173/photos/golden-hour.svg.
+
+## If something breaks
+
+Step 0 of the guide makes your copy a git repository with one commit. After that, `git restore .` takes every file
+back to your last commit, and the original is always here, in the repository.
+
+The finished app: https://mazsola739.github.io/rika-mentoring/lessons/12-image-gallery/solution/?view=solution
+
+---
+
+# 12 · Image Gallery & Carousel – kiinduló projekt
+
+A Rika Mentoring 12. leckéjének kiindulópontja. Az útmutató lépésről lépésre végigvezet rajta:
+https://mazsola739.github.io/rika-mentoring/lessons/12-image-gallery/solution/?view=guide
+
+## Indítás
+
+Először másold ki ezt a mappát a repóból a saját munkamappádba, és nevezd el a másolatot így: `pocket-gallery`. Így a
+munkád külön marad, és a repóban a `git pull` továbbra is le tudja hozni az új leckéket. Kell hozzá a
+[Node.js](https://nodejs.org) (az LTS-verzió) és egy kódszerkesztő, például a VS Code. A másolatodban:
+
+```bash
+npm install     # egyszer: letölti a Reactot és a Vite-ot
+npm run dev     # elindítja a fejlesztői szervert
+```
+
+Nyisd meg a kiírt címet (általában http://localhost:5173). A „Pocket Gallery” címet kell látnod, alatta ezt a sort:
+„36 small artworks, drawn in code.”
+
+## Mi van benne?
+
+- `src/App.jsx` – az oldal: egyelőre csak a cím.
+- `src/App.css` – a teljes lecke stílusai, készen; az útmutató ezeket az osztályneveket használja.
+- `src/photos.js` – a 36 mintakép adatai (cím, leírás, album, és hogy hol a kép).
+- `public/photos/` – maguk a képek, kódból rajzolt SVG-fájlok. A Vite ezt a mappát változatlanul kiszolgálja:
+  a `public/photos/golden-hour.svg` a http://localhost:5173/photos/golden-hour.svg címen van.
+
+## Ha valami elromlik
+
+Az útmutató 0. lépésében a másolatodból git-repó lesz egy committal. Ezután a `git restore .` minden fájlt
+visszaállít az utolsó commitod állapotára, az eredeti pedig mindig itt van, a repóban.
+
+A kész app: https://mazsola739.github.io/rika-mentoring/lessons/12-image-gallery/solution/?view=solution

@@ -1,0 +1,531 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses (typing, stats, passage, char, chip, chart, race, …). */
+
+* {
+  box-sizing: border-box;
+}
+
+/* The white panel in the middle of the page */
+.typing {
+  display: grid;
+  gap: 18px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(16 24 40 / 0.08);
+}
+
+.typing h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.typing h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+/* Buttons and fields use the page's font */
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+/* .button: an outlined button; .button--primary: a filled one */
+.button {
+  padding: 6px 16px;
+  border: 2px solid #083f58;
+  border-radius: 999px;
+  background: transparent;
+  color: #083f58;
+  font-weight: 700;
+}
+
+.button:hover {
+  background: #e8f1f4;
+}
+
+.button--primary {
+  border-color: #01c5ac;
+  background: #01c5ac;
+  color: #062b2b;
+}
+
+.button--primary:hover {
+  border-color: #3fd8c3;
+  background: #3fd8c3;
+}
+
+/* Time, speed, accuracy: a row of small boxes (a <dl> description list) */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.stats div {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #eef1f5;
+}
+
+.stats dt {
+  color: #5a6478;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stats dd {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Beginner level: the passage as plain text, and a visible text field under it */
+.typing__text {
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: #eef1f5;
+  font-size: 19px;
+  line-height: 1.7;
+}
+
+.typing__field {
+  display: block;
+  width: 100%;
+  min-height: 130px;
+  padding: 14px 16px;
+  border: 2px solid #c5ccd8;
+  border-radius: 14px;
+  background: #fff;
+  font-size: 19px;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.typing__field:focus {
+  border-color: #017b6b;
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(1 197 172 / 0.25);
+}
+
+.typing__field:read-only {
+  background: #f4f6f9;
+}
+
+/* The buttons under the text */
+.typing__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* The "Done!" message */
+.result {
+  margin: 0;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #083f58;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* From the intermediate level: the box with the coloured passage.
+   The real text field is inside it too, invisible (.typing__input), and receives the keys. */
+.typing__box {
+  position: relative;
+  padding: 18px 20px;
+  border: 2px solid #c5ccd8;
+  border-radius: 16px;
+  background: #fff;
+  cursor: text;
+}
+
+.typing__box:focus-within {
+  border-color: #017b6b;
+  box-shadow: 0 0 0 4px rgb(1 197 172 / 0.25);
+}
+
+.typing__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  font-size: 16px;
+  opacity: 0;
+  resize: none;
+}
+
+.typing__hint {
+  margin: 0;
+  color: #5a6478;
+  font-size: 14px;
+}
+
+/* The passage, one <span class="char"> per character */
+.passage {
+  margin: 0;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, monospace;
+  font-size: 19px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.char {
+  position: relative;
+  border-radius: 3px;
+}
+
+.char--todo {
+  color: #858ea1;
+}
+
+.char--ok {
+  color: #1c2333;
+}
+
+.char--bad {
+  background: #ffe0ea;
+  color: #c0063f;
+  text-decoration: underline wavy #f70677;
+  text-underline-offset: 4px;
+}
+
+/* The blinking cursor in front of the next character */
+.char.is-current::before {
+  content: '';
+  position: absolute;
+  top: 0.2em;
+  bottom: 0.15em;
+  left: -1px;
+  width: 2px;
+  border-radius: 2px;
+  background: #017b6b;
+  animation: blink 1s steps(1) infinite;
+}
+
+.typing__box:not(:focus-within) .char.is-current::before {
+  animation: none;
+  opacity: 0.3;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* The row above the stats: the mode buttons and the name field */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+
+/* A group of switch-like buttons; the pressed one is filled */
+.modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  padding: 6px 14px;
+  border: 1px solid #c5ccd8;
+  border-radius: 999px;
+  background: #fff;
+  font-weight: 600;
+}
+
+.chip:hover {
+  border-color: #083f58;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: #083f58;
+  background: #083f58;
+  color: #fff;
+}
+
+/* A label with a text field in it */
+.field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.field input {
+  width: 11em;
+  max-width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #c5ccd8;
+  border-radius: 10px;
+  background: #fff;
+  font-weight: 400;
+}
+
+/* A line chart (SVG). The line keeps its thickness however wide the chart is. */
+.chart {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.chart svg {
+  display: block;
+  width: 100%;
+  height: 90px;
+  padding: 8px 6px;
+  border-radius: 12px;
+  background: #eef1f5;
+  overflow: visible;
+}
+
+.chart polyline {
+  fill: none;
+  stroke: #017b6b;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.chart figcaption {
+  color: #5a6478;
+  font-size: 14px;
+}
+
+/* The boxes at the bottom: leaderboard, history, race */
+.boards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.panel {
+  min-width: 0;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #f4f6f9;
+}
+
+.empty {
+  margin: 0;
+  color: #5a6478;
+}
+
+/* The latest results */
+.history {
+  display: grid;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.history li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+/* The leaderboard; .is-new marks the result you have just typed */
+.leaderboard {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.leaderboard li {
+  display: grid;
+  grid-template-columns: 2em minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+.leaderboard .is-new {
+  background: #01c5ac;
+  color: #062b2b;
+  font-weight: 700;
+}
+
+.leaderboard__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The race: one lane per player */
+.race__lanes {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.race__lane {
+  display: grid;
+  grid-template-columns: minmax(0, 7em) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.race__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.race__bar {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e3e8ef;
+}
+
+.race__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #0197d8;
+  transition: width 0.2s;
+}
+
+.race__lane.is-me .race__bar span {
+  background: #01c5ac;
+}
+
+.race__hint {
+  margin: 10px 0 0;
+  color: #5a6478;
+  font-size: 14px;
+}
+
+/* Less movement for those who asked for it in their system settings */
+@media (prefers-reduced-motion: reduce) {
+  .char.is-current::before {
+    animation: none;
+  }
+
+  .race__bar span {
+    transition: none;
+  }
+}
+
+/* Phones: a little less space around everything */
+@media (max-width: 480px) {
+  body {
+    padding: 16px;
+  }
+
+  .typing {
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .typing h1 {
+    font-size: 24px;
+  }
+
+  .typing__text,
+  .typing__field,
+  .passage {
+    font-size: 17px;
+  }
+
+  .typing__box {
+    padding: 14px;
+  }
+
+  /* Narrow boxes: the labels in normal letters, so the long ones fit too */
+  .stats div {
+    padding: 8px 12px;
+  }
+
+  .stats dt {
+    letter-spacing: 0;
+    text-transform: none;
+    overflow-wrap: anywhere;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  /* Race: the name and the speed on one line, the bar under them */
+  .race__lane {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 10px;
+  }
+
+  .race__bar {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  /* Leaderboard: the name gets a whole line, the numbers go under it */
+  .leaderboard li {
+    grid-template-columns: 2em minmax(0, 1fr) auto;
+    gap: 2px 10px;
+  }
+
+  .leaderboard li > :nth-child(2) {
+    grid-column: 2 / -1;
+  }
+
+  .leaderboard li > :nth-child(3) {
+    grid-column: 2;
+  }
+
+  /* History: the date on a small line of its own */
+  .history li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 12px;
+  }
+
+  .history li > :first-child {
+    grid-column: 1 / -1;
+    color: #5a6478;
+    font-size: 13px;
+  }
+}

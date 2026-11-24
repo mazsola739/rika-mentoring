@@ -1,0 +1,483 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses (signup, step, field, choices, chip, summary, progress…). */
+
+* {
+  box-sizing: border-box;
+}
+
+/* The lesson's colours in one place */
+:root {
+  --accent: #017b6b;
+  --accent-dark: #03544f;
+  --accent-soft: #e2f1ee;
+  --ink-soft: #586174;
+  --line: #d3d9e2;
+  --surface: #f2f4f7;
+  --danger: #b3261e;
+  --danger-soft: #fdecea;
+  --focus: #0197d8;
+}
+
+/* The white card in the middle of the page */
+.signup {
+  display: grid;
+  gap: 24px;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(16 24 40 / 0.08);
+}
+
+.signup__header h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.signup__header p {
+  margin: 6px 0 0;
+  color: var(--ink-soft);
+}
+
+/* The form: the step's heading, its fields and the buttons at the bottom */
+.signup__form {
+  display: grid;
+  gap: 22px;
+}
+
+.signup__head h2 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.signup__count {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.signup__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+/* The main button always sits on the right, even when there is no "Back" next to it */
+.signup__nav .button[type='submit'] {
+  margin-left: auto;
+}
+
+/* A red message box above the buttons */
+.signup__alert {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.signup__alert p {
+  margin: 0;
+}
+
+.signup__alert .button {
+  margin-top: 10px;
+}
+
+/* A friendly note above the form (for example "We restored your draft") */
+.signup__notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 12px 16px;
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+  background: var(--accent-soft);
+}
+
+.signup__notice p {
+  flex: 1 1 240px;
+  margin: 0;
+}
+
+/* The fields of one step, under each other */
+.step {
+  display: grid;
+  gap: 18px;
+}
+
+/* One field: its label, the input, and an error message under it */
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field__label {
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+.field textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* A field with a problem gets a red border (the attribute comes from React) */
+.field [aria-invalid='true'] {
+  border-color: var(--danger);
+  box-shadow: inset 0 0 0 1px var(--danger);
+}
+
+.field__error {
+  color: var(--danger);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* A group of checkboxes or radio buttons, with its title */
+.choices {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.choices legend {
+  margin-bottom: 8px;
+  padding: 0;
+  font-weight: 600;
+}
+
+.choices__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* One choice as a rounded "chip"; a ticked one is filled */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.chip input,
+.check input {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.chip:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 600;
+}
+
+/* A single checkbox with a longer text next to it */
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.check input {
+  margin-top: 3px;
+}
+
+/* Buttons: filled by default, an outline with .button--ghost */
+.button {
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.button:hover {
+  border-color: var(--accent-dark);
+  background: var(--accent-dark);
+}
+
+.button:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+.button--ghost {
+  background: transparent;
+  color: var(--accent-dark);
+}
+
+.button--ghost:hover {
+  background: var(--accent-soft);
+}
+
+/* A button that looks like a link (for "Edit" and "Discard draft") */
+.link-button {
+  min-height: 32px;
+  padding: 2px 4px;
+  border: 0;
+  background: none;
+  color: var(--accent-dark);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* The summary: one grey box for every step */
+.summary {
+  display: grid;
+  gap: 12px;
+}
+
+.summary__section {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.summary__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.summary__head h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.summary dl {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+}
+
+.summary__row {
+  display: grid;
+  grid-template-columns: minmax(110px, 1fr) 2fr;
+  gap: 12px;
+}
+
+.summary dt {
+  color: var(--ink-soft);
+}
+
+.summary dd {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* The progress indicator: numbered steps and a bar under them */
+.progress {
+  display: grid;
+  gap: 10px;
+}
+
+.progress__list {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.progress__step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 4px 10px 4px 4px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.progress__step:hover:not(:disabled) {
+  background: var(--surface);
+}
+
+.progress__step:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.progress__number {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  background: #fff;
+}
+
+.progress__item.is-done .progress__number {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+}
+
+.progress__item.is-current .progress__step {
+  color: inherit;
+  opacity: 1;
+}
+
+.progress__item.is-current .progress__number {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.progress__bar {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface);
+}
+
+.progress__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+/* The screen after a successful sign-up */
+.success {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  text-align: center;
+}
+
+.success__badge {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.success h2 {
+  margin: 0;
+}
+
+.success p {
+  max-width: 440px;
+  margin: 0;
+}
+
+/* The live view of the state in the beginner level */
+.debug {
+  margin: 0;
+  padding: 12px 14px;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: #1c2333;
+  color: #c9f1e9;
+  font-size: 13px;
+}
+
+/* Small screens: less space around the card, and only the numbers in the progress indicator */
+@media (max-width: 560px) {
+  body {
+    padding: 12px;
+  }
+
+  .signup {
+    padding: 20px 16px;
+  }
+
+  .progress__title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .progress__step {
+    padding-right: 4px;
+  }
+
+  .summary__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .signup__nav .button {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress__bar span {
+    transition: none;
+  }
+}

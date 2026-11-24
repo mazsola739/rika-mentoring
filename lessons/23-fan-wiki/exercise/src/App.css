@@ -1,0 +1,547 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses: wiki, grid, card, status, state, filters, chip,
+   pages, detail, facts, episodes, entry… Have a look, and change anything you like. */
+
+/* ── The page ─────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+.wiki {
+  display: grid;
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(16 24 40 / 0.08);
+}
+
+.wiki__header {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e4e8ee;
+}
+
+.wiki__header h1 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.15;
+}
+
+.wiki__header h1 a {
+  color: #083f58;
+  text-decoration: none;
+}
+
+.wiki__header p {
+  margin: 0;
+  color: #5b6576;
+}
+
+h2,
+h3 {
+  line-height: 1.25;
+}
+
+/* ── Buttons, links and form fields ───────────────────── */
+button {
+  min-height: 40px;
+  padding: 8px 18px;
+  border: 1px solid #c9d1dc;
+  border-radius: 999px;
+  background: #fff;
+  color: #1c2333;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #f1f4f8;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.button--primary {
+  border-color: #017b6b;
+  background: #017b6b;
+  color: #fff;
+}
+
+.button--primary:hover {
+  background: #01665a;
+}
+
+/* A button that looks like a link (for example "Clear filters") */
+.link-button {
+  min-height: 36px;
+  padding: 4px 2px;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: #017b6b;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.link-button:hover {
+  background: none;
+  color: #01504a;
+}
+
+a {
+  color: #017b6b;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+/* A label with its field: <label class="field"><span>Name</span><input /></label> */
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #c9d1dc;
+  border-radius: 12px;
+  background: #fff;
+  color: #1c2333;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+textarea {
+  min-height: 120px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* ── Search and filters ───────────────────────────────── */
+.filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 220px);
+  gap: 14px 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #f1f4f8;
+}
+
+.filters__search {
+  grid-column: 1 / -1;
+}
+
+.filters fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.filters legend {
+  margin-bottom: 6px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* A toggle button: aria-pressed="true" marks the chosen one */
+.chip {
+  min-height: 40px;
+  padding: 6px 14px;
+  font-size: 14px;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: #017b6b;
+  background: #017b6b;
+  color: #fff;
+}
+
+/* "Clear filters" gets a line of its own at the bottom of the box */
+.filters .link-button {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+/* The line above the cards: how many there are */
+.list__count {
+  margin: 0;
+  color: #5b6576;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.list {
+  display: grid;
+  gap: 16px;
+}
+
+/* ── The cards ────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.grid--small {
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+.card {
+  display: grid;
+  align-content: start;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e4e8ee;
+  border-radius: 16px;
+  background: #fff;
+}
+
+/* The whole card is one link (from the intermediate level on) */
+.card__link {
+  display: grid;
+  align-content: start;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.card:has(.card__link:hover) {
+  border-color: #017b6b;
+}
+
+.card__link:hover {
+  background: #f6fbfa;
+}
+
+.card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: #f1f4f8;
+}
+
+.card__body {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px 12px;
+}
+
+.card__name {
+  margin: 0;
+  color: #1c2333;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.card__meta {
+  margin: 0;
+  color: #5b6576;
+  font-size: 13px;
+}
+
+/* ── Status: a coloured dot before the word ───────────── */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #1c2333;
+  font-weight: 600;
+}
+
+.status::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #8a93a3;
+}
+
+.status--bright::before {
+  background: #2e9d5b;
+}
+
+/* Faded: a washed-out grey, like the characters the Grey Drizzle touched */
+.status--faded::before {
+  background: #b9c0ca;
+}
+
+.status--unknown::before {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px #8a93a3;
+}
+
+/* ── Messages: loading, nothing found, errors ─────────── */
+.state {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px dashed #c9d1dc;
+  border-radius: 16px;
+  background: #f7f8fa;
+  color: #5b6576;
+}
+
+.state p {
+  margin: 0;
+}
+
+.state--error {
+  border: 1px solid #f3c9c4;
+  border-left: 4px solid #d93a2b;
+  background: #fff6f5;
+  color: #1c2333;
+}
+
+/* ── Pagination ───────────────────────────────────────── */
+.pages {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pages__info {
+  color: #5b6576;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ── A character's page ───────────────────────────────── */
+.detail {
+  display: grid;
+  gap: 24px;
+}
+
+.back {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid #c9d1dc;
+  border-radius: 999px;
+  color: #1c2333;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back:hover {
+  background: #f1f4f8;
+}
+
+.detail__main {
+  display: grid;
+  grid-template-columns: minmax(160px, 280px) minmax(0, 1fr);
+  align-items: start;
+  gap: 28px;
+}
+
+.detail__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 20px;
+  object-fit: cover;
+  background: #f1f4f8;
+}
+
+.detail__info {
+  display: grid;
+  gap: 8px;
+}
+
+.detail__number {
+  margin: 0;
+  color: #017b6b;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.detail__name {
+  margin: 0;
+  color: #083f58;
+  font-size: 34px;
+}
+
+/* The facts: a description list (<dl>) of label and value pairs */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px 20px;
+  margin: 8px 0 0;
+}
+
+.facts dt {
+  color: #5b6576;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.facts dd {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* A titled part of the page: episodes, the same place, the fan entry */
+.section {
+  display: grid;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #e4e8ee;
+}
+
+.section-title {
+  margin: 0;
+  color: #5b6576;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Episodes ─────────────────────────────────────────── */
+.episodes {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.episodes li {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e4e8ee;
+}
+
+.episodes code {
+  color: #017b6b;
+  font-weight: 700;
+}
+
+.episodes small {
+  color: #5b6576;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* ── The fans' own entry ──────────────────────────────── */
+.entry {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+
+.entry__form {
+  display: grid;
+  justify-self: stretch;
+  gap: 12px;
+}
+
+.entry__text {
+  margin: 0;
+  white-space: pre-line; /* keeps the line breaks the fan typed */
+}
+
+.entry__empty {
+  margin: 0;
+  color: #5b6576;
+  font-style: italic;
+}
+
+.entry__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Phones ───────────────────────────────────────────── */
+@media (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
+  .wiki {
+    padding: 18px 16px;
+    border-radius: 16px;
+  }
+
+  .filters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .detail__main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .detail__image {
+    width: min(100%, 260px);
+  }
+
+  .detail__name {
+    font-size: 28px;
+  }
+
+  .episodes li {
+    grid-template-columns: 70px minmax(0, 1fr);
+  }
+
+  .episodes small {
+    grid-column: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card__link {
+    transition: none;
+  }
+}

@@ -112,9 +112,9 @@ function Blocks({ blocks, t }) {
   })
 }
 
-// The step-by-step guide of a lesson. `starterUrl` is the ZIP to download (or null),
+// The step-by-step guide of a lesson. `exercise` is the starting project on GitHub ({ path, url }) or null,
 // `onSolution` switches the page to the finished app, `next` is the next lesson ({ href, label }) or null.
-export default function GuideView({ slug, lang, t, starterUrl, onSolution, next }) {
+export default function GuideView({ slug, lang, t, exercise, onSolution, next }) {
   const [loaded, setLoaded] = useState(null) // { lang, guide } | null while loading | false when missing
   const storageKey = `rika:guide:${slug}:done`
   const [done, setDone] = useState(() => readDone(storageKey))
@@ -189,12 +189,16 @@ export default function GuideView({ slug, lang, t, starterUrl, onSolution, next 
             </div>
           ))}
         </nav>
-        {starterUrl && (
+        {exercise && (
           <div className="gd-starter">
-            <p className="gd-starter__title">{t.starterTitle}</p>
-            <p>{t.starterInfo}</p>
-            <a className="gd-starter__link" href={starterUrl} download>
-              {t.starterDownload}
+            <p className="gd-starter__title">{t.exerciseTitle}</p>
+            <p>{t.exerciseInfo}</p>
+            <p>
+              <code className="gd-starter__path">{exercise.path}</code>
+            </p>
+            <a className="gd-starter__link" href={exercise.url} target="_blank" rel="noopener noreferrer">
+              {t.exerciseLink}
+              <span className="visually-hidden"> ({t.newTab})</span>
             </a>
           </div>
         )}

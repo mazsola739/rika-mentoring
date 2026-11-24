@@ -11,9 +11,9 @@
 import { setupWorker } from 'msw/browser'
 import { HttpResponse, delay } from 'msw'
 
-// Lesson pages live at apps/<slug>/, the worker script at the site root (copied from public/).
+// Lesson pages live at lessons/<NN-slug>/solution/, the worker script at the site root (copied from public/).
 // Resolving from the page keeps this right both on localhost and under a GitHub Pages sub-path.
-const workerUrl = () => new URL('../../mockServiceWorker.js', document.baseURI).href
+const workerUrl = () => new URL('../../../mockServiceWorker.js', document.baseURI).href
 
 export async function startMockApi(handlers) {
   if (!('serviceWorker' in navigator)) {

@@ -10,6 +10,7 @@ import Carousel from './Carousel.jsx'
 import { SHELL_TEXT } from './text.js'
 import heroLarge from './assets/peacock-hero.webp'
 import heroSmall from './assets/peacock-hero-small.webp'
+import UnderConstruction from '@shared/ui/UnderConstruction.jsx'
 
 const pad = (n) => String(n).padStart(2, '0')
 
@@ -144,6 +145,7 @@ export default function App() {
 
   return (
     <div className="home">
+      <UnderConstruction lang={lang} />
       {/* Hero with the peacock header image */}
       <section className="hero" aria-labelledby="hero-title">
         <picture className="hero__image" aria-hidden="true">

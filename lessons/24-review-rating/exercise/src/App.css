@@ -1,0 +1,765 @@
+/* The styles of the whole lesson are ready here, so the steps can focus on React.
+   The class names are the ones the guide uses: shop, product-grid, product-card, product, stars, star-picker,
+   review, review-form, summary, bar, toolbar, chip, login-bar… Have a look, and change anything you like. */
+
+/* ── The page ─────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+.shop {
+  display: grid;
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(16 24 40 / 0.08);
+}
+
+.shop__header {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e4e8ee;
+}
+
+.shop__header h1 {
+  margin: 0;
+  color: #083f58;
+  font-size: 32px;
+  line-height: 1.15;
+}
+
+.shop__header p {
+  margin: 0;
+  color: #5b6576;
+}
+
+h2,
+h3 {
+  line-height: 1.25;
+}
+
+/* ── Buttons, links and form fields ───────────────────── */
+button {
+  min-height: 40px;
+  padding: 8px 18px;
+  border: 1px solid #c9d1dc;
+  border-radius: 999px;
+  background: #fff;
+  color: #1c2333;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #f1f4f8;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.button--primary {
+  border-color: #017b6b;
+  background: #017b6b;
+  color: #fff;
+}
+
+.button--primary:hover {
+  background: #01665a;
+}
+
+/* A button that looks like a link (for example "Show all reviews") */
+.link-button {
+  min-height: 32px;
+  padding: 2px;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: #017b6b;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.link-button:hover {
+  background: none;
+  color: #01504a;
+}
+
+a {
+  color: #017b6b;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+/* A label with its field: <label className="field"><span>Name</span><input /></label> */
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input:not([type='radio']):not([type='checkbox']),
+select,
+textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #c9d1dc;
+  border-radius: 12px;
+  background: #fff;
+  color: #1c2333;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+textarea {
+  min-height: 110px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* Text only for screen readers: it takes no room on the screen. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── The product list ─────────────────────────────────── */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* position: relative, so the link inside can cover the whole card (see .product-card__link::after) */
+.product-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border: 1px solid #e4e8ee;
+  border-radius: 16px;
+  background: #fff;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.product-card:hover {
+  border-color: #017b6b;
+  box-shadow: 0 8px 24px rgb(16 24 40 / 0.1);
+  transform: translateY(-2px);
+}
+
+.product-card:has(.product-card__link:focus-visible) {
+  outline: 3px solid #feb800;
+  outline-offset: 2px;
+}
+
+.product-card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+
+.product-card__body {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 14px 16px 16px;
+}
+
+.product-card__name {
+  margin: 0;
+  font-size: 17px;
+}
+
+/* The product's name: a <button> or an <a>. Its ::after layer makes the whole card clickable. */
+.product-card__link {
+  display: inline;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #1c2333;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.product-card__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.product-card__link:hover {
+  background: none;
+}
+
+.product-card__link:focus-visible {
+  outline: none;
+}
+
+.product-card__rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin: 0;
+  color: #5b6576;
+  font-size: 14px;
+}
+
+.product-card__price {
+  margin: 0;
+  color: #017b6b;
+  font-weight: 700;
+}
+
+/* ── The product page ─────────────────────────────────── */
+.product-page {
+  display: grid;
+  gap: 24px;
+}
+
+/* "Back to the products": a <button> or an <a> */
+.back {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid #c9d1dc;
+  border-radius: 999px;
+  background: #fff;
+  color: #1c2333;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.back:hover {
+  background: #f1f4f8;
+}
+
+.product {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.product__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+}
+
+.product__info {
+  display: grid;
+  gap: 10px;
+}
+
+.product__info h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.product__info p {
+  margin: 0;
+}
+
+.product__price {
+  color: #017b6b;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* ── Stars (only to look at) ──────────────────────────── */
+/* Two rows of stars on top of each other: grey below, gold above. The gold row is cut off at a width. */
+.stars {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  color: #d5dbe3;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.stars__row--on {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  color: #f2a900;
+}
+
+/* ── Stars to click: the star picker ──────────────────── */
+.star-picker {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.star-picker legend {
+  margin-bottom: 6px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.star-picker__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+}
+
+.star-picker__star {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: #d5dbe3;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.12s ease,
+    transform 0.12s ease;
+}
+
+.star-picker__star.is-on {
+  color: #f2a900;
+}
+
+.star-picker__star:hover {
+  transform: scale(1.1);
+}
+
+/* The real radio button lies over the star, invisible: it still gets the clicks and the keyboard. */
+.star-picker__star input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.star-picker__star:has(input:focus-visible) {
+  outline: 3px solid #083f58;
+  outline-offset: -2px;
+}
+
+.star-picker__word {
+  margin-left: 10px;
+  color: #5b6576;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ── Reviews ──────────────────────────────────────────── */
+.reviews {
+  display: grid;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid #e4e8ee;
+}
+
+.reviews h3,
+.review-form h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.review-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.review {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border: 1px solid #e4e8ee;
+  border-radius: 14px;
+}
+
+.review p {
+  margin: 0;
+}
+
+.review__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+}
+
+.review__meta {
+  color: #5b6576;
+  font-size: 14px;
+}
+
+.review__meta strong {
+  color: #1c2333;
+}
+
+.review__text {
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.review__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.review__error {
+  color: #b42318;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* A review that a moderator has hidden (only moderators see it) */
+.review.is-hidden {
+  border-style: dashed;
+  background: #f7f8fa;
+}
+
+.review.is-hidden .review__head,
+.review.is-hidden .review__text {
+  opacity: 0.6;
+}
+
+.review__badge {
+  justify-self: start;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #fff1e6;
+  color: #9a3d00;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.empty {
+  margin: 0;
+  padding: 24px;
+  border-radius: 14px;
+  background: #f7f8fa;
+  color: #5b6576;
+  text-align: center;
+}
+
+/* ── The review form ──────────────────────────────────── */
+.review-form {
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid #e4e8ee;
+  border-top: 4px solid #017b6b;
+  border-radius: 16px;
+}
+
+.review-form > button {
+  justify-self: start;
+}
+
+.form-error {
+  margin: 0;
+  color: #b42318;
+  font-weight: 600;
+}
+
+.form-thanks {
+  margin: 0;
+  color: #017b6b;
+  font-weight: 600;
+}
+
+/* A note in place of the form (for example "Log in to write a review") */
+.form-note {
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: #e6f4f1;
+  color: #0b4d44;
+}
+
+/* ── The summary: average and bars ────────────────────── */
+.summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px 28px;
+  align-items: center;
+  padding: 18px;
+  border-radius: 16px;
+  background: #f7f8fa;
+}
+
+.summary__score {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+}
+
+.summary__score strong {
+  color: #083f58;
+  font-size: 44px;
+  line-height: 1;
+}
+
+.summary__score .stars {
+  font-size: 24px;
+}
+
+.summary__count {
+  color: #5b6576;
+  font-size: 14px;
+}
+
+.summary__bars {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One bar: "5 ★", the track with its fill, and the count. A <li>, or a <button> inside the <li>. */
+.bar {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 28px;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 32px;
+  padding: 2px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #1c2333;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}
+
+button.bar:hover:not(:disabled),
+.bar[aria-pressed='true'] {
+  background: #fff;
+}
+
+.bar[aria-pressed='true'] .bar__track {
+  box-shadow: 0 0 0 2px #f2a900;
+}
+
+.bar:disabled {
+  color: #8a93a3;
+  cursor: default;
+  opacity: 1;
+}
+
+.bar__track {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e4e8ee;
+}
+
+.bar__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #f2a900;
+}
+
+.bar__count {
+  color: #5b6576;
+  text-align: right;
+}
+
+/* ── Sorting and filtering ────────────────────────────── */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+}
+
+.sort-select {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sort-select select {
+  width: auto;
+  min-width: 200px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* A small button that can be on or off (aria-pressed); also the "Helpful" button of a review */
+.chip {
+  min-height: 36px;
+  padding: 6px 14px;
+  font-size: 14px;
+}
+
+.chip[aria-pressed='true'] {
+  border-color: #017b6b;
+  background: #017b6b;
+  color: #fff;
+}
+
+.filter-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin: 0;
+  color: #5b6576;
+  font-size: 14px;
+}
+
+/* ── Loading, errors, not found ───────────────────────── */
+.state {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 32px 16px;
+  border-radius: 14px;
+  background: #f7f8fa;
+  color: #5b6576;
+  text-align: center;
+}
+
+.state p {
+  margin: 0;
+}
+
+.state--error {
+  background: #fef3f2;
+  color: #912018;
+}
+
+.state .back {
+  justify-self: center;
+}
+
+/* ── Login ────────────────────────────────────────────── */
+.login-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 12px;
+  margin-top: 12px;
+}
+
+.login-bar__field {
+  display: grid;
+  flex: 1 1 200px;
+  gap: 6px;
+  max-width: 320px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-bar > span {
+  align-self: center;
+}
+
+.login-bar .form-error {
+  flex-basis: 100%;
+}
+
+/* ── Phones ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  body {
+    padding: 12px;
+  }
+
+  .shop {
+    padding: 18px 16px;
+    border-radius: 16px;
+  }
+
+  .product {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .review-form {
+    padding: 18px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card,
+  .star-picker__star {
+    transition: none;
+  }
+
+  .product-card:hover,
+  .star-picker__star:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,541 @@
+.ms {
+  container-type: inline-size;
+  display: grid;
+  gap: 20px;
+}
+
+.ms-muted {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.ms-intro {
+  margin: 0;
+}
+
+/* ── Tabs ─────────────────────────────────────────────── */
+.ms-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.ms-tabs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-bottom: -1px;
+  padding: 0 14px;
+  border-bottom: 3px solid transparent;
+  color: var(--ink-soft);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ms-tabs a:hover {
+  color: var(--ink);
+}
+
+.ms-tabs a[aria-current='page'] {
+  border-bottom-color: var(--solid);
+  color: var(--ink);
+}
+
+.ms-tabs__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--solid);
+  color: var(--solid-ink);
+  font-size: 12px;
+}
+
+/* ── Search form ──────────────────────────────────────── */
+.ms-search {
+  display: grid;
+  gap: 16px;
+}
+
+.ms-form {
+  position: relative;
+}
+
+.ms-form__input {
+  padding-right: 48px;
+  font-size: 17px;
+}
+
+/* We draw our own clear button, so the browser's built-in one is hidden. */
+.ms-form__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.ms-form__clear {
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--paper-2);
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ms-status {
+  min-height: 1.4em;
+  margin: -6px 0 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.ms-suggest,
+.ms-genres {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Genre chips and the decade list side by side; they wrap under each other when the panel is narrow. */
+.ms-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 20px;
+}
+
+.ms-filters .ms-genres {
+  flex: 1 1 260px;
+}
+
+.ms-decade {
+  flex: 0 1 200px;
+  min-width: 0;
+}
+
+.ms-more {
+  justify-self: center;
+  margin-top: 12px;
+}
+
+.ms-suggest > span {
+  margin-right: 4px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.ms-section {
+  display: grid;
+  gap: 12px;
+}
+
+.ms-section__title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ── Result grid ──────────────────────────────────────── */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 18px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ms-card {
+  position: relative;
+  min-width: 0;
+}
+
+.ms-card__link {
+  display: grid;
+  gap: 8px;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 12px;
+}
+
+.ms-card__link:hover .ms-poster {
+  box-shadow: 0 0 0 3px var(--solid-light);
+}
+
+.ms-poster {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--paper-2);
+  transition: box-shadow 0.15s ease;
+}
+
+/* No poster: Poster.jsx sets a flat peacock colour (picked from the show name) inline. */
+.ms-poster--empty {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  gap: 8px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.ms-poster__icon {
+  align-self: center;
+  width: 38%;
+  max-width: 72px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ms-poster--empty span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.ms-card__body {
+  display: grid;
+  gap: 2px;
+}
+
+.ms-card__title {
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.ms-card__meta {
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.ms-card__rating {
+  color: var(--solid-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ms-star {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.94);
+  color: var(--solid-text);
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.25);
+}
+
+.ms-star[aria-pressed='true'] {
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+/* ── Skeletons ────────────────────────────────────────── */
+.ms-card--skeleton {
+  display: grid;
+  gap: 8px;
+}
+
+.ms-skel {
+  display: block;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--paper-2) 0%, var(--paper) 50%, var(--paper-2) 100%);
+  background-size: 200% 100%;
+  animation: ms-shimmer 1.4s ease-in-out infinite;
+}
+
+.ms-skel--poster {
+  aspect-ratio: 2 / 3;
+  border-radius: 12px;
+}
+
+.ms-skel--line {
+  height: 14px;
+}
+
+.ms-skel--short {
+  width: 55%;
+}
+
+.ms-skel--title {
+  width: 70%;
+  height: 30px;
+}
+
+@keyframes ms-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+/* ── Empty and error states ───────────────────────────── */
+.ms-state {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  padding: 22px;
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+  background: var(--paper-2);
+}
+
+.ms-state p {
+  margin: 0;
+}
+
+.ms-state__title {
+  font-weight: 700;
+}
+
+.ms-state--error {
+  border-style: solid;
+  border-left: 4px solid var(--accent);
+}
+
+/* ── Detail page ──────────────────────────────────────── */
+.ms-detail {
+  display: grid;
+  gap: 20px;
+}
+
+.ms-back {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ms-back:hover {
+  background: var(--paper-2);
+}
+
+.ms-detail__card {
+  display: grid;
+  grid-template-columns: minmax(140px, 220px) minmax(0, 1fr);
+  align-items: start;
+  gap: 22px;
+}
+
+.ms-detail__poster {
+  aspect-ratio: 2 / 3;
+}
+
+.ms-detail__info {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+
+.ms-detail__years {
+  margin: 0;
+  color: var(--solid-text);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.ms-detail__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 5cqi, 38px);
+}
+
+.ms-detail__title:focus {
+  outline: none;
+}
+
+.ms-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ms-tags li {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--paper-2);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ms-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 600 14px/1 var(--font-body);
+  cursor: pointer;
+}
+
+.ms-save span {
+  color: var(--solid-text);
+  font-size: 18px;
+}
+
+.ms-save[data-on='true'] {
+  border-color: var(--solid);
+  background: var(--solid);
+  color: var(--solid-ink);
+}
+
+.ms-save[data-on='true'] span {
+  color: inherit;
+}
+
+.ms-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px 18px;
+  width: 100%;
+  margin: 4px 0 0;
+}
+
+.ms-facts dt {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ms-facts dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.ms-note {
+  justify-self: start;
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--paper-2);
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.ms-summary {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.ms-cast {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ms-cast li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.ms-cast img,
+.ms-cast__initial {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ms-cast__initial {
+  display: grid;
+  place-items: center;
+  background: var(--solid);
+  color: var(--solid-ink);
+  font-weight: 700;
+}
+
+.ms-cast span {
+  display: grid;
+  min-width: 0;
+}
+
+.ms-cast strong {
+  font-size: 14px;
+}
+
+.ms-cast small {
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.ms-credit {
+  margin: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+@container (max-width: 520px) {
+  .ms-detail__card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ms-detail__poster {
+    width: min(100%, 220px);
+  }
+
+  .ms-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ms-skel {
+    animation: none;
+  }
+}

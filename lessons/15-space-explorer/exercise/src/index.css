@@ -1,0 +1,34 @@
+/* The whole page: a dark night sky, light text, and some space around everything. */
+:root {
+  --night: #070b1a;
+  --surface: #111e3d;
+  --surface-2: #192a52;
+  --line: #2a3a66;
+  --text: #e9edf7;
+  --muted: #a6b0cc;
+  --gold: #feb800;
+  --turquoise: #01c5ac;
+  --magenta: #f70677;
+
+  /* Dark form controls: the date picker's calendar icon and pop-up are dark too. */
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--night);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 32px 16px;
+}
+
+/* A visible frame for whatever the keyboard is on. */
+:focus-visible {
+  outline: 3px solid var(--turquoise);
+  outline-offset: 2px;
+}

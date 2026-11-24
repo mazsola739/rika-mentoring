@@ -5,14 +5,16 @@ import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
 
 const root = fileURLToPath(new URL('.', import.meta.url))
-const appsDir = resolve(root, 'apps')
+const lessonsDir = resolve(root, 'lessons')
 
-// Minden apps/<slug>/index.html egy önálló micro frontend: saját belépési pont, saját bundle.
-const appEntries = existsSync(appsDir)
+// Every lesson is a folder lessons/<NN-slug>/ with solution/ (the finished app, a page of this site)
+// and exercise/ (the learner's starting project: its own Vite app, not part of this build).
+// Each lessons/<NN-slug>/solution/index.html is its own entry point with its own bundle.
+const lessonEntries = existsSync(lessonsDir)
   ? Object.fromEntries(
-      readdirSync(appsDir, { withFileTypes: true })
-        .filter((d) => d.isDirectory() && existsSync(resolve(appsDir, d.name, 'index.html')))
-        .map((d) => [`apps/${d.name}`, resolve(appsDir, d.name, 'index.html')]),
+      readdirSync(lessonsDir, { withFileTypes: true })
+        .filter((d) => d.isDirectory() && existsSync(resolve(lessonsDir, d.name, 'solution', 'index.html')))
+        .map((d) => [`lessons/${d.name}/solution`, resolve(lessonsDir, d.name, 'solution', 'index.html')]),
     )
   : {}
 
@@ -25,10 +27,12 @@ export default defineConfig({
   },
   // Local dev address: http://localhost:7020. strictPort: fail instead of moving to another port.
   server: { port: 7020, strictPort: true },
+  // Look for dependencies only in the site's own pages, not in the exercise projects.
+  optimizeDeps: { entries: ['index.html', 'lessons/*/solution/index.html'] },
   preview: { port: 7020, strictPort: true },
   build: {
     rolldownOptions: {
-      input: { main: resolve(root, 'index.html'), ...appEntries },
+      input: { main: resolve(root, 'index.html'), ...lessonEntries },
     },
   },
 })

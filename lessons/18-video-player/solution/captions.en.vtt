@@ -1,0 +1,19 @@
+WEBVTT
+
+00:01.000 --> 00:04.500
+Hello! These subtitles come from a WebVTT file.
+
+00:05.000 --> 00:09.500
+This line appears at 0:05 and disappears at 0:09.
+
+00:10.000 --> 00:14.500
+Every cue has a start time and an end time.
+
+00:15.000 --> 00:19.500
+Jump back with the ← key, and the lines come back too.
+
+00:20.000 --> 00:24.500
+Write your own lines in public/captions.vtt.
+
+00:25.000 --> 00:29.500
+That's all. Thanks for watching!

@@ -31,8 +31,8 @@ Csak saját vagy szabadon felhasználható (jogtiszta) anyag kerüljön fel, mer
 | 42 | Travel Map | a Huebloom-szigetek rajzolt térképe (a Fan Wiki kitalált égi szigetvilága; saját vagy jogtiszta, például az Azgaar's Fantasy Map Generatorral készített térkép) | 1 | fekvő, 10:7 arányú, legalább 3000×2100, WebP/PNG | `public/media/travel-map/` |
 
 A tételek listája (cím, leírás, azonosító) a leckék adatfájljaiban van; ezekből kiderül, melyik képhez mi kell:
-`apps/space-explorer/mocks/pictures.js`, `shared/mock-api/shows.js`, `apps/book-library/mocks/catalogue.js`,
-`apps/fan-wiki/mocks/universe.js`, `apps/meme-generator/mocks/templates.js`. Nevezd el a fájlokat az azonosítóval
+`lessons/15-space-explorer/solution/mocks/pictures.js`, `shared/mock-api/shows.js`, `lessons/21-book-library/solution/mocks/catalogue.js`,
+`lessons/23-fan-wiki/solution/mocks/universe.js`, `lessons/25-meme-generator/solution/mocks/templates.js`. Nevezd el a fájlokat az azonosítóval
 (például `bk001.webp`, `7.webp`); ha ez macerás, elég a címet beleírni a fájlnévbe, és én párosítom.
 Addig minden kép kódból rajzolt helykitöltő, és a leckék így is hibátlanul működnek.
 
